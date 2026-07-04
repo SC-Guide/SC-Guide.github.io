@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23BABF94'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F3E4C9' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Portfolio Demo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23A8BBA3'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F7F4EA' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<title>Skincare Guide — Портфолио-проект</title>
 <style>
-/* ===== ПОЛНЫЙ CSS ИЗ SG_Version_7_2.html ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
-  --bg:#F3E4C9;
-  --bg-start:#F3E4C9;
-  --bg-end:color-mix(in srgb, #F3E4C9 70%, #BFA28C 30%);
+  --bg:#F7F4EA;
+  --bg-start:#F7F4EA;
+  --bg-end:color-mix(in srgb, #F7F4EA 70%, #EBD9D1 30%);
   --card-bg:#FFFFFF;
-  --card-shadow:0 12px 32px rgba(169,139,118,0.12);
+  --card-shadow:0 12px 32px rgba(184,124,76,0.12);
   --text:#3A3428;
   --text-soft:#5F5A4A;
   --text-light:#8A8572;
-  --accent:#BABF94;
-  --accent-dark:#A98B76;
-  --morning:color-mix(in srgb, #BFA28C 45%, white 55%);
-  --evening:color-mix(in srgb, #BFA28C 68%, white 32%);
-  --special:color-mix(in srgb, #A98B76 30%, white 70%);
-  --line:#A98B76;
+  --accent:#A8BBA3;
+  --accent-dark:#B87C4C;
+  --morning:color-mix(in srgb, #EBD9D1 45%, white 55%);
+  --evening:color-mix(in srgb, #EBD9D1 68%, white 32%);
+  --special:color-mix(in srgb, #B87C4C 30%, white 70%);
+  --line:#A8BBA3;
   --border-radius:24px;
   --font-serif:Georgia, 'Times New Roman', serif;
   --font-sans:'Inter', system-ui, -apple-system, sans-serif;
@@ -40,8 +39,9 @@ body{
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
 
+/* ---------- COMPACT HEADER ---------- */
 header{
-  background:rgba(243,228,201,0.92);
+  background:rgba(247,244,234,0.92);
   backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
   padding:8px 0 0;
@@ -81,7 +81,12 @@ header{
   transition:all .15s ease;user-select:none;white-space:nowrap;
 }
 .pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
-.lang-toggle{display:none;} /* скрываем в демо */
+.lang-toggle{
+  display:flex;align-items:center;justify-content:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
+  border:1px solid var(--text);background:var(--text);color:var(--bg);cursor:pointer;
+  font-size:12px;font-weight:700;transition:transform .15s ease,opacity .15s ease;
+}
+.lang-toggle:hover{opacity:0.85;}
 .result-count{font-size:11px;color:var(--accent-dark);font-weight:600;white-space:nowrap;}
 nav{
   display:flex;gap:4px;padding:6px 0 8px;overflow-x:auto;
@@ -95,6 +100,7 @@ nav a{
 }
 nav a:hover{background:var(--accent);color:white;}
 
+/* ---------- HERO (stats) ---------- */
 .hero{padding:16px 0 6px;}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px;}
 .stat{
@@ -107,6 +113,7 @@ nav a:hover{background:var(--accent);color:white;}
 .stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
 .no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
 
+/* ---------- ZONES (утро, вечер, аптечка и т.д.) ---------- */
 section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .zone-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
 .zone-icon{
@@ -167,6 +174,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
 
+/* ========== КАЛЕНДАРЬ (карточка на всю ширину блока) ========== */
 .calendar-wrapper{
   background:var(--card-bg);
   border-radius:var(--border-radius);
@@ -206,6 +214,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 }
 .settings-btn:hover{background:var(--accent);color:white;}
 
+/* --- ЗМЕЙКА --- */
 .snake-container{
   position:relative;
   display:flex;
@@ -265,7 +274,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .day-node .day-circle.today{
   border-color:var(--accent);
   border-width:3px;
-  box-shadow:0 0 0 4px rgba(186,191,148,0.2);
+  box-shadow:0 0 0 4px rgba(168,187,163,0.2);
 }
 .day-node .day-circle.done{
   background:var(--morning);
@@ -304,6 +313,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   opacity:0.6;
 }
 
+/* ---------- МОДАЛКА РУТИНЫ (с навигацией между днями) ---------- */
 .modal-overlay{
   position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(0,0,0,0.4);
@@ -358,6 +368,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   margin-top:8px;
 }
 .done-label input[type="checkbox"]{width:18px;height:18px;cursor:pointer;}
+/* Навигация между днями */
 .modal-nav{
   display:flex;justify-content:space-between;margin-top:18px;gap:12px;
 }
@@ -371,6 +382,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .modal-nav button:active{transform:scale(0.96);}
 .modal-nav button:disabled{opacity:0.4;cursor:not-allowed;}
 
+/* ---------- НАСТРОЙКИ ---------- */
 .settings-modal .modal-box{max-width:400px;}
 .settings-modal label{
   display:block;margin:12px 0 4px;
@@ -389,14 +401,16 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 }
 .settings-modal .btn-reset:hover{background:#F0D0D0;}
 
+/* ---------- FOOTER ---------- */
 footer{
   margin-top:30px;padding:20px 0 30px;
-  border-top:1px solid rgba(169,139,118,0.2);
+  border-top:1px solid rgba(168,187,163,0.2);
   text-align:center;
 }
 footer p{font-size:12px;color:var(--text-light);margin:4px 0;}
 footer .footer-credit{font-size:11px;color:var(--text-light);}
 
+/* ===== АДАПТИВНОСТЬ ===== */
 @media(min-width:600px){
   .stats{grid-template-columns:repeat(4,1fr);gap:12px;}
   .card-row{grid-template-columns:repeat(2,1fr);}
@@ -412,106 +426,10 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
   .snake-row{gap:4px;}
   .modal-box{padding:16px;}
 }
-
-/* Баннер для портфолио */
-.portfolio-banner{
-  background:var(--accent-dark);
-  color:white;
-  padding:60px 20px;
-  text-align:center;
-  border-bottom:4px solid var(--accent);
-}
-.portfolio-banner .inner{
-  max-width:800px;
-  margin:0 auto;
-}
-.portfolio-banner .eyebrow{
-  font-family:var(--font-serif);
-  font-size:clamp(14px,2vw,18px);
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  opacity:0.8;
-  margin-bottom:8px;
-}
-.portfolio-banner h1{
-  font-family:var(--font-serif);
-  font-size:clamp(32px,6vw,56px);
-  margin:0 0 16px;
-}
-.portfolio-banner p{
-  font-size:clamp(16px,2vw,20px);
-  max-width:600px;
-  margin:0 auto 20px;
-  opacity:0.9;
-  line-height:1.6;
-}
-.portfolio-banner .tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  font-size:14px;
-}
-.portfolio-banner .tags span{
-  background:rgba(255,255,255,0.2);
-  padding:6px 16px;
-  border-radius:999px;
-}
-.portfolio-banner .links{
-  margin-top:24px;
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.portfolio-banner .links a{
-  background:white;
-  color:var(--accent-dark);
-  padding:12px 28px;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:700;
-  transition:transform .2s;
-  display:inline-block;
-}
-.portfolio-banner .links a:hover{
-  transform:scale(1.05);
-}
-.portfolio-banner .links a.ghost{
-  background:transparent;
-  border:2px solid white;
-  color:white;
-}
-.portfolio-banner .links a.ghost:hover{
-  background:rgba(255,255,255,0.1);
-}
 </style>
 </head>
 <body>
 
-<!-- ===== БАННЕР ===== -->
-<section class="portfolio-banner">
-  <div class="inner">
-    <p class="eyebrow">Portfolio · Case Study</p>
-    <h1>Skincare Guide</h1>
-    <p>
-      An interactive skincare routine planner with a snake‑style calendar, bilingual interface,
-      and automated retinal/azelaic scheduling. Built from scratch as a portfolio project.
-    </p>
-    <div class="tags">
-      <span>📅 Snake calendar</span>
-      <span>🌍 Bilingual (EN/RU)</span>
-      <span>🧴 Personalised routine</span>
-      <span>📱 Responsive design</span>
-    </div>
-    <div class="links">
-      <a href="https://vyshnevska2503-code.github.io/SkinGuide/" target="_blank">🔗 Live demo</a>
-      <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="ghost">📂 View code</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
 <header>
   <div class="wrap">
     <div class="header-top">
@@ -525,6 +443,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
           <input id="search" type="text" placeholder="">
         </div>
         <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
+        <button class="lang-toggle" id="langToggle"></button>
         <span class="result-count" id="resultCount"></span>
       </div>
     </div>
@@ -551,6 +470,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
 
   <div class="no-results" id="noResults"></div>
 
+  <!-- ЗОНЫ (утро, вечер, аптечка, правила, магазины) -->
   <section class="zone morning" id="morning">
     <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
     <div class="path" id="morning-path"></div>
@@ -578,6 +498,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
     <div class="shops-grid" id="shops-grid"></div>
   </section>
 
+  <!-- ========== КАЛЕНДАРЬ ========== -->
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
     <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
     <div class="calendar-wrapper">
@@ -586,7 +507,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
         <div class="calendar-nav">
           <button id="prevMonthBtn">‹</button>
           <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+          <button class="settings-btn" id="settingsBtn" title="Настройки">⚙</button>
         </div>
       </div>
       <div class="snake-container" id="snakeContainer"></div>
@@ -603,14 +524,49 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
 
 <script>
 /* ============================================================
-   ПОЛНЫЙ JS ИЗ SG_Version_7_2.html (с фиксацией на английском)
+   UI STRINGS (полностью двуязычные)
    ============================================================ */
-const currentLang = 'en';
-
 const STR = {
+  ru: {
+    subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до отхода ко сну',
+    tabTitle: 'Skincare Guide — Портфолио-проект',
+    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
+    searchPlaceholder: 'Найти средство…',
+    recOnly: 'Только рекомендуемые',
+    found: 'Найдено',
+    noResults: 'Ничего не найдено — попробуйте другой запрос.',
+    statLabels: {morning:'ШАГА УТРОМ', evening:'ШАГОВ ВЕЧЕРОМ', kit:'СРЕДСТВ В АПТЕЧКЕ', rules:'ПРАВИЛ'},
+    kitSub: 'Средства на случай воспалений, раздражения или для дней без ретиналя.',
+    shopsSub: 'Где обычно продаются средства из этого списка.',
+    recommended: 'рекомендую',
+    luxAlt: 'люкс-альтернатива',
+    footerLine: 'Составлено на основе ваших личных данных по уходу за кожей · обновляйте по мере изменения рутины',
+    footerCredit: '© 2026 · Anastasiia Vyshnevska — портфолио-проект, созданный с помощью ИИ-инструментов',
+    langBtn: 'EN',
+    subCalendar: 'Нажми на день, чтобы увидеть детальный план рутины.',
+    modalTitle: 'Рутина на',
+    morningLabel: '☀️ День',
+    eveningLabel: '🌙 Ночь',
+    specialLabel: '✨ Доп. уход',
+    doneLabel: 'Выполнено',
+    settingsTitle: 'Настройки',
+    startDateLabel: 'Дата старта ретиналя',
+    resetLabel: 'Сбросить все отметки',
+    noRoutine: 'В этот день отдых от активных средств. Только базовое очищение и увлажнение.',
+    specialMask: 'Маска/скраб',
+    stepLabels: {
+      morning: ['Умывание', 'Тонер (успокаивающий)', 'Актив', 'Увлажнение + SPF'],
+      evening: ['Первое очищение (масло/бальзам)', 'Второе очищение', 'Тонер', 'Ретиналь', 'Ночной крем']
+    },
+    secondCleanse: 'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser (см. утро)',
+    tonerRef: 'Etude House SoonJung или Aveeno Calm + Restore (см. утро)',
+    retinalRest: 'Отдых от ретиналя — только увлажнение',
+    prevDay: '← Предыдущий день',
+    nextDay: 'Следующий день →'
+  },
   en: {
     subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
-    tabTitle: 'Skincare Guide — Portfolio Demo',
+    tabTitle: 'Skincare Guide — Portfolio Project',
     nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar'},
     searchPlaceholder: 'Search products…',
     recOnly: 'Recommended only',
@@ -623,6 +579,7 @@ const STR = {
     luxAlt: 'luxury alternative',
     footerLine: 'Created from your personal skincare data · update as your routine evolves',
     footerCredit: '© 2026 · Anastasiia Vyshnevska — a portfolio project built with the help of AI tools',
+    langBtn: 'РУ',
     subCalendar: 'Tap a day to see your detailed routine plan.',
     modalTitle: 'Routine for',
     morningLabel: '☀️ Day',
@@ -646,12 +603,7 @@ const STR = {
   }
 };
 
-// ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-function tr(field){
-  if(field == null) return '';
-  if(typeof field === 'string') return field;
-  return field[currentLang] != null ? field[currentLang] : (field.en || '');
-}
+let currentLang = localStorage.getItem('skincareLang') || 'ru';
 
 const ICONS = {
   cleanser: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 6 7.5 6 11.5A6 6 0 0 1 6 13.5C6 9.5 9 6 12 2z"/></svg>',
@@ -673,7 +625,9 @@ const ICONS = {
   lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>'
 };
 
-// ===== ДАННЫЕ ПРОДУКТОВ =====
+/* ============================================================
+   ДАННЫЕ ПРОДУКТОВ — ПОЛНОСТЬЮ ПЕРЕВЕДЕНЫ НА ОБА ЯЗЫКА
+   ============================================================ */
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:'Xpel Tea Tree Foaming Face Wash 200ml', price:'€7', icon:'cleanser', rec:true, comment:{ru:'Ваша основная утренняя умывалка — пенка с чайным деревом и мятой, освежает и подходит для ежедневного использования', en:'Your main morning cleanser — a tea tree and mint foaming wash, refreshing and suitable for daily use'}, shops:[{name:'ExpressChemist',url:'https://www.expresschemist.co.uk/xpel-tea-tree-foaming-face-wash-200ml.html'},{name:'Amazon',url:'https://www.amazon.co.uk/TREE-FOAMING-200ml-HEALTHY-CLEAN/dp/B09DRWCVRN'}]},
@@ -710,8 +664,8 @@ const eveningSteps = [
   {num:2, label:{ru:'Второе очищение', en:'Second cleanse'}, ref:{ru:'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser — то же, что утром, шаг 1', en:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser — same as morning step 1'}, anchor:'#morning'},
   {num:3, label:{ru:'Тонер', en:'Toner'}, ref:{ru:'Etude House SoonJung Toner или Aveeno Calm + Restore — тот же, что утром, шаг 2', en:'Etude House SoonJung Toner or Aveeno Calm + Restore — same as morning step 2'}, anchor:'#morning'},
   {num:4, label:{ru:'Ретиналь', en:'Retinal'}, products:[
-    {name:'Medik8 Crystal Retinal 3 30ml (старт)', price:'€58', icon:'retinol', comment:{ru:'Только на сухую кожу! 2 раза/нед → каждый день. Цена выросла по сравнению с прошлой проверкой (было ~€50)', en:'Dry skin only! 2x/week → daily. Price has increased since last check (was ~€50)'}, shops:[{name:'Lookfantastic',url:'https://www.lookfantastic.com/p/medik8-crystal-retinal-3-serum-30ml/12097972/'}]},
-    {name:'Medik8 Crystal Retinal 6 30ml (переход)', price:'€65', icon:'retinol', comment:{ru:'После полного использования флакона 3', en:'After finishing bottle 3 completely'}, shops:[{name:'Medik8.ie',url:'https://www.medik8.ie'}]}
+    {name:{ru:'Medik8 Crystal Retinal 3 30ml (старт)', en:'Medik8 Crystal Retinal 3 30ml (start)'}, price:'€58', icon:'retinol', comment:{ru:'Только на сухую кожу! 2 раза/нед → каждый день. Цена выросла по сравнению с прошлой проверкой (было ~€50)', en:'Dry skin only! 2x/week → daily. Price has increased since last check (was ~€50)'}, shops:[{name:'Lookfantastic',url:'https://www.lookfantastic.com/p/medik8-crystal-retinal-3-serum-30ml/12097972/'}]},
+    {name:{ru:'Medik8 Crystal Retinal 6 30ml (переход)', en:'Medik8 Crystal Retinal 6 30ml (transition)'}, price:'€65', icon:'retinol', comment:{ru:'После полного использования флакона 3', en:'After finishing bottle 3 completely'}, shops:[{name:'Medik8.ie',url:'https://www.medik8.ie'}]}
   ]},
   {num:5, label:{ru:'Ночной крем', en:'Night cream'}, products:[
     {name:'La Roche-Posay Cicaplast Baume B5+ 40ml', price:'€11', icon:'balm', rec:true, comment:{ru:'Тонким слоем поверх ретиналя. При сильном раздражении — толстым слоем вместо ретиналя. Цена оказалась ниже, чем было указано (было €16)', en:'A thin layer over retinal. If irritation is strong, use a thick layer instead of retinal. Price turned out lower than listed (was €16)'}, shops:[{name:'McCauley (аптека)',url:'https://www.mccauley.ie/la-roche-posay-cicaplast-baume-b5-40ml'}]}
@@ -721,7 +675,7 @@ const eveningSteps = [
 const kitGroups = [
   {key:'spot', title:{ru:'Точечно', en:'Spot treatment'}, sub:{ru:'На воспалённые прыщики', en:'For inflamed breakouts'}, analysis:{ru:'Эти два средства не конкурируют, а работают в паре: <b>кислота снимает воспаление</b> изнутри, <b>пластырь вытягивает</b> содержимое снаружи — держите оба под рукой.', en:'These two products do not compete — they work together: the <b>acid reduces inflammation</b> from within, while the <b>patch draws out</b> the contents from outside — keep both on hand.'}, products:[
     {name:{ru:'Азелаиновая кислота (та же, что утром)', en:'Azelaic acid (same as morning)'}, price:'€13–19 (в среднем €16)', icon:'spot', rec:true, comment:{ru:'Точечно на воспалённые прыщики, утром', en:'Spot-apply to inflamed breakouts, in the morning'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/supersolutions-10-azelaic-serum-10316417'}]},
-    {name:'Hero Mighty Patch Original, 24 шт', price:'€9', icon:'patch', rec:true, comment:{ru:'Гидроколлоидные пластыри на созревший прыщ на ночь — вытягивают содержимое', en:'Hydrocolloid patches for a ripe pimple overnight — draw out the contents'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/hero-mighty-patches-original-24-10334405'}]}
+    {name:{ru:'Hero Mighty Patch Original, 24 шт', en:'Hero Mighty Patch Original, 24 pcs'}, price:'€9', icon:'patch', rec:true, comment:{ru:'Гидроколлоидные пластыри на созревший прыщ на ночь — вытягивают содержимое', en:'Hydrocolloid patches for a ripe pimple overnight — draw out the contents'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/hero-mighty-patches-original-24-10334405'}]}
   ]},
   {key:'mask', title:{ru:'Маски', en:'Masks'}, sub:{ru:'Баночные маски для контроля жирности, пор и восстановления барьера — без тканевых и гидрогелевых, раз вы их и так покупаете спонтанно', en:'Jar masks for oil control, pores, and barrier repair — no sheet or hydrogel masks, since you buy those on impulse anyway'}, analysis:{ru:'Оставили две непересекающиеся баночные маски: <b>Caudalie Instant Detox Mask</b> — глиняная маска для жирной кожи, себума и расширенных пор, и <b>Dr Organic Skin Calm</b> — бюджетный крем-вариант для восстановления барьера при раздражении. Тканевую/резиновую Dr. Jart+ убрали по вашей просьбе.', en:'Kept two non-overlapping jar masks: <b>Caudalie Instant Detox Mask</b> — a clay mask for oily skin, sebum, and enlarged pores, and <b>Dr Organic Skin Calm</b> — a budget cream option for barrier repair during irritation. The Dr. Jart+ sheet/rubber mask was removed at your request.'}, products:[
     {name:'Caudalie Instant Detox Mask 75ml', price:'€30', icon:'mask', rec:true, comment:{ru:'Розовая глина, кофе и виноградные косточки — вытягивает себум, сужает поры, для жирной/комбинированной кожи', en:'Pink clay, coffee, and grape seeds — draws out sebum, tightens pores, for oily/combination skin'}, shops:[{name:'Lookfantastic',url:'https://www.lookfantastic.com/p/caudalie-instant-detox-mask-75ml/15065645/'}]},
@@ -757,7 +711,14 @@ const shopsInfo = [
   {name:'Medik8.ie', url:'https://www.medik8.ie', items:{ru:'Medik8 Crystal Retinal', en:'Medik8 Crystal Retinal'}}
 ];
 
-// ===== ОСТАЛЬНОЙ КОД =====
+/* ============================================================
+   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (без изменений)
+   ============================================================ */
+function tr(field){
+  if(field == null) return '';
+  if(typeof field === 'string') return field;
+  return field[currentLang] != null ? field[currentLang] : (field.ru || '');
+}
 function shopChips(shops){
   return '<div class="shop-row">'+shops.map(s=>`<a class="shop-chip" href="${s.url}" target="_blank" rel="noopener">${tr(s.name)}${ICONS.link}</a>`).join('')+'</div>';
 }
@@ -771,8 +732,8 @@ function productCard(p, zoneClass){
         <div class="card-name">${name}</div>
         <div class="card-price">${p.price}</div>
       </div>
-      ${p.rec?'<div class="star-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+STR.en.recommended+'</div>':''}
-      ${p.lux?'<div class="lux-badge">'+ICONS.lux+STR.en.luxAlt+'</div>':''}
+      ${p.rec?'<div class="star-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+STR[currentLang].recommended+'</div>':''}
+      ${p.lux?'<div class="lux-badge">'+ICONS.lux+STR[currentLang].luxAlt+'</div>':''}
       <div class="card-comment">${comment}</div>
       ${p.warning?'<div class="card-warning">'+ICONS.warn+tr(p.warning)+'</div>':''}
       ${p.shops && p.shops.length ? shopChips(p.shops) : ''}
@@ -803,9 +764,11 @@ function renderPath(container, steps, zoneClass){
   }).join('');
 }
 
-// ===== КАЛЕНДАРЬ =====
+/* ============================================================
+   КАЛЕНДАРЬ (полностью из SG_Version_6.html, без изменений)
+   ============================================================ */
 let currentYear = 2026;
-let currentMonth = 6;
+let currentMonth = 6; // июль
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
 
@@ -850,15 +813,15 @@ function generateRoutine(year, month, day) {
 
 function getRoutineForDay(year, month, day) {
   const auto = generateRoutine(year, month, day);
-  const t = STR.en;
+  const t = STR[currentLang];
 
   let activeProducts;
   if (auto.azelaicActive) {
     const step3b = morningSteps.find(s => s.num === 3)?.split?.b?.products;
-    activeProducts = step3b ? step3b.map(p => tr(p.name)).join(', ') : 'Azelaic acid';
+    activeProducts = step3b ? step3b.map(p => tr(p.name)).join(', ') : (currentLang === 'ru' ? 'Азелаиновая кислота' : 'Azelaic acid');
   } else {
     const step3a = morningSteps.find(s => s.num === 3)?.split?.a?.products;
-    activeProducts = step3a ? step3a.map(p => tr(p.name)).join(', ') : 'Vitamin C';
+    activeProducts = step3a ? step3a.map(p => tr(p.name)).join(', ') : (currentLang === 'ru' ? 'Витамин C' : 'Vitamin C');
   }
 
   const morningStep1 = morningSteps.find(s => s.num === 1);
@@ -868,7 +831,7 @@ function getRoutineForDay(year, month, day) {
   const morningProducts = [
     { label: tr(morningStep1.label), products: morningStep1.products.map(p => tr(p.name)).join(', ') },
     { label: tr(morningStep2.label), products: morningStep2.products.map(p => tr(p.name)).join(', ') },
-    { label: 'Active', products: activeProducts },
+    { label: tr({ru:'Актив', en:'Active'}), products: activeProducts },
     { label: tr(morningStep4.label), products: morningStep4.products.map(p => tr(p.name)).join(', ') }
   ];
 
@@ -885,8 +848,8 @@ function getRoutineForDay(year, month, day) {
 
   const eveningProducts = [
     { label: tr(eveningStep1.label), products: eveningStep1.products.map(p => tr(p.name)).join(', ') },
-    { label: 'Second cleanse', products: tr({ru:'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser (см. утро)', en:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser (see morning)'}) },
-    { label: 'Toner', products: tr({ru:'Etude House SoonJung или Aveeno Calm + Restore (см. утро)', en:'Etude House SoonJung or Aveeno Calm + Restore (see morning)'}) },
+    { label: tr({ru:'Второе очищение', en:'Second cleanse'}), products: tr({ru:STR.ru.secondCleanse, en:STR.en.secondCleanse}) },
+    { label: tr({ru:'Тонер', en:'Toner'}), products: tr({ru:STR.ru.tonerRef, en:STR.en.tonerRef}) },
     { label: tr(eveningStep4.label), products: retinalProducts },
     { label: tr(eveningStep5.label), products: eveningStep5.products.map(p => tr(p.name)).join(', ') }
   ];
@@ -907,7 +870,7 @@ function renderSnake() {
   const daysInMonth = new Date(year, month+1, 0).getDate();
   const firstDay = new Date(year, month, 1).getDay();
 
-  const monthName = new Date(year, month).toLocaleString('en-US', { month:'long', year:'numeric' });
+  const monthName = new Date(year, month).toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { month:'long', year:'numeric' });
   document.getElementById('calendarMonthLabel').textContent = monthName;
 
   const rows = [];
@@ -948,7 +911,7 @@ function renderSnake() {
       if (hasSpecial) circleClass += ' has-special';
       if (isToday) circleClass += ' today';
 
-      const dayLabel = new Date(year, month, day).toLocaleString('en-US', { weekday:'short' });
+      const dayLabel = new Date(year, month, day).toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { weekday:'short' });
 
       html += `<div class="day-node" data-date="${key}">
         <div class="${circleClass}" onclick="openDayModal('${key}')">${day}</div>
@@ -958,6 +921,7 @@ function renderSnake() {
     html += `</div>`;
   });
   html += `<svg class="snake-svg-overlay" id="snakeSvgOverlay"></svg>`;
+
   container.innerHTML = html;
   requestAnimationFrame(() => requestAnimationFrame(drawSnakeConnectors));
 }
@@ -1004,6 +968,7 @@ function drawSnakeConnectors() {
           ${ex.toFixed(1)} ${ey.toFixed(1)}" />`;
     }
   }
+
   svg.innerHTML = paths;
 }
 
@@ -1022,9 +987,9 @@ function openDayModal(dateStr) {
 function showModalForDate(year, month, day) {
   const routine = getRoutineForDay(year, month, day);
   const done = isDone(year, month, day);
-  const t = STR.en;
+  const t = STR[currentLang];
   const dateObj = new Date(year, month, day);
-  const dateFormatted = dateObj.toLocaleDateString('en-US', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  const dateFormatted = dateObj.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 
   const daysInMonth = new Date(year, month+1, 0).getDate();
   const hasPrev = day > 1;
@@ -1100,7 +1065,7 @@ function changeMonth(delta) {
 }
 
 function openSettings() {
-  const t = STR.en;
+  const t = STR[currentLang];
   const html = `
     <div class="modal-overlay settings-modal" id="settingsModal" onclick="if(event.target===this) closeModal()">
       <div class="modal-box">
@@ -1110,7 +1075,7 @@ function openSettings() {
         <input type="date" id="retinalStartInput" value="${retinalStart}">
         <button class="btn-reset" onclick="resetAll()">${t.resetLabel}</button>
         <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
-          <button onclick="saveSettings()" style="background:var(--accent-dark);color:white;border:none;padding:8px 20px;border-radius:12px;font-weight:600;cursor:pointer;">Save</button>
+          <button onclick="saveSettings()" style="background:var(--accent-dark);color:white;border:none;padding:8px 20px;border-radius:12px;font-weight:600;cursor:pointer;">Сохранить</button>
         </div>
       </div>
     </div>
@@ -1131,7 +1096,7 @@ function saveSettings() {
 }
 
 function resetAll() {
-  if (confirm('Reset all "done" marks?')) {
+  if (confirm('Сбросить все отметки "выполнено"?')) {
     doneDays = {};
     localStorage.setItem('doneDays', JSON.stringify(doneDays));
     renderSnake();
@@ -1139,14 +1104,17 @@ function resetAll() {
   }
 }
 
-// ===== ОТРИСОВКА ВСЕГО =====
+/* ============================================================
+   ОТРИСОВКА ВСЕХ ЗОН
+   ============================================================ */
 function renderAll() {
-  const t = STR.en;
-  document.documentElement.lang = 'en';
+  const t = STR[currentLang];
+  document.documentElement.lang = currentLang;
   document.title = t.tabTitle;
   document.getElementById('siteSubtitle').textContent = t.subtitle;
   document.getElementById('search').placeholder = t.searchPlaceholder;
   document.getElementById('recToggleLabel').textContent = t.recOnly;
+  document.getElementById('langToggle').textContent = t.langBtn;
   document.getElementById('noResults').textContent = t.noResults;
 
   document.querySelectorAll('#mainNav a').forEach(a=>{
@@ -1205,7 +1173,9 @@ function renderAll() {
   applyFilters();
 }
 
-// ===== ПОИСК И ФИЛЬТР =====
+/* ============================================================
+   ПОИСК И ФИЛЬТР
+   ============================================================ */
 const searchInput = document.getElementById('search');
 const recToggle = document.getElementById('recToggle');
 
@@ -1224,7 +1194,7 @@ function applyFilters() {
     if(show) visibleCount++;
   });
   document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
-  document.getElementById('resultCount').textContent = (q || onlyRec) ? `${STR.en.found}: ${visibleCount}` : '';
+  document.getElementById('resultCount').textContent = (q || onlyRec) ? `${STR[currentLang].found}: ${visibleCount}` : '';
 }
 searchInput.addEventListener('input', applyFilters);
 recToggle.addEventListener('click', ()=>{
@@ -1232,7 +1202,19 @@ recToggle.addEventListener('click', ()=>{
   applyFilters();
 });
 
-// ===== ИНИЦИАЛИЗАЦИЯ =====
+/* ============================================================
+   ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА
+   ============================================================ */
+document.getElementById('langToggle').addEventListener('click', ()=>{
+  currentLang = currentLang === 'ru' ? 'en' : 'ru';
+  localStorage.setItem('skincareLang', currentLang);
+  renderAll();
+  closeModal();
+});
+
+/* ============================================================
+   ОБРАБОТЧИКИ КАЛЕНДАРЯ
+   ============================================================ */
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('prevMonthBtn').addEventListener('click', () => changeMonth(-1));
   document.getElementById('nextMonthBtn').addEventListener('click', () => changeMonth(1));
@@ -1245,7 +1227,7 @@ document.addEventListener('DOMContentLoaded', function() {
     currentMonth = parseInt(parts[1]);
   } else {
     currentYear = 2026;
-    currentMonth = 6;
+    currentMonth = 6; // июль
   }
   renderAll();
 });
