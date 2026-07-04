@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23778873'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FDF6ED' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<title>Skincare Guide — Портфолио-проект</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root{
+  --bg-start:#778873;
+  --bg-end:#5A6A4A;
+  --card-bg:#FDF6ED;
+  --card-shadow:0 12px 32px rgba(0,0,0,0.15);
+  --text:#3A3A2F;
+  --text-soft:#5F5F4A;
+  --text-light:#8A8A72;
+  --accent:#A1BC98;
+  --accent-dark:#6A7D5A;
+  --morning:#DCCFC0;
+  --evening:#BFAF9E;
+  --special:#DCCFC0;
+  --line:#A1BC98;
+  --border-radius:24px;
+  --font-serif:Georgia, 'Times New Roman', serif;
+  --font-sans:'Inter', system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  font-family:var(--font-sans);
+  color:var(--text);
+  padding:0 0 40px;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
+
+/* ---------- COMPACT HEADER ---------- */
+header{
+  background:rgba(253,246,237,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:8px 0 0;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.header-top{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:6px 12px;
+  padding:6px 0 2px;
+}
+.title{
+  font-family:var(--font-serif);
+  font-size:clamp(18px,3vw,24px);
+  font-weight:700;
+  letter-spacing:-0.01em;
+  display:flex;align-items:center;gap:6px;
+}
+.title .leaf{font-size:clamp(20px,3vw,28px);}
+.title .accent{color:#778873;font-style:italic;}
+.subtitle{font-size:clamp(10px,1.5vw,12px);color:var(--text-soft);font-weight:400;margin:0;}
+.tools{
+  display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+}
+.search-box{position:relative;min-width:140px;max-width:200px;}
+.search-box input{
+  width:100%;padding:6px 10px 6px 28px;border-radius:999px;min-height:32px;
+  border:1px solid var(--line);background:white;
+  font-size:12px;font-family:var(--font-sans);outline:none;
+}
+.search-box input:focus{border-color:var(--accent-dark);}
+.search-box svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);opacity:0.4;width:14px;height:14px;}
+.pill-toggle{
+  display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
+  border:1px solid var(--line);background:white;cursor:pointer;
+  font-size:12px;font-weight:500;color:var(--text-soft);
+  transition:all .15s ease;user-select:none;white-space:nowrap;
+}
+.pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
+.lang-toggle{
+  display:flex;align-items:center;justify-content:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
+  border:1px solid var(--text);background:var(--text);color:#FDF6ED;cursor:pointer;
+  font-size:12px;font-weight:700;transition:transform .15s ease,opacity .15s ease;
+}
+.lang-toggle:hover{opacity:0.85;}
+.result-count{font-size:11px;color:var(--accent-dark);font-weight:600;white-space:nowrap;}
+nav{
+  display:flex;gap:4px;padding:6px 0 8px;overflow-x:auto;
+  -ms-overflow-style:none;scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none;}
+nav a{
+  white-space:nowrap;text-decoration:none;color:var(--text-soft);
+  font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;
+  transition:background .15s ease,color .15s ease;
+}
+nav a:hover{background:var(--accent);color:white;}
+
+/* ---------- HERO (stats) ---------- */
+.hero{padding:16px 0 6px;}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px;}
+.stat{
+  background:rgba(253,246,237,0.7);backdrop-filter:blur(4px);
+  border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,255,255,0.3);
+}
+.stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;}
+.stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--text);}
+.stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+.no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
+
+/* ---------- ZONES (утро, вечер, аптечка и т.д.) ---------- */
+section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
+.zone-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+.zone-icon{
+  width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:var(--accent);color:white;flex-shrink:0;
+}
+.zone-title{font-family:var(--font-serif);font-size:clamp(18px,3vw,22px);font-weight:700;color:var(--text);}
+.zone-sub{font-size:12px;color:var(--text-soft);margin:6px 0 12px;max-width:560px;line-height:1.5;}
+.path{margin-top:16px;}
+.step{padding-left:36px;padding-bottom:24px;position:relative;}
+.step:last-child{padding-bottom:0;}
+.step::before{content:'';position:absolute;left:12px;top:28px;bottom:0;width:1px;background:var(--line);}
+.step:last-child::before{display:none;}
+.step-node{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--accent);color:white;}
+.step-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-light);margin:2px 0 8px;}
+.split{display:grid;grid-template-columns:1fr;gap:12px;}
+.split-col-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-light);margin-bottom:6px;}
+.card-row{display:grid;grid-template-columns:1fr;gap:10px;}
+.card{
+  background:rgba(255,255,255,0.7);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,0.5);border-radius:16px;
+  padding:12px 14px;display:flex;gap:10px;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08);}
+.card-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
+.card-body{flex:1;min-width:0;}
+.card-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
+.card-name{font-size:13px;font-weight:600;}
+.card-price{font-size:12px;color:var(--text-soft);font-weight:500;white-space:nowrap;}
+.star-badge{display:inline-flex;align-items:center;gap:2px;color:var(--accent-dark);font-size:10px;font-weight:600;margin-top:2px;}
+.lux-badge{display:inline-flex;align-items:center;gap:3px;background:var(--accent);color:white;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-top:2px;}
+.card-comment{font-size:12px;color:var(--text-soft);line-height:1.4;margin:4px 0 6px;}
+.shop-row{display:flex;flex-wrap:wrap;gap:4px;}
+.shop-chip{font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--text-soft);text-decoration:none;display:inline-flex;align-items:center;gap:3px;}
+.shop-chip:hover{border-color:var(--text);color:var(--text);}
+.shop-chip svg{width:8px;height:8px;opacity:0.5;}
+.ref-card{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-soft);text-decoration:none;border:1px dashed var(--line);border-radius:14px;padding:10px 14px;}
+.ref-card:hover{border-color:var(--accent-dark);color:var(--text);}
+.kit-group{margin-bottom:28px;}
+.kit-group:last-child{margin-bottom:0;}
+.kit-group-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.kit-group-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
+.kit-group-title{font-size:14px;font-weight:700;}
+.kit-group-sub{font-size:11px;color:var(--text-soft);font-weight:400;}
+.kit-analysis{display:flex;gap:8px;font-size:12px;color:var(--text-soft);line-height:1.5;padding:8px 12px;background:rgba(255,255,255,0.4);border-radius:12px;margin:-2px 0 10px;}
+.rules-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px;}
+.rule{display:flex;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.5);border-radius:14px;border:1px solid rgba(255,255,255,0.3);}
+.rule.caution{background:rgba(235,200,200,0.4);border-color:#D4B0B0;}
+.rule-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.rule-text{font-size:12px;line-height:1.5;color:var(--text);}
+.rule.caution .rule-text{color:#6A3A3A;}
+.shops-section{padding:24px 0 32px;}
+.shops-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px;}
+.shop-card{background:rgba(255,255,255,0.6);border-radius:14px;padding:12px 14px;border:1px solid rgba(255,255,255,0.4);}
+.shop-card-name{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:13px;}
+.shop-card-name a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:4px;}
+.shop-card-name a:hover{text-decoration:underline;}
+.shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
+
+/* ========== КАЛЕНДАРЬ-ЗМЕЙКА ========== */
+.calendar-wrapper{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  box-shadow:var(--card-shadow);
+  padding:20px 20px 28px;
+  margin-top:16px;
+  width:100%;
+}
+.calendar-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:18px;
+}
+.calendar-header h2{
+  font-family:var(--font-serif);
+  font-size:clamp(20px,4vw,28px);
+  font-weight:700;
+  color:var(--text);
+  margin:0;
+}
+.calendar-nav{
+  display:flex;gap:8px;align-items:center;
+}
+.calendar-nav button{
+  background:transparent;border:none;font-size:22px;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;color:var(--text-soft);
+}
+.calendar-nav button:hover{background:var(--accent);color:white;}
+.settings-btn{
+  background:transparent;border:none;font-size:18px;cursor:pointer;
+  padding:4px 8px;border-radius:10px;transition:background .2s;
+}
+.settings-btn:hover{background:var(--accent);color:white;}
+
+.snake-container{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  padding:8px 4px;
+}
+.snake-row{
+  display:flex;
+  gap:8px;
+  justify-content:flex-start;
+  flex-wrap:nowrap;
+  position:relative;
+  min-height:60px;
+}
+.snake-row.reverse{
+  flex-direction:row-reverse;
+  justify-content:flex-end;
+}
+.snake-row .day-node{
+  display:flex;flex-direction:column;align-items:center;flex-shrink:0;
+  position:relative;
+  width:56px;
+}
+.day-node .day-circle{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,0.5);
+  border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:600;color:var(--text);
+  cursor:pointer;
+  transition:all .15s ease;
+  position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+}
+.day-node .day-circle:hover{
+  transform:scale(1.05);
+  border-color:var(--accent-dark);
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+}
+.day-node .day-circle.today{
+  border-color:#778873;
+  border-width:3px;
+  box-shadow:0 0 0 4px rgba(119,136,115,0.2);
+}
+.day-node .day-circle.done{
+  background:var(--morning);
+  border-color:#778873;
+}
+.day-node .day-circle.done::after{
+  content:'✓';
+  position:absolute;bottom:-6px;right:-6px;
+  background:#778873;color:white;
+  border-radius:50%;width:18px;height:18px;
+  font-size:11px;line-height:18px;text-align:center;
+}
+.day-node .day-circle.has-special{
+  border-color:#A1BC98;
+  background:#DCCFC0;
+}
+.day-node .day-circle.has-special::before{
+  content:'✦';
+  position:absolute;top:-6px;right:-4px;
+  font-size:14px;color:#778873;
+}
+.day-node .day-label{
+  font-size:9px;color:var(--text-light);margin-top:2px;
+  text-transform:uppercase;letter-spacing:0.04em;
+}
+.snake-connector{
+  height:12px;
+  border-left:2px dashed var(--line);
+  border-right:2px dashed var(--line);
+  margin:0 auto;
+  width:2px;
+  opacity:0.5;
+}
+
+/* ---------- МОДАЛКА РУТИНЫ (с конкретными продуктами) ---------- */
+.modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:1000;padding:20px;
+}
+.modal-box{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  max-width:600px;width:100%;
+  max-height:90vh;
+  padding:24px 28px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  overflow-y:auto;
+  position:relative;
+}
+.modal-close{
+  position:absolute;top:12px;right:16px;
+  background:none;border:none;font-size:24px;
+  cursor:pointer;color:var(--text-soft);
+}
+.modal-close:hover{color:var(--text);}
+.modal-box h2{
+  font-family:var(--font-serif);
+  font-size:22px;font-weight:700;
+  margin:0 0 16px;color:var(--text);
+}
+.routine-block{
+  margin:12px 0;
+  padding:12px 16px;
+  border-radius:16px;
+}
+.routine-block.morning-block{background:var(--morning);}
+.routine-block.evening-block{background:var(--evening);}
+.routine-block.special-block{background:var(--special);}
+.routine-block h4{
+  font-size:14px;font-weight:700;
+  margin:0 0 6px;display:flex;align-items:center;gap:6px;
+  color:var(--text);
+}
+.routine-block .step-item{
+  font-size:13px;line-height:1.5;
+  padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.05);
+}
+.routine-block .step-item:last-child{border-bottom:none;}
+.routine-block .step-item .step-label{font-weight:600;color:var(--text);}
+.routine-block .step-item .product-name{color:var(--text-soft);margin-left:6px;}
+.done-label{
+  display:flex;align-items:center;gap:8px;
+  font-weight:600;font-size:14px;color:var(--text);
+  margin-top:8px;
+}
+.done-label input[type="checkbox"]{width:18px;height:18px;cursor:pointer;}
+
+/* ---------- НАСТРОЙКИ ---------- */
+.settings-modal .modal-box{max-width:400px;}
+.settings-modal label{
+  display:block;margin:12px 0 4px;
+  font-weight:600;font-size:13px;color:var(--text);
+}
+.settings-modal input[type="date"]{
+  width:100%;padding:8px 12px;
+  border:1px solid var(--line);border-radius:12px;
+  font-size:14px;font-family:var(--font-sans);
+}
+.settings-modal .btn-reset{
+  margin-top:16px;
+  background:transparent;border:1px solid #C0A0A0;
+  color:#7A4A4A;padding:8px 16px;border-radius:12px;
+  cursor:pointer;font-size:13px;font-weight:600;
+}
+.settings-modal .btn-reset:hover{background:#F0D0D0;}
+
+/* ---------- FOOTER ---------- */
+footer{
+  margin-top:30px;padding:20px 0 30px;
+  border-top:1px solid rgba(255,255,255,0.2);
+  text-align:center;
+}
+footer p{font-size:12px;color:var(--text-light);margin:4px 0;}
+footer .footer-credit{font-size:11px;color:var(--text-light);}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media(min-width:600px){
+  .stats{grid-template-columns:repeat(4,1fr);gap:12px;}
+  .card-row{grid-template-columns:repeat(2,1fr);}
+  .rules-grid{grid-template-columns:1fr 1fr;}
+  .shops-grid{grid-template-columns:repeat(2,1fr);}
+  .day-node .day-circle{width:56px;height:56px;font-size:18px;}
+  .snake-row{min-height:72px;}
+}
+@media(min-width:1024px){
+  .card-row{grid-template-columns:repeat(3,1fr);}
+  .shops-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:599px){
+  .day-node{width:44px;}
+  .day-node .day-circle{width:38px;height:38px;font-size:13px;}
+  .snake-row{gap:4px;}
+  .modal-box{padding:16px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-top">
+      <div>
+        <p class="title"><span class="leaf">🌿</span><span class="accent">Skincare</span> Guide</p>
+        <p class="subtitle" id="siteSubtitle"></p>
+      </div>
+      <div class="tools">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="search" type="text" placeholder="">
+        </div>
+        <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
+        <button class="lang-toggle" id="langToggle"></button>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+    </div>
+    <nav id="mainNav">
+      <a href="#morning" data-nav="morning"></a>
+      <a href="#evening" data-nav="evening"></a>
+      <a href="#kit" data-nav="kit"></a>
+      <a href="#rules" data-nav="rules"></a>
+      <a href="#shops" data-nav="shops"></a>
+      <a href="#calendar" data-nav="calendar"></a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="stats">
+      <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon">🌙</div><div><div class="num">5</div><div class="lbl" id="statEveningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon">🧴</div><div><div class="num">6</div><div class="lbl" id="statKitLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
+    </div>
+  </div>
+
+  <div class="no-results" id="noResults"></div>
+
+  <!-- ЗОНЫ (утро, вечер, аптечка, правила, магазины) -->
+  <section class="zone morning" id="morning">
+    <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
+    <div class="path" id="morning-path"></div>
+  </section>
+
+  <section class="zone evening" id="evening">
+    <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
+    <div class="path" id="evening-path"></div>
+  </section>
+
+  <section class="zone" id="kit">
+    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
+    <p class="zone-sub" id="subKit"></p>
+    <div id="kit-groups"></div>
+  </section>
+
+  <section class="zone" id="rules">
+    <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
+    <div class="rules-grid" id="rules-grid"></div>
+  </section>
+
+  <section class="shops-section" id="shops">
+    <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
+    <p class="zone-sub" id="subShops"></p>
+    <div class="shops-grid" id="shops-grid"></div>
+  </section>
+
+  <!-- ========== КАЛЕНДАРЬ-ЗМЕЙКА ========== -->
+  <section class="zone" id="calendar" style="scroll-margin-top:120px;">
+    <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
+    <div class="calendar-wrapper">
+      <div class="calendar-header">
+        <h2 id="calendarMonthLabel"></h2>
+        <div class="calendar-nav">
+          <button id="prevMonthBtn">‹</button>
+          <button id="nextMonthBtn">›</button>
+          <button class="settings-btn" id="settingsBtn" title="Настройки">⚙</button>
+        </div>
+      </div>
+      <div class="snake-container" id="snakeContainer"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p id="footerLine"></p>
+    <p class="footer-credit" id="footerCredit"></p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   UI STRINGS (полностью двуязычные)
+   ============================================================ */
+const STR = {
+  ru: {
+    subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до отхода ко сну',
+    tabTitle: 'Skincare Guide — Портфолио-проект',
+    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
+    searchPlaceholder: 'Найти средство…',
+    recOnly: 'Только рекомендуемые',
+    found: 'Найдено',
+    noResults: 'Ничего не найдено — попробуйте другой запрос.',
+    statLabels: {morning:'ШАГА УТРОМ', evening:'ШАГОВ ВЕЧЕРОМ', kit:'СРЕДСТВ В АПТЕЧКЕ', rules:'ПРАВИЛ'},
+    kitSub: 'Средства на случай воспалений, раздражения или для дней без ретиналя.',
+    shopsSub: 'Где обычно продаются средства из этого списка.',
+    recommended: 'рекомендую',
+    luxAlt: 'люкс-альтернатива',
+    footerLine: 'Составлено на основе ваших личных данных по уходу за кожей · обновляйте по мере изменения рутины',
+    footerCredit: '© 2026 · Anastasiia Vyshnevska — портфолио-проект, созданный с помощью ИИ-инструментов',
+    langBtn: 'EN',
+    subCalendar: 'Нажми на день, чтобы увидеть детальный план рутины.',
+    modalTitle: 'Рутина на',
+    morningLabel: '☀️ День',
+    eveningLabel: '🌙 Ночь',
+    specialLabel: '✨ Доп. уход',
+    doneLabel: 'Выполнено',
+    settingsTitle: 'Настройки',
+    startDateLabel: 'Дата старта ретиналя',
+    resetLabel: 'Сбросить все отметки',
+    noRoutine: 'В этот день отдых от активных средств. Только базовое очищение и увлажнение.',
+    specialMask: 'Маска/скраб',
+    stepLabels: {
+      morning: ['Умывание', 'Тонер (успокаивающий)', 'Актив', 'Увлажнение + SPF'],
+      evening: ['Первое очищение (масло/бальзам)', 'Второе очищение', 'Тонер', 'Ретиналь', 'Ночной крем']
+    },
+    productNames: {
+      'Xpel Tea Tree Foaming Face Wash 200ml': 'Xpel Tea Tree Foaming Face Wash 200ml',
+      'CeraVe Hydrating Cleanser 236ml': 'CeraVe Hydrating Cleanser 236ml',
+      'Round Lab 1025 Dokdo Cleanser 150ml': 'Round Lab 1025 Dokdo Cleanser 150ml',
+      'Etude House SoonJung pH 5.5 Relief Toner 200ml': 'Etude House SoonJung pH 5.5 Relief Toner 200ml',
+      'Aveeno Calm + Restore Toning Lotion 200ml': 'Aveeno Calm + Restore Toning Lotion 200ml',
+      'Витамин C (любой ваш)': 'Витамин C (любой ваш)',
+      'The Inkey List SuperSolutions 10% Azelaic Acid Serum 30ml': 'The Inkey List SuperSolutions 10% Azelaic Acid Serum 30ml',
+      'The Ordinary Azelaic Acid Suspension 10% 30ml': 'The Ordinary Azelaic Acid Suspension 10% 30ml',
+      'Beauty of Joseon Relief Sun: Aqua-fresh SPF50+ 50ml': 'Beauty of Joseon Relief Sun: Aqua-fresh SPF50+ 50ml',
+      'La Roche-Posay Anthelios UVMune 400 Oil Control 50ml': 'La Roche-Posay Anthelios UVMune 400 Oil Control 50ml',
+      'CeraVe AM Facial Moisturising Lotion SPF30 52ml': 'CeraVe AM Facial Moisturising Lotion SPF30 52ml',
+      'Elemis Pro-Collagen Marine Cream SPF30 50ml': 'Elemis Pro-Collagen Marine Cream SPF30 50ml',
+      'Purito Seoul From Green Cleansing Oil 200ml': 'Purito Seoul From Green Cleansing Oil 200ml',
+      'Beauty of Joseon Radiance Cleansing Balm 100ml': 'Beauty of Joseon Radiance Cleansing Balm 100ml',
+      'Elemis Pro-Collagen Cleansing Balm 100g': 'Elemis Pro-Collagen Cleansing Balm 100g',
+      'Medik8 Crystal Retinal 3 30ml (старт)': 'Medik8 Crystal Retinal 3 30ml (старт)',
+      'Medik8 Crystal Retinal 6 30ml (переход)': 'Medik8 Crystal Retinal 6 30ml (переход)',
+      'La Roche-Posay Cicaplast Baume B5+ 40ml': 'La Roche-Posay Cicaplast Baume B5+ 40ml'
+    }
+  },
+  en: {
+    subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
+    tabTitle: 'Skincare Guide — Portfolio Project',
+    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar'},
+    searchPlaceholder: 'Search products…',
+    recOnly: 'Recommended only',
+    found: 'Found',
+    noResults: 'Nothing found — try a different search.',
+    statLabels: {morning:'MORNING STEPS', evening:'EVENING STEPS', kit:'KIT ITEMS', rules:'RULES'},
+    kitSub: 'Products for flare-ups, irritation, or days without retinal.',
+    shopsSub: 'Where the products on this list are usually sold.',
+    recommended: 'recommended',
+    luxAlt: 'luxury alternative',
+    footerLine: 'Created from your personal skincare data · update as your routine evolves',
+    footerCredit: '© 2026 · Anastasiia Vyshnevska — a portfolio project built with the help of AI tools',
+    langBtn: 'РУ',
+    subCalendar: 'Tap a day to see your detailed routine plan.',
+    modalTitle: 'Routine for',
+    morningLabel: '☀️ Day',
+    eveningLabel: '🌙 Night',
+    specialLabel: '✨ Extra care',
+    doneLabel: 'Done',
+    settingsTitle: 'Settings',
+    startDateLabel: 'Retinal start date',
+    resetLabel: 'Reset all marks',
+    noRoutine: 'Rest day from active ingredients. Just basic cleansing and moisturizing.',
+    specialMask: 'Mask/scrub',
+    stepLabels: {
+      morning: ['Cleansing', 'Toner (soothing)', 'Active', 'Moisturizer + SPF'],
+      evening: ['First cleanse (oil/balm)', 'Second cleanse', 'Toner', 'Retinal', 'Night cream']
+    },
+    productNames: {
+      'Xpel Tea Tree Foaming Face Wash 200ml': 'Xpel Tea Tree Foaming Face Wash 200ml',
+      'CeraVe Hydrating Cleanser 236ml': 'CeraVe Hydrating Cleanser 236ml',
+      'Round Lab 1025 Dokdo Cleanser 150ml': 'Round Lab 1025 Dokdo Cleanser 150ml',
+      'Etude House SoonJung pH 5.5 Relief Toner 200ml': 'Etude House SoonJung pH 5.5 Relief Toner 200ml',
+      'Aveeno Calm + Restore Toning Lotion 200ml': 'Aveeno Calm + Restore Toning Lotion 200ml',
+      'Витамин C (любой ваш)': 'Vitamin C (any of yours)',
+      'The Inkey List SuperSolutions 10% Azelaic Acid Serum 30ml': 'The Inkey List SuperSolutions 10% Azelaic Acid Serum 30ml',
+      'The Ordinary Azelaic Acid Suspension 10% 30ml': 'The Ordinary Azelaic Acid Suspension 10% 30ml',
+      'Beauty of Joseon Relief Sun: Aqua-fresh SPF50+ 50ml': 'Beauty of Joseon Relief Sun: Aqua-fresh SPF50+ 50ml',
+      'La Roche-Posay Anthelios UVMune 400 Oil Control 50ml': 'La Roche-Posay Anthelios UVMune 400 Oil Control 50ml',
+      'CeraVe AM Facial Moisturising Lotion SPF30 52ml': 'CeraVe AM Facial Moisturising Lotion SPF30 52ml',
+      'Elemis Pro-Collagen Marine Cream SPF30 50ml': 'Elemis Pro-Collagen Marine Cream SPF30 50ml',
+      'Purito Seoul From Green Cleansing Oil 200ml': 'Purito Seoul From Green Cleansing Oil 200ml',
+      'Beauty of Joseon Radiance Cleansing Balm 100ml': 'Beauty of Joseon Radiance Cleansing Balm 100ml',
+      'Elemis Pro-Collagen Cleansing Balm 100g': 'Elemis Pro-Collagen Cleansing Balm 100g',
+      'Medik8 Crystal Retinal 3 30ml (старт)': 'Medik8 Crystal Retinal 3 30ml (start)',
+      'Medik8 Crystal Retinal 6 30ml (переход)': 'Medik8 Crystal Retinal 6 30ml (transition)',
+      'La Roche-Posay Cicaplast Baume B5+ 40ml': 'La Roche-Posay Cicaplast Baume B5+ 40ml'
+    }
+  }
+};
+
+let currentLang = localStorage.getItem('skincareLang') || 'ru';
+
+const ICONS = {
+  cleanser: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 6 7.5 6 11.5A6 6 0 0 1 6 13.5C6 9.5 9 6 12 2z"/></svg>',
+  toner: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="12" r="6.5" opacity="0.6"/><circle cx="12" cy="12" r="10.5" opacity="0.3"/></svg>',
+  citrus: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M4.5 8.5L19.5 8.5M4.5 15.5L19.5 15.5"/></svg>',
+  acid: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 5-3 4v6a1 1 0 0 1-2 0v-6L8 8l1-5z"/><circle cx="12" cy="17.5" r="0" /></svg>',
+  spf: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.2M12 19.3v2.2M3.8 3.8l1.6 1.6M18.6 18.6l1.6 1.6M2.5 12h2.2M19.3 12h2.2M3.8 20.2l1.6-1.6M18.6 5.4l1.6-1.6"/></svg>',
+  oil: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v5M12 2c-3 4-6 8.5-6 12A6 6 0 0 0 18 14c0-3.5-3-8-6-12z"/><path d="M12 7v3"/></svg>',
+  retinol: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
+  balm: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="13" rx="2"/><path d="M8 8V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3"/></svg>',
+  spot: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>',
+  patch: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-15 12 12)"/><circle cx="12" cy="12" r="1.5"/></svg>',
+  mask: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10c0-4 3.5-7 8-7s8 3 8 7-3.5 9-8 9-8-5-8-9z"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>',
+  scrub: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.2 3.6L17 8l-3.8 1.4L12 13l-1.2-3.6L7 8l3.8-1.4L12 3z"/><path d="M18.5 14l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></svg>',
+  ref: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6-6 6-6M3 12h13a5 5 0 0 0 5-5V4"/></svg>',
+  link: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>',
+  warn: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L22 20.5H2L12 3.5z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>',
+  note: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>',
+  lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>'
+};
+
+/* ============================================================
+   ДАННЫЕ ПРОДУКТОВ (полные массивы)
+   ============================================================ */
+const morningSteps = [
+  {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
+    {name:'Xpel Tea Tree Foaming Face Wash 200ml', price:'€7', icon:'cleanser', rec:true, comment:{ru:'Ваша основная утренняя умывалка — пенка с чайным деревом и мятой, освежает и подходит для ежедневного использования', en:'Your main morning cleanser — a tea tree and mint foaming wash, refreshing and suitable for daily use'}, shops:[{name:'ExpressChemist',url:'https://www.expresschemist.co.uk/xpel-tea-tree-foaming-face-wash-200ml.html'},{name:'Amazon',url:'https://www.amazon.co.uk/TREE-FOAMING-200ml-HEALTHY-CLEAN/dp/B09DRWCVRN'}]},
+    {name:'CeraVe Hydrating Cleanser 236ml', price:'€14', icon:'cleanser', comment:{ru:'Не пенящийся, для сухой и чувствительной кожи — на случай, если захочется сменить формулу', en:'Non-foaming, for dry and sensitive skin — in case you want to switch formulas'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/cerave-hydrating-cleanser-236ml-10246701'},{name:'Аптеки',url:'https://www.mccauley.ie'}]},
+    {name:'Round Lab 1025 Dokdo Cleanser 150ml', price:'€17', icon:'cleanser', comment:{ru:'Мягкая пенка с аллантоином и пантенолом', en:'Gentle foam with allantoin and panthenol'}, shops:[{name:'Skinshop.ie',url:'https://skinshop.ie/products/roundlab-1025-dokdo-cleanser-150ml'}]}
+  ]},
+  {num:2, label:{ru:'Тонер (успокаивающий)', en:'Toner (soothing)'}, products:[
+    {name:'Etude House SoonJung pH 5.5 Relief Toner 200ml', price:'€24', icon:'toner', rec:true, comment:{ru:'Пантенол и мадекассозид. В официальных магазинах ЕС/Ирландии почти не продаётся — заказывают через Amazon или YesStyle, отсюда и наценка', en:'Panthenol and madecassoside. Barely sold in official EU/Ireland stores — usually ordered via Amazon or YesStyle, hence the markup'}, shops:[{name:'Amazon',url:'https://www.amazon.co.uk/Etude-House-Sensitive-Non-Comedogenic-Hypoallergenic/dp/B0921NXR2V'}]},
+    {name:'Aveeno Calm + Restore Toning Lotion 200ml', price:'€11', icon:'toner', comment:{ru:'С успокаивающим овсом и фиверфью', en:'With soothing oat and feverfew'}, shops:[{name:'Boots',url:'https://www.boots.com/aveeno-face-calm-and-restore-toner-200ml-10300779'}]}
+  ]},
+  {num:3, label:{ru:'Актив — чередовать по дням', en:'Active — alternate by day'}, split:{
+    a:{title:{ru:'День A · Витамин C', en:'Day A · Vitamin C'}, products:[
+      {name:{ru:'Витамин C (любой ваш)', en:'Vitamin C (any of yours)'}, price:'—', icon:'citrus', comment:{ru:'Наносить на сухую кожу, дать впитаться 5 минут', en:'Apply to dry skin, let absorb for 5 minutes'}, shops:[]}
+    ]},
+    b:{title:{ru:'День Б · Азелаиновая кислота', en:'Day B · Azelaic Acid'}, products:[
+      {name:'The Inkey List SuperSolutions 10% Azelaic Acid Serum 30ml', price:'€19', icon:'acid', rec:true, comment:{ru:'Бренд обновил линейку и переименовал в SuperSolutions — состав тот же. Начинать через 2–3 недели после старта ретиналя', en:'The brand updated the line and renamed it SuperSolutions — same formula. Start 2–3 weeks after beginning retinal'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/supersolutions-10-azelaic-serum-10316417'}]},
+      {name:'The Ordinary Azelaic Acid Suspension 10% 30ml', price:'€13', icon:'acid', comment:{ru:'Бюджетный вариант', en:'Budget option'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/the-ordinary-azelaic-acid-supension-10-10267775'}]}
+    ]}
+  }},
+  {num:4, label:{ru:'Увлажнение + SPF', en:'Moisturizer + SPF'}, products:[
+    {name:'Beauty of Joseon Relief Sun: Aqua-fresh SPF50+ 50ml', price:'€19', icon:'spf', rec:true, comment:{ru:'Водный (aqua-fresh) вариант культового санскрина — ещё легче и свежее, не оставляет белых разводов, хорошо ведёт себя на жирной коже', en:'The water-based (aqua-fresh) version of the cult-favorite sunscreen — even lighter and fresher, no white cast, works well on oily skin'}, shops:[{name:'YesStyle',url:'https://www.yesstyle.com/en/beauty-of-joseon/list.html/bpt.299_bid.320196'}]},
+    {name:'La Roche-Posay Anthelios UVMune 400 Oil Control 50ml', price:'€22', icon:'spf', comment:{ru:'Матирующий, для жирной и склонной к акне кожи, №1 у дерматологов', en:'Mattifying, for oily and acne-prone skin, #1 recommended by dermatologists'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-50ml-10324047'}]},
+    {name:'CeraVe AM Facial Moisturising Lotion SPF30 52ml', price:'€17', icon:'spf', comment:{ru:'Лёгкая, некомедогенная, с ниацинамидом и керамидами', en:'Lightweight, non-comedogenic, with niacinamide and ceramides'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/cerave-am-facial-moisturising-lotion-spf30-52ml-10331199'},{name:'Аптеки',url:'https://www.mccauley.ie'}]},
+    {name:'Elemis Pro-Collagen Marine Cream SPF30 50ml', price:'€89', icon:'spf', lux:true, comment:{ru:'Люкс-вариант: культовый увлажняющий гель-крем с SPF, если захочется побаловать себя', en:'Luxury option: a cult-favorite moisturizing gel-cream with SPF, for when you want to treat yourself'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/elemis-pro-collagen-marine-cream-spf-30-50ml-10321076'}]}
+  ]}
+];
+
+const eveningSteps = [
+  {num:1, label:{ru:'Первое очищение (масло/бальзам)', en:'First cleanse (oil/balm)'}, products:[
+    {name:'Purito Seoul From Green Cleansing Oil 200ml', price:'€18', icon:'oil', rec:true, comment:{ru:'Лёгкое, на 5 натуральных маслах, не забивает поры', en:'Lightweight, made with 5 natural oils, does not clog pores'}, shops:[{name:'Skinshop.ie',url:'https://skinshop.ie/products/purito-seoul-from-green-cleansing-oil-200ml'}]},
+    {name:'Beauty of Joseon Radiance Cleansing Balm 100ml', price:'€19', icon:'balm', comment:{ru:'Бальзам с рисом, успокаивает', en:'Rice balm, soothing'}, shops:[{name:'Skinshop.ie',url:'https://skinshop.ie/products/beauty-of-joseon-radiance'}]},
+    {name:'Elemis Pro-Collagen Cleansing Balm 100g', price:'€62', icon:'balm', lux:true, comment:{ru:'Люкс-вариант: бестселлер бренда, 3 текстуры в одной — бальзам, масло и молочко', en:"Luxury option: the brand's bestseller, 3 textures in one — balm, oil, and milk"}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/elemis-pro-collagen-cleansing-balm-100g-10321086'}]}
+  ]},
+  {num:2, label:{ru:'Второе очищение', en:'Second cleanse'}, ref:{ru:'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser — то же, что утром, шаг 1', en:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser — same as morning step 1'}, anchor:'#morning'},
+  {num:3, label:{ru:'Тонер', en:'Toner'}, ref:{ru:'Etude House SoonJung Toner или Aveeno Calm + Restore — тот же, что утром, шаг 2', en:'Etude House SoonJung Toner or Aveeno Calm + Restore — same as morning step 2'}, anchor:'#morning'},
+  {num:4, label:{ru:'Ретиналь', en:'Retinal'}, products:[
+    {name:'Medik8 Crystal Retinal 3 30ml (старт)', price:'€58', icon:'retinol', comment:{ru:'Только на сухую кожу! 2 раза/нед → каждый день. Цена выросла по сравнению с прошлой проверкой (было ~€50)', en:'Dry skin only! 2x/week → daily. Price has increased since last check (was ~€50)'}, shops:[{name:'Lookfantastic',url:'https://www.lookfantastic.com/p/medik8-crystal-retinal-3-serum-30ml/12097972/'}]},
+    {name:'Medik8 Crystal Retinal 6 30ml (переход)', price:'€65', icon:'retinol', comment:{ru:'После полного использования флакона 3', en:'After finishing bottle 3 completely'}, shops:[{name:'Medik8.ie',url:'https://www.medik8.ie'}]}
+  ]},
+  {num:5, label:{ru:'Ночной крем', en:'Night cream'}, products:[
+    {name:'La Roche-Posay Cicaplast Baume B5+ 40ml', price:'€11', icon:'balm', rec:true, comment:{ru:'Тонким слоем поверх ретиналя. При сильном раздражении — толстым слоем вместо ретиналя. Цена оказалась ниже, чем было указано (было €16)', en:'A thin layer over retinal. If irritation is strong, use a thick layer instead of retinal. Price turned out lower than listed (was €16)'}, shops:[{name:'McCauley (аптека)',url:'https://www.mccauley.ie/la-roche-posay-cicaplast-baume-b5-40ml'}]}
+  ]}
+];
+
+const kitGroups = [
+  {key:'spot', title:{ru:'Точечно', en:'Spot treatment'}, sub:{ru:'На воспалённые прыщики', en:'For inflamed breakouts'}, analysis:{ru:'Эти два средства не конкурируют, а работают в паре: <b>кислота снимает воспаление</b> изнутри, <b>пластырь вытягивает</b> содержимое снаружи — держите оба под рукой.', en:'These two products do not compete — they work together: the <b>acid reduces inflammation</b> from within, while the <b>patch draws out</b> the contents from outside — keep both on hand.'}, products:[
+    {name:{ru:'Азелаиновая кислота (та же, что утром)', en:'Azelaic acid (same as morning)'}, price:'€13–19 (в среднем €16)', icon:'spot', rec:true, comment:{ru:'Точечно на воспалённые прыщики, утром', en:'Spot-apply to inflamed breakouts, in the morning'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/supersolutions-10-azelaic-serum-10316417'}]},
+    {name:'Hero Mighty Patch Original, 24 шт', price:'€9', icon:'patch', rec:true, comment:{ru:'Гидроколлоидные пластыри на созревший прыщ на ночь — вытягивают содержимое', en:'Hydrocolloid patches for a ripe pimple overnight — draw out the contents'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/hero-mighty-patches-original-24-10334405'}]}
+  ]},
+  {key:'mask', title:{ru:'Маски', en:'Masks'}, sub:{ru:'Баночные маски для контроля жирности, пор и восстановления барьера — без тканевых и гидрогелевых, раз вы их и так покупаете спонтанно', en:'Jar masks for oil control, pores, and barrier repair — no sheet or hydrogel masks, since you buy those on impulse anyway'}, analysis:{ru:'Оставили две непересекающиеся баночные маски: <b>Caudalie Instant Detox Mask</b> — глиняная маска для жирной кожи, себума и расширенных пор, и <b>Dr Organic Skin Calm</b> — бюджетный крем-вариант для восстановления барьера при раздражении. Тканевую/резиновую Dr. Jart+ убрали по вашей просьбе.', en:'Kept two non-overlapping jar masks: <b>Caudalie Instant Detox Mask</b> — a clay mask for oily skin, sebum, and enlarged pores, and <b>Dr Organic Skin Calm</b> — a budget cream option for barrier repair during irritation. The Dr. Jart+ sheet/rubber mask was removed at your request.'}, products:[
+    {name:'Caudalie Instant Detox Mask 75ml', price:'€30', icon:'mask', rec:true, comment:{ru:'Розовая глина, кофе и виноградные косточки — вытягивает себум, сужает поры, для жирной/комбинированной кожи', en:'Pink clay, coffee, and grape seeds — draws out sebum, tightens pores, for oily/combination skin'}, shops:[{name:'Lookfantastic',url:'https://www.lookfantastic.com/p/caudalie-instant-detox-mask-75ml/15065645/'}]},
+    {name:'Dr Organic Skin Calm Probiotic Recovery Mask 100ml', price:'€14', icon:'mask', rec:true, comment:{ru:'Бюджетный крем-вариант, восстанавливает барьер при раздражении', en:'Budget cream option, repairs the barrier during irritation'}, shops:[{name:'Holland & Barrett',url:'https://www.hollandandbarrett.ie/shop/product/dr-organic-skin-calm-probiotic-recovery-mask-100ml-6100004549'}]}
+  ]},
+  {key:'scrub', title:{ru:'Отшелушивание', en:'Exfoliation'}, sub:{ru:'Не чаще раза в неделю, только в вечера без ретиналя', en:'No more than once a week, only on evenings without retinal'}, analysis:{ru:'Убрали <b>The Ordinary AHA 30% + BHA 2%</b> — это как раз кислоты, которые Правило 5 запрещает совмещать с ретиналем. Вместо него — <b>COSRX Low pH Good Night Soft Peeling Gel</b>: гель на PHA (мягче AHA/BHA, не раздражает даже рядом с ретиналем) и заодно убрали дублирующий скраб Lierac, оставив только один физический вариант — <b>Nuxe Very Rose</b>.', en:'Removed <b>The Ordinary AHA 30% + BHA 2%</b> — exactly the type of acid Rule 5 forbids combining with retinal. Replaced it with <b>COSRX Low pH Good Night Soft Peeling Gel</b>: a PHA gel (gentler than AHA/BHA, does not irritate even alongside retinal), and also removed the duplicate Lierac scrub, keeping only one physical option — <b>Nuxe Very Rose</b>.'}, products:[
+    {name:'COSRX Low pH Good Night Soft Peeling Gel 120ml', price:'€18', icon:'scrub', rec:true, comment:{ru:'Гель-пилинг на PHA (лактобионовая кислота) — мягкое отшелушивание, безопасно рядом с ретиналем', en:'PHA gel peel (lactobionic acid) — gentle exfoliation, safe alongside retinal'}, shops:[{name:'YesStyle',url:'https://www.yesstyle.com/en/cosrx-low-ph-good-night-soft-peeling-gel-120ml/info.html/pid.1102258127'}]},
+    {name:'Nuxe Very Rose Radiance Face Scrub 75ml', price:'€19', icon:'scrub', rec:true, comment:{ru:'Физический скраб, 98% натуральных ингредиентов, без кислот', en:'Physical scrub, 98% natural ingredients, no acids'}, shops:[{name:'Next',url:'https://www.next.co.uk/style/su637978/f46344'},{name:'Boots.ie',url:'https://www.boots.com/nuxe-very-rose-radiance-face-scrub-75ml-10362245'}]}
+  ]}
+];
+
+const rules = [
+  {text:{ru:'Ретиналь — только на сухую кожу вечером. Не на влажную!', en:'Retinal — only on dry skin, in the evening. Not on damp skin!'}, caution:true},
+  {text:{ru:'Cicaplast наносите после ретиналя тонким слоем. При сильном раздражении — толстым слоем, но тогда без ретиналя в этот вечер.', en:'Apply Cicaplast after retinal in a thin layer. If irritation is severe, use a thick layer instead — but skip retinal that evening.'}, caution:true},
+  {text:{ru:'Утром чередуйте витамин C и азелаин по дням — не вместе. Наносить на сухую кожу после тонера.', en:'In the morning, alternate vitamin C and azelaic acid by day — not together. Apply to dry skin after toner.'}, caution:false},
+  {text:{ru:'SPF 50 обязателен каждое утро, даже в пасмурную погоду.', en:'SPF 50 is mandatory every morning, even on cloudy days.'}, caution:true},
+  {text:{ru:'Никаких AHA/BHA кислот (гликолевая, молочная, салициловая), пока вы на ретинале — повышают риск раздражения.', en:'No AHA/BHA acids (glycolic, lactic, salicylic) while using retinal — they increase the risk of irritation.'}, caution:true},
+  {text:{ru:'Увлажняющую маску или скраб — только в вечера без ретиналя.', en:'Use a hydrating mask or scrub only on evenings without retinal.'}, caution:false},
+  {text:{ru:'Ввод ретиналя: первые 2 недели — 2 раза в неделю, затем через ночь, с 5-й недели — каждый день (если нет сильного раздражения).', en:'Introducing retinal: first 2 weeks — 2x/week, then every other night, from week 5 — daily (if there is no strong irritation).'}, caution:false},
+  {text:{ru:'Переход с Medik8 Crystal Retinal 3 на 6 — после полного использования флакона 3. Начинать 6 сразу ежедневно можно, кожа уже адаптирована.', en:'Switching from Medik8 Crystal Retinal 3 to 6 — after finishing bottle 3 completely. You can start using 6 daily right away since your skin is already adapted.'}, caution:false}
+];
+
+const shopsInfo = [
+  {name:'Boots.ie', url:'https://www.boots.ie', items:{ru:'CeraVe, La Roche-Posay, Elemis, Aveeno, The Ordinary, The Inkey List, гидроколлоидные пластыри', en:'CeraVe, La Roche-Posay, Elemis, Aveeno, The Ordinary, The Inkey List, hydrocolloid patches'}},
+  {name:'Skinshop.ie', url:'https://skinshop.ie', items:{ru:'Purito, Beauty of Joseon, COSRX, Round Lab', en:'Purito, Beauty of Joseon, COSRX, Round Lab'}},
+  {name:'Amazon.co.uk', url:'https://www.amazon.co.uk', items:{ru:'Xpel, Etude House SoonJung и почти все позиции из списка — удобно заказывать всё сразу', en:'Xpel, Etude House SoonJung, and almost everything else on this list — convenient to order it all at once'}},
+  {name:'ExpressChemist', url:'https://www.expresschemist.co.uk', items:{ru:'Xpel Tea Tree Foaming Face Wash', en:'Xpel Tea Tree Foaming Face Wash'}},
+  {name:{ru:'Аптеки (McCauley, Allcare, Chemco)', en:'Pharmacies (McCauley, Allcare, Chemco)'}, url:'https://www.mccauley.ie', items:{ru:'Cicaplast B5+, CeraVe, La Roche-Posay', en:'Cicaplast B5+, CeraVe, La Roche-Posay'}},
+  {name:'Next', url:'https://www.next.co.uk', items:{ru:'NUXE Very Rose', en:'NUXE Very Rose'}},
+  {name:'Holland & Barrett', url:'https://www.hollandandbarrett.ie', items:{ru:'Маска Dr Organic Skin Calm', en:'Dr Organic Skin Calm mask'}},
+  {name:'Lookfantastic', url:'https://www.lookfantastic.com', items:{ru:'Medik8, Caudalie, Elemis', en:'Medik8, Caudalie, Elemis'}},
+  {name:'YesStyle', url:'https://www.yesstyle.com', items:{ru:'COSRX Low pH Good Night Soft Peeling Gel', en:'COSRX Low pH Good Night Soft Peeling Gel'}},
+  {name:'Medik8.ie', url:'https://www.medik8.ie', items:{ru:'Medik8 Crystal Retinal', en:'Medik8 Crystal Retinal'}}
+];
+
+/* ============================================================
+   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ ОТОБРАЖЕНИЯ ЗОН
+   ============================================================ */
+function tr(field){
+  if(field == null) return '';
+  if(typeof field === 'string') return field;
+  return field[currentLang] != null ? field[currentLang] : (field.ru || '');
+}
+function shopChips(shops){
+  return '<div class="shop-row">'+shops.map(s=>`<a class="shop-chip" href="${s.url}" target="_blank" rel="noopener">${tr(s.name)}${ICONS.link}</a>`).join('')+'</div>';
+}
+function productCard(p, zoneClass){
+  const name = tr(p.name);
+  const comment = tr(p.comment);
+  return `<div class="card product-card ${zoneClass}${p.lux?' lux-card':''}" data-name="${name.toLowerCase()}" data-comment="${comment.toLowerCase()}" data-rec="${p.rec?1:0}">
+    <div class="card-icon">${ICONS[p.icon]}</div>
+    <div class="card-body">
+      <div class="card-name-row">
+        <div class="card-name">${name}</div>
+        <div class="card-price">${p.price}</div>
+      </div>
+      ${p.rec?'<div class="star-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+STR[currentLang].recommended+'</div>':''}
+      ${p.lux?'<div class="lux-badge">'+ICONS.lux+STR[currentLang].luxAlt+'</div>':''}
+      <div class="card-comment">${comment}</div>
+      ${p.warning?'<div class="card-warning">'+ICONS.warn+tr(p.warning)+'</div>':''}
+      ${p.shops && p.shops.length ? shopChips(p.shops) : ''}
+    </div>
+  </div>`;
+}
+function refCard(text, anchor){
+  return `<a class="ref-card" href="${anchor}">${ICONS.ref}${tr(text)}</a>`;
+}
+function renderPath(container, steps, zoneClass){
+  container.innerHTML = steps.map(s=>{
+    let body = '';
+    if(s.ref){
+      body = refCard(s.ref, s.anchor || '#morning');
+    } else if(s.split){
+      body = `<div class="split">
+        <div><div class="split-col-label">${tr(s.split.a.title)}</div><div class="card-row">${s.split.a.products.map(p=>productCard(p, zoneClass)).join('')}</div></div>
+        <div><div class="split-col-label">${tr(s.split.b.title)}</div><div class="card-row">${s.split.b.products.map(p=>productCard(p, zoneClass)).join('')}</div></div>
+      </div>`;
+    } else {
+      body = `<div class="card-row">${s.products.map(p=>productCard(p, zoneClass)).join('')}</div>`;
+    }
+    return `<div class="step ${zoneClass}">
+      <div class="step-node">${s.num}</div>
+      <div class="step-label">${tr(s.label)}</div>
+      ${body}
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   КАЛЕНДАРЬ-ЗМЕЙКА
+   ============================================================ */
+let currentYear = 2026;
+let currentMonth = 6; // июль
+const today = new Date();
+const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+let retinalStart = localStorage.getItem('retinalStart') || '2026-07-01';
+let doneDays = JSON.parse(localStorage.getItem('doneDays')) || {};
+
+function getDayKey(year, month, day) {
+  return `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+}
+
+// Автоматическое расписание (по правилам)
+function generateRoutine(year, month, day) {
+  const date = new Date(year, month, day);
+  const start = new Date(retinalStart);
+  const diffDays = Math.floor((date - start) / (24*60*60*1000));
+  const dayOfWeek = date.getDay(); // 0=воскр
+
+  const azelaicActive = diffDays >= 14;
+  let retinalSchedule = 'none';
+  if (diffDays >= 0) {
+    if (diffDays < 14) {
+      const weekDay = date.getDay();
+      if (weekDay === 1 || weekDay === 3 || weekDay === 5) retinalSchedule = 'retinal';
+    } else if (diffDays < 35) {
+      if (diffDays % 2 === 0) retinalSchedule = 'retinal';
+    } else {
+      retinalSchedule = 'retinal';
+    }
+  }
+  let special = null;
+  if (dayOfWeek === 0 && diffDays >= 14) {
+    const weekNum = Math.floor(diffDays / 7);
+    const specials = [
+      'Глиняная маска (Caudalie Detox)',
+      'Восстанавливающая маска (Dr Organic)',
+      'Скраб (Nuxe Very Rose)',
+      'Глиняная маска (Caudalie Detox)'
+    ];
+    special = specials[weekNum % specials.length];
+  }
+  return { azelaicActive, retinalSchedule, special };
+}
+
+// Получение рутины для дня с конкретными продуктами
+function getRoutineForDay(year, month, day) {
+  const auto = generateRoutine(year, month, day);
+  const t = STR[currentLang];
+
+  // Определяем выбор активного продукта в шаге 3 утра
+  let activeProducts;
+  if (auto.azelaicActive) {
+    // берём продукты из шага 3b (Азелаин)
+    const step3b = morningSteps.find(s => s.num === 3)?.split?.b?.products;
+    activeProducts = step3b ? step3b.map(p => tr(p.name)).join(', ') : 'Азелаиновая кислота';
+  } else {
+    const step3a = morningSteps.find(s => s.num === 3)?.split?.a?.products;
+    activeProducts = step3a ? step3a.map(p => tr(p.name)).join(', ') : 'Витамин C';
+  }
+
+  // Утро: шаги 1,2,4 (фиксированные продукты) и шаг 3 (динамический)
+  const morningStep1 = morningSteps.find(s => s.num === 1);
+  const morningStep2 = morningSteps.find(s => s.num === 2);
+  const morningStep4 = morningSteps.find(s => s.num === 4);
+
+  const morningProducts = [
+    { label: tr(morningStep1.label), products: morningStep1.products.map(p => tr(p.name)).join(', ') },
+    { label: tr(morningStep2.label), products: morningStep2.products.map(p => tr(p.name)).join(', ') },
+    { label: tr({ru:'Актив', en:'Active'}), products: activeProducts },
+    { label: tr(morningStep4.label), products: morningStep4.products.map(p => tr(p.name)).join(', ') }
+  ];
+
+  // Вечер: шаги 1,4,5 (фиксированные), шаги 2 и 3 — ссылки
+  const eveningStep1 = eveningSteps.find(s => s.num === 1);
+  const eveningStep4 = eveningSteps.find(s => s.num === 4);
+  const eveningStep5 = eveningSteps.find(s => s.num === 5);
+
+  let retinalProducts;
+  if (auto.retinalSchedule === 'retinal') {
+    retinalProducts = eveningStep4.products.map(p => tr(p.name)).join(', ');
+  } else {
+    retinalProducts = 'Отдых от ретиналя — только увлажнение';
+  }
+
+  const eveningProducts = [
+    { label: tr(eveningStep1.label), products: eveningStep1.products.map(p => tr(p.name)).join(', ') },
+    { label: tr({ru:'Второе очищение', en:'Second cleanse'}), products: 'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser (см. утро)' },
+    { label: tr({ru:'Тонер', en:'Toner'}), products: 'Etude House SoonJung или Aveeno Calm + Restore (см. утро)' },
+    { label: tr(eveningStep4.label), products: retinalProducts },
+    { label: tr(eveningStep5.label), products: eveningStep5.products.map(p => tr(p.name)).join(', ') }
+  ];
+
+  let specialText = auto.special || '';
+
+  return { morning: morningProducts, evening: eveningProducts, special: specialText };
+}
+
+function isDone(year, month, day) {
+  const key = getDayKey(year, month, day);
+  return !!doneDays[key];
+}
+
+function toggleDone(year, month, day) {
+  const key = getDayKey(year, month, day);
+  doneDays[key] = !doneDays[key];
+  localStorage.setItem('doneDays', JSON.stringify(doneDays));
+  renderSnake();
+}
+
+function renderSnake() {
+  const container = document.getElementById('snakeContainer');
+  if (!container) return;
+  const year = currentYear, month = currentMonth;
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const firstDay = new Date(year, month, 1).getDay();
+
+  const monthName = new Date(year, month).toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { month:'long', year:'numeric' });
+  document.getElementById('calendarMonthLabel').textContent = monthName;
+
+  const rows = [];
+  let currentRow = [];
+  let offset = (firstDay === 0) ? 6 : firstDay - 1;
+  for (let i = 0; i < offset; i++) currentRow.push(null);
+  for (let d = 1; d <= daysInMonth; d++) {
+    currentRow.push(d);
+    if (currentRow.length === 7) {
+      rows.push(currentRow);
+      currentRow = [];
+    }
+  }
+  if (currentRow.length > 0) {
+    while (currentRow.length < 7) currentRow.push(null);
+    rows.push(currentRow);
+  }
+
+  let html = '';
+  rows.forEach((row, idx) => {
+    const isReverse = (idx % 2 === 1);
+    const rowClass = isReverse ? 'snake-row reverse' : 'snake-row';
+    html += `<div class="${rowClass}">`;
+    const days = isReverse ? [...row].reverse() : row;
+    days.forEach(day => {
+      if (day === null) {
+        html += `<div class="day-node" style="opacity:0;pointer-events:none;"><div class="day-circle" style="background:transparent;border:transparent;"></div></div>`;
+        return;
+      }
+      const key = getDayKey(year, month, day);
+      const done = isDone(year, month, day);
+      const routine = getRoutineForDay(year, month, day);
+      const hasSpecial = routine.special && routine.special.length > 0;
+      const isToday = (key === todayStr);
+
+      let circleClass = 'day-circle';
+      if (done) circleClass += ' done';
+      if (hasSpecial) circleClass += ' has-special';
+      if (isToday) circleClass += ' today';
+
+      const dayLabel = new Date(year, month, day).toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { weekday:'short' });
+
+      html += `<div class="day-node" data-date="${key}">
+        <div class="${circleClass}" onclick="openDayModal('${key}')">${day}</div>
+        <div class="day-label">${dayLabel}</div>
+      </div>`;
+    });
+    html += `</div>`;
+    if (idx < rows.length - 1) {
+      html += `<div class="snake-connector"></div>`;
+    }
+  });
+
+  container.innerHTML = html;
+}
+
+// Модалка с детальными продуктами
+function openDayModal(dateStr) {
+  const parts = dateStr.split('-');
+  const year = parseInt(parts[0]), month = parseInt(parts[1])-1, day = parseInt(parts[2]);
+  const routine = getRoutineForDay(year, month, day);
+  const done = isDone(year, month, day);
+  const t = STR[currentLang];
+  const dateFormatted = new Date(year, month, day).toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  let morningHtml = routine.morning.map(item =>
+    `<div class="step-item"><span class="step-label">${item.label}:</span> <span class="product-name">${item.products}</span></div>`
+  ).join('');
+
+  let eveningHtml = routine.evening.map(item =>
+    `<div class="step-item"><span class="step-label">${item.label}:</span> <span class="product-name">${item.products}</span></div>`
+  ).join('');
+
+  const html = `
+    <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2>${t.modalTitle} ${dateFormatted}</h2>
+        <div class="routine-block morning-block"><h4>${t.morningLabel}</h4>${morningHtml}</div>
+        <div class="routine-block evening-block"><h4>${t.eveningLabel}</h4>${eveningHtml}</div>
+        <div class="routine-block special-block"><h4>${t.specialLabel}</h4><p>${routine.special || '—'}</p></div>
+        <div class="routine-block" style="background:var(--accent);">
+          <label class="done-label"><input type="checkbox" ${done ? 'checked' : ''} onchange="toggleDoneFromModal('${dateStr}', this.checked)"> ${t.doneLabel}</label>
+        </div>
+      </div>
+    </div>
+  `;
+  const old = document.getElementById('modalOverlay');
+  if (old) old.remove();
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function toggleDoneFromModal(dateStr, checked) {
+  const parts = dateStr.split('-');
+  const year = parseInt(parts[0]), month = parseInt(parts[1])-1, day = parseInt(parts[2]);
+  const key = dateStr;
+  if (checked) doneDays[key] = true;
+  else delete doneDays[key];
+  localStorage.setItem('doneDays', JSON.stringify(doneDays));
+  renderSnake();
+  closeModal();
+}
+
+function closeModal() {
+  const el = document.getElementById('modalOverlay');
+  if (el) el.remove();
+}
+
+function changeMonth(delta) {
+  currentMonth += delta;
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  localStorage.setItem('calendarMonth', `${currentYear}-${currentMonth}`);
+  renderSnake();
+}
+
+// Настройки
+function openSettings() {
+  const t = STR[currentLang];
+  const html = `
+    <div class="modal-overlay settings-modal" id="settingsModal" onclick="if(event.target===this) closeModal()">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2>${t.settingsTitle}</h2>
+        <label>${t.startDateLabel}</label>
+        <input type="date" id="retinalStartInput" value="${retinalStart}">
+        <button class="btn-reset" onclick="resetAll()">${t.resetLabel}</button>
+        <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
+          <button onclick="saveSettings()" style="background:var(--accent-dark);color:white;border:none;padding:8px 20px;border-radius:12px;font-weight:600;cursor:pointer;">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  `;
+  const old = document.getElementById('settingsModal');
+  if (old) old.remove();
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function saveSettings() {
+  const input = document.getElementById('retinalStartInput');
+  if (input) {
+    retinalStart = input.value;
+    localStorage.setItem('retinalStart', retinalStart);
+  }
+  closeModal();
+  renderSnake();
+}
+
+function resetAll() {
+  if (confirm('Сбросить все отметки "выполнено"?')) {
+    doneDays = {};
+    localStorage.setItem('doneDays', JSON.stringify(doneDays));
+    renderSnake();
+    closeModal();
+  }
+}
+
+/* ============================================================
+   ОТРИСОВКА ВСЕХ ЗОН
+   ============================================================ */
+function renderAll() {
+  const t = STR[currentLang];
+  document.documentElement.lang = currentLang;
+  document.title = t.tabTitle;
+  document.getElementById('siteSubtitle').textContent = t.subtitle;
+  document.getElementById('search').placeholder = t.searchPlaceholder;
+  document.getElementById('recToggleLabel').textContent = t.recOnly;
+  document.getElementById('langToggle').textContent = t.langBtn;
+  document.getElementById('noResults').textContent = t.noResults;
+
+  document.querySelectorAll('#mainNav a').forEach(a=>{
+    a.textContent = t.nav[a.dataset.nav];
+  });
+
+  document.getElementById('statMorningLbl').textContent = t.statLabels.morning;
+  document.getElementById('statEveningLbl').textContent = t.statLabels.evening;
+  document.getElementById('statKitLbl').textContent = t.statLabels.kit;
+  document.getElementById('statRulesLbl').textContent = t.statLabels.rules;
+
+  document.getElementById('titleMorning').textContent = t.nav.morning;
+  document.getElementById('titleEvening').textContent = t.nav.evening;
+  document.getElementById('titleKit').textContent = t.nav.kit;
+  document.getElementById('titleRules').textContent = t.nav.rules;
+  document.getElementById('titleShops').textContent = t.nav.shops;
+  document.getElementById('titleCalendar').textContent = t.nav.calendar;
+  document.getElementById('subKit').textContent = t.kitSub;
+  document.getElementById('subShops').textContent = t.shopsSub;
+
+  document.getElementById('footerLine').textContent = t.footerLine;
+  document.getElementById('footerCredit').textContent = t.footerCredit;
+
+  renderPath(document.getElementById('morning-path'), morningSteps, 'morning');
+  renderPath(document.getElementById('evening-path'), eveningSteps, 'evening');
+
+  document.getElementById('kit-groups').innerHTML = kitGroups.map(g=>`
+    <div class="kit-group ${g.key}">
+      <div class="kit-group-head">
+        <div class="kit-group-icon">${ICONS[g.products[0].icon]}</div>
+        <div>
+          <div class="kit-group-title">${tr(g.title)}</div>
+          <div class="kit-group-sub">${tr(g.sub)}</div>
+        </div>
+      </div>
+      ${g.analysis?'<div class="kit-analysis">'+ICONS.note+'<div>'+tr(g.analysis)+'</div></div>':''}
+      <div class="card-row">${g.products.map(p=>productCard(p, g.key)).join('')}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('rules-grid').innerHTML = rules.map((r,i)=>`
+    <div class="rule${r.caution?' caution':''}">
+      <div class="rule-num">${i+1}</div>
+      <div class="rule-text">${r.caution?ICONS.warn:''}${tr(r.text)}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('shops-grid').innerHTML = shopsInfo.map(s=>`
+    <div class="shop-card">
+      <div class="shop-card-name"><a href="${s.url}" target="_blank" rel="noopener">${tr(s.name)}${ICONS.link}</a></div>
+      <div class="shop-card-items">${tr(s.items)}</div>
+    </div>
+  `).join('');
+
+  renderSnake();
+  applyFilters();
+}
+
+/* ============================================================
+   ПОИСК И ФИЛЬТР
+   ============================================================ */
+const searchInput = document.getElementById('search');
+const recToggle = document.getElementById('recToggle');
+
+function applyFilters() {
+  const q = searchInput.value.trim().toLowerCase();
+  const onlyRec = recToggle.classList.contains('active');
+  let visibleCount = 0;
+  document.querySelectorAll('.product-card').forEach(card=>{
+    const name = card.dataset.name;
+    const comment = card.dataset.comment;
+    const isRec = card.dataset.rec === '1';
+    const matchesQuery = !q || name.includes(q) || comment.includes(q);
+    const matchesRec = !onlyRec || isRec;
+    const show = matchesQuery && matchesRec;
+    card.style.display = show ? '' : 'none';
+    if(show) visibleCount++;
+  });
+  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+  document.getElementById('resultCount').textContent = (q || onlyRec) ? `${STR[currentLang].found}: ${visibleCount}` : '';
+}
+searchInput.addEventListener('input', applyFilters);
+recToggle.addEventListener('click', ()=>{
+  recToggle.classList.toggle('active');
+  applyFilters();
+});
+
+/* ============================================================
+   ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА
+   ============================================================ */
+document.getElementById('langToggle').addEventListener('click', ()=>{
+  currentLang = currentLang === 'ru' ? 'en' : 'ru';
+  localStorage.setItem('skincareLang', currentLang);
+  renderAll();
+  closeModal();
+});
+
+/* ============================================================
+   ОБРАБОТЧИКИ КАЛЕНДАРЯ
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('prevMonthBtn').addEventListener('click', () => changeMonth(-1));
+  document.getElementById('nextMonthBtn').addEventListener('click', () => changeMonth(1));
+  document.getElementById('settingsBtn').addEventListener('click', openSettings);
+
+  const saved = localStorage.getItem('calendarMonth');
+  if (saved) {
+    const parts = saved.split('-');
+    currentYear = parseInt(parts[0]);
+    currentMonth = parseInt(parts[1]);
+  } else {
+    currentYear = 2026;
+    currentMonth = 6; // июль
+  }
+  renderAll();
+});
+</script>
+</body>
+</html>
