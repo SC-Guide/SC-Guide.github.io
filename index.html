@@ -8,28 +8,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
-  --bg:#FFFFFF;
-  --surface:#F6F3EC;
-  --morning:#FDE8E0;
-  --morning-deep:#D47B6A;
-  --morning-ink:#8A4A3A;
-  --evening:#EEDFC4;
-  --evening-deep:#9A6528;
-  --evening-ink:#54350F;
-  --spot:#F6D8BC;
-  --spot-deep:#A85A24;
-  --mask:#E4D5F0;
-  --mask-deep:#6A4590;
-  --scrub:#E2DCBE;
-  --scrub-deep:#655D34;
+  --bg:#F3E4C9;
+  --surface:#FFFFFF;
+  --morning:#BFA28C;
+  --morning-deep:#A98B76;
+  --morning-ink:#5D3F2E;
+  --evening:#BFA28C;
+  --evening-deep:#A98B76;
+  --evening-ink:#5D3F2E;
+  --spot:#BABF94;
+  --spot-deep:#7A8F5F;
+  --mask:#BABF94;
+  --mask-deep:#7A8F5F;
+  --scrub:#BABF94;
+  --scrub-deep:#7A8F5F;
   --danger-bg:#FAD9D9;
   --danger-border:#E3A0A0;
   --danger-ink:#961E1E;
   --ink:#18170F;
   --ink-soft:#514E43;
   --ink-faint:#84806F;
-  --line:#D9D2BE;
-  --star:#D47B6A;
+  --line:#BABF94;
+  --star:#A98B76;
   --lux:#1A1913;
   --lux-accent:#B4903D;
   --lux-bg:#F1ECE0;
@@ -69,14 +69,14 @@ header{
 .search-box{position:relative;flex:1;min-width:150px;max-width:280px;}
 .search-box input{
   width:100%;padding:11px 14px 11px 34px;border-radius:999px;min-height:44px;
-  border:1px solid var(--line);background:var(--surface);
+  border:1px solid var(--line);background:var(--bg);
   font-family:inherit;font-size:13px;color:var(--ink);outline:none;
 }
 .search-box input:focus{border-color:var(--ink-faint);}
 .search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;}
 .pill-toggle{
   display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;min-height:44px;
-  border:1px solid var(--line);background:var(--surface);cursor:pointer;
+  border:1px solid var(--line);background:var(--bg);cursor:pointer;
   font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-soft);
   transition:all .15s ease;user-select:none;white-space:nowrap;
 }
@@ -248,7 +248,7 @@ section.zone{padding:52px 0 10px;scroll-margin-top:150px;}
 .rule.caution .rule-text svg{flex-shrink:0;margin-top:2px;}
 .rule-text b{font-weight:700;}
 
-.shops-section{padding:48px 0 60px;}
+.shops-section{padding:48px 0 40px;}
 .shops-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px;}
 .shop-card{
   border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;background:var(--surface);
@@ -260,8 +260,40 @@ section.zone{padding:52px 0 10px;scroll-margin-top:150px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:12px;color:var(--ink-soft);line-height:1.55;}
 
+/* ---------- КАЛЕНДАРЬ ---------- */
+.calendar-container{
+  background:var(--surface);border-radius:var(--radius);padding:20px;
+  border:1px solid var(--line);box-shadow:var(--shadow-card);max-width:500px;
+  margin-top:20px;
+}
+.calendar-header{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;
+}
+.calendar-header h3{
+  font-weight:600;margin:0;font-size:18px;color:var(--ink);
+}
+.calendar-nav-btn{
+  background:none;border:none;font-size:22px;cursor:pointer;padding:4px 12px;
+  color:var(--ink-soft);transition:0.15s;
+}
+.calendar-nav-btn:hover{color:var(--ink);transform:scale(1.1);}
+.calendar-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;
+}
+.calendar-weekdays{
+  font-weight:600;color:var(--ink-soft);font-size:12px;padding-bottom:6px;
+}
+.calendar-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;cursor:pointer;transition:0.15s;font-weight:500;
+  background:var(--bg);color:var(--ink);
+}
+.calendar-day:hover{transform:scale(1.05);}
+.calendar-day.marked{background:var(--morning-deep);color:#fff;}
+.calendar-day.empty{background:transparent;cursor:default;}
+
 /* ---------- FOOTER ---------- */
-footer{border-top:1px solid var(--line);padding:36px 0 44px;}
+footer{border-top:1px solid var(--line);padding:36px 0 44px;margin-top:20px;}
 .footer-case{
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   padding:18px 20px;margin-bottom:26px;position:relative;overflow:hidden;
@@ -281,13 +313,8 @@ footer .footer-bottom p{font-size:12px;color:var(--ink-faint);margin:0;}
 footer .footer-credit{font-size:11.5px;color:var(--ink-faint);margin-top:8px;letter-spacing:0.02em;}
 
 /* ==========================================================
-   RESPONSIVE BREAKPOINTS
-   Mobile-first base styles above target <=600px.
-   Tablet: 601px - 1024px
-   Desktop: 1025px+
+   RESPONSIVE
    ========================================================== */
-
-/* ---- Tablet (601px+) ---- */
 @media(min-width:601px){
   .wrap{padding:0 28px;}
   .header-top{padding:24px 0 14px;align-items:baseline;}
@@ -302,16 +329,12 @@ footer .footer-credit{font-size:11.5px;color:var(--ink-faint);margin-top:8px;let
   .rules-grid{grid-template-columns:1fr 1fr;gap:14px;margin-top:30px;}
   .shops-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
 }
-
-/* ---- Desktop (1025px+) ---- */
 @media(min-width:1025px){
   .card-row{grid-template-columns:repeat(3,1fr);}
   .shops-grid{grid-template-columns:repeat(3,1fr);}
   section.zone{padding:72px 0 10px;}
   .hero{padding:44px 0 12px;}
 }
-
-/* ---- Mobile-only refinements (<=600px) ---- */
 @media(max-width:600px){
   .header-top{padding:16px 0 10px;}
   .subtitle{max-width:100%;}
@@ -320,7 +343,6 @@ footer .footer-credit{font-size:11.5px;color:var(--ink-faint);margin-top:8px;let
   .pill-toggle{flex:1;justify-content:center;}
   .result-count{width:100%;text-align:center;order:4;}
   nav a{padding:10px 14px;font-size:12.5px;}
-  .case-banner-inner{padding:16px 0;}
   .footer-case{padding:16px 16px;}
 }
 </style>
@@ -353,6 +375,7 @@ footer .footer-credit{font-size:11.5px;color:var(--ink-faint);margin-top:8px;let
       <a href="#kit" data-nav="kit"></a>
       <a href="#rules" data-nav="rules"></a>
       <a href="#shops" data-nav="shops"></a>
+      <a href="#calendar" data-nav="calendar"></a>
     </nav>
   </div>
 </header>
@@ -432,6 +455,23 @@ footer .footer-credit{font-size:11.5px;color:var(--ink-faint);margin-top:8px;let
     <p class="zone-sub" id="subShops"></p>
     <div class="shops-grid" id="shops-grid"></div>
   </section>
+
+  <!-- ========== КАЛЕНДАРЬ ========== -->
+  <section class="zone" id="calendar" style="scroll-margin-top:150px;">
+    <div class="zone-head">
+      <div class="zone-icon" style="background:#BFA28C; color:#5D3F2E;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+      <p class="zone-title" id="titleCalendar"></p>
+    </div>
+    <p class="zone-sub" id="subCalendar">Отмечай дни, когда выполняла свою рутину.</p>
+    <div class="calendar-container" id="calendar-container"></div>
+  </section>
 </div>
 
 <footer>
@@ -455,7 +495,7 @@ const STR = {
   ru: {
     subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до отхода ко сну',
     tabTitle: 'Skincare Guide — Портфолио-проект',
-    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины'},
+    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
     searchPlaceholder: 'Найти средство…',
     recOnly: 'Только рекомендуемые',
     found: 'Найдено',
@@ -469,12 +509,13 @@ const STR = {
     footerCredit: '© 2026 · Anastasiia Vyshnevska — портфолио-проект, созданный с помощью ИИ-инструментов',
     caseEyebrow: 'Портфолио · кейс-стади',
     caseText: 'Этот проект показывает мой подход к <b>контент-стратегии</b>, <b>UX/UI-дизайну</b> и <b>фронтенд-разработке</b>. Контент и структура собраны при помощи ИИ-инструментов (ChatGPT, Claude), дизайн и вёрстка выполнены вручную.',
-    langBtn: 'EN'
+    langBtn: 'EN',
+    subCalendar: 'Отмечай дни, когда выполняла свою рутину.'
   },
   en: {
     subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
     tabTitle: 'Skincare Guide — Portfolio Project',
-    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops'},
+    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar'},
     searchPlaceholder: 'Search products…',
     recOnly: 'Recommended only',
     found: 'Found',
@@ -488,7 +529,8 @@ const STR = {
     footerCredit: '© 2026 · Anastasiia Vyshnevska — a portfolio project built with the help of AI tools',
     caseEyebrow: 'Portfolio · Case study',
     caseText: 'This project demonstrates my approach to <b>content strategy</b>, <b>UX/UI design</b>, and <b>front-end development</b>. The content and structure were assembled with the help of AI tools (ChatGPT, Claude); the design and coding were done by hand.',
-    langBtn: 'РУ'
+    langBtn: 'РУ',
+    subCalendar: 'Mark the days when you completed your routine.'
   }
 };
 
@@ -515,7 +557,7 @@ const ICONS = {
 };
 
 /* ============================================================
-   DATA (bilingual: {ru, en} objects for translatable text)
+   DATA
    ============================================================ */
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
@@ -654,7 +696,79 @@ function renderPath(container, steps, zoneClass){
 }
 
 /* ============================================================
-   RENDER EVERYTHING FOR CURRENT LANGUAGE
+   КАЛЕНДАРЬ
+   ============================================================ */
+let calendarYear = new Date().getFullYear();
+let calendarMonth = new Date().getMonth();
+
+function renderCalendar() {
+  const container = document.getElementById('calendar-container');
+  if (!container) return;
+
+  const year = calendarYear;
+  const month = calendarMonth;
+  const firstDay = new Date(year, month, 1).getDay(); // 0 = Sunday
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Получаем отметки
+  const key = `skincare_calendar_${year}_${month}`;
+  const marks = JSON.parse(localStorage.getItem(key)) || {};
+
+  const monthName = new Date(year, month).toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { month: 'long', year: 'numeric' });
+  const weekDays = currentLang === 'ru' ? ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'] : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  let html = `<div class="calendar-header">
+    <button class="calendar-nav-btn" id="prevMonthBtn">‹</button>
+    <h3>${monthName}</h3>
+    <button class="calendar-nav-btn" id="nextMonthBtn">›</button>
+  </div>
+  <div class="calendar-grid">
+    <div class="calendar-weekdays" style="grid-column:1/8; display:grid; grid-template-columns:repeat(7,1fr);">
+      ${weekDays.map(d => `<div>${d}</div>`).join('')}
+    </div>`;
+
+  // Смещение, чтобы понедельник был первым
+  let startOffset = (firstDay === 0) ? 6 : firstDay - 1;
+  for (let i = 0; i < startOffset; i++) {
+    html += `<div class="calendar-day empty"></div>`;
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isMarked = marks[dateStr] || false;
+    html += `<div class="calendar-day${isMarked ? ' marked' : ''}" data-date="${dateStr}" onclick="toggleDay(this)">${d}</div>`;
+  }
+
+  html += `</div>`;
+  container.innerHTML = html;
+
+  // Обработчики навигации
+  document.getElementById('prevMonthBtn')?.addEventListener('click', () => changeMonth(-1));
+  document.getElementById('nextMonthBtn')?.addEventListener('click', () => changeMonth(1));
+}
+
+function toggleDay(el) {
+  const date = el.dataset.date;
+  if (!date) return;
+  const parts = date.split('-');
+  const year = parseInt(parts[0]);
+  const month = parseInt(parts[1]) - 1;
+  const key = `skincare_calendar_${year}_${month}`;
+  let marks = JSON.parse(localStorage.getItem(key)) || {};
+  marks[date] = !marks[date];
+  localStorage.setItem(key, JSON.stringify(marks));
+  renderCalendar(); // перерисовать
+}
+
+function changeMonth(delta) {
+  calendarMonth += delta;
+  if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
+  if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; }
+  renderCalendar();
+}
+
+/* ============================================================
+   RENDER ALL
    ============================================================ */
 function renderAll(){
   const t = STR[currentLang];
@@ -681,8 +795,10 @@ function renderAll(){
   document.getElementById('titleKit').textContent = t.nav.kit;
   document.getElementById('titleRules').textContent = t.nav.rules;
   document.getElementById('titleShops').textContent = t.nav.shops;
+  document.getElementById('titleCalendar').textContent = t.nav.calendar;
   document.getElementById('subKit').textContent = t.kitSub;
   document.getElementById('subShops').textContent = t.shopsSub;
+  document.getElementById('subCalendar').textContent = t.subCalendar;
 
   document.getElementById('caseEyebrow').textContent = t.caseEyebrow;
   document.getElementById('caseText').innerHTML = t.caseText;
@@ -719,6 +835,9 @@ function renderAll(){
       <div class="shop-card-items">${tr(s.items)}</div>
     </div>
   `).join('');
+
+  // Календарь
+  renderCalendar();
 
   applyFilters();
 }
@@ -763,6 +882,9 @@ document.getElementById('langToggle').addEventListener('click', ()=>{
   renderAll();
 });
 
+/* ============================================================
+   ИНИЦИАЛИЗАЦИЯ
+   ============================================================ */
 renderAll();
 </script>
 </body>
