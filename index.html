@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23A5AF79'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFEED6' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23BABF94'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F3E4C9' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 <title>Skincare Guide — Портфолио-проект</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
-  --bg:#FFEED6;
-  --bg-start:#FFEED6;
-  --bg-end:#F5E4C9;
+  --bg:#F3E4C9;
+  --bg-start:#F3E4C9;
+  --bg-end:color-mix(in srgb, #F3E4C9 70%, #BFA28C 30%);
   --card-bg:#FFFFFF;
-  --card-shadow:0 12px 32px rgba(130,113,72,0.12);
+  --card-shadow:0 12px 32px rgba(169,139,118,0.12);
   --text:#3A3428;
   --text-soft:#5F5A4A;
   --text-light:#8A8572;
-  --accent:#A5AF79;
-  --accent-dark:#827148;
-  --morning:#F9E6D0;
-  --evening:#EBD9C4;
-  --special:#F1E3C9;
-  --line:#827148;
+  --accent:#BABF94;
+  --accent-dark:#A98B76;
+  --morning:color-mix(in srgb, #BFA28C 45%, white 55%);
+  --evening:color-mix(in srgb, #BFA28C 68%, white 32%);
+  --special:color-mix(in srgb, #A98B76 30%, white 70%);
+  --line:#A98B76;
   --border-radius:24px;
   --font-serif:Georgia, 'Times New Roman', serif;
   --font-sans:'Inter', system-ui, -apple-system, sans-serif;
@@ -41,7 +41,7 @@ body{
 
 /* ---------- COMPACT HEADER ---------- */
 header{
-  background:rgba(255,238,214,0.92);
+  background:rgba(243,228,201,0.92);
   backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
   padding:8px 0 0;
@@ -61,7 +61,7 @@ header{
   display:flex;align-items:center;gap:6px;
 }
 .title .leaf{font-size:clamp(20px,3vw,28px);}
-.title .accent{color:#A5AF79;font-style:italic;}
+.title .accent{color:var(--accent-dark);font-style:italic;}
 .subtitle{font-size:clamp(10px,1.5vw,12px);color:var(--text-soft);font-weight:400;margin:0;}
 .tools{
   display:flex;gap:6px;align-items:center;flex-wrap:wrap;
@@ -83,7 +83,7 @@ header{
 .pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
 .lang-toggle{
   display:flex;align-items:center;justify-content:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
-  border:1px solid var(--text);background:var(--text);color:#FFEED6;cursor:pointer;
+  border:1px solid var(--text);background:var(--text);color:var(--bg);cursor:pointer;
   font-size:12px;font-weight:700;transition:transform .15s ease,opacity .15s ease;
 }
 .lang-toggle:hover{opacity:0.85;}
@@ -174,13 +174,18 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
 
-/* ========== КАЛЕНДАРЬ (обычная ширина) ========== */
+/* ========== КАЛЕНДАРЬ (карточка на всю ширину блока) ========== */
 .calendar-wrapper{
   background:var(--card-bg);
   border-radius:var(--border-radius);
   box-shadow:var(--card-shadow);
   padding:20px 20px 28px;
   margin-top:16px;
+  width:100%;
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+  box-sizing:border-box;
 }
 .calendar-header{
   display:flex;justify-content:space-between;align-items:center;
@@ -211,27 +216,35 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 
 /* --- ЗМЕЙКА --- */
 .snake-container{
+  position:relative;
   display:flex;
   flex-direction:column;
-  gap:6px;
-  padding:8px 0;
+  gap:34px;
+  padding:8px 0 10px;
+  width:100%;
 }
 .snake-row{
-  display:flex;
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  align-items:start;
   gap:8px;
-  justify-content:flex-start;
-  flex-wrap:nowrap;
+  width:100%;
 }
 .snake-row.reverse{
-  flex-direction:row-reverse;
-  justify-content:flex-end;
+  direction:rtl;
 }
 .snake-row .day-node{
   display:flex;
   flex-direction:column;
   align-items:center;
-  flex:0 0 auto;
-  width:56px;
+  direction:ltr;
+}
+.snake-svg-overlay{
+  position:absolute;
+  left:0;top:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  overflow:visible;
 }
 .day-node .day-circle{
   width:48px;height:48px;
@@ -249,35 +262,39 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   position:relative;
   box-shadow:0 2px 6px rgba(0,0,0,0.04);
 }
+.day-node .day-circle.alt{
+  background:color-mix(in srgb, var(--accent-dark) 22%, white 78%);
+  border-color:color-mix(in srgb, var(--accent-dark) 70%, var(--line) 30%);
+}
 .day-node .day-circle:hover{
   transform:scale(1.05);
   border-color:var(--accent-dark);
   box-shadow:0 4px 12px rgba(0,0,0,0.10);
 }
 .day-node .day-circle.today{
-  border-color:#A5AF79;
+  border-color:var(--accent);
   border-width:3px;
-  box-shadow:0 0 0 4px rgba(165,175,121,0.2);
+  box-shadow:0 0 0 4px rgba(186,191,148,0.2);
 }
 .day-node .day-circle.done{
   background:var(--morning);
-  border-color:#827148;
+  border-color:var(--accent-dark);
 }
 .day-node .day-circle.done::after{
   content:'✓';
   position:absolute;bottom:-6px;right:-6px;
-  background:#827148;color:white;
+  background:var(--accent-dark);color:white;
   border-radius:50%;width:18px;height:18px;
   font-size:11px;line-height:18px;text-align:center;
 }
 .day-node .day-circle.has-special{
-  border-color:#E8A07C;
-  background:#F9E6D0;
+  border-color:var(--accent);
+  background:var(--special);
 }
 .day-node .day-circle.has-special::before{
   content:'✦';
   position:absolute;top:-6px;right:-4px;
-  font-size:14px;color:#E8A07C;
+  font-size:14px;color:var(--accent-dark);
 }
 .day-node .day-label{
   font-size:9px;
@@ -287,13 +304,13 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   letter-spacing:0.04em;
   white-space:nowrap;
 }
-.snake-connector{
-  height:12px;
-  border-left:2px dashed var(--line);
-  border-right:2px dashed var(--line);
-  margin:0 auto;
-  width:2px;
-  opacity:0.5;
+.snake-path{
+  fill:none;
+  stroke:var(--accent-dark);
+  stroke-width:2.5;
+  stroke-dasharray:5 6;
+  stroke-linecap:round;
+  opacity:0.6;
 }
 
 /* ---------- МОДАЛКА РУТИНЫ (с навигацией между днями) ---------- */
@@ -387,7 +404,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 /* ---------- FOOTER ---------- */
 footer{
   margin-top:30px;padding:20px 0 30px;
-  border-top:1px solid rgba(130,113,72,0.2);
+  border-top:1px solid rgba(169,139,118,0.2);
   text-align:center;
 }
 footer p{font-size:12px;color:var(--text-light);margin:4px 0;}
@@ -405,7 +422,6 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
   .shops-grid{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:599px){
-  .day-node{width:44px;}
   .day-node .day-circle{width:38px;height:38px;font-size:13px;}
   .snake-row{gap:4px;}
   .modal-box{padding:16px;}
@@ -891,8 +907,10 @@ function renderSnake() {
     const isReverse = (idx % 2 === 1);
     const rowClass = isReverse ? 'snake-row reverse' : 'snake-row';
     html += `<div class="${rowClass}">`;
-    const days = isReverse ? [...row].reverse() : row;
-    days.forEach(day => {
+    // Дни всегда в естественном возрастающем порядке по датам — направление
+    // "змейки" для чётных рядов задаётся только через CSS (direction:rtl),
+    // а не перестановкой массива, иначе флип отменяет сам себя.
+    row.forEach(day => {
       if (day === null) {
         html += `<div class="day-node" style="opacity:0;pointer-events:none;"><div class="day-circle" style="background:transparent;border:transparent;"></div></div>`;
         return;
@@ -904,6 +922,7 @@ function renderSnake() {
       const isToday = (key === todayStr);
 
       let circleClass = 'day-circle';
+      if (day % 2 === 0) circleClass += ' alt';
       if (done) circleClass += ' done';
       if (hasSpecial) circleClass += ' has-special';
       if (isToday) circleClass += ' today';
@@ -916,13 +935,81 @@ function renderSnake() {
       </div>`;
     });
     html += `</div>`;
-    if (idx < rows.length - 1) {
-      html += `<div class="snake-connector"></div>`;
-    }
   });
+  html += `<svg class="snake-svg-overlay" id="snakeSvgOverlay"></svg>`;
 
   container.innerHTML = html;
+  // Считаем реальные координаты кружков только после того, как браузер
+  // расположил сетку — двойной rAF гарантирует, что layout уже посчитан.
+  requestAnimationFrame(() => requestAnimationFrame(drawSnakeConnectors));
 }
+
+/* ============================================================
+   ИЗОГНУТЫЕ СОЕДИНИТЕЛИ МЕЖДУ РЯДАМИ ЗМЕЙКИ
+   Путь строится по фактическим координатам центров кружков
+   (последний день ряда N -> первый день ряда N+1), с бульджем
+   в сторону разворота, а не произвольным позиционированием.
+   ============================================================ */
+function drawSnakeConnectors() {
+  const container = document.getElementById('snakeContainer');
+  const svg = document.getElementById('snakeSvgOverlay');
+  if (!container || !svg) return;
+
+  const containerRect = container.getBoundingClientRect();
+  svg.setAttribute('width', containerRect.width);
+  svg.setAttribute('height', containerRect.height);
+  svg.setAttribute('viewBox', `0 0 ${containerRect.width} ${containerRect.height}`);
+
+  // Все настоящие (не пустые) кружки дней в порядке дат 1..daysInMonth —
+  // DOM-порядок всегда возрастающий, направление строк меняет только CSS.
+  const circles = Array.from(container.querySelectorAll('.day-node[data-date] .day-circle'));
+  let paths = '';
+
+  for (let i = 0; i < circles.length - 1; i++) {
+    const a = circles[i], b = circles[i + 1];
+    const sameRow = a.closest('.snake-row') === b.closest('.snake-row');
+
+    const aRect = a.getBoundingClientRect();
+    const bRect = b.getBoundingClientRect();
+    const x1 = aRect.left + aRect.width / 2 - containerRect.left;
+    const y1 = aRect.top + aRect.height / 2 - containerRect.top;
+    const x2 = bRect.left + bRect.width / 2 - containerRect.left;
+    const y2 = bRect.top + bRect.height / 2 - containerRect.top;
+
+    // обрезаем линию до края кружков, а не до центра — чтобы лента шла
+    // МЕЖДУ днями, а не поверх цифр
+    const dx = x2 - x1, dy = y2 - y1;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const ux = dx / dist, uy = dy / dist;
+    const rA = aRect.width / 2, rB = bRect.width / 2;
+    const sx = x1 + ux * rA, sy = y1 + uy * rA;
+    const ex = x2 - ux * rB, ey = y2 - uy * rB;
+
+    if (sameRow) {
+      // соседние дни в одном ряду — простой отрезок ленты
+      paths += `<path class="snake-path" d="M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${ex.toFixed(1)} ${ey.toFixed(1)}" />`;
+    } else {
+      // конец ряда -> начало следующего — разворот с выгибом в ту сторону,
+      // где физически находится точка разворота (по реальным координатам)
+      const bulge = (x1 > containerRect.width / 2) ? 38 : -38;
+      const midY = (sy + ey) / 2;
+      paths += `<path class="snake-path" d="M ${sx.toFixed(1)} ${sy.toFixed(1)}
+        C ${(sx + bulge).toFixed(1)} ${midY.toFixed(1)},
+          ${(ex + bulge).toFixed(1)} ${midY.toFixed(1)},
+          ${ex.toFixed(1)} ${ey.toFixed(1)}" />`;
+    }
+  }
+
+  svg.innerHTML = paths;
+}
+
+let _snakeResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_snakeResizeTimer);
+  _snakeResizeTimer = setTimeout(drawSnakeConnectors, 150);
+});
+
+
 
 // ---- МОДАЛКА С НАВИГАЦИЕЙ МЕЖДУ ДНЯМИ ----
 function openDayModal(dateStr) {
