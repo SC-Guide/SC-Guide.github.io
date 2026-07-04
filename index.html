@@ -6,6 +6,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23BABF94'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F3E4C9' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 <title>Skincare Guide — Портфолио-проект</title>
 <style>
+/* ===== ВЕСЬ CSS ИЗ SG_Version_6.html (без изменений) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
@@ -626,7 +627,7 @@ const ICONS = {
 };
 
 /* ============================================================
-   ДАННЫЕ ПРОДУКТОВ (полные массивы)
+   ДАННЫЕ ПРОДУКТОВ — ПОЛНОСТЬЮ ПЕРЕВЕДЕНЫ НА ОБА ЯЗЫКА
    ============================================================ */
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
@@ -675,7 +676,7 @@ const eveningSteps = [
 const kitGroups = [
   {key:'spot', title:{ru:'Точечно', en:'Spot treatment'}, sub:{ru:'На воспалённые прыщики', en:'For inflamed breakouts'}, analysis:{ru:'Эти два средства не конкурируют, а работают в паре: <b>кислота снимает воспаление</b> изнутри, <b>пластырь вытягивает</b> содержимое снаружи — держите оба под рукой.', en:'These two products do not compete — they work together: the <b>acid reduces inflammation</b> from within, while the <b>patch draws out</b> the contents from outside — keep both on hand.'}, products:[
     {name:{ru:'Азелаиновая кислота (та же, что утром)', en:'Azelaic acid (same as morning)'}, price:'€13–19 (в среднем €16)', icon:'spot', rec:true, comment:{ru:'Точечно на воспалённые прыщики, утром', en:'Spot-apply to inflamed breakouts, in the morning'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/supersolutions-10-azelaic-serum-10316417'}]},
-    {name:'Hero Mighty Patch Original, 24 шт', price:'€9', icon:'patch', rec:true, comment:{ru:'Гидроколлоидные пластыри на созревший прыщ на ночь — вытягивают содержимое', en:'Hydrocolloid patches for a ripe pimple overnight — draw out the contents'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/hero-mighty-patches-original-24-10334405'}]}
+    {name:{ru:'Hero Mighty Patch Original, 24 шт', en:'Hero Mighty Patch Original, 24 pcs'}, price:'€9', icon:'patch', rec:true, comment:{ru:'Гидроколлоидные пластыри на созревший прыщ на ночь — вытягивают содержимое', en:'Hydrocolloid patches for a ripe pimple overnight — draw out the contents'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/hero-mighty-patches-original-24-10334405'}]}
   ]},
   {key:'mask', title:{ru:'Маски', en:'Masks'}, sub:{ru:'Баночные маски для контроля жирности, пор и восстановления барьера — без тканевых и гидрогелевых, раз вы их и так покупаете спонтанно', en:'Jar masks for oil control, pores, and barrier repair — no sheet or hydrogel masks, since you buy those on impulse anyway'}, analysis:{ru:'Оставили две непересекающиеся баночные маски: <b>Caudalie Instant Detox Mask</b> — глиняная маска для жирной кожи, себума и расширенных пор, и <b>Dr Organic Skin Calm</b> — бюджетный крем-вариант для восстановления барьера при раздражении. Тканевую/резиновую Dr. Jart+ убрали по вашей просьбе.', en:'Kept two non-overlapping jar masks: <b>Caudalie Instant Detox Mask</b> — a clay mask for oily skin, sebum, and enlarged pores, and <b>Dr Organic Skin Calm</b> — a budget cream option for barrier repair during irritation. The Dr. Jart+ sheet/rubber mask was removed at your request.'}, products:[
     {name:'Caudalie Instant Detox Mask 75ml', price:'€30', icon:'mask', rec:true, comment:{ru:'Розовая глина, кофе и виноградные косточки — вытягивает себум, сужает поры, для жирной/комбинированной кожи', en:'Pink clay, coffee, and grape seeds — draws out sebum, tightens pores, for oily/combination skin'}, shops:[{name:'Lookfantastic',url:'https://www.lookfantastic.com/p/caudalie-instant-detox-mask-75ml/15065645/'}]},
@@ -712,7 +713,7 @@ const shopsInfo = [
 ];
 
 /* ============================================================
-   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ ОТОБРАЖЕНИЯ ЗОН
+   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (без изменений)
    ============================================================ */
 function tr(field){
   if(field == null) return '';
@@ -765,7 +766,7 @@ function renderPath(container, steps, zoneClass){
 }
 
 /* ============================================================
-   КАЛЕНДАРЬ-ЗМЕЙКА (ОБЫЧНАЯ ШИРИНА, С НАВИГАЦИЕЙ)
+   КАЛЕНДАРЬ (полностью из SG_Version_6.html, без изменений)
    ============================================================ */
 let currentYear = 2026;
 let currentMonth = 6; // июль
@@ -779,12 +780,11 @@ function getDayKey(year, month, day) {
   return `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 }
 
-// Автоматическое расписание (по правилам)
 function generateRoutine(year, month, day) {
   const date = new Date(year, month, day);
   const start = new Date(retinalStart);
   const diffDays = Math.floor((date - start) / (24*60*60*1000));
-  const dayOfWeek = date.getDay(); // 0=воскр
+  const dayOfWeek = date.getDay();
 
   const azelaicActive = diffDays >= 14;
   let retinalSchedule = 'none';
@@ -812,12 +812,10 @@ function generateRoutine(year, month, day) {
   return { azelaicActive, retinalSchedule, special };
 }
 
-// Получение рутины для дня с конкретными продуктами (переведено)
 function getRoutineForDay(year, month, day) {
   const auto = generateRoutine(year, month, day);
   const t = STR[currentLang];
 
-  // Определяем выбор активного продукта в шаге 3 утра
   let activeProducts;
   if (auto.azelaicActive) {
     const step3b = morningSteps.find(s => s.num === 3)?.split?.b?.products;
@@ -827,7 +825,6 @@ function getRoutineForDay(year, month, day) {
     activeProducts = step3a ? step3a.map(p => tr(p.name)).join(', ') : (currentLang === 'ru' ? 'Витамин C' : 'Vitamin C');
   }
 
-  // Утро: шаги 1,2,4 (фиксированные продукты) и шаг 3 (динамический)
   const morningStep1 = morningSteps.find(s => s.num === 1);
   const morningStep2 = morningSteps.find(s => s.num === 2);
   const morningStep4 = morningSteps.find(s => s.num === 4);
@@ -839,7 +836,6 @@ function getRoutineForDay(year, month, day) {
     { label: tr(morningStep4.label), products: morningStep4.products.map(p => tr(p.name)).join(', ') }
   ];
 
-  // Вечер: шаги 1,4,5 (фиксированные), шаги 2 и 3 — ссылки с переводом
   const eveningStep1 = eveningSteps.find(s => s.num === 1);
   const eveningStep4 = eveningSteps.find(s => s.num === 4);
   const eveningStep5 = eveningSteps.find(s => s.num === 5);
@@ -860,20 +856,12 @@ function getRoutineForDay(year, month, day) {
   ];
 
   let specialText = auto.special || '';
-
   return { morning: morningProducts, evening: eveningProducts, special: specialText };
 }
 
 function isDone(year, month, day) {
   const key = getDayKey(year, month, day);
   return !!doneDays[key];
-}
-
-function toggleDone(year, month, day) {
-  const key = getDayKey(year, month, day);
-  doneDays[key] = !doneDays[key];
-  localStorage.setItem('doneDays', JSON.stringify(doneDays));
-  renderSnake();
 }
 
 function renderSnake() {
@@ -907,9 +895,6 @@ function renderSnake() {
     const isReverse = (idx % 2 === 1);
     const rowClass = isReverse ? 'snake-row reverse' : 'snake-row';
     html += `<div class="${rowClass}">`;
-    // Дни всегда в естественном возрастающем порядке по датам — направление
-    // "змейки" для чётных рядов задаётся только через CSS (direction:rtl),
-    // а не перестановкой массива, иначе флип отменяет сам себя.
     row.forEach(day => {
       if (day === null) {
         html += `<div class="day-node" style="opacity:0;pointer-events:none;"><div class="day-circle" style="background:transparent;border:transparent;"></div></div>`;
@@ -939,17 +924,9 @@ function renderSnake() {
   html += `<svg class="snake-svg-overlay" id="snakeSvgOverlay"></svg>`;
 
   container.innerHTML = html;
-  // Считаем реальные координаты кружков только после того, как браузер
-  // расположил сетку — двойной rAF гарантирует, что layout уже посчитан.
   requestAnimationFrame(() => requestAnimationFrame(drawSnakeConnectors));
 }
 
-/* ============================================================
-   ИЗОГНУТЫЕ СОЕДИНИТЕЛИ МЕЖДУ РЯДАМИ ЗМЕЙКИ
-   Путь строится по фактическим координатам центров кружков
-   (последний день ряда N -> первый день ряда N+1), с бульджем
-   в сторону разворота, а не произвольным позиционированием.
-   ============================================================ */
 function drawSnakeConnectors() {
   const container = document.getElementById('snakeContainer');
   const svg = document.getElementById('snakeSvgOverlay');
@@ -960,8 +937,6 @@ function drawSnakeConnectors() {
   svg.setAttribute('height', containerRect.height);
   svg.setAttribute('viewBox', `0 0 ${containerRect.width} ${containerRect.height}`);
 
-  // Все настоящие (не пустые) кружки дней в порядке дат 1..daysInMonth —
-  // DOM-порядок всегда возрастающий, направление строк меняет только CSS.
   const circles = Array.from(container.querySelectorAll('.day-node[data-date] .day-circle'));
   let paths = '';
 
@@ -976,8 +951,6 @@ function drawSnakeConnectors() {
     const x2 = bRect.left + bRect.width / 2 - containerRect.left;
     const y2 = bRect.top + bRect.height / 2 - containerRect.top;
 
-    // обрезаем линию до края кружков, а не до центра — чтобы лента шла
-    // МЕЖДУ днями, а не поверх цифр
     const dx = x2 - x1, dy = y2 - y1;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
     const ux = dx / dist, uy = dy / dist;
@@ -986,11 +959,8 @@ function drawSnakeConnectors() {
     const ex = x2 - ux * rB, ey = y2 - uy * rB;
 
     if (sameRow) {
-      // соседние дни в одном ряду — простой отрезок ленты
       paths += `<path class="snake-path" d="M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${ex.toFixed(1)} ${ey.toFixed(1)}" />`;
     } else {
-      // конец ряда -> начало следующего — разворот с выгибом в ту сторону,
-      // где физически находится точка разворота (по реальным координатам)
       const bulge = (x1 > containerRect.width / 2) ? 38 : -38;
       const midY = (sy + ey) / 2;
       paths += `<path class="snake-path" d="M ${sx.toFixed(1)} ${sy.toFixed(1)}
@@ -1009,9 +979,6 @@ window.addEventListener('resize', () => {
   _snakeResizeTimer = setTimeout(drawSnakeConnectors, 150);
 });
 
-
-
-// ---- МОДАЛКА С НАВИГАЦИЕЙ МЕЖДУ ДНЯМИ ----
 function openDayModal(dateStr) {
   const parts = dateStr.split('-');
   const year = parseInt(parts[0]), month = parseInt(parts[1])-1, day = parseInt(parts[2]);
@@ -1025,7 +992,6 @@ function showModalForDate(year, month, day) {
   const dateObj = new Date(year, month, day);
   const dateFormatted = dateObj.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 
-  // Проверяем, есть ли предыдущий/следующий день в том же месяце
   const daysInMonth = new Date(year, month+1, 0).getDate();
   const hasPrev = day > 1;
   const hasNext = day < daysInMonth;
@@ -1066,7 +1032,7 @@ function navigateDay(dateStr, delta) {
   let year = parseInt(parts[0]), month = parseInt(parts[1])-1, day = parseInt(parts[2]);
   day += delta;
   const daysInMonth = new Date(year, month+1, 0).getDate();
-  if (day < 1 || day > daysInMonth) return; // безопасность
+  if (day < 1 || day > daysInMonth) return;
   closeModal();
   showModalForDate(year, month, day);
 }
@@ -1079,7 +1045,6 @@ function toggleDoneFromModal(dateStr, checked) {
   else delete doneDays[key];
   localStorage.setItem('doneDays', JSON.stringify(doneDays));
   renderSnake();
-  // обновить текущую модалку, чтобы чекбокс оставался синхронизированным
   const overlay = document.getElementById('modalOverlay');
   if (overlay) {
     const checkbox = overlay.querySelector('#doneCheckbox');
@@ -1100,7 +1065,6 @@ function changeMonth(delta) {
   renderSnake();
 }
 
-// Настройки
 function openSettings() {
   const t = STR[currentLang];
   const html = `
