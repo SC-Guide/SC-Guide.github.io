@@ -74,9 +74,9 @@ text
 ## 👩‍💻 Author
 
 **Anastasiia Vyshnevska**  
-This portfolio project was built with the help of AI tools (ChatGPT, Claude); design and coding were done by hand.
+This portfolio project was built with the help of AI tools (ChatGPT, DeepSeek, Claude); design and coding were done by hand.
 
-🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn](https://www.linkedin.com/in/anastasia17b21b/)
+🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn]([https://www.linkedin.com/in/anastasia17b21b/](https://www.linkedin.com/in/anastasiia-v-22a17b21b/))
 
 ---
 
