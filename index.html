@@ -9,123 +9,107 @@
 <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Your step-by-step guide to safe active skincare</title>
+<title>Skincare Guide — Safe Active Skincare</title>
 <link rel="stylesheet" href="css/style.css">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <div class="header-top">
+
+<!-- ===== ШАПКА ===== -->
+<header style="background:rgba(247,244,238,0.92); backdrop-filter:blur(8px); border-bottom:1px solid rgba(61,61,61,0.08); padding:12px 0 0; position:sticky; top:0; z-index:50;">
+  <div class="wrap" style="max-width:1180px; margin:0 auto; padding:0 16px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 16px; padding:8px 0 6px;">
       <div>
-        <p class="title"><span class="accent">Skincare</span> Guide</p>
-        <p class="subtitle" id="siteSubtitle"></p>
+        <p style="font-family:Georgia, 'Times New Roman', serif; font-size:clamp(18px,2.8vw,24px); font-weight:700; letter-spacing:-0.01em; color:#3D3D3D; display:flex; align-items:center; gap:6px; margin:0;">
+          <span style="color:#7EB5A6;">Skincare</span> Guide
+        </p>
       </div>
-      <div class="tools">
-        <div class="search-box">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          <input id="search" type="text" placeholder="">
-        </div>
-        <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
-        <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
-        <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
-        <button class="pill-toggle" id="authBtn">Sign in with Google</button>
-        <span class="result-count" id="resultCount"></span>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <a href="planner.html" style="background:#7EB5A6; color:white; padding:6px 20px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; transition:background .2s;">Get Started</a>
+        <a href="demo.html" style="background:transparent; border:1px solid rgba(61,61,61,0.12); color:#6B6B6B; padding:6px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:500; transition:all .2s;">Demo</a>
       </div>
     </div>
-    <nav id="mainNav">
-      <a href="#morning" data-nav="morning">Morning</a>
-      <a href="#evening" data-nav="evening">Evening</a>
-      <a href="#kit" data-nav="kit">Kit</a>
-      <a href="#rules" data-nav="rules">Rules</a>
-      <a href="#shops" data-nav="shops">Shops</a>
-      <a href="#calendar" data-nav="calendar">Calendar</a>
-      <a href="#myproducts" data-nav="myproducts">My Products</a>
-    </nav>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="hero">
-    <div class="stats">
-      <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">🌙</div><div><div class="num">5</div><div class="lbl" id="statEveningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">🧴</div><div><div class="num">6</div><div class="lbl" id="statKitLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
+<!-- ===== ГЛАВНЫЙ ЭКРАН ===== -->
+<section style="min-height:80vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #7EB5A6 0%, #9AC9B9 40%, #F7F4EE 80%); padding:60px 20px;">
+  <div class="wrap" style="max-width:1000px; margin:0 auto; text-align:center;">
+    <div style="background:rgba(255,255,255,0.75); backdrop-filter:blur(12px); border-radius:24px; padding:60px 40px; box-shadow:0 20px 60px rgba(0,0,0,0.06); border:1px solid rgba(255,255,255,0.3);">
+      
+      <div style="font-family:Georgia, 'Times New Roman', serif; font-size:clamp(42px,7vw,68px); font-weight:700; color:#3D3D3D; margin-bottom:6px;">
+        <span style="color:#7EB5A6;">Skincare</span> Guide
+      </div>
+      <p style="font-size:clamp(18px,2.5vw,24px); color:#6B6B6B; margin-bottom:10px; font-weight:300;">
+        Your step-by-step guide to safe active skincare
+      </p>
+      <p style="font-size:clamp(14px,1.6vw,18px); color:#6B6B6B; max-width:600px; margin:0 auto 32px; line-height:1.6;">
+        Plan your routine, track retinal and acids, mark completed days, and build healthy habits — safely.
+      </p>
+
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:40px;">
+        <a href="planner.html" style="background:#7EB5A6; color:white; padding:14px 48px; border-radius:999px; text-decoration:none; font-weight:600; transition:transform .2s, box-shadow .2s; display:inline-block; box-shadow:0 4px 16px rgba(126,181,166,0.3);">Get Started</a>
+        <a href="#features" style="background:transparent; border:2px solid #7EB5A6; color:#3D3D3D; padding:14px 40px; border-radius:999px; text-decoration:none; font-weight:600; transition:transform .2s; display:inline-block;">Learn More</a>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:20px; text-align:center; border-top:1px solid rgba(61,61,61,0.06); padding-top:32px;">
+        <div><div style="font-weight:700; font-size:28px; color:#7EB5A6;">🐍</div><div style="font-size:13px; color:#6B6B6B;">Snake Calendar</div></div>
+        <div><div style="font-weight:700; font-size:28px; color:#7EB5A6;">🛡️</div><div style="font-size:13px; color:#6B6B6B;">Safety-first</div></div>
+        <div><div style="font-weight:700; font-size:28px; color:#7EB5A6;">🌍</div><div style="font-size:13px; color:#6B6B6B;">Bilingual</div></div>
+        <div><div style="font-weight:700; font-size:28px; color:#7EB5A6;">📱</div><div style="font-size:13px; color:#6B6B6B;">Responsive</div></div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="no-results" id="noResults"></div>
+<!-- ===== ПРЕИМУЩЕСТВА ===== -->
+<section id="features" style="padding:60px 20px; background:#F7F4EE;">
+  <div class="wrap" style="max-width:1000px; margin:0 auto;">
+    <h2 style="font-family:Georgia, 'Times New Roman', serif; font-size:clamp(28px,3.5vw,38px); font-weight:700; color:#3D3D3D; text-align:center; margin-bottom:10px;">Why Skincare Guide?</h2>
+    <p style="text-align:center; font-size:clamp(16px,1.8vw,20px); color:#6B6B6B; max-width:700px; margin:0 auto 40px; line-height:1.6;">
+      Built for those who want results without the guesswork — and without damaging their skin.
+    </p>
 
-  <section class="zone morning" id="morning">
-    <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
-    <div class="path" id="morning-path"></div>
-  </section>
-
-  <section class="zone evening" id="evening">
-    <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
-    <div class="path" id="evening-path"></div>
-  </section>
-
-  <section class="zone" id="kit">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
-    <p class="zone-sub" id="subKit"></p>
-    <div id="kit-groups"></div>
-  </section>
-
-  <section class="zone" id="rules">
-    <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
-    <div class="rules-grid" id="rules-grid"></div>
-  </section>
-
-  <section class="shops-section" id="shops">
-    <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
-    <p class="zone-sub" id="subShops"></p>
-    <div class="shops-grid" id="shops-grid"></div>
-  </section>
-
-  <section class="zone" id="calendar" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
-    <div class="calendar-wrapper">
-      <div class="calendar-header">
-        <h2 id="calendarMonthLabel"></h2>
-        <div class="calendar-nav">
-          <button id="prevMonthBtn">‹</button>
-          <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
-        </div>
+    <div style="display:grid; grid-template-columns:1fr; gap:16px; max-width:800px; margin:0 auto;">
+      <div style="background:white; border-radius:16px; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:4px solid #7EB5A6; display:flex; gap:12px; align-items:flex-start;">
+        <span style="font-size:24px;">🐍</span>
+        <div><h3 style="font-size:16px; font-weight:700; color:#3D3D3D; margin:0 0 4px;">Smart Calendar</h3><p style="font-size:14px; color:#6B6B6B; line-height:1.5; margin:0;">Days flow in a winding path — more engaging than a grid. Track your routine with a glance.</p></div>
       </div>
-      <div class="snake-container" id="snakeContainer"></div>
+      <div style="background:white; border-radius:16px; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:4px solid #7EB5A6; display:flex; gap:12px; align-items:flex-start;">
+        <span style="font-size:24px;">🛡️</span>
+        <div><h3 style="font-size:16px; font-weight:700; color:#3D3D3D; margin:0 0 4px;">Safety-first Guidance</h3><p style="font-size:14px; color:#6B6B6B; line-height:1.5; margin:0;">Conflict detection, warnings, and tips for retinal, acids, masks — so you always stay safe.</p></div>
+      </div>
+      <div style="background:white; border-radius:16px; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:4px solid #7EB5A6; display:flex; gap:12px; align-items:flex-start;">
+        <span style="font-size:24px;">🌍</span>
+        <div><h3 style="font-size:16px; font-weight:700; color:#3D3D3D; margin:0 0 4px;">Bilingual Interface</h3><p style="font-size:14px; color:#6B6B6B; line-height:1.5; margin:0;">Switch between English and Russian with one click — content meets global accessibility.</p></div>
+      </div>
+      <div style="background:white; border-radius:16px; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:4px solid #7EB5A6; display:flex; gap:12px; align-items:flex-start;">
+        <span style="font-size:24px;">✅</span>
+        <div><h3 style="font-size:16px; font-weight:700; color:#3D3D3D; margin:0 0 4px;">Persistent Progress</h3><p style="font-size:14px; color:#6B6B6B; line-height:1.5; margin:0;">Check off days — your data saves in localStorage and syncs with Firebase, so you never lose your streak.</p></div>
+      </div>
+      <div style="background:white; border-radius:16px; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:4px solid #7EB5A6; display:flex; gap:12px; align-items:flex-start;">
+        <span style="font-size:24px;">🔍</span>
+        <div><h3 style="font-size:16px; font-weight:700; color:#3D3D3D; margin:0 0 4px;">Smart Search & Filter</h3><p style="font-size:14px; color:#6B6B6B; line-height:1.5; margin:0;">Find products quickly and filter by "recommended only" — clean, efficient browsing.</p></div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="zone" id="myproducts" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleMyProducts"></p></div>
-    <p class="zone-sub" id="subMyProducts"></p>
-    <div id="my-products-container"></div>
-  </section>
-</div>
+<!-- ===== ПРИЗЫВ К ДЕЙСТВИЮ ===== -->
+<section style="padding:60px 20px; background:linear-gradient(135deg, #7EB5A6, #9AC9B9); color:white; text-align:center;">
+  <div style="max-width:700px; margin:0 auto;">
+    <h2 style="font-family:Georgia, 'Times New Roman', serif; font-size:clamp(26px,3vw,36px); font-weight:700; margin-bottom:12px;">Ready to build your routine?</h2>
+    <p style="font-size:clamp(16px,1.8vw,20px); opacity:0.9; margin-bottom:32px; line-height:1.6;">Join others who are taking control of their skincare — safely and confidently.</p>
+    <a href="planner.html" style="background:white; color:#7EB5A6; padding:16px 48px; border-radius:999px; text-decoration:none; font-weight:700; font-size:18px; display:inline-block; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:transform .2s;">Start Now →</a>
+  </div>
+</section>
 
-<footer>
-  <div class="wrap">
-    <p id="footerLine"></p>
-    <p class="footer-credit" id="footerCredit"></p>
-    <p class="footer-disclaimer" id="footerDisclaimer"></p>
+<!-- ===== ФУТЕР ===== -->
+<footer style="background:#37353E; color:#B0B0B8; padding:24px 20px; text-align:center;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <p style="font-size:12px; margin:4px 0;">© 2026 · Anastasiia Vyshnevska · Skincare Guide</p>
+    <p style="font-size:11px; opacity:0.6; margin:4px 0;">Built with ❤️ for safe active skincare.</p>
   </div>
 </footer>
 
-<script src="js/firebase.js"></script>
-<script src="js/data.js"></script>
-<script src="js/lang.js"></script>
-<script src="js/icons.js"></script>
-<script src="js/products.js"></script>
-<script src="js/calendar.js"></script>
-<script src="js/modals.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/app.js"></script>
 </body>
 </html>
