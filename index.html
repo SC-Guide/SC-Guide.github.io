@@ -3,22 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Skincare Guide — Interactive Skincare Planner" />
-<meta property="og:description" content="An interactive skincare routine planner with a snake‑style calendar, bilingual interface, and automated retinal/azelaic scheduling." />
+<meta property="og:title" content="SkinSafe — Active Skincare Made Safe and Simple" />
+<meta property="og:description" content="Build and track your active skincare routine safely. Retinal, acids, masks, and more — with step-by-step guidance and safety-first approach." />
 <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
 <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237ED3B2'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F2F2F2' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Planner</title>
-<!-- Подключаем внешние стили -->
+<title>SkinSafe — Active Skincare Made Safe and Simple</title>
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 <header>
   <div class="wrap">
     <div class="header-top">
       <div>
-        <p class="title"><span class="leaf">🌿</span><span class="accent">Skincare</span> Guide</p>
+        <p class="title"><span class="leaf">🛡️</span><span class="accent">SkinSafe</span></p>
         <p class="subtitle" id="siteSubtitle"></p>
       </div>
       <div class="tools">
@@ -28,6 +32,7 @@
         </div>
         <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
         <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
+        <button class="pill-toggle" id="authBtn">🔑 Sign in with Google</button>
         <span class="result-count" id="resultCount"></span>
         <div class="nav-links">
           <a href="index.html" class="active">📋 Planner</a>
@@ -48,6 +53,15 @@
 </header>
 
 <div class="wrap">
+  <!-- Блок безопасности (новый) -->
+  <div class="safety-banner" style="background:rgba(239,108,87,0.08); border-left:4px solid var(--accent-dark); padding:12px 16px; border-radius:12px; margin:8px 0 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+    <span style="font-size:28px;">🛡️</span>
+    <div style="flex:1; font-size:14px; color:var(--text-soft); line-height:1.5;">
+      <strong style="color:var(--text);">Safe active skincare starts here.</strong> 
+      We guide you through retinal, acids, masks, and more — with clear rules, conflict warnings, and step-by-step tracking.
+    </div>
+  </div>
+
   <div class="hero">
     <div class="stats">
       <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
@@ -116,7 +130,8 @@
   </div>
 </footer>
 
-<!-- Подключаем модули JavaScript (в правильном порядке!) -->
+<!-- Подключаем модули JavaScript -->
+<script src="js/firebase.js"></script>
 <script src="js/data.js"></script>
 <script src="js/lang.js"></script>
 <script src="js/icons.js"></script>
