@@ -1,8 +1,6 @@
-# 🛡️ SkinSafe
+# 🌿 Skincare Guide
 
-**Active skincare — safe, simple, smart.**
-
-SkinSafe is a personal skincare routine planner built for people who use active ingredients (retinal, AHA/BHA acids, azelaic acid, vitamin C, masks, and more). It helps you build a safe routine, avoid dangerous combinations, and track your progress — without the guesswork.
+**Skincare Guide** — your step-by-step companion for safe active skincare.
 
 🔗 **Live demo:** [vyshnevska2503-code.github.io/SkinGuide](https://vyshnevska2503-code.github.io/SkinGuide/)  
 📂 **Source code:** [github.com/vyshnevska2503-code/SkinGuide](https://github.com/vyshnevska2503-code/SkinGuide)
@@ -11,7 +9,7 @@ SkinSafe is a personal skincare routine planner built for people who use active 
 
 ## 📋 About
 
-**SkinSafe** was born from a simple yet critical need: helping people use active skincare ingredients **safely and confidently**. Whether you're starting retinal, exploring acids, or building a complex routine, the project guides you through every step — from product selection to daily tracking.
+**Skincare Guide** was born from a simple yet critical need: helping people use active skincare ingredients **safely and confidently**. Whether you're starting retinal, exploring acids, or building a complex routine, the project guides you through every step — from product selection to daily tracking.
 
 It was built as a portfolio case study to demonstrate:
 
