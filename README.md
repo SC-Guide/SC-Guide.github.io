@@ -9,11 +9,13 @@
 
 ## 📋 About
 
-Skincare Guide is a personal routine tracker that helps you plan your skincare steps, track retinal usage, and mark completed days. It was built as a **portfolio case study** to demonstrate:
+**Skincare Guide** is a personal routine tracker that helps you plan your skincare steps, track retinal usage, and mark completed days. It was built as a portfolio case study to demonstrate:
 
 - content strategy and data structuring,
 - design system and responsive layout,
 - interactivity and thoughtful UX.
+
+The project features a **snake‑style calendar**, **automated scheduling** for retinal and azelaic acid, and **detailed product cards** with skin type, ingredients, usage instructions, and shop links.
 
 ---
 
@@ -31,7 +33,7 @@ Skincare Guide is a personal routine tracker that helps you plan your skincare s
 
 ---
 
-## 🛠️ Tech stack
+## 🛠️ Tech Stack
 
 - **HTML5 / CSS3** — custom properties, responsive layout
 - **JavaScript (ES6+)** — localStorage, DOM manipulation
@@ -40,10 +42,10 @@ Skincare Guide is a personal routine tracker that helps you plan your skincare s
 
 ---
 
-## 📁 Project structure
+## 📁 Project Structure
 SkinGuide/
-├── index.html # Main application (bilingual)
-├── demo.html # Portfolio demo (English only)
+├── index.html # Main application (bilingual planner)
+├── demo.html # Portfolio demo (English only, with presentation blocks)
 ├── README.md # Project documentation
 ├── og-image-ru.png # Social preview (Russian)
 └── og-image-en.png # Social preview (English)
@@ -52,17 +54,18 @@ text
 
 ---
 
-## 🎨 Colour palette
-#EF6C57 — coral accent (buttons, icons, highlights)
-#7ED3B2 — mint accent (secondary elements, badges)
-#B9E6D3 — soft mint (cards, blocks, backgrounds)
-#F2F2F2 — light background (main page)
+## 🎨 Colour Palette
 
-text
+| Colour | HEX | Usage |
+|--------|-----|-------|
+| Coral accent | `#EF6C57` | Buttons, icons, highlights |
+| Mint accent | `#7ED3B2` | Secondary elements, badges |
+| Soft mint | `#B9E6D3` | Cards, blocks, backgrounds |
+| Light background | `#F2F2F2` | Main page background |
 
 ---
 
-## 🚀 Future development
+## 🚀 Future Development
 
 - [ ] Firebase integration — cloud storage for routines
 - [ ] Google Sign‑In authentication
@@ -76,10 +79,10 @@ text
 **Anastasiia Vyshnevska**  
 This portfolio project was built with the help of AI tools (ChatGPT, Claude); design and coding were done by hand.
 
-🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn](https://www.linkedin.com/in/anastasiia-v-22a17b21b/)
+🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn](https://www.linkedin.com/in/anastasiia-vyshnevska/)
 
 ---
 
 ## 📄 License
 
-This project is created for educational and portfolio purposes only. Not intended for commercial use.
+This project is created for **educational and portfolio purposes only**. Not intended for commercial use.
