@@ -3,14 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Skincare Guide — Interactive Skincare Planner" />
+<meta property="og:title" content="Skincare Guide — Your step-by-step guide to safe active skincare" />
 <meta property="og:description" content="An interactive skincare routine planner with a snake‑style calendar, bilingual interface, and automated retinal/azelaic scheduling." />
 <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
 <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/demo.html" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237ED3B2'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F2F2F2' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Portfolio Demo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237ED3B2'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23F2F2F2' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<title>Skincare Guide — Your step-by-step guide to safe active skincare</title>
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -18,20 +23,20 @@
 <section class="portfolio-banner">
   <div class="inner">
     <p class="eyebrow">Portfolio · Case Study</p>
-    <h1>Skincare Guide</h1>
+    <h1>🌿 Skincare Guide</h1>
     <p class="tagline">
-      An interactive skincare routine planner with a snake‑style calendar, bilingual interface,
-      and automated retinal/azelaic scheduling.
+      Your step-by-step guide to safe active skincare.
     </p>
     <div class="tags">
-      <span>📅 Snake calendar</span>
+      <span>🐍 Snake calendar</span>
       <span>🌍 Bilingual (EN/RU)</span>
-      <span>🧴 Personalised routine</span>
-      <span>📱 Responsive design</span>
+      <span>🛡️ Safety-first</span>
+      <span>📱 Responsive</span>
       <span>⚡ Automated scheduling</span>
       <span>🤖 AI‑assisted</span>
       <span>🧴 "My Products"</span>
       <span>🔍 Search & filter</span>
+      <span>🔐 Cloud sync</span>
     </div>
     <div class="links">
       <a href="https://vyshnevska2503-code.github.io/SkinGuide/" target="_blank">🔗 Live demo</a>
@@ -47,23 +52,20 @@
   <section class="presentation-section">
     <div class="section-title"><span class="emoji">💡</span> Idea & Concept</div>
     <p class="section-sub">
-      Skincare Guide was born from a personal need — tracking a complex retinal routine across weeks
-      while managing product choices, daily steps, and bilingual preferences. The project evolved into
-      a full‑scale interactive tool that demonstrates how thoughtful UX can turn a simple tracker into
-      an engaging habit‑forming experience.
+      Skincare Guide was born from a simple yet critical need: helping people use active skincare ingredients <strong>safely and confidently</strong>. Whether you're starting retinal, exploring acids, or building a complex routine, the project guides you through every step — from product selection to daily tracking.
     </p>
     <div style="display:grid;grid-template-columns:1fr;gap:12px;background:rgba(255,255,255,0.5);border-radius:16px;padding:20px;border:1px solid rgba(126,211,178,0.2);">
       <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
         <span style="background:#EF6C57;color:white;padding:4px 14px;border-radius:999px;font-size:12px;font-weight:600;">Problem</span>
-        <span style="color:var(--text-soft);font-size:14px;">Complex retinal schedules, product overload, language switching.</span>
+        <span style="color:var(--text-soft);font-size:14px;">Fear of active ingredients, lack of safety guidance, ingredient conflicts.</span>
       </div>
       <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
         <span style="background:#7ED3B2;color:white;padding:4px 14px;border-radius:999px;font-size:12px;font-weight:600;">Solution</span>
-        <span style="color:var(--text-soft);font-size:14px;">One‑page app with visual calendar, automated logic, and full bilingual support.</span>
+        <span style="color:var(--text-soft);font-size:14px;">A visual planner with safety-first rules, conflict detection, and step-by-step tracking.</span>
       </div>
       <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
         <span style="background:#B9E6D3;color:#2D2D2D;padding:4px 14px;border-radius:999px;font-size:12px;font-weight:600;">Result</span>
-        <span style="color:var(--text-soft);font-size:14px;">A portfolio‑ready tool that showcases front‑end, UX, and AI‑driven content strategy.</span>
+        <span style="color:var(--text-soft);font-size:14px;">A portfolio‑ready tool that combines safety education with engaging UX and scalable architecture.</span>
       </div>
     </div>
   </section>
@@ -72,33 +74,32 @@
   <section class="presentation-section">
     <div class="section-title"><span class="emoji">✨</span> Key Features</div>
     <p class="section-sub">
-      Every feature was designed with a specific user need in mind — from visual navigation to
-      persistent progress tracking.
+      Every feature was designed with a specific user need in mind — from safety-first guidance to persistent progress tracking.
     </p>
     <div class="feature-grid">
       <div class="feature-item accent-coral">
-        <div class="feature-title"><span class="feature-icon">🐍</span> Snake‑style Calendar</div>
-        <div class="feature-desc">Days flow in a winding path (boustrophedon) — more engaging than a standard grid, making daily tracking feel like a journey.</div>
+        <div class="feature-title"><span class="feature-icon">🛡️</span> Safety-first Guidance</div>
+        <div class="feature-desc">Conflict detection, warnings, and safe usage tips for retinal, acids, masks, and more.</div>
       </div>
       <div class="feature-item accent-mint">
+        <div class="feature-title"><span class="feature-icon">🐍</span> Snake‑style Calendar</div>
+        <div class="feature-desc">Days flow in a winding path (boustrophedon) — more engaging than a standard grid.</div>
+      </div>
+      <div class="feature-item accent-soft">
         <div class="feature-title"><span class="feature-icon">🌍</span> Bilingual Interface</div>
         <div class="feature-desc">Full Russian/English support with one‑click switching — content strategy meets global accessibility.</div>
       </div>
-      <div class="feature-item accent-soft">
+      <div class="feature-item accent-coral">
         <div class="feature-title"><span class="feature-icon">⚡</span> Automated Scheduling</div>
         <div class="feature-desc">Retinal (2x/week → daily) and azelaic (from week 3) are calculated automatically based on your start date.</div>
       </div>
-      <div class="feature-item accent-coral">
-        <div class="feature-title"><span class="feature-icon">📋</span> Detailed Routine View</div>
-        <div class="feature-desc">Click any day to see exact products for each morning/evening step — no guesswork.</div>
-      </div>
       <div class="feature-item accent-mint">
-        <div class="feature-title"><span class="feature-icon">✅</span> "Done" Marks</div>
-        <div class="feature-desc">Checkboxes saved in localStorage — track your progress across days and months.</div>
-      </div>
-      <div class="feature-item accent-soft">
         <div class="feature-title"><span class="feature-icon">🧴</span> "My Products"</div>
         <div class="feature-desc">Mark products you own — only those will appear in your calendar routine.</div>
+      </div>
+      <div class="feature-item accent-soft">
+        <div class="feature-title"><span class="feature-icon">✅</span> "Done" Marks</div>
+        <div class="feature-desc">Checkboxes saved in localStorage and synced with Firebase — track your progress across devices.</div>
       </div>
       <div class="feature-item accent-coral">
         <div class="feature-title"><span class="feature-icon">🔍</span> Search & Filter</div>
@@ -146,7 +147,7 @@
       <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">HTML5</span>
       <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">CSS3</span>
       <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">JavaScript (ES6+)</span>
-      <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">localStorage</span>
+      <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">Firebase</span>
       <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">GitHub Pages</span>
       <span style="background:white;padding:8px 18px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:500;">Playfair Display + Inter</span>
     </div>
@@ -168,16 +169,16 @@
           <li>• Modular pattern (ES6 modules)</li>
           <li>• DOM manipulation</li>
           <li>• Event delegation</li>
-          <li>• LocalStorage for persistence</li>
+          <li>• LocalStorage + Firebase sync</li>
           <li>• Dynamic rendering</li>
         </ul>
       </div>
       <div>
-        <h4 style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:6px;">Data & Content</h4>
+        <h4 style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:6px;">Backend & Services</h4>
         <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-soft);line-height:1.8;">
-          <li>• Bilingual content (EN/RU)</li>
-          <li>• AI‑assisted product descriptions</li>
-          <li>• Structured data (products, rules, shops)</li>
+          <li>• Firebase Authentication (Google Sign‑In)</li>
+          <li>• Firestore (cloud data storage)</li>
+          <li>• GitHub Pages (CI/CD)</li>
         </ul>
       </div>
       <div>
@@ -186,7 +187,6 @@
           <li>• VS Code</li>
           <li>• GitHub Desktop</li>
           <li>• Git version control</li>
-          <li>• GitHub Pages hosting</li>
           <li>• Live Server (local development)</li>
         </ul>
       </div>
@@ -197,7 +197,8 @@
       <span style="background:#7ED3B2;color:white;padding:6px 16px;border-radius:999px;font-size:12px;">Responsive design</span>
       <span style="background:#B9E6D3;color:#2D2D2D;padding:6px 16px;border-radius:999px;font-size:12px;">Bilingual UX</span>
       <span style="background:#EF6C57;color:white;padding:6px 16px;border-radius:999px;font-size:12px;">Modular architecture</span>
-      <span style="background:#7ED3B2;color:white;padding:6px 16px;border-radius:999px;font-size:12px;">LocalStorage persistence</span>
+      <span style="background:#7ED3B2;color:white;padding:6px 16px;border-radius:999px;font-size:12px;">Cloud sync (Firebase)</span>
+      <span style="background:#B9E6D3;color:#2D2D2D;padding:6px 16px;border-radius:999px;font-size:12px;">Safety-first design</span>
     </div>
   </section>
 
@@ -211,7 +212,7 @@
     <div style="display:grid;grid-template-columns:1fr;gap:12px;">
       <div style="background:white;border-radius:14px;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.03);display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
         <span style="font-size:28px;">👆</span>
-        <div><strong style="font-size:14px;">Click anywhere</strong><div style="font-size:13px;color:var(--text-soft);">Tap a day → full routine modal with product details.</div></div>
+        <div><strong style="font-size:14px;">Click anywhere</strong><div style="font-size:13px;color:var(--text-soft);">Tap a day → full routine modal with product details and safety warnings.</div></div>
       </div>
       <div style="background:white;border-radius:14px;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.03);display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
         <span style="font-size:28px;">🔄</span>
@@ -226,7 +227,7 @@
 
 </div>
 
-<!-- ===== ОСНОВНОЙ ПЛАНЕР (такой же, как в index.html) ===== -->
+<!-- ===== ОСНОВНОЙ ПЛАНЕР ===== -->
 <header>
   <div class="wrap">
     <div class="header-top">
@@ -241,6 +242,7 @@
         </div>
         <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
         <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
+        <button class="pill-toggle" id="authBtn">🔑 Sign in with Google</button>
         <span class="result-count" id="resultCount"></span>
         <div class="nav-links">
           <a href="index.html">📋 Planner</a>
@@ -262,6 +264,15 @@
 </header>
 
 <div class="wrap">
+  <!-- Блок безопасности -->
+  <div class="safety-banner" style="background:rgba(239,108,87,0.08); border-left:4px solid var(--accent-dark); padding:12px 16px; border-radius:12px; margin:8px 0 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+    <span style="font-size:28px;">🛡️</span>
+    <div style="flex:1; font-size:14px; color:var(--text-soft); line-height:1.5;">
+      <strong style="color:var(--text);">Safe active skincare starts here.</strong> 
+      We guide you through retinal, acids, masks, and more — with clear rules, conflict warnings, and step-by-step tracking.
+    </div>
+  </div>
+
   <div class="hero">
     <div class="stats">
       <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
@@ -330,7 +341,8 @@
   </div>
 </footer>
 
-<!-- Подключаем модули JavaScript (те же, что в index.html) -->
+<!-- Подключаем модули JavaScript -->
+<script src="js/firebase.js"></script>
 <script src="js/data.js"></script>
 <script src="js/lang.js"></script>
 <script src="js/icons.js"></script>
