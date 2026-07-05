@@ -79,7 +79,7 @@ text
 **Anastasiia Vyshnevska**  
 This portfolio project was built with the help of AI tools (ChatGPT, Claude); design and coding were done by hand.
 
-🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn](https://www.linkedin.com/in/anastasiia-vyshnevska/)
+🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn](https://www.linkedin.com/in/anastasiia-v-22a17b21b/)
 
 ---
 
