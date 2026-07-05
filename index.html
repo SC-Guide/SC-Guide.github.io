@@ -25,16 +25,16 @@
   --bg-start:#F2F2F2;
   --bg-end:color-mix(in srgb, #F2F2F2 70%, #B9E6D3 30%);
   --card-bg:#FFFFFF;
-  --card-shadow:0 12px 32px rgba(126,211,178,0.16);
-  --text:#3A3428;
-  --text-soft:#5F5A4A;
-  --text-light:#8A8572;
+  --card-shadow:0 12px 32px rgba(239,108,87,0.10);
+  --text:#2D2D2D;
+  --text-soft:#5F5F5F;
+  --text-light:#8A8A8A;
   --accent:#7ED3B2;
   --accent-dark:#EF6C57;
-  --morning:#B9E6D3;
-  --evening:color-mix(in srgb, #EF6C57 22%, white 78%);
-  --special:color-mix(in srgb, #EF6C57 12%, white 88%);
-  --line:#7ED3B2;
+  --morning:color-mix(in srgb, #B9E6D3 45%, white 55%);
+  --evening:color-mix(in srgb, #B9E6D3 68%, white 32%);
+  --special:color-mix(in srgb, #EF6C57 30%, white 70%);
+  --line:#B9E6D3;
   --border-radius:24px;
   --font-serif:Georgia, 'Times New Roman', serif;
   --font-sans:'Inter', system-ui, -apple-system, sans-serif;
@@ -92,7 +92,7 @@ header{
   font-size:12px;font-weight:500;color:var(--text-soft);
   transition:all .15s ease;user-select:none;white-space:nowrap;
 }
-.pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
+.pill-toggle.active{background:var(--accent-dark);border-color:var(--accent-dark);color:white;}
 .lang-toggle{
   display:flex;align-items:center;justify-content:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
   border:1px solid var(--text);background:var(--text);color:var(--bg);cursor:pointer;
@@ -120,17 +120,17 @@ nav a:hover{background:var(--accent);color:white;}
   border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:8px;
   border:1px solid rgba(255,255,255,0.5);
 }
-.stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;}
+.stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent-dark);color:white;}
 .stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--text);}
 .stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
 .no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
 
-/* ---------- ZONES (утро, вечер, аптечка и т.д.) ---------- */
+/* ---------- ZONES ---------- */
 section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .zone-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
 .zone-icon{
   width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  background:var(--accent);color:white;flex-shrink:0;
+  background:var(--accent-dark);color:white;flex-shrink:0;
 }
 .zone-title{font-family:var(--font-serif);font-size:clamp(18px,3vw,22px);font-weight:700;color:var(--text);}
 .zone-sub{font-size:12px;color:var(--text-soft);margin:6px 0 12px;max-width:560px;line-height:1.5;}
@@ -139,7 +139,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .step:last-child{padding-bottom:0;}
 .step::before{content:'';position:absolute;left:12px;top:28px;bottom:0;width:1px;background:var(--line);}
 .step:last-child::before{display:none;}
-.step-node{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--accent);color:white;}
+.step-node{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--accent-dark);color:white;}
 .step-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-light);margin:2px 0 8px;}
 .split{display:grid;grid-template-columns:1fr;gap:12px;}
 .split-col-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-light);margin-bottom:6px;}
@@ -149,9 +149,10 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   border:1px solid rgba(255,255,255,0.5);border-radius:16px;
   padding:12px 14px;display:flex;gap:10px;
   transition:transform .15s ease,box-shadow .15s ease;
+  cursor:pointer;
 }
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.06);}
-.card-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(239,108,87,0.12);}
+.card-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent-dark);color:white;flex-shrink:0;}
 .card-body{flex:1;min-width:0;}
 .card-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
 .card-name{font-size:13px;font-weight:600;}
@@ -168,14 +169,14 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .kit-group{margin-bottom:28px;}
 .kit-group:last-child{margin-bottom:0;}
 .kit-group-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.kit-group-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
+.kit-group-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent-dark);color:white;flex-shrink:0;}
 .kit-group-title{font-size:14px;font-weight:700;}
 .kit-group-sub{font-size:11px;color:var(--text-soft);font-weight:400;}
 .kit-analysis{display:flex;gap:8px;font-size:12px;color:var(--text-soft);line-height:1.5;padding:8px 12px;background:rgba(255,255,255,0.4);border-radius:12px;margin:-2px 0 10px;}
 .rules-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px;}
 .rule{display:flex;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.5);border-radius:14px;border:1px solid rgba(255,255,255,0.3);}
 .rule.caution{background:rgba(235,200,200,0.4);border-color:#D4B0B0;}
-.rule-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.rule-num{width:22px;height:22px;border-radius:50%;background:var(--accent-dark);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
 .rule-text{font-size:12px;line-height:1.5;color:var(--text);}
 .rule.caution .rule-text{color:#6A3A3A;}
 .shops-section{padding:24px 0 32px;}
@@ -186,7 +187,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
 
-/* ========== КАЛЕНДАРЬ (карточка на всю ширину блока) ========== */
+/* ========== КАЛЕНДАРЬ ========== */
 .calendar-wrapper{
   background:var(--card-bg);
   border-radius:var(--border-radius);
@@ -219,14 +220,13 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   display:flex;align-items:center;justify-content:center;
   transition:background .2s;color:var(--text-soft);
 }
-.calendar-nav button:hover{background:var(--accent);color:white;}
+.calendar-nav button:hover{background:var(--accent-dark);color:white;}
 .settings-btn{
   background:transparent;border:none;font-size:18px;cursor:pointer;
   padding:4px 8px;border-radius:10px;transition:background .2s;
 }
-.settings-btn:hover{background:var(--accent);color:white;}
+.settings-btn:hover{background:var(--accent-dark);color:white;}
 
-/* --- ЗМЕЙКА --- */
 .snake-container{
   position:relative;
   display:flex;
@@ -284,9 +284,9 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   box-shadow:0 4px 12px rgba(0,0,0,0.10);
 }
 .day-node .day-circle.today{
-  border-color:var(--accent);
+  border-color:var(--accent-dark);
   border-width:3px;
-  box-shadow:0 0 0 4px rgba(126,211,178,0.28);
+  box-shadow:0 0 0 4px rgba(239,108,87,0.2);
 }
 .day-node .day-circle.done{
   background:var(--morning);
@@ -300,7 +300,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   font-size:11px;line-height:18px;text-align:center;
 }
 .day-node .day-circle.has-special{
-  border-color:var(--accent);
+  border-color:var(--accent-dark);
   background:var(--special);
 }
 .day-node .day-circle.has-special::before{
@@ -325,7 +325,71 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   opacity:0.6;
 }
 
-/* ---------- МОДАЛКА РУТИНЫ (с навигацией между днями) ---------- */
+/* ========== МОДАЛКА ПРОДУКТА (ДЕТАЛИ) ========== */
+.product-modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:2000;padding:20px;
+}
+.product-modal-box{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  max-width:520px;width:100%;
+  max-height:90vh;
+  padding:28px 32px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  overflow-y:auto;
+  position:relative;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.95);}
+  to{opacity:1;transform:scale(1);}
+}
+.product-modal-close{
+  position:absolute;top:12px;right:16px;
+  background:none;border:none;font-size:24px;
+  cursor:pointer;color:var(--text-soft);
+}
+.product-modal-close:hover{color:var(--text);}
+.product-modal-box .modal-icon{
+  font-size:40px;display:block;margin-bottom:8px;
+}
+.product-modal-box h2{
+  font-family:var(--font-serif);
+  font-size:22px;font-weight:700;
+  margin:0 0 4px;color:var(--text);
+}
+.product-modal-box .modal-price{
+  font-size:16px;font-weight:600;color:var(--accent-dark);margin-bottom:12px;
+}
+.product-modal-box .modal-detail{
+  font-size:13px;color:var(--text-soft);line-height:1.6;
+  margin:6px 0;padding:8px 12px;background:var(--bg);border-radius:10px;
+}
+.product-modal-box .modal-detail strong{color:var(--text);font-weight:600;}
+.product-modal-box .modal-shops{
+  margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;
+}
+.product-modal-box .modal-shops a{
+  font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;
+  background:var(--accent-dark);color:white;text-decoration:none;
+  transition:transform .2s,opacity .2s;
+}
+.product-modal-box .modal-shops a:hover{
+  transform:scale(1.05);opacity:0.85;
+}
+.product-modal-box .modal-tags{
+  display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 6px;
+}
+.product-modal-box .modal-tags span{
+  font-size:10px;font-weight:600;padding:3px 10px;border-radius:999px;
+  background:var(--line);color:var(--text-soft);
+}
+
+/* ========== МОДАЛКА РУТИНЫ ========== */
 .modal-overlay{
   position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(0,0,0,0.4);
@@ -380,21 +444,18 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   margin-top:8px;
 }
 .done-label input[type="checkbox"]{width:18px;height:18px;cursor:pointer;}
-/* Навигация между днями */
 .modal-nav{
   display:flex;justify-content:space-between;margin-top:18px;gap:12px;
 }
 .modal-nav button{
-  background:var(--accent);color:white;border:none;
+  background:var(--accent-dark);color:white;border:none;
   padding:8px 16px;border-radius:12px;font-weight:600;font-size:13px;
   cursor:pointer;transition:background .2s,transform .1s;
   flex:1;
 }
-.modal-nav button:hover{background:var(--accent-dark);}
+.modal-nav button:hover{background:color-mix(in srgb, var(--accent-dark) 80%, black 20%);}
 .modal-nav button:active{transform:scale(0.96);}
 .modal-nav button:disabled{opacity:0.4;cursor:not-allowed;}
-
-/* ---------- НАСТРОЙКИ ---------- */
 .settings-modal .modal-box{max-width:400px;}
 .settings-modal label{
   display:block;margin:12px 0 4px;
@@ -413,7 +474,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 }
 .settings-modal .btn-reset:hover{background:#F0D0D0;}
 
-/* ---------- FOOTER ---------- */
 footer{
   margin-top:30px;padding:20px 0 30px;
   border-top:1px solid rgba(239,108,87,0.2);
@@ -437,6 +497,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
   .day-node .day-circle{width:38px;height:38px;font-size:13px;}
   .snake-row{gap:4px;}
   .modal-box{padding:16px;}
+  .product-modal-box{padding:16px;}
 }
 </style>
 </head>
@@ -574,7 +635,13 @@ const STR = {
     tonerRef: 'Etude House SoonJung или Aveeno Calm + Restore (см. утро)',
     retinalRest: 'Отдых от ретиналя — только увлажнение',
     prevDay: '← Предыдущий день',
-    nextDay: 'Следующий день →'
+    nextDay: 'Следующий день →',
+    productDetails: 'Детали продукта',
+    category: 'Категория',
+    skinType: 'Тип кожи',
+    keyIngredients: 'Ключевые ингредиенты',
+    usage: 'Применение',
+    buyNow: 'Купить'
   },
   en: {
     subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
@@ -611,7 +678,13 @@ const STR = {
     tonerRef: 'Etude House SoonJung or Aveeno Calm + Restore (see morning)',
     retinalRest: 'Rest from retinal — just moisturizing',
     prevDay: '← Previous day',
-    nextDay: 'Next day →'
+    nextDay: 'Next day →',
+    productDetails: 'Product Details',
+    category: 'Category',
+    skinType: 'Skin Type',
+    keyIngredients: 'Key Ingredients',
+    usage: 'How to use',
+    buyNow: 'Buy now'
   }
 };
 
@@ -638,7 +711,157 @@ const ICONS = {
 };
 
 /* ============================================================
-   ДАННЫЕ ПРОДУКТОВ — ПОЛНОСТЬЮ ПЕРЕВЕДЕНЫ НА ОБА ЯЗЫКА
+   ДАННЫЕ ПРОДУКТОВ С ДОП. ХАРАКТЕРИСТИКАМИ (двуязычные)
+   ============================================================ */
+const productDetailsMap = {
+  'Xpel Tea Tree Foaming Face Wash 200ml': {
+    category: {ru:'Очищающее средство', en:'Cleanser'},
+    skinType: {ru:'Все типы кожи, жирная/комбинированная', en:'All skin types, oily/combination'},
+    keyIngredients: {ru:'Масло чайного дерева, мята, алоэ вера', en:'Tea tree oil, mint, aloe vera'},
+    usage: {ru:'Утром и вечером, вспенить и смыть', en:'Morning and evening, lather and rinse'}
+  },
+  'CeraVe Hydrating Cleanser 236ml': {
+    category: {ru:'Очищающее средство', en:'Cleanser'},
+    skinType: {ru:'Сухая, чувствительная', en:'Dry, sensitive'},
+    keyIngredients: {ru:'Керамиды, гиалуроновая кислота', en:'Ceramides, hyaluronic acid'},
+    usage: {ru:'Утром и вечером, наносить на влажную кожу', en:'Morning and evening, apply to damp skin'}
+  },
+  'Round Lab 1025 Dokdo Cleanser 150ml': {
+    category: {ru:'Очищающее средство', en:'Cleanser'},
+    skinType: {ru:'Все типы кожи, чувствительная', en:'All skin types, sensitive'},
+    keyIngredients: {ru:'Аллантоин, пантенол, морская вода', en:'Allantoin, panthenol, deep sea water'},
+    usage: {ru:'Утром и вечером, мягкая пенка', en:'Morning and evening, gentle foam'}
+  },
+  'Etude House SoonJung pH 5.5 Relief Toner 200ml': {
+    category: {ru:'Тонер', en:'Toner'},
+    skinType: {ru:'Все типы кожи, чувствительная', en:'All skin types, sensitive'},
+    keyIngredients: {ru:'Пантенол, мадекассозид, зелёный чай', en:'Panthenol, madecassoside, green tea'},
+    usage: {ru:'После очищения, нанести мягкими движениями', en:'After cleansing, apply gently'}
+  },
+  'Aveeno Calm + Restore Toning Lotion 200ml': {
+    category: {ru:'Тонер', en:'Toner'},
+    skinType: {ru:'Чувствительная, раздражённая', en:'Sensitive, irritated'},
+    keyIngredients: {ru:'Овёс, фиверфью', en:'Oat, feverfew'},
+    usage: {ru:'После очищения, нанести на лицо и шею', en:'After cleansing, apply to face and neck'}
+  },
+  'The Inkey List SuperSolutions 10% Azelaic Acid Serum 30ml': {
+    category: {ru:'Активный уход', en:'Treatment'},
+    skinType: {ru:'Склонная к акне, розацеа, пигментация', en:'Acne-prone, rosacea, hyperpigmentation'},
+    keyIngredients: {ru:'Азелаиновая кислота 10%', en:'Azelaic acid 10%'},
+    usage: {ru:'Утром или вечером, на сухую кожу', en:'Morning or evening, apply to dry skin'}
+  },
+  'The Ordinary Azelaic Acid Suspension 10% 30ml': {
+    category: {ru:'Активный уход', en:'Treatment'},
+    skinType: {ru:'Склонная к акне, розацеа', en:'Acne-prone, rosacea'},
+    keyIngredients: {ru:'Азелаиновая кислота 10%', en:'Azelaic acid 10%'},
+    usage: {ru:'Вечером, после очищения', en:'Evening, after cleansing'}
+  },
+  'Beauty of Joseon Relief Sun: Aqua-fresh SPF50+ 50ml': {
+    category: {ru:'Санскрин', en:'Sunscreen'},
+    skinType: {ru:'Все типы кожи, жирная', en:'All skin types, oily'},
+    keyIngredients: {ru:'Экстракт риса, пробиотики, ниацинамид', en:'Rice extract, probiotics, niacinamide'},
+    usage: {ru:'Каждое утро, последний шаг рутины', en:'Every morning, last step of routine'}
+  },
+  'La Roche-Posay Anthelios UVMune 400 Oil Control 50ml': {
+    category: {ru:'Санскрин', en:'Sunscreen'},
+    skinType: {ru:'Жирная, склонная к акне', en:'Oily, acne-prone'},
+    keyIngredients: {ru:'Mexoryl 400, перлит, ниацинамид', en:'Mexoryl 400, perlite, niacinamide'},
+    usage: {ru:'Каждое утро, перед макияжем', en:'Every morning, before makeup'}
+  },
+  'CeraVe AM Facial Moisturising Lotion SPF30 52ml': {
+    category: {ru:'Увлажнение + SPF', en:'Moisturizer + SPF'},
+    skinType: {ru:'Все типы кожи, сухая', en:'All skin types, dry'},
+    keyIngredients: {ru:'Керамиды, ниацинамид, SPF30', en:'Ceramides, niacinamide, SPF30'},
+    usage: {ru:'Каждое утро, последний шаг', en:'Every morning, last step'}
+  },
+  'Elemis Pro-Collagen Marine Cream SPF30 50ml': {
+    category: {ru:'Увлажнение + SPF', en:'Moisturizer + SPF'},
+    skinType: {ru:'Все типы кожи, возрастная', en:'All skin types, aging'},
+    keyIngredients: {ru:'Padina pavonica, гинкго билоба', en:'Padina pavonica, ginkgo biloba'},
+    usage: {ru:'Каждое утро, нанести обильно', en:'Every morning, apply liberally'}
+  },
+  'Purito Seoul From Green Cleansing Oil 200ml': {
+    category: {ru:'Очищающее масло', en:'Cleanser (oil)'},
+    skinType: {ru:'Все типы кожи, жирная', en:'All skin types, oily'},
+    keyIngredients: {ru:'5 натуральных масел, экстракт зелёного чая', en:'5 natural oils, green tea extract'},
+    usage: {ru:'Вечером, первый шаг двойного очищения', en:'Evening, first step of double cleanse'}
+  },
+  'Beauty of Joseon Radiance Cleansing Balm 100ml': {
+    category: {ru:'Очищающий бальзам', en:'Cleanser (balm)'},
+    skinType: {ru:'Все типы кожи', en:'All skin types'},
+    keyIngredients: {ru:'Экстракт риса, ферментированные злаки', en:'Rice extract, fermented grains'},
+    usage: {ru:'Вечером, помассировать сухую кожу, эмульгировать', en:'Evening, massage into dry skin, emulsify'}
+  },
+  'Elemis Pro-Collagen Cleansing Balm 100g': {
+    category: {ru:'Очищающий бальзам', en:'Cleanser (balm)'},
+    skinType: {ru:'Все типы кожи, возрастная', en:'All skin types, aging'},
+    keyIngredients: {ru:'Роза, мимоза, лаванда, масло ши', en:'Rose, mimosa, lavender, shea butter'},
+    usage: {ru:'Вечером, нанести на сухую кожу, удалить тёплой салфеткой', en:'Evening, massage onto dry skin, remove with warm cloth'}
+  },
+  'Medik8 Crystal Retinal 3 30ml (старт)': {
+    category: {ru:'Ретиналь', en:'Retinal'},
+    skinType: {ru:'Все типы кожи, новички', en:'All skin types, beginners'},
+    keyIngredients: {ru:'Ретиналь 0.03%', en:'Retinal 0.03%'},
+    usage: {ru:'Вечером, 2 раза/нед → ежедневно, на сухую кожу', en:'Evening, 2x/week → daily, on dry skin'}
+  },
+  'Medik8 Crystal Retinal 6 30ml (переход)': {
+    category: {ru:'Ретиналь', en:'Retinal'},
+    skinType: {ru:'Все типы кожи, продвинутые', en:'All skin types, advanced'},
+    keyIngredients: {ru:'Ретиналь 0.06%', en:'Retinal 0.06%'},
+    usage: {ru:'Вечером, ежедневно после CR3', en:'Evening, daily after finishing CR3'}
+  },
+  'La Roche-Posay Cicaplast Baume B5+ 40ml': {
+    category: {ru:'Восстанавливающий бальзам', en:'Repair balm'},
+    skinType: {ru:'Все типы кожи, раздражённая', en:'All skin types, irritated'},
+    keyIngredients: {ru:'Пантенол, масло ши, мадекассозид', en:'Panthenol, shea butter, madecassoside'},
+    usage: {ru:'Вечером, тонкий слой поверх ретиналя или толстый слой при раздражении', en:'Evening, thin layer over retinal or thick layer for irritation'}
+  },
+  'Azelaic acid (same as morning)': {
+    category: {ru:'Активный уход', en:'Treatment'},
+    skinType: {ru:'Склонная к акне, розацеа', en:'Acne-prone, rosacea'},
+    keyIngredients: {ru:'Азелаиновая кислота', en:'Azelaic acid'},
+    usage: {ru:'Утром, точечно на воспаления', en:'Morning, spot application on breakouts'}
+  },
+  'Hero Mighty Patch Original, 24 pcs': {
+    category: {ru:'Пластырь', en:'Spot patch'},
+    skinType: {ru:'Все типы кожи', en:'All skin types'},
+    keyIngredients: {ru:'Гидроколлоид', en:'Hydrocolloid'},
+    usage: {ru:'Ночью на созревший прыщ', en:'Nighttime on ripe pimples'}
+  },
+  'Caudalie Instant Detox Mask 75ml': {
+    category: {ru:'Маска', en:'Mask'},
+    skinType: {ru:'Жирная, комбинированная', en:'Oily, combination'},
+    keyIngredients: {ru:'Розовая глина, кофе, виноградные косточки', en:'Pink clay, coffee, grape seeds'},
+    usage: {ru:'1–2 раза/нед, оставить на 10 мин, смыть', en:'1-2x/week, leave for 10 min, rinse'}
+  },
+  'Dr Organic Skin Calm Probiotic Recovery Mask 100ml': {
+    category: {ru:'Маска', en:'Mask'},
+    skinType: {ru:'Чувствительная, раздражённая', en:'Sensitive, irritated'},
+    keyIngredients: {ru:'Пробиотики, алоэ вера, ромашка', en:'Probiotics, aloe vera, chamomile'},
+    usage: {ru:'1–2 раза/нед, нанести толстым слоем, оставить на 15 мин', en:'1-2x/week, apply thickly, leave for 15 min'}
+  },
+  'COSRX Low pH Good Night Soft Peeling Gel 120ml': {
+    category: {ru:'Отшелушивание (PHA)', en:'Exfoliant (PHA)'},
+    skinType: {ru:'Все типы кожи, чувствительная', en:'All skin types, sensitive'},
+    keyIngredients: {ru:'Лактобионовая кислота (PHA), гранат', en:'Lactobionic acid (PHA), pomegranate'},
+    usage: {ru:'1 раз/нед, вечер без ретиналя', en:'1x/week, evening without retinal'}
+  },
+  'Nuxe Very Rose Radiance Face Scrub 75ml': {
+    category: {ru:'Отшелушивание (физическое)', en:'Exfoliant (physical)'},
+    skinType: {ru:'Все типы кожи', en:'All skin types'},
+    keyIngredients: {ru:'Пудра лепестков роз, жожоба', en:'Rose petal powder, jojoba beads'},
+    usage: {ru:'1 раз/нед, мягкие круговые движения', en:'1x/week, gentle circular motions'}
+  },
+  'Витамин C (любой ваш)': {
+    category: {ru:'Активный уход', en:'Treatment'},
+    skinType: {ru:'Все типы кожи, пигментация', en:'All skin types, hyperpigmentation'},
+    keyIngredients: {ru:'Витамин C', en:'Vitamin C'},
+    usage: {ru:'Утром, на сухую кожу, подождать 5 мин', en:'Morning, apply to dry skin, wait 5 min'}
+  }
+};
+
+/* ============================================================
+   ОСНОВНЫЕ ДАННЫЕ (утро, вечер, аптечка) — те же, что и раньше
    ============================================================ */
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
@@ -724,20 +947,33 @@ const shopsInfo = [
 ];
 
 /* ============================================================
-   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (без изменений)
+   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
    ============================================================ */
 function tr(field){
   if(field == null) return '';
   if(typeof field === 'string') return field;
   return field[currentLang] != null ? field[currentLang] : (field.ru || '');
 }
+
+function getProductDetails(name) {
+  const lookup = Object.keys(productDetailsMap).find(key => 
+    name.toLowerCase().includes(key.toLowerCase()) || 
+    key.toLowerCase().includes(name.toLowerCase())
+  );
+  return lookup ? productDetailsMap[lookup] : null;
+}
+
 function shopChips(shops){
+  if (!shops || shops.length === 0) return '';
   return '<div class="shop-row">'+shops.map(s=>`<a class="shop-chip" href="${s.url}" target="_blank" rel="noopener">${tr(s.name)}${ICONS.link}</a>`).join('')+'</div>';
 }
+
 function productCard(p, zoneClass){
   const name = tr(p.name);
   const comment = tr(p.comment);
-  return `<div class="card product-card ${zoneClass}${p.lux?' lux-card':''}" data-name="${name.toLowerCase()}" data-comment="${comment.toLowerCase()}" data-rec="${p.rec?1:0}">
+  const details = getProductDetails(name);
+  const dataAttrs = details ? `data-category="${tr(details.category)}" data-skin="${tr(details.skinType)}" data-ingredients="${tr(details.keyIngredients)}" data-usage="${tr(details.usage)}"` : '';
+  return `<div class="card product-card ${zoneClass}${p.lux?' lux-card':''}" data-name="${name.toLowerCase()}" data-comment="${comment.toLowerCase()}" data-rec="${p.rec?1:0}" data-product="${encodeURIComponent(JSON.stringify({name, price: p.price, comment, shops: p.shops, icon: p.icon, lux: p.lux || false, rec: p.rec || false, details: details ? {category: tr(details.category), skinType: tr(details.skinType), keyIngredients: tr(details.keyIngredients), usage: tr(details.usage)} : null}))}" onclick="openProductModal(this)" ${dataAttrs}>
     <div class="card-icon">${ICONS[p.icon]}</div>
     <div class="card-body">
       <div class="card-name-row">
@@ -747,14 +983,15 @@ function productCard(p, zoneClass){
       ${p.rec?'<div class="star-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+STR[currentLang].recommended+'</div>':''}
       ${p.lux?'<div class="lux-badge">'+ICONS.lux+STR[currentLang].luxAlt+'</div>':''}
       <div class="card-comment">${comment}</div>
-      ${p.warning?'<div class="card-warning">'+ICONS.warn+tr(p.warning)+'</div>':''}
       ${p.shops && p.shops.length ? shopChips(p.shops) : ''}
     </div>
   </div>`;
 }
+
 function refCard(text, anchor){
   return `<a class="ref-card" href="${anchor}">${ICONS.ref}${tr(text)}</a>`;
 }
+
 function renderPath(container, steps, zoneClass){
   container.innerHTML = steps.map(s=>{
     let body = '';
@@ -777,10 +1014,74 @@ function renderPath(container, steps, zoneClass){
 }
 
 /* ============================================================
-   КАЛЕНДАРЬ (полностью из SG_Version_6.html, без изменений)
+   ПРОДУКТ-МОДАЛКА
+   ============================================================ */
+function openProductModal(element) {
+  const data = element.dataset.product;
+  if (!data) return;
+  const product = JSON.parse(decodeURIComponent(data));
+  const t = STR[currentLang];
+  const details = product.details;
+
+  let detailsHtml = '';
+  if (details) {
+    detailsHtml = `
+      <div class="modal-detail"><strong>${t.category}:</strong> ${details.category}</div>
+      <div class="modal-detail"><strong>${t.skinType}:</strong> ${details.skinType}</div>
+      <div class="modal-detail"><strong>${t.keyIngredients}:</strong> ${details.keyIngredients}</div>
+      <div class="modal-detail"><strong>${t.usage}:</strong> ${details.usage}</div>
+    `;
+  }
+
+  let shopsHtml = '';
+  if (product.shops && product.shops.length > 0) {
+    shopsHtml = `<div class="modal-shops">${product.shops.map(s => `<a href="${s.url}" target="_blank" rel="noopener">${t.buyNow} ${tr(s.name)}</a>`).join('')}</div>`;
+  }
+
+  const iconMap = {
+    'citrus': '🍊',
+    'spf': '☀️',
+    'retinol': '🧴',
+    'oil': '🫒',
+    'balm': '🧈',
+    'mask': '🎭',
+    'scrub': '🧽',
+    'spot': '🔴',
+    'patch': '🩹'
+  };
+  const modalIcon = iconMap[product.icon] || '🧴';
+
+  const html = `
+    <div class="product-modal-overlay" id="productModal" onclick="if(event.target===this) closeProductModal()">
+      <div class="product-modal-box">
+        <button class="product-modal-close" onclick="closeProductModal()">✕</button>
+        <span class="modal-icon">${modalIcon}</span>
+        <h2>${product.name}</h2>
+        <div class="modal-price">${product.price}</div>
+        ${product.rec ? '<div class="star-badge" style="font-size:13px;">⭐ '+t.recommended+'</div>' : ''}
+        ${product.lux ? '<div class="lux-badge" style="font-size:12px;">💎 '+t.luxAlt+'</div>' : ''}
+        <div class="modal-detail"><strong>📝 ${t.productDetails}:</strong> ${product.comment}</div>
+        ${detailsHtml}
+        ${shopsHtml}
+      </div>
+    </div>
+  `;
+
+  const old = document.getElementById('productModal');
+  if (old) old.remove();
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function closeProductModal() {
+  const el = document.getElementById('productModal');
+  if (el) el.remove();
+}
+
+/* ============================================================
+   КАЛЕНДАРЬ
    ============================================================ */
 let currentYear = 2026;
-let currentMonth = 6; // июль
+let currentMonth = 6;
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
 
@@ -825,7 +1126,6 @@ function generateRoutine(year, month, day) {
 
 function getRoutineForDay(year, month, day) {
   const auto = generateRoutine(year, month, day);
-  const t = STR[currentLang];
 
   let activeProducts;
   if (auto.azelaicActive) {
@@ -866,7 +1166,7 @@ function getRoutineForDay(year, month, day) {
     { label: tr(eveningStep5.label), products: eveningStep5.products.map(p => tr(p.name)).join(', ') }
   ];
 
-  let specialText = auto.special || '';
+  let specialText = auto.special ? tr(auto.special) : '';
   return { morning: morningProducts, evening: eveningProducts, special: specialText };
 }
 
@@ -1023,8 +1323,8 @@ function showModalForDate(year, month, day) {
         <div class="routine-block morning-block"><h4>${t.morningLabel}</h4>${morningHtml}</div>
         <div class="routine-block evening-block"><h4>${t.eveningLabel}</h4>${eveningHtml}</div>
         <div class="routine-block special-block"><h4>${t.specialLabel}</h4><p>${routine.special || '—'}</p></div>
-        <div class="routine-block" style="background:var(--accent);">
-          <label class="done-label"><input type="checkbox" ${done ? 'checked' : ''} onchange="toggleDoneFromModal('${getDayKey(year, month, day)}', this.checked)"> ${t.doneLabel}</label>
+        <div class="routine-block" style="background:var(--accent-dark); color:white;">
+          <label class="done-label" style="color:white;"><input type="checkbox" ${done ? 'checked' : ''} onchange="toggleDoneFromModal('${getDayKey(year, month, day)}', this.checked)"> ${t.doneLabel}</label>
         </div>
         <div class="modal-nav">
           <button ${hasPrev ? '' : 'disabled'} onclick="navigateDay('${getDayKey(year, month, day)}', -1)">${t.prevDay}</button>
@@ -1087,7 +1387,7 @@ function openSettings() {
         <input type="date" id="retinalStartInput" value="${retinalStart}">
         <button class="btn-reset" onclick="resetAll()">${t.resetLabel}</button>
         <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
-          <button onclick="saveSettings()" style="background:var(--accent-dark);color:white;border:none;padding:8px 20px;border-radius:12px;font-weight:600;cursor:pointer;">Сохранить</button>
+          <button onclick="saveSettings()" style="background:var(--accent-dark);color:white;border:none;padding:8px 20px;border-radius:12px;font-weight:600;cursor:pointer;">${t.settingsTitle === 'Settings' ? 'Save' : 'Сохранить'}</button>
         </div>
       </div>
     </div>
@@ -1108,7 +1408,7 @@ function saveSettings() {
 }
 
 function resetAll() {
-  if (confirm('Сбросить все отметки "выполнено"?')) {
+  if (confirm(STR[currentLang].resetLabel)) {
     doneDays = {};
     localStorage.setItem('doneDays', JSON.stringify(doneDays));
     renderSnake();
@@ -1233,6 +1533,7 @@ document.getElementById('langToggle').addEventListener('click', ()=>{
   updateOGImage();
   renderAll();
   closeModal();
+  closeProductModal();
 });
 
 /* ============================================================
@@ -1250,10 +1551,10 @@ document.addEventListener('DOMContentLoaded', function() {
     currentMonth = parseInt(parts[1]);
   } else {
     currentYear = 2026;
-    currentMonth = 6; // июль
+    currentMonth = 6;
   }
   renderAll();
-  updateOGImage(); // Устанавливаем правильное превью при загрузке
+  updateOGImage();
 });
 </script>
 </body>
