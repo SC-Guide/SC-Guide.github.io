@@ -1,8 +1,8 @@
-// ===== СТРОКИ ПЕРЕВОДА =====
+// ===== СТРОКИ ПЕРЕВОДА (обновлённые) =====
 const STR = {
   en: {
-    subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
-    tabTitle: 'Skincare Guide — Planner',
+    subtitle: 'Active skincare — safe, simple, smart.',
+    tabTitle: 'SkinSafe — Active Skincare Made Safe and Simple',
     nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar', myproducts:'My Products'},
     searchPlaceholder: 'Search products…',
     recOnly: 'Recommended only',
@@ -40,8 +40,8 @@ const STR = {
     groupKit: 'First Aid Kit'
   },
   ru: {
-    subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до сна',
-    tabTitle: 'Skincare Guide — Планер',
+    subtitle: 'Активный уход — безопасно, просто, умно.',
+    tabTitle: 'SkinSafe — Активный уход без риска',
     nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь', myproducts:'Мои продукты'},
     searchPlaceholder: 'Поиск продуктов…',
     recOnly: 'Только рекомендованные',
