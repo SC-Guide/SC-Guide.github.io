@@ -86,3 +86,9 @@ This portfolio project was built with the help of AI tools (ChatGPT, Claude); de
 ## 📄 License
 
 This project is created for **educational and portfolio purposes only**. Not intended for commercial use.
+
+---
+
+## ⚠️ Disclaimer
+
+This project is for **educational and portfolio purposes only**. It does not provide medical advice. All skincare recommendations are based on publicly available information and personal experience. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use at your own risk.
