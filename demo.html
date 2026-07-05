@@ -780,7 +780,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
     <h2><span class="section-number">04</span> Interactive Demo <span class="accent-line"></span></h2>
     <p style="margin-bottom:20px;">Explore the calendar and product cards below — click any day or product to see details.</p>
 
-    <!-- ЗОНЫ (утро, вечер, аптечка, правила, магазины) — те же, что в основном сайте -->
+    <!-- ЗОНЫ (утро, вечер, аптечка, правила, магазины) — полные данные -->
     <section class="zone morning" id="morning">
       <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
       <div class="path" id="morning-path"></div>
@@ -905,7 +905,7 @@ const ICONS = {
 };
 
 /* ============================================================
-   ДАННЫЕ ПРОДУКТОВ
+   ДАННЫЕ ПРОДУКТОВ (полные)
    ============================================================ */
 const productDetailsMap = {
   'Xpel Tea Tree Foaming Face Wash 200ml': {
@@ -992,13 +992,13 @@ const productDetailsMap = {
     keyIngredients: {ru:'Роза, мимоза, лаванда, масло ши', en:'Rose, mimosa, lavender, shea butter'},
     usage: {ru:'Вечером, нанести на сухую кожу, удалить тёплой салфеткой', en:'Evening, massage onto dry skin, remove with warm cloth'}
   },
-  'Medik8 Crystal Retinal 3 30ml (start)': {
+  'Medik8 Crystal Retinal 3 30ml (старт)': {
     category: {ru:'Ретиналь', en:'Retinal'},
     skinType: {ru:'Все типы кожи, новички', en:'All skin types, beginners'},
     keyIngredients: {ru:'Ретиналь 0.03%', en:'Retinal 0.03%'},
     usage: {ru:'Вечером, 2 раза/нед → ежедневно, на сухую кожу', en:'Evening, 2x/week → daily, on dry skin'}
   },
-  'Medik8 Crystal Retinal 6 30ml (transition)': {
+  'Medik8 Crystal Retinal 6 30ml (переход)': {
     category: {ru:'Ретиналь', en:'Retinal'},
     skinType: {ru:'Все типы кожи, продвинутые', en:'All skin types, advanced'},
     keyIngredients: {ru:'Ретиналь 0.06%', en:'Retinal 0.06%'},
@@ -1046,7 +1046,7 @@ const productDetailsMap = {
     keyIngredients: {ru:'Пудра лепестков роз, жожоба', en:'Rose petal powder, jojoba beads'},
     usage: {ru:'1 раз/нед, мягкие круговые движения', en:'1x/week, gentle circular motions'}
   },
-  'Vitamin C (any of yours)': {
+  'Витамин C (любой ваш)': {
     category: {ru:'Активный уход', en:'Treatment'},
     skinType: {ru:'Все типы кожи, пигментация', en:'All skin types, hyperpigmentation'},
     keyIngredients: {ru:'Витамин C', en:'Vitamin C'},
@@ -1100,7 +1100,7 @@ const eveningSteps = [
 
 const kitGroups = [
   {key:'spot', title:{ru:'Точечно', en:'Spot treatment'}, sub:{ru:'На воспалённые прыщики', en:'For inflamed breakouts'}, analysis:{ru:'Эти два средства не конкурируют, а работают в паре: <b>кислота снимает воспаление</b> изнутри, <b>пластырь вытягивает</b> содержимое снаружи — держите оба под рукой.', en:'These two products do not compete — they work together: the <b>acid reduces inflammation</b> from within, while the <b>patch draws out</b> the contents from outside — keep both on hand.'}, products:[
-    {name:{ru:'Азелаиновая кислота (та же, что утром)', en:'Azelaic acid (same as morning)'}, price:'€13–19 (в среднем €16)', icon:'spot', rec:true, comment:{ru:'Точечно на воспалённые прыщики, утром', en:'Spot-apply to inflamed breakouts, in the morning'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/supersolutions-10-azelaic-serum-10316417'}]},
+    {name:{ru:'Азелаиновая кислота (та же, что утром)', en:'Azelaic acid (same as morning)'}, price:'€13–19 (avg. €16)', icon:'spot', rec:true, comment:{ru:'Точечно на воспалённые прыщики, утром', en:'Spot-apply to inflamed breakouts, in the morning'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/supersolutions-10-azelaic-serum-10316417'}]},
     {name:{ru:'Hero Mighty Patch Original, 24 шт', en:'Hero Mighty Patch Original, 24 pcs'}, price:'€9', icon:'patch', rec:true, comment:{ru:'Гидроколлоидные пластыри на созревший прыщ на ночь — вытягивают содержимое', en:'Hydrocolloid patches for a ripe pimple overnight — draw out the contents'}, shops:[{name:'Boots.ie',url:'https://www.boots.ie/hero-mighty-patches-original-24-10334405'}]}
   ]},
   {key:'mask', title:{ru:'Маски', en:'Masks'}, sub:{ru:'Баночные маски для контроля жирности, пор и восстановления барьера — без тканевых и гидрогелевых, раз вы их и так покупаете спонтанно', en:'Jar masks for oil control, pores, and barrier repair — no sheet or hydrogel masks, since you buy those on impulse anyway'}, analysis:{ru:'Оставили две непересекающиеся баночные маски: <b>Caudalie Instant Detox Mask</b> — глиняная маска для жирной кожи, себума и расширенных пор, и <b>Dr Organic Skin Calm</b> — бюджетный крем-вариант для восстановления барьера при раздражении. Тканевую/резиновую Dr. Jart+ убрали по вашей просьбе.', en:'Kept two non-overlapping jar masks: <b>Caudalie Instant Detox Mask</b> — a clay mask for oily skin, sebum, and enlarged pores, and <b>Dr Organic Skin Calm</b> — a budget cream option for barrier repair during irritation. The Dr. Jart+ sheet/rubber mask was removed at your request.'}, products:[
@@ -1305,10 +1305,10 @@ function generateRoutine(year, month, day) {
   if (dayOfWeek === 0 && diffDays >= 14) {
     const weekNum = Math.floor(diffDays / 7);
     const specials = [
-      'Глиняная маска (Caudalie Detox)',
-      'Восстанавливающая маска (Dr Organic)',
-      'Скраб (Nuxe Very Rose)',
-      'Глиняная маска (Caudalie Detox)'
+      'Clay mask (Caudalie Detox)',
+      'Recovery mask (Dr Organic)',
+      'Scrub (Nuxe Very Rose)',
+      'Clay mask (Caudalie Detox)'
     ];
     special = specials[weekNum % specials.length];
   }
@@ -1351,13 +1351,13 @@ function getRoutineForDay(year, month, day) {
 
   const eveningProducts = [
     { label: tr(eveningStep1.label), products: eveningStep1.products.map(p => tr(p.name)).join(', ') },
-    { label: 'Second cleanse', products: tr({ru:'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser (см. утро)', en:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser (see morning)'}) },
-    { label: 'Toner', products: tr({ru:'Etude House SoonJung или Aveeno Calm + Restore (см. утро)', en:'Etude House SoonJung or Aveeno Calm + Restore (see morning)'}) },
+    { label: 'Second cleanse', products: tr({ru:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser (see morning)', en:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser (see morning)'}) },
+    { label: 'Toner', products: tr({ru:'Etude House SoonJung or Aveeno Calm + Restore (see morning)', en:'Etude House SoonJung or Aveeno Calm + Restore (see morning)'}) },
     { label: tr(eveningStep4.label), products: retinalProducts },
     { label: tr(eveningStep5.label), products: eveningStep5.products.map(p => tr(p.name)).join(', ') }
   ];
 
-  let specialText = auto.special ? tr(auto.special) : '';
+  let specialText = auto.special || '';
   return { morning: morningProducts, evening: eveningProducts, special: specialText };
 }
 
