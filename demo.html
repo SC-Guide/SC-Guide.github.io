@@ -116,7 +116,7 @@ nav a:hover{background:var(--accent-dark);color:white;}
   border:1px solid rgba(255,255,255,0.5);
 }
 .stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#7ED3B2;color:white;}
-.stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--text);}
+.stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--accent-dark);}
 .stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
 .no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
 
@@ -181,6 +181,79 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .shop-card-name a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:4px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
+
+/* ========== ПРЕЗЕНТАЦИОННЫЕ БЛОКИ ========== */
+.presentation-section{
+  padding:48px 0 20px;
+  border-bottom:1px solid var(--line);
+}
+.presentation-section:last-child{border-bottom:none;}
+.presentation-section .section-number{
+  display:inline-block;
+  font-family:var(--font-serif);
+  font-size:48px;
+  font-weight:700;
+  color:var(--accent-dark);
+  opacity:0.15;
+  margin-right:12px;
+  line-height:1;
+}
+.presentation-section h2{
+  font-family:var(--font-serif);
+  font-size:clamp(24px,4vw,32px);
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.presentation-section h2 .accent-line{
+  flex:1;
+  height:2px;
+  background:var(--accent-dark);
+  opacity:0.3;
+}
+.presentation-section p{
+  font-size:16px;
+  line-height:1.7;
+  color:var(--text-soft);
+  max-width:700px;
+}
+.features-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+  margin-top:24px;
+}
+.feature-card{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  padding:20px 24px;
+  border:1px solid var(--line);
+  transition:transform .2s,box-shadow .2s;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--card-shadow);}
+.feature-card .feature-icon{
+  font-size:32px;
+  flex-shrink:0;
+  width:48px;
+  text-align:center;
+}
+.feature-card .feature-content h3{
+  font-size:16px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:4px;
+}
+.feature-card .feature-content p{
+  font-size:14px;
+  color:var(--text-soft);
+  margin:0;
+}
 
 /* ========== КАЛЕНДАРЬ ========== */
 .calendar-wrapper{
@@ -376,13 +449,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .product-modal-box .modal-shops a:hover{
   transform:scale(1.05);opacity:0.85;
 }
-.product-modal-box .modal-tags{
-  display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 6px;
-}
-.product-modal-box .modal-tags span{
-  font-size:10px;font-weight:600;padding:3px 10px;border-radius:999px;
-  background:var(--line);color:var(--text-soft);
-}
 
 /* ========== МОДАЛКА РУТИНЫ ========== */
 .modal-overlay{
@@ -556,10 +622,12 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
   .card-row{grid-template-columns:repeat(2,1fr);}
   .rules-grid{grid-template-columns:1fr 1fr;}
   .shops-grid{grid-template-columns:repeat(2,1fr);}
+  .features-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(min-width:1024px){
   .card-row{grid-template-columns:repeat(3,1fr);}
   .shops-grid{grid-template-columns:repeat(3,1fr);}
+  .features-grid{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:599px){
   .day-node .day-circle{width:38px;height:38px;font-size:13px;}
@@ -633,46 +701,128 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
 
   <div class="no-results" id="noResults"></div>
 
-  <section class="zone morning" id="morning">
-    <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
-    <div class="path" id="morning-path"></div>
+  <!-- ===== ПРЕЗЕНТАЦИОННЫЕ БЛОКИ ===== -->
+
+  <!-- Блок 1: About the project -->
+  <section class="presentation-section">
+    <h2><span class="section-number">01</span> About the project <span class="accent-line"></span></h2>
+    <p>
+      <strong>Skincare Guide</strong> is a personal routine tracker designed to help you plan your daily skincare steps,
+      track retinal usage, and mark completed days. It was built as a <strong>portfolio case study</strong> to demonstrate
+      content strategy, design systems, responsive layouts, and thoughtful UX.
+    </p>
   </section>
 
-  <section class="zone evening" id="evening">
-    <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
-    <div class="path" id="evening-path"></div>
-  </section>
-
-  <section class="zone" id="kit">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
-    <p class="zone-sub" id="subKit"></p>
-    <div id="kit-groups"></div>
-  </section>
-
-  <section class="zone" id="rules">
-    <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
-    <div class="rules-grid" id="rules-grid"></div>
-  </section>
-
-  <section class="shops-section" id="shops">
-    <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
-    <p class="zone-sub" id="subShops"></p>
-    <div class="shops-grid" id="shops-grid"></div>
-  </section>
-
-  <section class="zone" id="calendar" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
-    <div class="calendar-wrapper">
-      <div class="calendar-header">
-        <h2 id="calendarMonthLabel"></h2>
-        <div class="calendar-nav">
-          <button id="prevMonthBtn">‹</button>
-          <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+  <!-- Блок 2: Key Features -->
+  <section class="presentation-section">
+    <h2><span class="section-number">02</span> Key Features <span class="accent-line"></span></h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🐍</div>
+        <div class="feature-content">
+          <h3>Snake‑style calendar</h3>
+          <p>Days flow in a winding path (boustrophedon) — more engaging than a standard grid.</p>
         </div>
       </div>
-      <div class="snake-container" id="snakeContainer"></div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-content">
+          <h3>Bilingual interface</h3>
+          <p>Full support for Russian and English — switch with one click.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-content">
+          <h3>Automated schedule</h3>
+          <p>Retinal and azelaic acid are generated based on your progress (2x/week → daily).</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-content">
+          <h3>Detailed routine view</h3>
+          <p>Click a day to see exact products for each morning and evening step.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <div class="feature-content">
+          <h3>"Done" marks</h3>
+          <p>Checkboxes are saved in your browser's localStorage — track your progress.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-content">
+          <h3>Fully responsive</h3>
+          <p>Works on all devices, from mobile to desktop.</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- Блок 3: Tech Stack -->
+  <section class="presentation-section">
+    <h2><span class="section-number">03</span> Tech Stack <span class="accent-line"></span></h2>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+      <span style="background:var(--accent); color:white; padding:6px 16px; border-radius:999px; font-weight:600; font-size:14px;">HTML5</span>
+      <span style="background:var(--accent); color:white; padding:6px 16px; border-radius:999px; font-weight:600; font-size:14px;">CSS3</span>
+      <span style="background:var(--accent); color:white; padding:6px 16px; border-radius:999px; font-weight:600; font-size:14px;">JavaScript (ES6+)</span>
+      <span style="background:var(--accent); color:white; padding:6px 16px; border-radius:999px; font-weight:600; font-size:14px;">localStorage</span>
+      <span style="background:var(--accent); color:white; padding:6px 16px; border-radius:999px; font-weight:600; font-size:14px;">GitHub Pages</span>
+      <span style="background:var(--accent); color:white; padding:6px 16px; border-radius:999px; font-weight:600; font-size:14px;">Playfair Display + Inter</span>
+    </div>
+  </section>
+
+  <!-- Блок 4: Interactive Demo (календарь и продукты) -->
+  <section class="presentation-section" style="border-bottom:none;">
+    <h2><span class="section-number">04</span> Interactive Demo <span class="accent-line"></span></h2>
+    <p style="margin-bottom:20px;">Explore the calendar and product cards below — click any day or product to see details.</p>
+
+    <!-- ЗОНЫ (утро, вечер, аптечка, правила, магазины) — те же, что в основном сайте -->
+    <section class="zone morning" id="morning">
+      <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
+      <div class="path" id="morning-path"></div>
+    </section>
+
+    <section class="zone evening" id="evening">
+      <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
+      <div class="path" id="evening-path"></div>
+    </section>
+
+    <section class="zone" id="kit">
+      <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
+      <p class="zone-sub" id="subKit"></p>
+      <div id="kit-groups"></div>
+    </section>
+
+    <section class="zone" id="rules">
+      <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
+      <div class="rules-grid" id="rules-grid"></div>
+    </section>
+
+    <section class="shops-section" id="shops">
+      <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
+      <p class="zone-sub" id="subShops"></p>
+      <div class="shops-grid" id="shops-grid"></div>
+    </section>
+
+    <!-- КАЛЕНДАРЬ -->
+    <section class="zone" id="calendar" style="scroll-margin-top:120px;">
+      <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
+      <div class="calendar-wrapper">
+        <div class="calendar-header">
+          <h2 id="calendarMonthLabel"></h2>
+          <div class="calendar-nav">
+            <button id="prevMonthBtn">‹</button>
+            <button id="nextMonthBtn">›</button>
+            <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+          </div>
+        </div>
+        <div class="snake-container" id="snakeContainer"></div>
+      </div>
+    </section>
   </section>
 </div>
 
@@ -755,7 +905,7 @@ const ICONS = {
 };
 
 /* ============================================================
-   ДАННЫЕ ПРОДУКТОВ С ДОП. ХАРАКТЕРИСТИКАМИ
+   ДАННЫЕ ПРОДУКТОВ
    ============================================================ */
 const productDetailsMap = {
   'Xpel Tea Tree Foaming Face Wash 200ml': {
@@ -842,13 +992,13 @@ const productDetailsMap = {
     keyIngredients: {ru:'Роза, мимоза, лаванда, масло ши', en:'Rose, mimosa, lavender, shea butter'},
     usage: {ru:'Вечером, нанести на сухую кожу, удалить тёплой салфеткой', en:'Evening, massage onto dry skin, remove with warm cloth'}
   },
-  'Medik8 Crystal Retinal 3 30ml (старт)': {
+  'Medik8 Crystal Retinal 3 30ml (start)': {
     category: {ru:'Ретиналь', en:'Retinal'},
     skinType: {ru:'Все типы кожи, новички', en:'All skin types, beginners'},
     keyIngredients: {ru:'Ретиналь 0.03%', en:'Retinal 0.03%'},
     usage: {ru:'Вечером, 2 раза/нед → ежедневно, на сухую кожу', en:'Evening, 2x/week → daily, on dry skin'}
   },
-  'Medik8 Crystal Retinal 6 30ml (переход)': {
+  'Medik8 Crystal Retinal 6 30ml (transition)': {
     category: {ru:'Ретиналь', en:'Retinal'},
     skinType: {ru:'Все типы кожи, продвинутые', en:'All skin types, advanced'},
     keyIngredients: {ru:'Ретиналь 0.06%', en:'Retinal 0.06%'},
@@ -896,7 +1046,7 @@ const productDetailsMap = {
     keyIngredients: {ru:'Пудра лепестков роз, жожоба', en:'Rose petal powder, jojoba beads'},
     usage: {ru:'1 раз/нед, мягкие круговые движения', en:'1x/week, gentle circular motions'}
   },
-  'Витамин C (любой ваш)': {
+  'Vitamin C (any of yours)': {
     category: {ru:'Активный уход', en:'Treatment'},
     skinType: {ru:'Все типы кожи, пигментация', en:'All skin types, hyperpigmentation'},
     keyIngredients: {ru:'Витамин C', en:'Vitamin C'},
@@ -904,9 +1054,6 @@ const productDetailsMap = {
   }
 };
 
-/* ============================================================
-   ОСНОВНЫЕ ДАННЫЕ (утро, вечер, аптечка) — те же, что в index.html
-   ============================================================ */
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:'Xpel Tea Tree Foaming Face Wash 200ml', price:'€7', icon:'cleanser', rec:true, comment:{ru:'Ваша основная утренняя умывалка — пенка с чайным деревом и мятой, освежает и подходит для ежедневного использования', en:'Your main morning cleanser — a tea tree and mint foaming wash, refreshing and suitable for daily use'}, shops:[{name:'ExpressChemist',url:'https://www.expresschemist.co.uk/xpel-tea-tree-foaming-face-wash-200ml.html'},{name:'Amazon',url:'https://www.amazon.co.uk/TREE-FOAMING-200ml-HEALTHY-CLEAN/dp/B09DRWCVRN'}]},
@@ -991,7 +1138,7 @@ const shopsInfo = [
 ];
 
 /* ============================================================
-   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (без изменений)
+   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
    ============================================================ */
 function tr(field){
   if(field == null) return '';
