@@ -53,10 +53,10 @@ text
 ---
 
 ## 🎨 Colour palette
-#A98B76 — dark accent
-#BFA28C — mid accent
-#F3E4C9 — background
-#BABF94 — light accent
+#EF6C57 — coral accent (buttons, icons, highlights)
+#7ED3B2 — mint accent (secondary elements, badges)
+#B9E6D3 — soft mint (cards, blocks, backgrounds)
+#F2F2F2 — light background (main page)
 
 text
 
