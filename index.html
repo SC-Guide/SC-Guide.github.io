@@ -121,7 +121,7 @@ nav a:hover{background:var(--accent-dark);color:white;}
   border:1px solid rgba(255,255,255,0.5);
 }
 .stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#7ED3B2;color:white;}
-.stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--text);}
+.stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--accent-dark);}
 .stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
 .no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
 
@@ -543,7 +543,6 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
 
   <div class="no-results" id="noResults"></div>
 
-  <!-- ЗОНЫ (утро, вечер, аптечка, правила, магазины) -->
   <section class="zone morning" id="morning">
     <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
     <div class="path" id="morning-path"></div>
@@ -571,7 +570,6 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
     <div class="shops-grid" id="shops-grid"></div>
   </section>
 
-  <!-- ========== КАЛЕНДАРЬ ========== -->
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
     <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
     <div class="calendar-wrapper">
@@ -597,7 +595,7 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
 
 <script>
 /* ============================================================
-   UI STRINGS (полностью двуязычные)
+   UI STRINGS (полностью двуязычные) — полная версия из предыдущего кода
    ============================================================ */
 const STR = {
   ru: {
@@ -861,7 +859,7 @@ const productDetailsMap = {
 };
 
 /* ============================================================
-   ОСНОВНЫЕ ДАННЫЕ (утро, вечер, аптечка) — те же, что и раньше
+   ОСНОВНЫЕ ДАННЫЕ (утро, вечер, аптечка)
    ============================================================ */
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
@@ -1078,7 +1076,7 @@ function closeProductModal() {
 }
 
 /* ============================================================
-   КАЛЕНДАРЬ
+   КАЛЕНДАРЬ (та же логика, что и раньше)
    ============================================================ */
 let currentYear = 2026;
 let currentMonth = 6;
