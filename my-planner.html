@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="Skincare Guide — Your step-by-step guide to safe active skincare" />
+<meta property="og:description" content="An interactive skincare routine planner with a snake‑style calendar, bilingual interface, and automated retinal/azelaic scheduling." />
+<meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
+<meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<title>Skincare Guide — Home</title>
+<style>
+/* ===== ОСНОВНЫЕ СТИЛИ (совместимы с planner) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root{
+  --bg:#F2F2F2;
+  --card-bg:#FFFFFF;
+  --card-shadow:0 12px 32px rgba(239,108,87,0.10);
+  --text:#2D2D2D;
+  --text-soft:#5A5A5A;
+  --text-light:#8A8A8A;
+  --accent:#7ED3B2;
+  --accent-dark:#EF6C57;
+  --line:#7ED3B2;
+  --border-radius:24px;
+  --font-serif:Georgia, 'Times New Roman', serif;
+  --font-sans:'Inter', system-ui, -apple-system, sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#1A1A1A;
+  --card-bg:#2A2A2A;
+  --text:#E8E8E8;
+  --text-soft:#B0B0B0;
+  --text-light:#888;
+  --card-shadow:0 12px 32px rgba(0,0,0,0.5);
+  --line:#5A9A8A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;min-height:100vh;background:var(--bg);
+  font-family:var(--font-sans);color:var(--text);
+  padding:0 0 40px;
+  transition:background .3s,color .3s;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
+header{
+  background:var(--card-bg);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:16px 0 0;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.header-top{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:6px 12px;
+  padding:6px 0 2px;
+}
+.title{
+  font-family:var(--font-serif);
+  font-size:clamp(18px,3vw,24px);
+  font-weight:700;
+  letter-spacing:-0.01em;
+  display:flex;align-items:center;gap:6px;
+}
+.title .accent{color:var(--accent-dark);font-style:italic;}
+.subtitle{font-size:clamp(10px,1.5vw,12px);color:var(--text-soft);font-weight:400;margin:0;}
+.tools{
+  display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+  flex:1;
+  justify-content:flex-end;
+}
+.pill-toggle,.theme-toggle,.lang-toggle{
+  display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
+  border:1px solid var(--line);background:var(--card-bg);cursor:pointer;
+  font-size:12px;font-weight:500;color:var(--text-soft);
+  transition:all .15s ease;user-select:none;white-space:nowrap;
+}
+.pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
+.lang-toggle:hover,.theme-toggle:hover,.pill-toggle:hover{
+  background:var(--accent);color:white;border-color:var(--accent-dark);
+}
+.right-tools{
+  display:flex;gap:6px;align-items:center;
+}
+nav{
+  display:flex;gap:4px;padding:6px 0 8px;overflow-x:auto;
+  -ms-overflow-style:none;scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none;}
+nav a{
+  white-space:nowrap;text-decoration:none;color:var(--text-soft);
+  font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;
+  transition:background .15s ease,color .15s ease;
+}
+nav a:hover{background:var(--accent);color:white;}
+
+/* hero */
+.hero{
+  padding:60px 0 40px;
+  text-align:center;
+}
+.hero h1{
+  font-family:var(--font-serif);
+  font-size:clamp(32px,6vw,56px);
+  font-weight:700;
+  color:var(--text);
+  margin:0 0 16px;
+  line-height:1.2;
+}
+.hero h1 .accent{color:var(--accent-dark);}
+.hero p{
+  font-size:clamp(16px,2vw,22px);
+  color:var(--text-soft);
+  max-width:700px;
+  margin:0 auto 32px;
+  line-height:1.7;
+}
+.hero .btn-primary{
+  display:inline-block;
+  background:var(--accent-dark);
+  color:white;
+  font-size:18px;
+  font-weight:600;
+  padding:14px 48px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:background .2s,transform .1s;
+  border:none;
+  cursor:pointer;
+}
+.hero .btn-primary:hover{
+  background:color-mix(in srgb, var(--accent-dark) 80%, black);
+  transform:scale(1.02);
+}
+
+/* features */
+.features{
+  padding:40px 0 60px;
+}
+.features-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:30px;
+  margin-top:20px;
+}
+.feature-card{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  padding:28px 24px;
+  box-shadow:var(--card-shadow);
+  border:1px solid var(--line);
+  text-align:center;
+}
+.feature-card .icon{
+  font-size:40px;
+  margin-bottom:12px;
+}
+.feature-card h3{
+  font-size:20px;
+  font-weight:700;
+  color:var(--text);
+  margin:0 0 8px;
+}
+.feature-card p{
+  font-size:14px;
+  color:var(--text-soft);
+  line-height:1.6;
+  margin:0;
+}
+
+/* cta */
+.cta{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  padding:48px 32px;
+  text-align:center;
+  margin:20px 0 40px;
+  border:1px solid var(--line);
+}
+.cta h2{
+  font-family:var(--font-serif);
+  font-size:clamp(24px,3vw,36px);
+  font-weight:700;
+  color:var(--text);
+  margin:0 0 12px;
+}
+.cta p{
+  font-size:16px;
+  color:var(--text-soft);
+  margin:0 0 24px;
+}
+.cta .btn-secondary{
+  display:inline-block;
+  background:var(--accent);
+  color:white;
+  font-size:18px;
+  font-weight:600;
+  padding:14px 48px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:background .2s,transform .1s;
+}
+.cta .btn-secondary:hover{
+  background:color-mix(in srgb, var(--accent) 80%, black);
+  transform:scale(1.02);
+}
+
+footer{
+  margin-top:30px;padding:20px 0 30px;
+  border-top:1px solid rgba(239,108,87,0.15);
+  text-align:center;
+}
+footer p{font-size:12px;color:var(--text-light);margin:4px 0;}
+footer .footer-credit{font-size:11px;color:var(--text-light);}
+footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px;margin:8px auto;line-height:1.6;}
+
+@media(min-width:600px){
+  .features-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(min-width:1024px){
+  .features-grid{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="header-top">
+      <div>
+        <p class="title"><span class="accent">Skincare</span> Guide</p>
+        <p class="subtitle" id="siteSubtitle"></p>
+      </div>
+      <div class="tools">
+        <div class="right-tools">
+          <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
+          <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+        </div>
+      </div>
+    </div>
+    <nav id="mainNav">
+      <a href="index.html">🏠 Home</a>
+      <a href="planner.html">📋 Planner</a>
+      <a href="demo.html">📄 Demo</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <h1 id="heroTitle">Build your <span class="accent">skincare routine</span> with confidence</h1>
+    <p id="heroDesc">A step-by-step planner with a smart calendar, product recommendations, and bilingual support — designed to help you build and track your personal skincare routine.</p>
+    <a href="planner.html" class="btn-primary" id="heroBtn">Get Started →</a>
+  </section>
+
+  <section class="features" id="features">
+    <h2 style="font-family:var(--font-serif); font-size:clamp(24px,3vw,32px); text-align:center; margin-bottom:8px;" id="featuresTitle">Why Skincare Guide?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">📅</div>
+        <h3 id="f1Title">Snake‑style Calendar</h3>
+        <p id="f1Desc">Visual calendar with automated retinal/azelaic scheduling — see your routine at a glance.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🧴</div>
+        <h3 id="f2Title">Product Library</h3>
+        <p id="f2Desc">Curated product recommendations with details, prices, and direct shop links.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔍</div>
+        <h3 id="f3Title">Search & Filter</h3>
+        <p id="f3Desc">Find products by name, description, or filter by “recommended” only.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌙</div>
+        <h3 id="f4Title">Dark / Light Theme</h3>
+        <p id="f4Desc">Smooth theme toggle with system preference fallback — comfortable for any time of day.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌍</div>
+        <h3 id="f5Title">Bilingual Interface</h3>
+        <p id="f5Desc">Full support for English and Russian — switch languages instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📊</div>
+        <h3 id="f6Title">Smart Routine Builder</h3>
+        <p id="f6Desc">Your daily plan is generated based on your owned products and retinal schedule.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2 id="ctaTitle">Ready to take control of your skincare?</h2>
+    <p id="ctaDesc">Start building your personalized routine today — it's free and easy.</p>
+    <a href="planner.html" class="btn-secondary" id="ctaBtn">Go to Planner →</a>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p id="footerLine">Created from your personal skincare data · update as your routine evolves</p>
+    <p class="footer-credit" id="footerCredit">© 2026 · Anastasiia Vyshnevska</p>
+    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// ЯЗЫК, ТЕМА, ПЕРЕКЛЮЧЕНИЕ
+// ============================================================
+
+let currentLang = localStorage.getItem('lang') || 'en';
+
+const STR = {
+  en: {
+    subtitle: 'Your personal skincare planner',
+    heroTitle: 'Build your <span class="accent">skincare routine</span> with confidence',
+    heroDesc: 'A step-by-step planner with a smart calendar, product recommendations, and bilingual support — designed to help you build and track your personal skincare routine.',
+    heroBtn: 'Get Started →',
+    featuresTitle: 'Why Skincare Guide?',
+    f1Title: 'Snake‑style Calendar',
+    f1Desc: 'Visual calendar with automated retinal/azelaic scheduling — see your routine at a glance.',
+    f2Title: 'Product Library',
+    f2Desc: 'Curated product recommendations with details, prices, and direct shop links.',
+    f3Title: 'Search & Filter',
+    f3Desc: 'Find products by name, description, or filter by “recommended” only.',
+    f4Title: 'Dark / Light Theme',
+    f4Desc: 'Smooth theme toggle with system preference fallback — comfortable for any time of day.',
+    f5Title: 'Bilingual Interface',
+    f5Desc: 'Full support for English and Russian — switch languages instantly.',
+    f6Title: 'Smart Routine Builder',
+    f6Desc: 'Your daily plan is generated based on your owned products and retinal schedule.',
+    ctaTitle: 'Ready to take control of your skincare?',
+    ctaDesc: 'Start building your personalized routine today — it\'s free and easy.',
+    ctaBtn: 'Go to Planner →',
+    footerLine: 'Created from your personal skincare data · update as your routine evolves',
+    footerCredit: '© 2026 · Anastasiia Vyshnevska',
+    footerDisclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
+  },
+  ru: {
+    subtitle: 'Ваш персональный планировщик ухода за кожей',
+    heroTitle: 'Постройте свою <span class="accent">рутину ухода</span> с уверенностью',
+    heroDesc: 'Пошаговый планировщик с умным календарём, рекомендациями продуктов и поддержкой двух языков — создан, чтобы помочь вам построить и отслеживать личную рутину ухода.',
+    heroBtn: 'Начать →',
+    featuresTitle: 'Почему Skincare Guide?',
+    f1Title: 'Календарь-змейка',
+    f1Desc: 'Визуальный календарь с автоматическим планированием ретиналя и азелаина — ваша рутина наглядно.',
+    f2Title: 'Библиотека продуктов',
+    f2Desc: 'Подобранные рекомендации продуктов с деталями, ценами и прямыми ссылками на магазины.',
+    f3Title: 'Поиск и фильтр',
+    f3Desc: 'Находите продукты по названию, описанию или фильтруйте по «рекомендованным».',
+    f4Title: 'Тёмная / светлая тема',
+    f4Desc: 'Плавное переключение темы с учётом системных предпочтений — комфортно в любое время суток.',
+    f5Title: 'Двуязычный интерфейс',
+    f5Desc: 'Полная поддержка английского и русского языков — переключайте мгновенно.',
+    f6Title: 'Умный построитель рутины',
+    f6Desc: 'Ежедневный план генерируется на основе ваших продуктов и графика ретиналя.',
+    ctaTitle: 'Готовы взять уход под контроль?',
+    ctaDesc: 'Начните строить свою персонализированную рутину сегодня — это бесплатно и просто.',
+    ctaBtn: 'Перейти в планировщик →',
+    footerLine: 'Создано на основе ваших личных данных по уходу · обновляйте по мере изменения рутины',
+    footerCredit: '© 2026 · Анастасия Вышневская',
+    footerDisclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
+  }
+};
+
+function tr(field) {
+  if (field == null) return '';
+  if (typeof field === 'string') return field;
+  return field[currentLang] != null ? field[currentLang] : (field.en || '');
+}
+
+function renderHome() {
+  const t = STR[currentLang];
+  document.documentElement.lang = currentLang;
+  document.getElementById('siteSubtitle').textContent = t.subtitle;
+  document.getElementById('heroTitle').innerHTML = t.heroTitle;
+  document.getElementById('heroDesc').textContent = t.heroDesc;
+  document.getElementById('heroBtn').textContent = t.heroBtn;
+  document.getElementById('featuresTitle').textContent = t.featuresTitle;
+  document.getElementById('f1Title').textContent = t.f1Title;
+  document.getElementById('f1Desc').textContent = t.f1Desc;
+  document.getElementById('f2Title').textContent = t.f2Title;
+  document.getElementById('f2Desc').textContent = t.f2Desc;
+  document.getElementById('f3Title').textContent = t.f3Title;
+  document.getElementById('f3Desc').textContent = t.f3Desc;
+  document.getElementById('f4Title').textContent = t.f4Title;
+  document.getElementById('f4Desc').textContent = t.f4Desc;
+  document.getElementById('f5Title').textContent = t.f5Title;
+  document.getElementById('f5Desc').textContent = t.f5Desc;
+  document.getElementById('f6Title').textContent = t.f6Title;
+  document.getElementById('f6Desc').textContent = t.f6Desc;
+  document.getElementById('ctaTitle').textContent = t.ctaTitle;
+  document.getElementById('ctaDesc').textContent = t.ctaDesc;
+  document.getElementById('ctaBtn').textContent = t.ctaBtn;
+  document.getElementById('footerLine').textContent = t.footerLine;
+  document.getElementById('footerCredit').textContent = t.footerCredit;
+  document.getElementById('footerDisclaimer').textContent = t.footerDisclaimer;
+  updateLangToggle();
+}
+
+function toggleLanguage() {
+  currentLang = (currentLang === 'en') ? 'ru' : 'en';
+  localStorage.setItem('lang', currentLang);
+  renderHome();
+}
+
+function updateLangToggle() {
+  const btn = document.getElementById('langToggle');
+  if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
+}
+
+// --- ТЕМА ---
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+}
+
+document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+renderHome();
+</script>
+</body>
+</html>
