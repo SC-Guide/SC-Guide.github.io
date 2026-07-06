@@ -10,15 +10,12 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 <title>Skincare Guide — Planner</title>
-
-<!-- Firebase SDK (compat) -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
 <style>
-/* ===== ПОЛНЫЙ CSS (такой же, как в demo, но с дополнительными стилями для кнопок toggle) ===== */
+/* ===== ПОЛНЫЙ CSS (копия из рабочей версии) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
-
 :root{
   --bg:#F2F2F2;
   --card-bg:#FFFFFF;
@@ -40,7 +37,7 @@
   --bg:#1A1A1A;
   --card-bg:#2A2A2A;
   --text:#E8E8E8;
-  --text-soft:#B0B0B0
+  --text-soft:#B0B0B0;
   --text-light:#888;
   --card-shadow:0 12px 32px rgba(0,0,0,0.5);
   --morning:color-mix(in srgb, #2A4A3A 60%, #1A2A22 40%);
@@ -57,8 +54,6 @@ body{
   transition:background .3s,color .3s;
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
-
-/* header – увеличен отступ сверху */
 header{
   background:var(--card-bg);
   backdrop-filter:blur(8px);
@@ -120,8 +115,6 @@ nav a{
   transition:background .15s ease,color .15s ease;
 }
 nav a:hover{background:var(--accent);color:white;}
-
-/* hero */
 .hero{padding:16px 0 6px;}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px;}
 .stat{
@@ -133,8 +126,6 @@ nav a:hover{background:var(--accent);color:white;}
 .stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--text);}
 .stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
 .no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
-
-/* zones */
 section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .zone-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
 .zone-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
@@ -193,8 +184,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .shop-card-name a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:4px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
-
-/* кнопка toggle */
 .toggle-product {
   position:absolute;
   top:8px;right:8px;
@@ -220,8 +209,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   border-color:var(--accent-dark);
   color:white;
 }
-
-/* calendar */
 .calendar-wrapper{
   background:var(--card-bg);
   border-radius:var(--border-radius);
@@ -361,8 +348,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   stroke-linecap:round;
   opacity:0.6;
 }
-
-/* modals */
 .modal-overlay{
   position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(0,0,0,0.4);
@@ -466,8 +451,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .product-modal .product-detail-shops a:hover{background:var(--accent-dark);transform:scale(1.02);}
 .product-modal .product-detail-shops a svg{width:14px;height:14px;stroke:currentColor;}
 .product-modal .product-detail-disclaimer{font-size:11px;color:var(--text-light);margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);line-height:1.5;}
-
-/* my products */
 .my-products-grid {
   display:grid;
   grid-template-columns:1fr;
@@ -504,7 +487,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   font-size:13px;
   padding:20px 0;
 }
-
 footer{
   margin-top:30px;padding:20px 0 30px;
   border-top:1px solid rgba(239,108,87,0.15);
@@ -513,7 +495,6 @@ footer{
 footer p{font-size:12px;color:var(--text-light);margin:4px 0;}
 footer .footer-credit{font-size:11px;color:var(--text-light);}
 footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px;margin:8px auto;line-height:1.6;}
-
 @media(min-width:600px){
   .stats{grid-template-columns:repeat(4,1fr);gap:12px;}
   .card-row{grid-template-columns:repeat(2,1fr);}
@@ -567,7 +548,6 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
     </nav>
   </div>
 </header>
-
 <div class="wrap">
   <div class="hero">
     <div class="stats">
@@ -577,36 +557,29 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
       <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
     </div>
   </div>
-
   <div class="no-results" id="noResults"></div>
-
   <section class="zone morning" id="morning">
     <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
     <div class="path" id="morning-path"></div>
   </section>
-
   <section class="zone evening" id="evening">
     <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
     <div class="path" id="evening-path"></div>
   </section>
-
   <section class="zone" id="kit">
     <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
     <p class="zone-sub" id="subKit"></p>
     <div id="kit-groups"></div>
   </section>
-
   <section class="zone" id="rules">
     <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
     <div class="rules-grid" id="rules-grid"></div>
   </section>
-
   <section class="shops-section" id="shops">
     <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
     <p class="zone-sub" id="subShops"></p>
     <div class="shops-grid" id="shops-grid"></div>
   </section>
-
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
     <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
     <div class="calendar-wrapper">
@@ -621,28 +594,22 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
       <div class="snake-container" id="snakeContainer"></div>
     </div>
   </section>
-
   <section class="zone" id="myproducts" style="scroll-margin-top:120px;">
     <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleMyProducts"></p></div>
     <p class="zone-sub" id="subMyProducts"></p>
     <div id="my-products-container"></div>
   </section>
 </div>
-
 <footer>
   <div class="wrap">
     <p id="footerLine"></p>
     <p class="footer-credit" id="footerCredit"></p>
     <p class="footer-disclaimer" id="footerDisclaimer"></p>
   </div>
-</footer>
-
-<script>
+</footer><script>
 // ============================================================
-// Skincare Guide — Planner v2 (с Firebase Auth и ВСЕМИ данными)
+// БЛОК 2: FIREBASE, СТРОКИ, ИКОНКИ, ДАННЫЕ (заглушки для массивов)
 // ============================================================
-
-// --- FIREBASE INIT ---
 const firebaseConfig = {
   apiKey: "AIzaSyBhAUTiDxTuaJ-QFx-Oirr0fY3dViKTSJM",
   authDomain: "sg-project-b13f4.firebaseapp.com",
@@ -655,34 +622,22 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
-
-// --- Элементы UI ---
 const authBtn = document.getElementById('authBtn');
 
-// --- Функции аутентификации ---
 function updateAuthUI(user) {
   if (user) {
     const displayName = user.displayName || user.email || 'User';
     const photoURL = user.photoURL;
     let avatarHtml = '';
-    if (photoURL) {
-      avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
-    }
+    if (photoURL) avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
     authBtn.innerHTML = `${avatarHtml} ${displayName} (Sign out)`;
-    authBtn.onclick = () => {
-      auth.signOut().then(() => updateAuthUI(null)).catch(console.error);
-    };
+    authBtn.onclick = () => auth.signOut().then(() => updateAuthUI(null)).catch(console.error);
   } else {
     authBtn.innerHTML = 'Sign in with Google';
-    authBtn.onclick = () => {
-      auth.signInWithPopup(provider).catch(console.error);
-    };
+    authBtn.onclick = () => auth.signInWithPopup(provider).catch(console.error);
   }
 }
-
-auth.onAuthStateChanged(user => {
-  updateAuthUI(user);
-});
+auth.onAuthStateChanged(updateAuthUI);
 
 // --- ЯЗЫК ---
 let currentLang = localStorage.getItem('lang') || 'en';
@@ -781,6 +736,7 @@ const ICONS = {
 };
 
 // --- ДАННЫЕ ПРОДУКТОВ (ПОЛНОСТЬЮ) ---
+
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:{ru:'Xpel Tea Tree Foaming Face Wash 200ml', en:'Xpel Tea Tree Foaming Face Wash 200ml'}, price:'€7', icon:'cleanser', rec:true,
@@ -992,43 +948,35 @@ const shopsInfo = [
 
 // --- ХРАНИЛИЩЕ ПРОДУКТОВ ПОЛЬЗОВАТЕЛЯ ---
 let userProducts = JSON.parse(localStorage.getItem('userProducts')) || [];
-
-function saveUserProducts() {
-  localStorage.setItem('userProducts', JSON.stringify(userProducts));
-}
-
+function saveUserProducts(){ localStorage.setItem('userProducts', JSON.stringify(userProducts)); }
 function toggleProduct(id) {
   const idx = userProducts.indexOf(id);
-  if (idx === -1) {
-    userProducts.push(id);
-  } else {
-    userProducts.splice(idx, 1);
-  }
+  if (idx === -1) userProducts.push(id);
+  else userProducts.splice(idx, 1);
   saveUserProducts();
   renderAll();
 }
-
-function isProductOwned(id) {
-  return userProducts.includes(id);
-}
-
+function isProductOwned(id){ return userProducts.includes(id); }
 function getProductId(p) {
   const name = tr(p.name) || p.name.en || '';
   const price = p.price || '';
   return `${name}-${price}`.replace(/\s/g, '_').toLowerCase();
 }
 
-// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+// КОНЕЦ БЛОКА 2
+</script><script>
+// ============================================================
+// БЛОК 3: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ, КАЛЕНДАРЬ, МОДАЛКИ, ПОИСК, ТЕМА, ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+
 function tr(field) {
   if (field == null) return '';
   if (typeof field === 'string') return field;
   return field[currentLang] != null ? field[currentLang] : (field.en || '');
 }
-
 function shopChips(shops){
   return '<div class="shop-row">'+shops.map(s=>`<a class="shop-chip" href="${s.url}" target="_blank" rel="noopener">${tr(s.name)}${ICONS.link}</a>`).join('')+'</div>';
 }
-
 function productCard(p, zoneClass) {
   const name = tr(p.name);
   const comment = tr(p.comment);
@@ -1063,18 +1011,15 @@ function productCard(p, zoneClass) {
     </button>
   </div>`;
 }
-
 function refCard(text, anchor){
   return `<a class="ref-card" href="${anchor}">${ICONS.ref}${tr(text)}</a>`;
 }
-
 function renderPath(container, steps, zoneClass) {
   container.innerHTML = steps.map(s => {
     let body = '';
     if (s.ref) {
       body = refCard(s.ref, s.anchor || '#morning');
     } else if (s.split) {
-      // Для split-шага фильтруем продукты по владению
       const aProducts = s.split.a.products.filter(p => isProductOwned(getProductId(p)));
       const bProducts = s.split.b.products.filter(p => isProductOwned(getProductId(p)));
       const aHtml = aProducts.length ? aProducts.map(p => productCard(p, zoneClass)).join('') : `<div style="color:var(--text-soft);font-size:12px;padding:6px 0;">${currentLang === 'en' ? 'No products added yet' : 'Нет добавленных продуктов'}</div>`;
@@ -1191,7 +1136,7 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// --- КАЛЕНДАРЬ (с отметками done) ---
+// --- КАЛЕНДАРЬ ---
 let currentYear = 2026;
 let currentMonth = 6;
 const today = new Date();

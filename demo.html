@@ -15,7 +15,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 
 <style>
-/* ===== ПОЛНЫЙ CSS ===== */
+/* ===== ПОЛНЫЙ CSS (скопирован из planner.html, но без стилей для кнопок toggle и Firebase) ===== */
+/* Весь CSS из planner, кроме .toggle-product и #authBtn – они не используются в демо, но их наличие не вредит. */
+/* Чтобы не тратить время на вырезание, я просто скопирую полный CSS из planner, он рабочий. */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
@@ -56,8 +59,6 @@ body{
   transition:background .3s,color .3s;
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
-
-/* header */
 header{
   background:var(--card-bg);
   backdrop-filter:blur(8px);
@@ -543,7 +544,6 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
 </style>
 </head>
 <body>
-
 <header>
   <div class="wrap">
     <div class="header-top">
@@ -571,9 +571,7 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
     </nav>
   </div>
 </header>
-
 <div class="wrap">
-
   <!-- Блок "О проекте" -->
   <section class="about-project" id="about">
     <div class="about-card">
@@ -636,7 +634,6 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
       <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
     </div>
   </div>
-
   <div class="no-results" id="noResults"></div>
 
   <!-- УТРО -->
@@ -693,20 +690,16 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
     <p class="zone-sub" id="subMyProducts"></p>
     <div id="my-products-container"></div>
   </section>
-
 </div>
-
 <footer>
   <div class="wrap">
     <p id="footerLine"></p>
     <p class="footer-credit" id="footerCredit"></p>
     <p class="footer-disclaimer" id="footerDisclaimer"></p>
   </div>
-</footer>
-
-<script>
+</footer><script>
 // ============================================================
-// Skincare Guide — Demo (полный скрипт)
+// ЧАСТЬ 2: СТРОКИ, ИКОНКИ, ДАННЫЕ ПРОДУКТОВ (ПОЛНЫЕ)
 // ============================================================
 
 // --- ЯЗЫК ---
@@ -782,7 +775,7 @@ const STR = {
   }
 };
 
-// --- ИКОНКИ ---
+// --- ИКОНКИ (те же, что и в planner) ---
 const ICONS = {
   cleanser: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 6 7.5 6 11.5A6 6 0 0 1 6 13.5C6 9.5 9 6 12 2z"/></svg>',
   toner: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="12" r="6.5" opacity="0.6"/><circle cx="12" cy="12" r="10.5" opacity="0.3"/></svg>',
@@ -801,9 +794,9 @@ const ICONS = {
   warn: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L22 20.5H2L12 3.5z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>',
   note: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>',
   lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>'
-};
+}; // конец ICONS
 
-// --- ДАННЫЕ ПРОДУКТОВ (полные) ---
+// --- ДАННЫЕ ПРОДУКТОВ (ПОЛНЫЕ, такие же, как в planner) ---
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:{ru:'Xpel Tea Tree Foaming Face Wash 200ml', en:'Xpel Tea Tree Foaming Face Wash 200ml'}, price:'€7', icon:'cleanser', rec:true,
@@ -1013,7 +1006,18 @@ const shopsInfo = [
   {name:{ru:'Medik8.ie', en:'Medik8.ie'}, url:'https://www.medik8.ie', items:{ru:'Medik8 Crystal Retinal', en:'Medik8 Crystal Retinal'}}
 ];
 
-// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+// --- ДЛЯ ОТОБРАЖЕНИЯ В "MY PRODUCTS" (ТОЛЬКО ЧТЕНИЕ) ---
+function getProductId(p) {
+  const name = p.name.en || '';
+  const price = p.price || '';
+  return `${name}-${price}`.replace(/\s/g, '_').toLowerCase();
+}
+
+</script><script>
+// ============================================================
+// ЧАСТЬ 3: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ, КАЛЕНДАРЬ, МОДАЛКИ, ПОИСК, ТЕМА, ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+
 function tr(field) {
   if (field == null) return '';
   if (typeof field === 'string') return field;
@@ -1030,6 +1034,7 @@ function productCard(p, zoneClass) {
   const skin = tr(p.skinType||'');
   const ingredients = tr(p.ingredients||'');
   const usage = tr(p.usage||'');
+  // В демо нет кнопок toggle, поэтому просто показываем карточку
   return `<div class="card product-card ${zoneClass}${p.lux?' lux-card':''}" 
          data-name="${name.toLowerCase()}" 
          data-comment="${comment.toLowerCase()}" 
@@ -1055,12 +1060,12 @@ function refCard(text, anchor){
   return `<a class="ref-card" href="${anchor}">${ICONS.ref}${tr(text)}</a>`;
 }
 
-function renderPath(container, steps, zoneClass){
-  container.innerHTML = steps.map(s=>{
+function renderPath(container, steps, zoneClass) {
+  container.innerHTML = steps.map(s => {
     let body = '';
-    if(s.ref){
+    if (s.ref) {
       body = refCard(s.ref, s.anchor || '#morning');
-    } else if(s.split){
+    } else if (s.split) {
       body = `<div class="split">
         <div><div class="split-col-label">${tr(s.split.a.title)}</div><div class="card-row">${s.split.a.products.map(p=>productCard(p, zoneClass)).join('')}</div></div>
         <div><div class="split-col-label">${tr(s.split.b.title)}</div><div class="card-row">${s.split.b.products.map(p=>productCard(p, zoneClass)).join('')}</div></div>
@@ -1076,7 +1081,7 @@ function renderPath(container, steps, zoneClass){
   }).join('');
 }
 
-// --- МОДАЛКА ПРОДУКТА ---
+// --- МОДАЛКА ПРОДУКТА (полная, как в planner) ---
 function openProductModal(card) {
   const nameEl = card.querySelector('.card-name');
   const priceEl = card.querySelector('.card-price');
@@ -1171,7 +1176,7 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// --- КАЛЕНДАРЬ (с отметками done – можно оставить для демонстрации) ---
+// --- КАЛЕНДАРЬ (полный, как в planner, но без Firebase) ---
 let currentYear = 2026;
 let currentMonth = 6;
 const today = new Date();
@@ -1204,6 +1209,10 @@ function generateRoutine(y,m,d){
 
 function getRoutineForDay(y,m,d){
   const auto = generateRoutine(y,m,d);
+  // Утро
+  const morningStep1 = morningSteps.find(s=>s.num===1);
+  const morningStep2 = morningSteps.find(s=>s.num===2);
+  const morningStep4 = morningSteps.find(s=>s.num===4);
   let activeProducts;
   if (auto.azelaicActive) {
     const step3b = morningSteps.find(s=>s.num===3)?.split?.b?.products;
@@ -1212,15 +1221,13 @@ function getRoutineForDay(y,m,d){
     const step3a = morningSteps.find(s=>s.num===3)?.split?.a?.products;
     activeProducts = step3a ? step3a.map(p=>tr(p.name)).join(', ') : 'Vitamin C';
   }
-  const morningStep1 = morningSteps.find(s=>s.num===1);
-  const morningStep2 = morningSteps.find(s=>s.num===2);
-  const morningStep4 = morningSteps.find(s=>s.num===4);
   const morningProducts = [
     { label: tr(morningStep1.label), products: morningStep1.products.map(p=>tr(p.name)).join(', ') },
     { label: tr(morningStep2.label), products: morningStep2.products.map(p=>tr(p.name)).join(', ') },
     { label: currentLang === 'en' ? 'Active' : 'Актив', products: activeProducts },
     { label: tr(morningStep4.label), products: morningStep4.products.map(p=>tr(p.name)).join(', ') }
   ];
+  // Вечер
   const eveningStep1 = eveningSteps.find(s=>s.num===1);
   const eveningStep4 = eveningSteps.find(s=>s.num===4);
   const eveningStep5 = eveningSteps.find(s=>s.num===5);
@@ -1479,20 +1486,20 @@ function renderMyProducts() {
   const allProducts = [];
   morningSteps.forEach(step => {
     if (step.products) {
-      step.products.forEach(p => { if (userProducts.includes(p.name.en)) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.label) }); });
+      step.products.forEach(p => { if (userProducts.includes(getProductId(p))) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.label) }); });
     }
     if (step.split) {
-      step.split.a.products.forEach(p => { if (userProducts.includes(p.name.en)) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.a.title) }); });
-      step.split.b.products.forEach(p => { if (userProducts.includes(p.name.en)) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.b.title) }); });
+      step.split.a.products.forEach(p => { if (userProducts.includes(getProductId(p))) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.a.title) }); });
+      step.split.b.products.forEach(p => { if (userProducts.includes(getProductId(p))) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.b.title) }); });
     }
   });
   eveningSteps.forEach(step => {
     if (step.products) {
-      step.products.forEach(p => { if (userProducts.includes(p.name.en)) allProducts.push({ product: p, category: 'evening', stepLabel: tr(step.label) }); });
+      step.products.forEach(p => { if (userProducts.includes(getProductId(p))) allProducts.push({ product: p, category: 'evening', stepLabel: tr(step.label) }); });
     }
   });
   kitGroups.forEach(group => {
-    group.products.forEach(p => { if (userProducts.includes(p.name.en)) allProducts.push({ product: p, category: 'kit', stepLabel: tr(group.title) }); });
+    group.products.forEach(p => { if (userProducts.includes(getProductId(p))) allProducts.push({ product: p, category: 'kit', stepLabel: tr(group.title) }); });
   });
 
   const categories = {
@@ -1545,6 +1552,7 @@ function renderAll() {
   document.getElementById('footerLine').textContent = t.footerLine;
   document.getElementById('footerCredit').textContent = t.footerCredit;
   document.getElementById('footerDisclaimer').textContent = t.disclaimer;
+
   renderPath(document.getElementById('morning-path'), morningSteps, 'morning');
   renderPath(document.getElementById('evening-path'), eveningSteps, 'evening');
   document.getElementById('kit-groups').innerHTML = kitGroups.map(g=>`
@@ -1572,10 +1580,6 @@ function renderAll() {
       <div class="shop-card-items">${tr(s.items)}</div>
     </div>
   `).join('');
-  renderSnake();
-  renderMyProducts();
-  applyFilters();
-  updateLangToggle();
 
   // Переключение текста "О проекте"
   const aboutEn = document.getElementById('aboutText');
@@ -1589,6 +1593,11 @@ function renderAll() {
       aboutRu.style.display = 'block';
     }
   }
+
+  renderSnake();
+  renderMyProducts();
+  applyFilters();
+  updateLangToggle();
 }
 
 document.addEventListener('DOMContentLoaded', function(){
