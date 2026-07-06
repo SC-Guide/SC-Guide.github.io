@@ -3,20 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Skincare Guide — Planner" />
-<meta property="og:description" content="An interactive skincare routine planner with product ownership, calendar, and bilingual interface." />
+<meta property="og:title" content="Skincare Guide — Your step-by-step guide to safe active skincare" />
+<meta property="og:description" content="An interactive skincare routine planner with a snake‑style calendar, bilingual interface, and automated retinal/azelaic scheduling." />
 <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
-<meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/planner.html" />
+<meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Planner</title>
-
-<!-- Firebase SDK (compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
+<title>Skincare Guide — Home</title>
 <style>
-/* ===== ПОЛНЫЙ CSS (скопирован из предыдущей рабочей версии) ===== */
+/* ===== ОСНОВНЫЕ СТИЛИ (совместимы с planner) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
@@ -28,9 +23,6 @@
   --text-light:#8A8A8A;
   --accent:#7ED3B2;
   --accent-dark:#EF6C57;
-  --morning:color-mix(in srgb, #B9E6D3 45%, white 55%);
-  --evening:color-mix(in srgb, #B9E6D3 68%, white 32%);
-  --special:color-mix(in srgb, #7ED3B2 30%, white 70%);
   --line:#7ED3B2;
   --border-radius:24px;
   --font-serif:Georgia, 'Times New Roman', serif;
@@ -43,9 +35,6 @@
   --text-soft:#B0B0B0;
   --text-light:#888;
   --card-shadow:0 12px 32px rgba(0,0,0,0.5);
-  --morning:color-mix(in srgb, #2A4A3A 60%, #1A2A22 40%);
-  --evening:color-mix(in srgb, #3A2A3A 60%, #2A1A22 40%);
-  --special:color-mix(in srgb, #3A4A3A 60%, #2A3A2A 40%);
   --line:#5A9A8A;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -57,8 +46,6 @@ body{
   transition:background .3s,color .3s;
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
-
-/* header – увеличен отступ сверху */
 header{
   background:var(--card-bg);
   backdrop-filter:blur(8px);
@@ -84,31 +71,21 @@ header{
 .tools{
   display:flex;gap:6px;align-items:center;flex-wrap:wrap;
   flex:1;
+  justify-content:flex-end;
 }
-.search-box{position:relative;min-width:140px;max-width:200px;}
-.search-box input{
-  width:100%;padding:6px 10px 6px 28px;border-radius:999px;min-height:32px;
-  border:1px solid var(--line);background:var(--card-bg);
-  font-size:12px;font-family:var(--font-sans);outline:none;
-  color:var(--text);
-}
-.search-box input:focus{border-color:var(--accent-dark);}
-.search-box svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);opacity:0.4;width:14px;height:14px;}
-.pill-toggle,.theme-toggle,.lang-toggle,#authBtn{
+.pill-toggle,.theme-toggle,.lang-toggle{
   display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
   border:1px solid var(--line);background:var(--card-bg);cursor:pointer;
   font-size:12px;font-weight:500;color:var(--text-soft);
   transition:all .15s ease;user-select:none;white-space:nowrap;
 }
 .pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
-.lang-toggle:hover,.theme-toggle:hover,.pill-toggle:hover,#authBtn:hover{
+.lang-toggle:hover,.theme-toggle:hover,.pill-toggle:hover{
   background:var(--accent);color:white;border-color:var(--accent-dark);
 }
 .right-tools{
-  display:flex;gap:6px;align-items:center;margin-left:auto;
+  display:flex;gap:6px;align-items:center;
 }
-.result-count{font-size:11px;color:var(--accent-dark);font-weight:600;white-space:nowrap;}
-.user-avatar{width:24px;height:24px;border-radius:50%;margin-right:4px;}
 nav{
   display:flex;gap:4px;padding:6px 0 8px;overflow-x:auto;
   -ms-overflow-style:none;scrollbar-width:none;
@@ -122,387 +99,114 @@ nav a{
 nav a:hover{background:var(--accent);color:white;}
 
 /* hero */
-.hero{padding:16px 0 6px;}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px;}
-.stat{
-  background:var(--card-bg);backdrop-filter:blur(4px);
-  border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:8px;
-  border:1px solid rgba(255,255,255,0.5);
+.hero{
+  padding:60px 0 40px;
+  text-align:center;
 }
-.stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;}
-.stat .num{font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1;color:var(--text);}
-.stat .lbl{font-size:9px;color:var(--text-soft);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
-.no-results{display:none;text-align:center;padding:40px 20px;color:var(--text-light);font-size:14px;}
-
-/* zones */
-section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
-.zone-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
-.zone-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
-.zone-title{font-family:var(--font-serif);font-size:clamp(18px,3vw,22px);font-weight:700;color:var(--text);}
-.zone-sub{font-size:12px;color:var(--text-soft);margin:6px 0 12px;max-width:560px;line-height:1.5;}
-.path{margin-top:16px;}
-.step{padding-left:36px;padding-bottom:24px;position:relative;}
-.step:last-child{padding-bottom:0;}
-.step::before{content:'';position:absolute;left:12px;top:28px;bottom:0;width:1px;background:var(--line);}
-.step:last-child::before{display:none;}
-.step-node{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--accent);color:white;}
-.step-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-light);margin:2px 0 8px;}
-.split{display:grid;grid-template-columns:1fr;gap:12px;}
-.split-col-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-light);margin-bottom:6px;}
-.card-row{display:grid;grid-template-columns:1fr;gap:10px;}
-.card{
-  background:var(--card-bg);backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,0.5);border-radius:16px;
-  padding:12px 14px;display:flex;gap:10px;
-  transition:transform .15s ease,box-shadow .15s ease;
-  cursor:default;
-  position:relative;
-}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.06);}
-.card-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
-.card-body{flex:1;min-width:0;}
-.card-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
-.card-name{font-size:13px;font-weight:600;}
-.card-price{font-size:12px;color:var(--text-soft);font-weight:500;white-space:nowrap;}
-.star-badge{display:inline-flex;align-items:center;gap:2px;color:var(--accent-dark);font-size:10px;font-weight:600;margin-top:2px;}
-.lux-badge{display:inline-flex;align-items:center;gap:3px;background:var(--accent);color:white;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-top:2px;}
-.card-comment{font-size:12px;color:var(--text-soft);line-height:1.4;margin:4px 0 6px;}
-.shop-row{display:flex;flex-wrap:wrap;gap:4px;}
-.shop-chip{font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--text-soft);text-decoration:none;display:inline-flex;align-items:center;gap:3px;}
-.shop-chip:hover{border-color:var(--text);color:var(--text);}
-.shop-chip svg{width:8px;height:8px;opacity:0.5;}
-.ref-card{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-soft);text-decoration:none;border:1px dashed var(--line);border-radius:14px;padding:10px 14px;}
-.ref-card:hover{border-color:var(--accent-dark);color:var(--text);}
-.kit-group{margin-bottom:28px;}
-.kit-group:last-child{margin-bottom:0;}
-.kit-group-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.kit-group-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
-.kit-group-title{font-size:14px;font-weight:700;}
-.kit-group-sub{font-size:11px;color:var(--text-soft);font-weight:400;}
-.kit-analysis{display:flex;gap:8px;font-size:12px;color:var(--text-soft);line-height:1.5;padding:8px 12px;background:var(--card-bg);border-radius:12px;margin:-2px 0 10px;}
-.rules-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px;}
-.rule{display:flex;gap:10px;padding:12px 14px;background:var(--card-bg);border-radius:14px;border:1px solid rgba(255,255,255,0.3);}
-.rule.caution{background:rgba(235,200,200,0.4);border-color:#D4B0B0;}
-.rule-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
-.rule-text{font-size:12px;line-height:1.5;color:var(--text);}
-.rule.caution .rule-text{color:#6A3A3A;}
-.shops-section{padding:24px 0 32px;}
-.shops-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px;}
-.shop-card{background:var(--card-bg);border-radius:14px;padding:12px 14px;border:1px solid rgba(255,255,255,0.4);}
-.shop-card-name{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:13px;}
-.shop-card-name a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:4px;}
-.shop-card-name a:hover{text-decoration:underline;}
-.shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
-
-/* toggle product */
-.toggle-product {
-  position:absolute;
-  top:8px;right:8px;
-  width:28px;height:28px;
-  border-radius:50%;
-  border:2px solid var(--line);
-  background:transparent;
-  cursor:pointer;
-  font-size:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:all .15s ease;
-  color:var(--text-soft);
-  line-height:1;
-}
-.toggle-product:hover {
-  transform:scale(1.1);
-  border-color:var(--accent-dark);
-}
-.toggle-product.owned {
-  background:var(--accent-dark);
-  border-color:var(--accent-dark);
-  color:white;
-}
-
-/* calendar */
-.calendar-wrapper{
-  background:var(--card-bg);
-  border-radius:var(--border-radius);
-  box-shadow:var(--card-shadow);
-  padding:20px 20px 28px;
-  margin-top:16px;
-  width:100%;
-  max-width:900px;
-  margin-left:auto;
-  margin-right:auto;
-  box-sizing:border-box;
-}
-.calendar-header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:18px;
-}
-.calendar-header h2{
+.hero h1{
   font-family:var(--font-serif);
-  font-size:clamp(20px,4vw,28px);
+  font-size:clamp(32px,6vw,56px);
   font-weight:700;
   color:var(--text);
-  margin:0;
+  margin:0 0 16px;
+  line-height:1.2;
 }
-.calendar-nav{
-  display:flex;gap:8px;align-items:center;
+.hero h1 .accent{color:var(--accent-dark);}
+.hero p{
+  font-size:clamp(16px,2vw,22px);
+  color:var(--text-soft);
+  max-width:700px;
+  margin:0 auto 32px;
+  line-height:1.7;
 }
-.calendar-nav button{
-  background:transparent;border:none;font-size:22px;cursor:pointer;
-  width:36px;height:36px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s;color:var(--text-soft);
-}
-.calendar-nav button:hover{background:var(--accent);color:white;}
-.calendar-nav button#prevMonthBtn:hover{background:var(--accent-dark);color:white;}
-.calendar-nav button#nextMonthBtn:hover{background:var(--accent);color:white;}
-.calendar-nav button#prevMonthBtn{color:var(--accent-dark);}
-.calendar-nav button#nextMonthBtn{color:var(--accent);}
-.settings-btn{
-  background:transparent;border:none;font-size:18px;cursor:pointer;
-  padding:4px 8px;border-radius:10px;transition:background .2s;
-}
-.settings-btn:hover{background:var(--accent);color:white;}
-.snake-container{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  gap:34px;
-  padding:8px 0 10px;
-  width:100%;
-}
-.snake-row{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  align-items:start;
-  gap:8px;
-  width:100%;
-}
-.snake-row.reverse{
-  direction:rtl;
-}
-.snake-row .day-node{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  direction:ltr;
-}
-.snake-svg-overlay{
-  position:absolute;
-  left:0;top:0;
-  width:100%;height:100%;
-  pointer-events:none;
-  overflow:visible;
-}
-.day-node .day-circle{
-  width:48px;height:48px;
-  border-radius:50%;
-  background:var(--card-bg);
-  border:2px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
+.hero .btn-primary{
+  display:inline-block;
+  background:var(--accent-dark);
+  color:white;
+  font-size:18px;
   font-weight:600;
-  color:var(--text);
+  padding:14px 48px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:background .2s,transform .1s;
+  border:none;
   cursor:pointer;
-  transition:all .15s ease;
-  position:relative;
-  box-shadow:0 2px 6px rgba(0,0,0,0.04);
 }
-.day-node .day-circle.alt{
-  background:color-mix(in srgb, var(--accent-dark) 22%, white 78%);
-  border-color:color-mix(in srgb, var(--accent-dark) 70%, var(--line) 30%);
-}
-.day-node .day-circle:hover{
-  transform:scale(1.05);
-  border-color:var(--accent-dark);
-  box-shadow:0 4px 12px rgba(0,0,0,0.10);
-}
-.day-node .day-circle.today{
-  border-color:var(--accent);
-  border-width:3px;
-  box-shadow:0 0 0 4px rgba(126,211,178,0.2);
-}
-.day-node .day-circle.done{
-  background:var(--morning);
-  border-color:var(--accent-dark);
-}
-.day-node .day-circle.done::after{
-  content:'✓';
-  position:absolute;bottom:-6px;right:-6px;
-  background:var(--accent-dark);color:white;
-  border-radius:50%;width:18px;height:18px;
-  font-size:11px;line-height:18px;text-align:center;
-}
-.day-node .day-circle.has-special{
-  border-color:var(--accent);
-  background:var(--special);
-}
-.day-node .day-circle.has-special::before{
-  content:'✦';
-  position:absolute;top:-6px;right:-4px;
-  font-size:14px;color:var(--accent-dark);
-}
-.day-node .day-label{
-  font-size:9px;
-  color:var(--text-light);
-  margin-top:2px;
-  text-transform:uppercase;
-  letter-spacing:0.04em;
-  white-space:nowrap;
-}
-.snake-path{
-  fill:none;
-  stroke:var(--accent-dark);
-  stroke-width:2.5;
-  stroke-dasharray:5 6;
-  stroke-linecap:round;
-  opacity:0.6;
+.hero .btn-primary:hover{
+  background:color-mix(in srgb, var(--accent-dark) 80%, black);
+  transform:scale(1.02);
 }
 
-/* modals */
-.modal-overlay{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:rgba(0,0,0,0.4);
-  backdrop-filter:blur(4px);
-  display:flex;align-items:center;justify-content:center;
-  z-index:1000;padding:20px;
+/* features */
+.features{
+  padding:40px 0 60px;
 }
-.modal-box{
-  background:var(--card-bg);
-  border-radius:var(--border-radius);
-  max-width:600px;width:100%;
-  max-height:90vh;
-  padding:24px 28px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.25);
-  overflow-y:auto;
-  position:relative;
-}
-.modal-close{
-  position:absolute;top:12px;right:16px;
-  background:none;border:none;font-size:24px;
-  cursor:pointer;color:var(--text-soft);
-}
-.modal-close:hover{color:var(--text);}
-.modal-box h2{
-  font-family:var(--font-serif);
-  font-size:22px;font-weight:700;
-  margin:0 0 16px;color:var(--text);
-}
-.routine-block{
-  margin:12px 0;
-  padding:12px 16px;
-  border-radius:16px;
-}
-.routine-block.morning-block{background:var(--morning);}
-.routine-block.evening-block{background:var(--evening);}
-.routine-block.special-block{background:var(--special);}
-.routine-block h4{
-  font-size:14px;font-weight:700;
-  margin:0 0 6px;display:flex;align-items:center;gap:6px;
-  color:var(--text);
-}
-.routine-block .step-item{
-  font-size:13px;line-height:1.5;
-  padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.05);
-}
-.routine-block .step-item:last-child{border-bottom:none;}
-.routine-block .step-item .step-label{font-weight:600;color:var(--text);}
-.routine-block .step-item .product-name{color:var(--text-soft);margin-left:6px;}
-.done-label{
-  display:flex;align-items:center;gap:8px;
-  font-weight:600;font-size:14px;color:var(--text);
-  margin-top:8px;
-}
-.done-label input[type="checkbox"]{width:18px;height:18px;cursor:pointer;}
-.modal-nav{
-  display:flex;justify-content:space-between;margin-top:18px;gap:12px;
-}
-.modal-nav button{
-  background:var(--accent);color:white;border:none;
-  padding:8px 16px;border-radius:12px;font-weight:600;font-size:13px;
-  cursor:pointer;transition:background .2s,transform .1s;
-  flex:1;
-}
-.modal-nav button:hover{background:var(--accent-dark);}
-.modal-nav button:active{transform:scale(0.96);}
-.modal-nav button:disabled{opacity:0.4;cursor:not-allowed;}
-.settings-modal .modal-box{max-width:400px;}
-.settings-modal label{
-  display:block;margin:12px 0 4px;
-  font-weight:600;font-size:13px;color:var(--text);
-}
-.settings-modal input[type="date"]{
-  width:100%;padding:8px 12px;
-  border:1px solid var(--line);border-radius:12px;
-  font-size:14px;font-family:var(--font-sans);
-  background:var(--card-bg);color:var(--text);
-}
-.settings-modal .btn-reset{
-  margin-top:16px;
-  background:transparent;border:1px solid #C0A0A0;
-  color:#7A4A4A;padding:8px 16px;border-radius:12px;
-  cursor:pointer;font-size:13px;font-weight:600;
-}
-.settings-modal .btn-reset:hover{background:#F0D0D0;}
-.product-modal .modal-box{max-width:560px;padding:28px 30px;}
-.product-modal .product-detail-header{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
-.product-modal .product-detail-icon{width:56px;height:56px;border-radius:16px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:28px;color:white;flex-shrink:0;}
-.product-modal .product-detail-name{font-size:22px;font-weight:700;line-height:1.2;color:var(--text);}
-.product-modal .product-detail-price{font-size:18px;font-weight:600;color:var(--accent-dark);margin-top:2px;}
-.product-modal .product-detail-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.product-modal .product-detail-badges span{padding:4px 14px;border-radius:999px;font-size:12px;font-weight:600;}
-.product-modal .product-detail-comment{font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(0,0,0,0.06);}
-.product-modal .product-detail-extra{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
-.product-modal .extra-item{background:var(--bg);border-radius:14px;padding:12px 16px;display:flex;align-items:flex-start;gap:12px;border-left:4px solid var(--accent-dark);}
-.product-modal .extra-item .extra-icon{font-size:20px;line-height:1;margin-top:2px;}
-.product-modal .extra-item .extra-content{flex:1;}
-.product-modal .extra-item .extra-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-light);margin-bottom:2px;}
-.product-modal .extra-item .extra-value{font-size:14px;color:var(--text);line-height:1.4;}
-.product-modal .product-detail-shops{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
-.product-modal .product-detail-shops a{background:var(--accent);color:white;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .1s;border:none;}
-.product-modal .product-detail-shops a:hover{background:var(--accent-dark);transform:scale(1.02);}
-.product-modal .product-detail-shops a svg{width:14px;height:14px;stroke:currentColor;}
-.product-modal .product-detail-disclaimer{font-size:11px;color:var(--text-light);margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);line-height:1.5;}
-
-/* my products */
-.my-products-grid {
+.features-grid{
   display:grid;
   grid-template-columns:1fr;
-  gap:16px;
-  margin-top:12px;
+  gap:30px;
+  margin-top:20px;
 }
-.my-products-category {
+.feature-card{
   background:var(--card-bg);
-  border-radius:16px;
-  padding:16px;
+  border-radius:var(--border-radius);
+  padding:28px 24px;
+  box-shadow:var(--card-shadow);
   border:1px solid var(--line);
+  text-align:center;
 }
-.my-products-category h3 {
-  font-size:14px;
-  font-weight:600;
+.feature-card .icon{
+  font-size:40px;
+  margin-bottom:12px;
+}
+.feature-card h3{
+  font-size:20px;
+  font-weight:700;
   color:var(--text);
   margin:0 0 8px;
 }
-.my-products-list {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
+.feature-card p{
+  font-size:14px;
+  color:var(--text-soft);
+  line-height:1.6;
+  margin:0;
 }
-.my-products-list .my-product-tag {
+
+/* cta */
+.cta{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  padding:48px 32px;
+  text-align:center;
+  margin:20px 0 40px;
+  border:1px solid var(--line);
+}
+.cta h2{
+  font-family:var(--font-serif);
+  font-size:clamp(24px,3vw,36px);
+  font-weight:700;
+  color:var(--text);
+  margin:0 0 12px;
+}
+.cta p{
+  font-size:16px;
+  color:var(--text-soft);
+  margin:0 0 24px;
+}
+.cta .btn-secondary{
+  display:inline-block;
   background:var(--accent);
   color:white;
-  padding:4px 12px;
+  font-size:18px;
+  font-weight:600;
+  padding:14px 48px;
   border-radius:999px;
-  font-size:12px;
-  font-weight:500;
+  text-decoration:none;
+  transition:background .2s,transform .1s;
 }
-.my-products-empty {
-  color:var(--text-soft);
-  font-size:13px;
-  padding:20px 0;
+.cta .btn-secondary:hover{
+  background:color-mix(in srgb, var(--accent) 80%, black);
+  transform:scale(1.02);
 }
 
 footer{
@@ -515,22 +219,10 @@ footer .footer-credit{font-size:11px;color:var(--text-light);}
 footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px;margin:8px auto;line-height:1.6;}
 
 @media(min-width:600px){
-  .stats{grid-template-columns:repeat(4,1fr);gap:12px;}
-  .card-row{grid-template-columns:repeat(2,1fr);}
-  .rules-grid{grid-template-columns:1fr 1fr;}
-  .shops-grid{grid-template-columns:repeat(2,1fr);}
-  .my-products-grid{grid-template-columns:repeat(2,1fr);}
+  .features-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(min-width:1024px){
-  .card-row{grid-template-columns:repeat(3,1fr);}
-  .shops-grid{grid-template-columns:repeat(3,1fr);}
-  .my-products-grid{grid-template-columns:repeat(3,1fr);}
-}
-@media(max-width:599px){
-  .day-node .day-circle{width:38px;height:38px;font-size:13px;}
-  .snake-row{gap:4px;}
-  .modal-box{padding:16px;}
-  .product-modal .modal-box{padding:20px;}
+  .features-grid{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
@@ -543,301 +235,202 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
         <p class="subtitle" id="siteSubtitle"></p>
       </div>
       <div class="tools">
-        <div class="search-box">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          <input id="search" type="text" placeholder="">
-        </div>
-        <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
         <div class="right-tools">
           <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
           <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
-          <button class="pill-toggle" id="authBtn">Sign in with Google</button>
-          <span class="result-count" id="resultCount"></span>
         </div>
       </div>
     </div>
     <nav id="mainNav">
-      <a href="#morning" data-nav="morning">Morning</a>
-      <a href="#evening" data-nav="evening">Evening</a>
-      <a href="#kit" data-nav="kit">Kit</a>
-      <a href="#rules" data-nav="rules">Rules</a>
-      <a href="#shops" data-nav="shops">Shops</a>
-      <a href="#calendar" data-nav="calendar">Calendar</a>
-      <a href="#myproducts" data-nav="myproducts">My Products</a>
+      <a href="index.html">🏠 Home</a>
+      <a href="planner.html">📋 Planner</a>
+      <a href="demo.html">📄 Demo</a>
     </nav>
   </div>
 </header>
 
 <div class="wrap">
-  <div class="hero">
-    <div class="stats">
-      <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">🌙</div><div><div class="num">5</div><div class="lbl" id="statEveningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">🧴</div><div><div class="num">6</div><div class="lbl" id="statKitLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
-    </div>
-  </div>
-
-  <div class="no-results" id="noResults"></div>
-
-  <section class="zone morning" id="morning">
-    <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
-    <div class="path" id="morning-path"></div>
+  <section class="hero">
+    <h1 id="heroTitle">Build your <span class="accent">skincare routine</span> with confidence</h1>
+    <p id="heroDesc">A step-by-step planner with a smart calendar, product recommendations, and bilingual support — designed to help you build and track your personal skincare routine.</p>
+    <a href="planner.html" class="btn-primary" id="heroBtn">Get Started →</a>
   </section>
 
-  <section class="zone evening" id="evening">
-    <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
-    <div class="path" id="evening-path"></div>
-  </section>
-
-  <section class="zone" id="kit">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
-    <p class="zone-sub" id="subKit"></p>
-    <div id="kit-groups"></div>
-  </section>
-
-  <section class="zone" id="rules">
-    <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
-    <div class="rules-grid" id="rules-grid"></div>
-  </section>
-
-  <section class="shops-section" id="shops">
-    <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
-    <p class="zone-sub" id="subShops"></p>
-    <div class="shops-grid" id="shops-grid"></div>
-  </section>
-
-  <section class="zone" id="calendar" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
-    <div class="calendar-wrapper">
-      <div class="calendar-header">
-        <h2 id="calendarMonthLabel"></h2>
-        <div class="calendar-nav">
-          <button id="prevMonthBtn">‹</button>
-          <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
-        </div>
+  <section class="features" id="features">
+    <h2 style="font-family:var(--font-serif); font-size:clamp(24px,3vw,32px); text-align:center; margin-bottom:8px;" id="featuresTitle">Why Skincare Guide?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">📅</div>
+        <h3 id="f1Title">Snake‑style Calendar</h3>
+        <p id="f1Desc">Visual calendar with automated retinal/azelaic scheduling — see your routine at a glance.</p>
       </div>
-      <div class="snake-container" id="snakeContainer"></div>
+      <div class="feature-card">
+        <div class="icon">🧴</div>
+        <h3 id="f2Title">Product Library</h3>
+        <p id="f2Desc">Curated product recommendations with details, prices, and direct shop links.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔍</div>
+        <h3 id="f3Title">Search & Filter</h3>
+        <p id="f3Desc">Find products by name, description, or filter by “recommended” only.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌙</div>
+        <h3 id="f4Title">Dark / Light Theme</h3>
+        <p id="f4Desc">Smooth theme toggle with system preference fallback — comfortable for any time of day.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌍</div>
+        <h3 id="f5Title">Bilingual Interface</h3>
+        <p id="f5Desc">Full support for English and Russian — switch languages instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📊</div>
+        <h3 id="f6Title">Smart Routine Builder</h3>
+        <p id="f6Desc">Your daily plan is generated based on your owned products and retinal schedule.</p>
+      </div>
     </div>
   </section>
 
-  <section class="zone" id="myproducts" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleMyProducts"></p></div>
-    <p class="zone-sub" id="subMyProducts"></p>
-    <div id="my-products-container"></div>
+  <section class="cta">
+    <h2 id="ctaTitle">Ready to take control of your skincare?</h2>
+    <p id="ctaDesc">Start building your personalized routine today — it's free and easy.</p>
+    <a href="planner.html" class="btn-secondary" id="ctaBtn">Go to Planner →</a>
   </section>
 </div>
 
 <footer>
   <div class="wrap">
-    <p id="footerLine"></p>
-    <p class="footer-credit" id="footerCredit"></p>
-    <p class="footer-disclaimer" id="footerDisclaimer"></p>
+    <p id="footerLine">Created from your personal skincare data · update as your routine evolves</p>
+    <p class="footer-credit" id="footerCredit">© 2026 · Anastasiia Vyshnevska</p>
+    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
 <script>
 // ============================================================
-// Skincare Guide — Planner v2 (с Firebase Auth и всеми функциями)
+// ЯЗЫК, ТЕМА, ПЕРЕКЛЮЧЕНИЕ
 // ============================================================
 
-// --- FIREBASE INIT ---
-const firebaseConfig = {
-  apiKey: "AIzaSyBhAUTiDxTuaJ-QFx-Oirr0fY3dViKTSJM",
-  authDomain: "sg-project-b13f4.firebaseapp.com",
-  projectId: "sg-project-b13f4",
-  storageBucket: "sg-project-b13f4.firebasestorage.app",
-  messagingSenderId: "655859312735",
-  appId: "1:655859312735:web:7e9a9b8488654f696bd3ea",
-  measurementId: "G-L4MCEVBDCN"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-// --- Элементы UI ---
-const authBtn = document.getElementById('authBtn');
-
-// --- Функции аутентификации ---
-function updateAuthUI(user) {
-  if (user) {
-    const displayName = user.displayName || user.email || 'User';
-    const photoURL = user.photoURL;
-    let avatarHtml = '';
-    if (photoURL) {
-      avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
-    }
-    authBtn.innerHTML = `${avatarHtml} ${displayName} (Sign out)`;
-    authBtn.onclick = () => {
-      auth.signOut().then(() => updateAuthUI(null)).catch(console.error);
-    };
-  } else {
-    authBtn.innerHTML = 'Sign in with Google';
-    authBtn.onclick = () => {
-      auth.signInWithPopup(provider).catch(console.error);
-    };
-  }
-}
-
-auth.onAuthStateChanged(user => {
-  updateAuthUI(user);
-});
-
-// --- ВСЁ ОСТАЛЬНОЕ: данные, функции, календарь, карточки, фильтры ---
-// (всё это скопировано из предыдущей рабочей версии planner.html)
-
-// --- ЯЗЫК ---
 let currentLang = localStorage.getItem('lang') || 'en';
 
-// --- СТРОКИ ---
 const STR = {
   en: {
-    subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
-    tabTitle: 'Skincare Guide — Planner',
-    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar', myproducts:'My Products'},
-    searchPlaceholder: 'Search products…',
-    recOnly: 'Recommended only',
-    found: 'Found',
-    noResults: 'Nothing found — try a different search.',
-    statLabels: {morning:'MORNING STEPS', evening:'EVENING STEPS', kit:'KIT ITEMS', rules:'RULES'},
-    kitSub: 'Products for flare-ups, irritation, or days without retinal.',
-    shopsSub: 'Where the products on this list are usually sold.',
-    recommended: 'recommended',
-    luxAlt: 'luxury alternative',
+    subtitle: 'Your personal skincare planner',
+    heroTitle: 'Build your <span class="accent">skincare routine</span> with confidence',
+    heroDesc: 'A step-by-step planner with a smart calendar, product recommendations, and bilingual support — designed to help you build and track your personal skincare routine.',
+    heroBtn: 'Get Started →',
+    featuresTitle: 'Why Skincare Guide?',
+    f1Title: 'Snake‑style Calendar',
+    f1Desc: 'Visual calendar with automated retinal/azelaic scheduling — see your routine at a glance.',
+    f2Title: 'Product Library',
+    f2Desc: 'Curated product recommendations with details, prices, and direct shop links.',
+    f3Title: 'Search & Filter',
+    f3Desc: 'Find products by name, description, or filter by “recommended” only.',
+    f4Title: 'Dark / Light Theme',
+    f4Desc: 'Smooth theme toggle with system preference fallback — comfortable for any time of day.',
+    f5Title: 'Bilingual Interface',
+    f5Desc: 'Full support for English and Russian — switch languages instantly.',
+    f6Title: 'Smart Routine Builder',
+    f6Desc: 'Your daily plan is generated based on your owned products and retinal schedule.',
+    ctaTitle: 'Ready to take control of your skincare?',
+    ctaDesc: 'Start building your personalized routine today — it\'s free and easy.',
+    ctaBtn: 'Go to Planner →',
     footerLine: 'Created from your personal skincare data · update as your routine evolves',
     footerCredit: '© 2026 · Anastasiia Vyshnevska',
-    modalTitle: 'Routine for',
-    morningLabel: '☀️ Day',
-    eveningLabel: '🌙 Night',
-    specialLabel: '✨ Extra care',
-    doneLabel: 'Done',
-    settingsTitle: 'Settings',
-    startDateLabel: 'Retinal start date',
-    resetLabel: 'Reset all marks',
-    prevDay: '← Previous day',
-    nextDay: 'Next day →',
-    skinType: 'Skin Type',
-    ingredients: 'Key Ingredients',
-    usage: 'How to use',
-    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.',
-    myProductsTitle: 'My Products',
-    myProductsSub: 'Products you have marked as owned. Click the ✔️ button on any product card to add/remove.',
-    toggleProduct: 'Click to mark as owned',
-    noOwnedProducts: 'You haven\'t added any products yet. Browse the routine sections and click the + button on products you own.'
+    footerDisclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
   },
   ru: {
-    subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до сна',
-    tabTitle: 'Skincare Guide — Планер',
-    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь', myproducts:'Мои продукты'},
-    searchPlaceholder: 'Поиск продуктов…',
-    recOnly: 'Только рекомендованные',
-    found: 'Найдено',
-    noResults: 'Ничего не найдено — попробуйте другой запрос.',
-    statLabels: {morning:'УТРЕННИЕ ШАГИ', evening:'ВЕЧЕРНИЕ ШАГИ', kit:'СРЕДСТВА В АПТЕЧКЕ', rules:'ПРАВИЛА'},
-    kitSub: 'Средства для воспалений, раздражений или дней без ретиналя.',
-    shopsSub: 'Где обычно продаются продукты из этого списка.',
-    recommended: 'рекомендовано',
-    luxAlt: 'люкс-альтернатива',
+    subtitle: 'Ваш персональный планировщик ухода за кожей',
+    heroTitle: 'Постройте свою <span class="accent">рутину ухода</span> с уверенностью',
+    heroDesc: 'Пошаговый планировщик с умным календарём, рекомендациями продуктов и поддержкой двух языков — создан, чтобы помочь вам построить и отслеживать личную рутину ухода.',
+    heroBtn: 'Начать →',
+    featuresTitle: 'Почему Skincare Guide?',
+    f1Title: 'Календарь-змейка',
+    f1Desc: 'Визуальный календарь с автоматическим планированием ретиналя и азелаина — ваша рутина наглядно.',
+    f2Title: 'Библиотека продуктов',
+    f2Desc: 'Подобранные рекомендации продуктов с деталями, ценами и прямыми ссылками на магазины.',
+    f3Title: 'Поиск и фильтр',
+    f3Desc: 'Находите продукты по названию, описанию или фильтруйте по «рекомендованным».',
+    f4Title: 'Тёмная / светлая тема',
+    f4Desc: 'Плавное переключение темы с учётом системных предпочтений — комфортно в любое время суток.',
+    f5Title: 'Двуязычный интерфейс',
+    f5Desc: 'Полная поддержка английского и русского языков — переключайте мгновенно.',
+    f6Title: 'Умный построитель рутины',
+    f6Desc: 'Ежедневный план генерируется на основе ваших продуктов и графика ретиналя.',
+    ctaTitle: 'Готовы взять уход под контроль?',
+    ctaDesc: 'Начните строить свою персонализированную рутину сегодня — это бесплатно и просто.',
+    ctaBtn: 'Перейти в планировщик →',
     footerLine: 'Создано на основе ваших личных данных по уходу · обновляйте по мере изменения рутины',
     footerCredit: '© 2026 · Анастасия Вышневская',
-    modalTitle: 'Рутина на',
-    morningLabel: '☀️ День',
-    eveningLabel: '🌙 Ночь',
-    specialLabel: '✨ Дополнительный уход',
-    doneLabel: 'Выполнено',
-    settingsTitle: 'Настройки',
-    startDateLabel: 'Дата начала ретиналя',
-    resetLabel: 'Сбросить все отметки',
-    prevDay: '← Предыдущий день',
-    nextDay: 'Следующий день →',
-    skinType: 'Тип кожи',
-    ingredients: 'Ключевые ингредиенты',
-    usage: 'Как использовать',
-    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.',
-    myProductsTitle: 'Мои продукты',
-    myProductsSub: 'Продукты, которые вы отметили как имеющиеся. Нажмите кнопку ✔️ на карточке продукта, чтобы добавить/удалить.',
-    toggleProduct: 'Нажмите, чтобы отметить как имеющееся',
-    noOwnedProducts: 'Вы ещё не добавили ни одного продукта. Просмотрите разделы рутины и нажмите кнопку + на продуктах, которые у вас есть.'
+    footerDisclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
   }
 };
 
-// --- ИКОНКИ ---
-const ICONS = {
-  cleanser: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 6 7.5 6 11.5A6 6 0 0 1 6 13.5C6 9.5 9 6 12 2z"/></svg>',
-  toner: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="12" r="6.5" opacity="0.6"/><circle cx="12" cy="12" r="10.5" opacity="0.3"/></svg>',
-  citrus: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M4.5 8.5L19.5 8.5M4.5 15.5L19.5 15.5"/></svg>',
-  acid: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 5-3 4v6a1 1 0 0 1-2 0v-6L8 8l1-5z"/><circle cx="12" cy="17.5" r="0" /></svg>',
-  spf: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.2M12 19.3v2.2M3.8 3.8l1.6 1.6M18.6 18.6l1.6 1.6M2.5 12h2.2M19.3 12h2.2M3.8 20.2l1.6-1.6M18.6 5.4l1.6-1.6"/></svg>',
-  oil: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v5M12 2c-3 4-6 8.5-6 12A6 6 0 0 0 18 14c0-3.5-3-8-6-12z"/><path d="M12 7v3"/></svg>',
-  retinol: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
-  balm: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="13" rx="2"/><path d="M8 8V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3"/></svg>',
-  spot: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>',
-  patch: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-15 12 12)"/><circle cx="12" cy="12" r="1.5"/></svg>',
-  mask: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10c0-4 3.5-7 8-7s8 3 8 7-3.5 9-8 9-8-5-8-9z"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>',
-  scrub: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.2 3.6L17 8l-3.8 1.4L12 13l-1.2-3.6L7 8l3.8-1.4L12 3z"/><path d="M18.5 14l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></svg>',
-  ref: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6-6 6-6M3 12h13a5 5 0 0 0 5-5V4"/></svg>',
-  link: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>',
-  warn: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L22 20.5H2L12 3.5z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>',
-  note: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>',
-  lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>'
-};
-
-// --- ДАННЫЕ ПРОДУКТОВ ---
-// (здесь должны быть полные массивы morningSteps, eveningSteps, kitGroups, rules, shopsInfo)
-// Чтобы не раздувать ответ, я их не копирую, но они такие же, как в предыдущей версии.
-// Вам нужно скопировать их сюда из старого файла.
-
-// --- ХРАНИЛИЩЕ ПРОДУКТОВ ПОЛЬЗОВАТЕЛЯ ---
-let userProducts = JSON.parse(localStorage.getItem('userProducts')) || [];
-
-function saveUserProducts() {
-  localStorage.setItem('userProducts', JSON.stringify(userProducts));
+function tr(field) {
+  if (field == null) return '';
+  if (typeof field === 'string') return field;
+  return field[currentLang] != null ? field[currentLang] : (field.en || '');
 }
 
-function toggleProduct(id) {
-  const idx = userProducts.indexOf(id);
-  if (idx === -1) {
-    userProducts.push(id);
-  } else {
-    userProducts.splice(idx, 1);
-  }
-  saveUserProducts();
-  renderAll();
+function renderHome() {
+  const t = STR[currentLang];
+  document.documentElement.lang = currentLang;
+  document.getElementById('siteSubtitle').textContent = t.subtitle;
+  document.getElementById('heroTitle').innerHTML = t.heroTitle;
+  document.getElementById('heroDesc').textContent = t.heroDesc;
+  document.getElementById('heroBtn').textContent = t.heroBtn;
+  document.getElementById('featuresTitle').textContent = t.featuresTitle;
+  document.getElementById('f1Title').textContent = t.f1Title;
+  document.getElementById('f1Desc').textContent = t.f1Desc;
+  document.getElementById('f2Title').textContent = t.f2Title;
+  document.getElementById('f2Desc').textContent = t.f2Desc;
+  document.getElementById('f3Title').textContent = t.f3Title;
+  document.getElementById('f3Desc').textContent = t.f3Desc;
+  document.getElementById('f4Title').textContent = t.f4Title;
+  document.getElementById('f4Desc').textContent = t.f4Desc;
+  document.getElementById('f5Title').textContent = t.f5Title;
+  document.getElementById('f5Desc').textContent = t.f5Desc;
+  document.getElementById('f6Title').textContent = t.f6Title;
+  document.getElementById('f6Desc').textContent = t.f6Desc;
+  document.getElementById('ctaTitle').textContent = t.ctaTitle;
+  document.getElementById('ctaDesc').textContent = t.ctaDesc;
+  document.getElementById('ctaBtn').textContent = t.ctaBtn;
+  document.getElementById('footerLine').textContent = t.footerLine;
+  document.getElementById('footerCredit').textContent = t.footerCredit;
+  document.getElementById('footerDisclaimer').textContent = t.footerDisclaimer;
+  updateLangToggle();
 }
 
-function isProductOwned(id) {
-  return userProducts.includes(id);
+function toggleLanguage() {
+  currentLang = (currentLang === 'en') ? 'ru' : 'en';
+  localStorage.setItem('lang', currentLang);
+  renderHome();
 }
 
-function getProductId(p) {
-  const name = tr(p.name) || p.name.en || '';
-  const price = p.price || '';
-  return `${name}-${price}`.replace(/\s/g, '_').toLowerCase();
+function updateLangToggle() {
+  const btn = document.getElementById('langToggle');
+  if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
 }
 
-// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (tr, shopChips, productCard, renderPath, etc.) ---
-// Они тоже должны быть скопированы из предыдущей версии.
-
-// --- КАЛЕНДАРЬ (renderSnake, generateRoutine, getRoutineForDay, etc.) ---
-// --/--/--/--/--/--/--/--/--/--/--/--/--/--/--/--/--/--/--/--
-
-// --- МОДАЛКИ (openProductModal, openDayModal, showModalForDate, etc.) ---
-
-// --- ПОИСК И ФИЛЬТР (applyFilters) ---
-
-// --- ТЕМА И ЯЗЫК (toggleTheme, toggleLanguage) ---
-
-// --- ИНИЦИАЛИЗАЦИЯ (renderAll) ---
-function renderAll() {
-  // ... весь код рендеринга
+// --- ТЕМА ---
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
 }
 
-// --- ЗАПУСК ---
-document.addEventListener('DOMContentLoaded', function() {
-  // ... инициализация
-  renderAll();
-});
+document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+renderHome();
 </script>
 </body>
 </html>
