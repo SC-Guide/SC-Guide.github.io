@@ -4,18 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:title" content="Skincare Guide — Planner" />
-<meta property="og:description" content="An interactive skincare routine planner with product ownership, calendar, and bilingual interface." />
+<meta property="og:description" content="An interactive skincare routine planner with calendar, bilingual interface, and automated retinal/azelaic scheduling." />
 <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
 <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/planner.html" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 <title>Skincare Guide — Planner</title>
-<!-- Firebase SDK -->
+
+<!-- Firebase SDK (compat) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
 <style>
-/* ===== ПОЛНЫЙ CSS (копия из рабочей версии) ===== */
+/* ===== ПОЛНЫЙ CSS (копия из вашей рабочей версии) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
 :root{
   --bg:#F2F2F2;
   --card-bg:#FFFFFF;
@@ -184,31 +187,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .shop-card-name a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:4px;}
 .shop-card-name a:hover{text-decoration:underline;}
 .shop-card-items{font-size:11px;color:var(--text-soft);line-height:1.4;}
-.toggle-product {
-  position:absolute;
-  top:8px;right:8px;
-  width:28px;height:28px;
-  border-radius:50%;
-  border:2px solid var(--line);
-  background:transparent;
-  cursor:pointer;
-  font-size:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:all .15s ease;
-  color:var(--text-soft);
-  line-height:1;
-}
-.toggle-product:hover {
-  transform:scale(1.1);
-  border-color:var(--accent-dark);
-}
-.toggle-product.owned {
-  background:var(--accent-dark);
-  border-color:var(--accent-dark);
-  color:white;
-}
 .calendar-wrapper{
   background:var(--card-bg);
   border-radius:var(--border-radius);
@@ -451,42 +429,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .product-modal .product-detail-shops a:hover{background:var(--accent-dark);transform:scale(1.02);}
 .product-modal .product-detail-shops a svg{width:14px;height:14px;stroke:currentColor;}
 .product-modal .product-detail-disclaimer{font-size:11px;color:var(--text-light);margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);line-height:1.5;}
-.my-products-grid {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:16px;
-  margin-top:12px;
-}
-.my-products-category {
-  background:var(--card-bg);
-  border-radius:16px;
-  padding:16px;
-  border:1px solid var(--line);
-}
-.my-products-category h3 {
-  font-size:14px;
-  font-weight:600;
-  color:var(--text);
-  margin:0 0 8px;
-}
-.my-products-list {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-}
-.my-products-list .my-product-tag {
-  background:var(--accent);
-  color:white;
-  padding:4px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:500;
-}
-.my-products-empty {
-  color:var(--text-soft);
-  font-size:13px;
-  padding:20px 0;
-}
 footer{
   margin-top:30px;padding:20px 0 30px;
   border-top:1px solid rgba(239,108,87,0.15);
@@ -500,12 +442,10 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
   .card-row{grid-template-columns:repeat(2,1fr);}
   .rules-grid{grid-template-columns:1fr 1fr;}
   .shops-grid{grid-template-columns:repeat(2,1fr);}
-  .my-products-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(min-width:1024px){
   .card-row{grid-template-columns:repeat(3,1fr);}
   .shops-grid{grid-template-columns:repeat(3,1fr);}
-  .my-products-grid{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:599px){
   .day-node .day-circle{width:38px;height:38px;font-size:13px;}
@@ -544,10 +484,10 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
       <a href="#rules" data-nav="rules">Rules</a>
       <a href="#shops" data-nav="shops">Shops</a>
       <a href="#calendar" data-nav="calendar">Calendar</a>
-      <a href="#myproducts" data-nav="myproducts">My Products</a>
     </nav>
   </div>
 </header>
+
 <div class="wrap">
   <div class="hero">
     <div class="stats">
@@ -557,29 +497,36 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
       <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
     </div>
   </div>
+
   <div class="no-results" id="noResults"></div>
+
   <section class="zone morning" id="morning">
     <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
     <div class="path" id="morning-path"></div>
   </section>
+
   <section class="zone evening" id="evening">
     <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
     <div class="path" id="evening-path"></div>
   </section>
+
   <section class="zone" id="kit">
     <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
     <p class="zone-sub" id="subKit"></p>
     <div id="kit-groups"></div>
   </section>
+
   <section class="zone" id="rules">
     <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
     <div class="rules-grid" id="rules-grid"></div>
   </section>
+
   <section class="shops-section" id="shops">
     <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
     <p class="zone-sub" id="subShops"></p>
     <div class="shops-grid" id="shops-grid"></div>
   </section>
+
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
     <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
     <div class="calendar-wrapper">
@@ -594,22 +541,22 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
       <div class="snake-container" id="snakeContainer"></div>
     </div>
   </section>
-  <section class="zone" id="myproducts" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleMyProducts"></p></div>
-    <p class="zone-sub" id="subMyProducts"></p>
-    <div id="my-products-container"></div>
-  </section>
 </div>
+
 <footer>
   <div class="wrap">
     <p id="footerLine"></p>
     <p class="footer-credit" id="footerCredit"></p>
     <p class="footer-disclaimer" id="footerDisclaimer"></p>
   </div>
-</footer><script>
+</footer>
+
+<script>
 // ============================================================
-// БЛОК 2: FIREBASE, СТРОКИ, ИКОНКИ, ДАННЫЕ (заглушки для массивов)
+// БЛОК 2: FIREBASE, СТРОКИ, ИКОНКИ, ДАННЫЕ (ПОЛНОСТЬЮ)
 // ============================================================
+
+// --- FIREBASE INIT ---
 const firebaseConfig = {
   apiKey: "AIzaSyBhAUTiDxTuaJ-QFx-Oirr0fY3dViKTSJM",
   authDomain: "sg-project-b13f4.firebaseapp.com",
@@ -647,7 +594,7 @@ const STR = {
   en: {
     subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
     tabTitle: 'Skincare Guide — Planner',
-    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar', myproducts:'My Products'},
+    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar'},
     searchPlaceholder: 'Search products…',
     recOnly: 'Recommended only',
     found: 'Found',
@@ -672,16 +619,12 @@ const STR = {
     skinType: 'Skin Type',
     ingredients: 'Key Ingredients',
     usage: 'How to use',
-    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.',
-    myProductsTitle: 'My Products',
-    myProductsSub: 'Products you have marked as owned. Click the ✔️ button on any product card to add/remove.',
-    toggleProduct: 'Click to mark as owned',
-    noOwnedProducts: 'You haven\'t added any products yet. Browse the routine sections and click the + button on products you own.'
+    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
   },
   ru: {
     subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до сна',
     tabTitle: 'Skincare Guide — Планер',
-    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь', myproducts:'Мои продукты'},
+    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
     searchPlaceholder: 'Поиск продуктов…',
     recOnly: 'Только рекомендованные',
     found: 'Найдено',
@@ -706,11 +649,7 @@ const STR = {
     skinType: 'Тип кожи',
     ingredients: 'Ключевые ингредиенты',
     usage: 'Как использовать',
-    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.',
-    myProductsTitle: 'Мои продукты',
-    myProductsSub: 'Продукты, которые вы отметили как имеющиеся. Нажмите кнопку ✔️ на карточке продукта, чтобы добавить/удалить.',
-    toggleProduct: 'Нажмите, чтобы отметить как имеющееся',
-    noOwnedProducts: 'Вы ещё не добавили ни одного продукта. Просмотрите разделы рутины и нажмите кнопку + на продуктах, которые у вас есть.'
+    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
   }
 };
 
@@ -735,8 +674,7 @@ const ICONS = {
   lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>'
 };
 
-// --- ДАННЫЕ ПРОДУКТОВ (ПОЛНОСТЬЮ) ---
-
+// --- ДАННЫЕ ПРОДУКТОВ (ПОЛНОСТЬЮ, из вашей рабочей версии) ---
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:{ru:'Xpel Tea Tree Foaming Face Wash 200ml', en:'Xpel Tea Tree Foaming Face Wash 200ml'}, price:'€7', icon:'cleanser', rec:true,
@@ -946,70 +884,7 @@ const shopsInfo = [
   {name:{ru:'Medik8.ie', en:'Medik8.ie'}, url:'https://www.medik8.ie', items:{ru:'Medik8 Crystal Retinal', en:'Medik8 Crystal Retinal'}}
 ];
 
-// --- ХРАНИЛИЩЕ ПРОДУКТОВ ПОЛЬЗОВАТЕЛЯ ---
-let userProducts = JSON.parse(localStorage.getItem('userProducts')) || [];
-
-function saveUserProducts() {
-  localStorage.setItem('userProducts', JSON.stringify(userProducts));
-}
-
-function toggleProduct(id) {
-  const idx = userProducts.indexOf(id);
-  if (idx === -1) {
-    userProducts.push(id);
-  } else {
-    userProducts.splice(idx, 1);
-  }
-  saveUserProducts();
-  renderAll();
-}
-
-function isProductOwned(id) {
-  return userProducts.includes(id);
-}
-function getProductId(p) {
-  const name = tr(p.name) || p.name.en || '';
-  const price = p.price || '';
-  return `${name}-${price}`.replace(/\s/g, '_').toLowerCase();
-}
-try {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-  const authBtn = document.getElementById('authBtn');
-
-  function updateAuthUI(user) {
-    if (user) {
-      const displayName = user.displayName || user.email || 'User';
-      const photoURL = user.photoURL;
-      let avatarHtml = '';
-      if (photoURL) {
-        avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
-      }
-      authBtn.innerHTML = `${avatarHtml} ${displayName} (Sign out)`;
-      authBtn.onclick = () => {
-        auth.signOut().then(() => updateAuthUI(null)).catch(console.error);
-      };
-    } else {
-      authBtn.innerHTML = 'Sign in with Google';
-      authBtn.onclick = () => {
-        auth.signInWithPopup(provider).catch(console.error);
-      };
-    }
-  }
-  auth.onAuthStateChanged(updateAuthUI);
-} catch (e) {
-  console.error('Firebase недоступен:', e);
-}
-// КОНЕЦ БЛОКА 2
-
-
-// ============================================================
-// БЛОК 3: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ, КАЛЕНДАРЬ, МОДАЛКИ, ПОИСК, ТЕМА, ИНИЦИАЛИЗАЦИЯ
-// ============================================================
-
+// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (tr, shopChips, productCard, refCard, renderPath) ---
 function tr(field) {
   if (field == null) return '';
   if (typeof field === 'string') return field;
@@ -1018,16 +893,13 @@ function tr(field) {
 function shopChips(shops){
   return '<div class="shop-row">'+shops.map(s=>`<a class="shop-chip" href="${s.url}" target="_blank" rel="noopener">${tr(s.name)}${ICONS.link}</a>`).join('')+'</div>';
 }
-function productCard(p, zoneClass) {
+function productCard(p, zoneClass){
   const name = tr(p.name);
   const comment = tr(p.comment);
   const skin = tr(p.skinType||'');
   const ingredients = tr(p.ingredients||'');
   const usage = tr(p.usage||'');
-  const id = getProductId(p);
-  const owned = isProductOwned(id);
   return `<div class="card product-card ${zoneClass}${p.lux?' lux-card':''}" 
-         data-id="${id}"
          data-name="${name.toLowerCase()}" 
          data-comment="${comment.toLowerCase()}" 
          data-rec="${p.rec?1:0}"
@@ -1045,35 +917,23 @@ function productCard(p, zoneClass) {
       <div class="card-comment">${comment}</div>
       ${p.shops && p.shops.length ? shopChips(p.shops) : ''}
     </div>
-    <button class="toggle-product ${owned?'owned':''}" 
-            onclick="event.stopPropagation(); toggleProduct('${id}')" 
-            title="${STR[currentLang].toggleProduct}">
-      ${owned ? '✔️' : '➕'}
-    </button>
   </div>`;
 }
 function refCard(text, anchor){
   return `<a class="ref-card" href="${anchor}">${ICONS.ref}${tr(text)}</a>`;
 }
-
-// ---- ИСПРАВЛЕННАЯ renderPath (показывает ВСЕ продукты, без фильтрации) ----
-function renderPath(container, steps, zoneClass) {
-  container.innerHTML = steps.map(s => {
+function renderPath(container, steps, zoneClass){
+  container.innerHTML = steps.map(s=>{
     let body = '';
-    if (s.ref) {
+    if(s.ref){
       body = refCard(s.ref, s.anchor || '#morning');
-    } else if (s.split) {
-      // Показываем все продукты в split-шагах
-      const aHtml = s.split.a.products.map(p => productCard(p, zoneClass)).join('');
-      const bHtml = s.split.b.products.map(p => productCard(p, zoneClass)).join('');
+    } else if(s.split){
       body = `<div class="split">
-        <div><div class="split-col-label">${tr(s.split.a.title)}</div><div class="card-row">${aHtml}</div></div>
-        <div><div class="split-col-label">${tr(s.split.b.title)}</div><div class="card-row">${bHtml}</div></div>
+        <div><div class="split-col-label">${tr(s.split.a.title)}</div><div class="card-row">${s.split.a.products.map(p=>productCard(p, zoneClass)).join('')}</div></div>
+        <div><div class="split-col-label">${tr(s.split.b.title)}</div><div class="card-row">${s.split.b.products.map(p=>productCard(p, zoneClass)).join('')}</div></div>
       </div>`;
     } else {
-      // Показываем все продукты
-      const html = s.products.map(p => productCard(p, zoneClass)).join('');
-      body = `<div class="card-row">${html}</div>`;
+      body = `<div class="card-row">${s.products.map(p=>productCard(p, zoneClass)).join('')}</div>`;
     }
     return `<div class="step ${zoneClass}">
       <div class="step-node">${s.num}</div>
@@ -1172,13 +1032,13 @@ function closeProductModal() {
 document.addEventListener('click', function(e) {
   const card = e.target.closest('.product-card');
   if (card) {
-    if (e.target.closest('.shop-chip') || e.target.closest('.toggle-product')) return;
+    if (e.target.closest('.shop-chip')) return;
     e.preventDefault();
     openProductModal(card);
   }
 });
 
-// --- КАЛЕНДАРЬ ---
+// --- КАЛЕНДАРЬ (полностью из вашей рабочей версии) ---
 let currentYear = 2026;
 let currentMonth = 6;
 const today = new Date();
@@ -1211,38 +1071,38 @@ function generateRoutine(y,m,d){
 
 function getRoutineForDay(y,m,d){
   const auto = generateRoutine(y,m,d);
-  // Утро
+  let activeProducts;
+  if (auto.azelaicActive) {
+    const step3b = morningSteps.find(s=>s.num===3)?.split?.b?.products;
+    activeProducts = step3b ? step3b.map(p=>tr(p.name)).join(', ') : 'Azelaic acid';
+  } else {
+    const step3a = morningSteps.find(s=>s.num===3)?.split?.a?.products;
+    activeProducts = step3a ? step3a.map(p=>tr(p.name)).join(', ') : 'Vitamin C';
+  }
   const morningStep1 = morningSteps.find(s=>s.num===1);
   const morningStep2 = morningSteps.find(s=>s.num===2);
   const morningStep4 = morningSteps.find(s=>s.num===4);
-  let activeProducts = [];
-  if (auto.azelaicActive) {
-    const step3b = morningSteps.find(s=>s.num===3)?.split?.b?.products;
-    if (step3b) activeProducts = step3b.filter(p => isProductOwned(getProductId(p)));
-  } else {
-    const step3a = morningSteps.find(s=>s.num===3)?.split?.a?.products;
-    if (step3a) activeProducts = step3a.filter(p => isProductOwned(getProductId(p)));
-  }
   const morningProducts = [
-    { label: tr(morningStep1.label), products: morningStep1.products.filter(p => isProductOwned(getProductId(p))).map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No product' : 'Нет продукта') },
-    { label: tr(morningStep2.label), products: morningStep2.products.filter(p => isProductOwned(getProductId(p))).map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No product' : 'Нет продукта') },
-    { label: currentLang === 'en' ? 'Active' : 'Актив', products: activeProducts.map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No product' : 'Нет продукта') },
-    { label: tr(morningStep4.label), products: morningStep4.products.filter(p => isProductOwned(getProductId(p))).map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No product' : 'Нет продукта') }
+    { label: tr(morningStep1.label), products: morningStep1.products.map(p=>tr(p.name)).join(', ') },
+    { label: tr(morningStep2.label), products: morningStep2.products.map(p=>tr(p.name)).join(', ') },
+    { label: currentLang === 'en' ? 'Active' : 'Актив', products: activeProducts },
+    { label: tr(morningStep4.label), products: morningStep4.products.map(p=>tr(p.name)).join(', ') }
   ];
-  // Вечер
   const eveningStep1 = eveningSteps.find(s=>s.num===1);
   const eveningStep4 = eveningSteps.find(s=>s.num===4);
   const eveningStep5 = eveningSteps.find(s=>s.num===5);
-  let retinalProducts = [];
+  let retinalProducts;
   if (auto.retinalSchedule === 'retinal') {
-    retinalProducts = eveningStep4.products.filter(p => isProductOwned(getProductId(p)));
+    retinalProducts = eveningStep4.products.map(p=>tr(p.name)).join(', ');
+  } else {
+    retinalProducts = tr({ru:'Отдых от ретиналя — только увлажнение', en:'Rest from retinal — just moisturizing'});
   }
   const eveningProducts = [
-    { label: tr(eveningStep1.label), products: eveningStep1.products.filter(p => isProductOwned(getProductId(p))).map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No product' : 'Нет продукта') },
+    { label: tr(eveningStep1.label), products: eveningStep1.products.map(p=>tr(p.name)).join(', ') },
     { label: currentLang === 'en' ? 'Second cleanse' : 'Второе очищение', products: tr({ru:'CeraVe Hydrating Cleanser или Round Lab Dokdo Cleanser (см. утро)', en:'CeraVe Hydrating Cleanser or Round Lab Dokdo Cleanser (see morning)'}) },
     { label: currentLang === 'en' ? 'Toner' : 'Тонер', products: tr({ru:'Etude House SoonJung или Aveeno Calm + Restore (см. утро)', en:'Etude House SoonJung or Aveeno Calm + Restore (see morning)'}) },
-    { label: tr(eveningStep4.label), products: retinalProducts.map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No retinal product' : 'Нет ретиналя') },
-    { label: tr(eveningStep5.label), products: eveningStep5.products.filter(p => isProductOwned(getProductId(p))).map(p=>tr(p.name)).join(', ') || (currentLang === 'en' ? 'No product' : 'Нет продукта') }
+    { label: tr(eveningStep4.label), products: retinalProducts },
+    { label: tr(eveningStep5.label), products: eveningStep5.products.map(p=>tr(p.name)).join(', ') }
   ];
   return { morning: morningProducts, evening: eveningProducts, special: auto.special || '' };
 }
@@ -1474,56 +1334,6 @@ function updateLangToggle() {
   if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
 }
 
-// --- МОИ ПРОДУКТЫ ---
-function renderMyProducts() {
-  const container = document.getElementById('my-products-container');
-  if (!container) return;
-  if (userProducts.length === 0) {
-    container.innerHTML = `<div class="my-products-empty">${STR[currentLang].noOwnedProducts}</div>`;
-    return;
-  }
-  const allProducts = [];
-  morningSteps.forEach(step => {
-    if (step.products) {
-      step.products.forEach(p => { if (isProductOwned(getProductId(p))) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.label) }); });
-    }
-    if (step.split) {
-      step.split.a.products.forEach(p => { if (isProductOwned(getProductId(p))) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.a.title) }); });
-      step.split.b.products.forEach(p => { if (isProductOwned(getProductId(p))) allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.b.title) }); });
-    }
-  });
-  eveningSteps.forEach(step => {
-    if (step.products) {
-      step.products.forEach(p => { if (isProductOwned(getProductId(p))) allProducts.push({ product: p, category: 'evening', stepLabel: tr(step.label) }); });
-    }
-  });
-  kitGroups.forEach(group => {
-    group.products.forEach(p => { if (isProductOwned(getProductId(p))) allProducts.push({ product: p, category: 'kit', stepLabel: tr(group.title) }); });
-  });
-
-  const categories = {
-    morning: { label: currentLang === 'en' ? 'Morning' : 'Утро', items: [] },
-    evening: { label: currentLang === 'en' ? 'Evening' : 'Вечер', items: [] },
-    kit: { label: currentLang === 'en' ? 'First Aid Kit' : 'Аптечка', items: [] }
-  };
-  allProducts.forEach(item => {
-    categories[item.category].items.push(item);
-  });
-
-  let html = '<div class="my-products-grid">';
-  ['morning', 'evening', 'kit'].forEach(cat => {
-    const data = categories[cat];
-    if (data.items.length === 0) return;
-    html += `<div class="my-products-category"><h3>${data.label}</h3><div class="my-products-list">`;
-    data.items.forEach(item => {
-      html += `<span class="my-product-tag" title="${tr(item.product.comment)}">${tr(item.product.name)}</span>`;
-    });
-    html += `</div></div>`;
-  });
-  html += '</div>';
-  container.innerHTML = html;
-}
-
 // --- ИНИЦИАЛИЗАЦИЯ ВСЕГО ---
 function renderAll() {
   const t = STR[currentLang];
@@ -1544,18 +1354,27 @@ function renderAll() {
   document.getElementById('titleRules').textContent = t.nav.rules;
   document.getElementById('titleShops').textContent = t.nav.shops;
   document.getElementById('titleCalendar').textContent = t.nav.calendar;
-  document.getElementById('titleMyProducts').textContent = t.myProductsTitle;
-  document.getElementById('subMyProducts').textContent = t.myProductsSub;
   document.getElementById('subKit').textContent = t.kitSub;
   document.getElementById('subShops').textContent = t.shopsSub;
   document.getElementById('footerLine').textContent = t.footerLine;
   document.getElementById('footerCredit').textContent = t.footerCredit;
   document.getElementById('footerDisclaimer').textContent = t.disclaimer;
 
-  // Рендерим утро, вечер и аптечку – все продукты всегда видны
   renderPath(document.getElementById('morning-path'), morningSteps, 'morning');
   renderPath(document.getElementById('evening-path'), eveningSteps, 'evening');
-
+  document.getElementById('kit-groups').innerHTML = kitGroups.map(g=>`
+    <div class="kit-group ${g.key}">
+      <div class="kit-group-head">
+        <div class="kit-group-icon">${ICONS[g.products[0].icon]}</div>
+        <div>
+          <div class="kit-group-title">${tr(g.title)}</div>
+          <div class="kit-group-sub">${tr(g.sub)}</div>
+        </div>
+      </div>
+      ${g.analysis?'<div class="kit-analysis">'+ICONS.note+'<div>'+tr(g.analysis)+'</div></div>':''}
+      <div class="card-row">${g.products.map(p=>productCard(p, g.key)).join('')}</div>
+    </div>
+  `).join('');
   document.getElementById('rules-grid').innerHTML = rules.map((r,i)=>`
     <div class="rule${r.caution?' caution':''}">
       <div class="rule-num">${i+1}</div>
@@ -1569,7 +1388,20 @@ function renderAll() {
     </div>
   `).join('');
   renderSnake();
-  renderMyProducts();
   applyFilters();
   updateLangToggle();
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('prevMonthBtn').addEventListener('click', ()=>changeMonth(-1));
+  document.getElementById('nextMonthBtn').addEventListener('click', ()=>changeMonth(1));
+  document.getElementById('settingsBtn').addEventListener('click', openSettings);
+  document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+  const saved=localStorage.getItem('calendarMonth');
+  if(saved){ const parts=saved.split('-'); currentYear=parseInt(parts[0]); currentMonth=parseInt(parts[1]); }
+  else { currentYear=2026; currentMonth=6; }
+  renderAll();
+});
+</script>
+</body>
+</html>
