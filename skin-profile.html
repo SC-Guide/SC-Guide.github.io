@@ -1,22 +1,206 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Skincare Guide — Skin Profile" />
-<meta property="og:description" content="Tell us about your skin and get personalized recommendations." />
-<meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
-<meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/skin-profile.html" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Skin Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Skincare Guide — Skin Profile" />
+    <meta property="og:description" content="Tell us about your skin and get personalized recommendations." />
+    <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
+    <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/skin-profile.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <title>Skincare Guide — Skin Profile</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.344.0/font/lucide.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-<!-- CSS -->
-<link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Дополнительные стили для страницы профиля */
+        .profile-hero {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+        .profile-hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(32px, 4vw, 48px);
+            color: var(--text);
+            margin: 0 0 8px;
+        }
+        .profile-hero p {
+            color: var(--text-soft);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+        .step-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 28px 24px;
+            margin-bottom: 28px;
+            border: 1px solid var(--line);
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s;
+        }
+        .step-card:hover {
+            box-shadow: 0 8px 30px rgba(239,108,87,0.08);
+        }
+        .step-card .step-number {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .step-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0 0 4px;
+        }
+        .step-card .step-desc {
+            font-size: 14px;
+            color: var(--text-soft);
+            margin: 0 0 16px;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .option-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 16px 12px;
+            background: var(--bg);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-soft);
+            text-align: center;
+            min-height: 80px;
+        }
+        .option-btn i {
+            font-size: 28px;
+            color: var(--text-light);
+            transition: color 0.15s;
+        }
+        .option-btn:hover {
+            border-color: var(--line);
+            background: var(--card-bg);
+            transform: translateY(-2px);
+        }
+        .option-btn.active {
+            border-color: var(--accent-dark);
+            background: color-mix(in srgb, var(--accent-dark) 8%, white);
+            color: var(--text);
+        }
+        .option-btn.active i {
+            color: var(--accent-dark);
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--bg);
+            border-radius: 999px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 14px;
+            color: var(--text-soft);
+            user-select: none;
+        }
+        .tag-label:hover {
+            border-color: var(--line);
+            background: var(--card-bg);
+        }
+        .tag-label input[type="checkbox"] {
+            display: none;
+        }
+        .tag-label.selected {
+            border-color: var(--accent-dark);
+            background: color-mix(in srgb, var(--accent-dark) 8%, white);
+            color: var(--text);
+        }
+        .tag-label i {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+        .tag-label.selected i {
+            color: var(--accent-dark);
+        }
+
+        .btn-submit {
+            display: inline-block;
+            background: var(--accent-dark);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 14px 48px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-submit:hover {
+            background: color-mix(in srgb, var(--accent-dark) 80%, black);
+            transform: scale(1.02);
+        }
+        .btn-submit:active {
+            transform: scale(0.96);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 600px) {
+            .option-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .option-btn {
+                min-height: 70px;
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+            .option-btn i {
+                font-size: 22px;
+            }
+        }
+        @media (max-width: 400px) {
+            .option-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -34,101 +218,144 @@
       </div>
     </div>
     <nav id="mainNav">
-  <a href="index.html" data-nav="home">🏠 Home</a>
-  <a href="skin-profile.html" data-nav="skin">🧴 Skin Profile</a>
-  <a href="planner.html" data-nav="planner">📋 Planner</a>
-  <a href="shop.html" data-nav="products">📦 Products</a>
-  <a href="blog.html" data-nav="blog">📝 Blog</a>
-</nav>
+      <a href="index.html">Home</a>
+      <a href="skin-profile.html" class="active">Skin Profile</a>
+      <a href="planner.html">Planner</a>
+      <a href="shop.html">Products</a>
+      <a href="blog.html">Blog</a>
+    </nav>
   </div>
 </header>
 
 <div class="wrap">
-  <div style="max-width:800px; margin:0 auto; padding:40px 0;">
-    <h1 style="font-family:var(--font-serif); font-size:clamp(28px,4vw,40px); text-align:center; margin-bottom:8px;">🧴 Your Skin Profile</h1>
-    <p style="text-align:center; color:var(--text-soft); font-size:16px; margin-bottom:40px;">Tell us about your skin — we'll tailor recommendations just for you.</p>
+    <div class="profile-hero">
+        <h1>Your Skin Profile</h1>
+        <p>Tell us about your skin — we'll tailor recommendations just for you.</p>
+    </div>
 
     <form id="skinForm">
-      <!-- ШАГ 1: ТИП КОЖИ -->
-      <div style="margin-bottom:32px;">
-        <h3 style="font-size:18px; font-weight:600; margin-bottom:12px;">1. What's your skin type?</h3>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:12px;" id="skinTypeOptions">
-          <button type="button" class="skin-option" data-value="oily">💧 Oily</button>
-          <button type="button" class="skin-option" data-value="dry">🏜️ Dry</button>
-          <button type="button" class="skin-option" data-value="combination">🌀 Combination</button>
-          <button type="button" class="skin-option" data-value="sensitive">🌿 Sensitive</button>
-          <button type="button" class="skin-option" data-value="normal">😊 Normal</button>
+        <!-- ШАГ 1: ТИП КОЖИ -->
+        <div class="step-card">
+            <div class="step-number">Step 1</div>
+            <h3>What's your skin type?</h3>
+            <p class="step-desc">Choose the option that best describes your skin.</p>
+            <div class="option-grid" id="skinTypeOptions">
+                <button type="button" class="option-btn" data-value="oily">
+                    <i class="lucide lucide-droplet"></i>
+                    Oily
+                </button>
+                <button type="button" class="option-btn" data-value="dry">
+                    <i class="lucide lucide-snowflake"></i>
+                    Dry
+                </button>
+                <button type="button" class="option-btn" data-value="combination">
+                    <i class="lucide lucide-git-branch"></i>
+                    Combination
+                </button>
+                <button type="button" class="option-btn" data-value="sensitive">
+                    <i class="lucide lucide-leaf"></i>
+                    Sensitive
+                </button>
+                <button type="button" class="option-btn" data-value="normal">
+                    <i class="lucide lucide-smile"></i>
+                    Normal
+                </button>
+            </div>
+            <input type="hidden" id="skinType" name="skinType">
         </div>
-        <input type="hidden" id="skinType" name="skinType">
-      </div>
 
-      <!-- ШАГ 2: ПРОБЛЕМЫ -->
-      <div style="margin-bottom:32px;">
-        <h3 style="font-size:18px; font-weight:600; margin-bottom:12px;">2. What are your main concerns? (select all that apply)</h3>
-        <div style="display:flex; flex-wrap:wrap; gap:10px;" id="concernsGroup">
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="acne"> Acne
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="pigmentation"> Pigmentation
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="redness"> Redness
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="aging"> Aging
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="dryness"> Dryness
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="large-pores"> Large pores
-          </label>
+        <!-- ШАГ 2: ПРОБЛЕМЫ -->
+        <div class="step-card">
+            <div class="step-number">Step 2</div>
+            <h3>What are your main concerns?</h3>
+            <p class="step-desc">Select all that apply to your skin.</p>
+            <div class="tag-group" id="concernsGroup">
+                <label class="tag-label" data-value="acne">
+                    <i class="lucide lucide-circle-help"></i>
+                    <input type="checkbox" value="acne"> Acne
+                </label>
+                <label class="tag-label" data-value="pigmentation">
+                    <i class="lucide lucide-sun"></i>
+                    <input type="checkbox" value="pigmentation"> Pigmentation
+                </label>
+                <label class="tag-label" data-value="redness">
+                    <i class="lucide lucide-flame"></i>
+                    <input type="checkbox" value="redness"> Redness
+                </label>
+                <label class="tag-label" data-value="aging">
+                    <i class="lucide lucide-clock"></i>
+                    <input type="checkbox" value="aging"> Aging
+                </label>
+                <label class="tag-label" data-value="dryness">
+                    <i class="lucide lucide-droplets"></i>
+                    <input type="checkbox" value="dryness"> Dryness
+                </label>
+                <label class="tag-label" data-value="large-pores">
+                    <i class="lucide lucide-circle"></i>
+                    <input type="checkbox" value="large-pores"> Large pores
+                </label>
+            </div>
         </div>
-      </div>
 
-      <!-- ШАГ 3: ЦЕЛИ -->
-      <div style="margin-bottom:32px;">
-        <h3 style="font-size:18px; font-weight:600; margin-bottom:12px;">3. What are your goals? (select all that apply)</h3>
-        <div style="display:flex; flex-wrap:wrap; gap:10px;" id="goalsGroup">
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="hydration"> Deep hydration
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="clearing"> Clearing acne
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="brightening"> Brightening
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="anti-aging"> Anti-aging
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="soothing"> Soothing
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; background:var(--card-bg); padding:8px 14px; border-radius:999px; border:1px solid var(--line); cursor:pointer;">
-            <input type="checkbox" value="sun-protection"> Sun protection
-          </label>
+        <!-- ШАГ 3: ЦЕЛИ -->
+        <div class="step-card">
+            <div class="step-number">Step 3</div>
+            <h3>What are your goals?</h3>
+            <p class="step-desc">Select all that apply.</p>
+            <div class="tag-group" id="goalsGroup">
+                <label class="tag-label" data-value="hydration">
+                    <i class="lucide lucide-droplet"></i>
+                    <input type="checkbox" value="hydration"> Deep hydration
+                </label>
+                <label class="tag-label" data-value="clearing">
+                    <i class="lucide lucide-sparkle"></i>
+                    <input type="checkbox" value="clearing"> Clearing acne
+                </label>
+                <label class="tag-label" data-value="brightening">
+                    <i class="lucide lucide-sun"></i>
+                    <input type="checkbox" value="brightening"> Brightening
+                </label>
+                <label class="tag-label" data-value="anti-aging">
+                    <i class="lucide lucide-hourglass"></i>
+                    <input type="checkbox" value="anti-aging"> Anti-aging
+                </label>
+                <label class="tag-label" data-value="soothing">
+                    <i class="lucide lucide-leaf"></i>
+                    <input type="checkbox" value="soothing"> Soothing
+                </label>
+                <label class="tag-label" data-value="sun-protection">
+                    <i class="lucide lucide-sun"></i>
+                    <input type="checkbox" value="sun-protection"> Sun protection
+                </label>
+            </div>
         </div>
-      </div>
 
-      <!-- ШАГ 4: БЮДЖЕТ -->
-      <div style="margin-bottom:32px;">
-        <h3 style="font-size:18px; font-weight:600; margin-bottom:12px;">4. What's your budget preference?</h3>
-        <div style="display:flex; gap:12px; flex-wrap:wrap;" id="budgetOptions">
-          <button type="button" class="budget-option" data-value="budget">💰 Budget</button>
-          <button type="button" class="budget-option" data-value="mid">💳 Mid-range</button>
-          <button type="button" class="budget-option" data-value="premium">💎 Premium</button>
+        <!-- ШАГ 4: БЮДЖЕТ -->
+        <div class="step-card">
+            <div class="step-number">Step 4</div>
+            <h3>What's your budget preference?</h3>
+            <p class="step-desc">This helps us recommend products in your range.</p>
+            <div class="option-grid" id="budgetOptions">
+                <button type="button" class="option-btn" data-value="budget">
+                    <i class="lucide lucide-wallet"></i>
+                    Budget
+                </button>
+                <button type="button" class="option-btn" data-value="mid">
+                    <i class="lucide lucide-credit-card"></i>
+                    Mid-range
+                </button>
+                <button type="button" class="option-btn" data-value="premium">
+                    <i class="lucide lucide-gem"></i>
+                    Premium
+                </button>
+            </div>
+            <input type="hidden" id="budget" name="budget">
         </div>
-        <input type="hidden" id="budget" name="budget">
-      </div>
 
-      <!-- Кнопка -->
-      <div style="text-align:center; margin-top:20px;">
-        <button type="submit" class="btn-primary" style="background:var(--accent-dark); color:white; border:none; padding:14px 48px; border-radius:999px; font-size:18px; font-weight:600; cursor:pointer;">Save & Continue →</button>
-      </div>
+        <div class="form-footer">
+            <button type="submit" class="btn-submit">Save & Continue →</button>
+        </div>
     </form>
-  </div>
 </div>
 
 <footer>
@@ -144,87 +371,94 @@
         <a href="mailto:your@email.com" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Contact</a>
       </div>
     </div>
-    <p style="text-align:center; font-size:12px; color:var(--text-light); margin-top:8px;">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
+    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
 <script src="js/firebase.js"></script>
 <script src="js/lang.js"></script>
 <script>
-// --- Skin Profile Logic ---
-document.querySelectorAll('.skin-option').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.skin-option').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById('skinType').value = this.dataset.value;
-  });
+// ============================================================
+// Skin Profile Logic (обновлённая)
+// ============================================================
+
+// --- Выбор типа кожи (option-btn) ---
+document.querySelectorAll('#skinTypeOptions .option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('#skinTypeOptions .option-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('skinType').value = this.dataset.value;
+    });
 });
 
-document.querySelectorAll('.budget-option').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.budget-option').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById('budget').value = this.dataset.value;
-  });
+// --- Выбор бюджета (option-btn) ---
+document.querySelectorAll('#budgetOptions .option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('#budgetOptions .option-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('budget').value = this.dataset.value;
+    });
 });
 
+// --- Выбор чекбоксов (tag-label) ---
+document.querySelectorAll('.tag-label').forEach(label => {
+    label.addEventListener('click', function(e) {
+        // Игнорируем клик по самому чекбоксу, чтобы избежать двойного срабатывания
+        if (e.target.tagName === 'INPUT') return;
+        const checkbox = this.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        this.classList.toggle('selected', checkbox.checked);
+    });
+    // Синхронизация при клике на чекбокс
+    const checkbox = label.querySelector('input[type="checkbox"]');
+    checkbox.addEventListener('change', function() {
+        label.classList.toggle('selected', this.checked);
+    });
+});
+
+// --- Обработка формы ---
 document.getElementById('skinForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const skinType = document.getElementById('skinType').value;
-  const budget = document.getElementById('budget').value;
-  if (!skinType) { alert('Please select your skin type.'); return; }
-  if (!budget) { alert('Please select your budget preference.'); return; }
-  const concerns = Array.from(document.querySelectorAll('#concernsGroup input:checked')).map(el => el.value);
-  const goals = Array.from(document.querySelectorAll('#goalsGroup input:checked')).map(el => el.value);
-  const profile = { skinType, budget, concerns, goals };
-  localStorage.setItem('skinProfile', JSON.stringify(profile));
-  window.location.href = 'planner.html';
+    e.preventDefault();
+
+    const skinType = document.getElementById('skinType').value;
+    const budget = document.getElementById('budget').value;
+
+    if (!skinType) {
+        alert('Please select your skin type.');
+        return;
+    }
+    if (!budget) {
+        alert('Please select your budget preference.');
+        return;
+    }
+
+    const concerns = Array.from(document.querySelectorAll('#concernsGroup input:checked')).map(el => el.value);
+    const goals = Array.from(document.querySelectorAll('#goalsGroup input:checked')).map(el => el.value);
+
+    const profile = { skinType, budget, concerns, goals };
+
+    // Сохраняем в localStorage
+    localStorage.setItem('skinProfile', JSON.stringify(profile));
+
+    // Переход на страницу планировщика
+    window.location.href = 'planner.html';
 });
 
-// Стили для активных кнопок
-const style = document.createElement('style');
-style.textContent = `
-  .skin-option.active, .budget-option.active {
-    background: var(--accent-dark) !important;
-    color: white !important;
-    border-color: var(--accent-dark) !important;
-  }
-  .skin-option, .budget-option {
-    background: var(--card-bg);
-    border: 2px solid var(--line);
-    border-radius: 999px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.15s ease;
-    color: var(--text);
-  }
-  .skin-option:hover, .budget-option:hover {
-    border-color: var(--accent-dark);
-  }
-  .btn-primary:hover {
-    background: color-mix(in srgb, var(--accent-dark) 80%, black) !important;
-    transform: scale(1.02);
-  }
-`;
-document.head.appendChild(style);
-
-// --- Язык и тема (используем общие из lang.js, но подключаем переключение) ---
+// --- Язык и тема (общие) ---
 let currentLang = localStorage.getItem('lang') || 'en';
+
 document.getElementById('langToggle').addEventListener('click', function() {
-  currentLang = currentLang === 'en' ? 'ru' : 'en';
-  localStorage.setItem('lang', currentLang);
-  this.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
-  // Здесь можно добавить обновление текстов на странице, если нужно
+    currentLang = currentLang === 'en' ? 'ru' : 'en';
+    localStorage.setItem('lang', currentLang);
+    this.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
 });
 
 document.getElementById('themeToggle').addEventListener('click', function() {
-  const html = document.documentElement;
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  this.textContent = next === 'dark' ? '☀️' : '🌙';
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    this.textContent = next === 'dark' ? '☀️' : '🌙';
 });
 
 const savedTheme = localStorage.getItem('theme') || 'light';

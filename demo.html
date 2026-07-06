@@ -189,115 +189,8 @@
 <script src="js/firebase.js"></script>
 <script src="js/icons.js"></script>
 
-<!-- ВСТРОЕННЫЕ ДАННЫЕ ПРОДУКТОВ (скопированы из my-planner) -->
 <script>
-// ============================================================
-// ВСТРОЕННЫЕ ДАННЫЕ ДЛЯ ДЕМО (без внешнего data.js)
-// ============================================================
-const morningSteps = [ /* ... полный массив ... */ ];
-const eveningSteps = [ /* ... полный массив ... */ ];
-const kitGroups = [ /* ... полный массив ... */ ];
-const rules = [ /* ... полный массив ... */ ];
-const shopsInfo = [ /* ... полный массив ... */ ];
-</script>
-
-<script src="js/lang.js"></script>
-<script src="js/products.js"></script>
-<script src="js/calendar.js"></script>
-<script src="js/modals.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/app.js"></script>
-
-<!-- ДОПОЛНИТЕЛЬНАЯ ЛОГИКА ДЛЯ ДЕМО (обновление текстов при смене языка) -->
-<script>
-// ============================================================
-// demo.js — дополнительная логика для демо-страницы
-// ============================================================
-// Добавляем переводы для демо-секции в общий объект STR
-const DEMO_STR = {
-  en: {
-    demoBadge: 'Interactive Demo',
-    demoHeroTitle: 'See <span class="accent">Skincare Guide</span> in Action',
-    demoHeroDesc: 'Explore all features — smart calendar, product library, search, and bilingual interface. Everything is live and interactive.',
-    df1: 'Snake‑style Calendar',
-    df1desc: 'Automated retinal/azelaic scheduling with a visual, interactive layout.',
-    df2: 'Product Library',
-    df2desc: 'Curated product recommendations with details, prices, and direct shop links.',
-    df3: 'Search & Filter',
-    df3desc: 'Find products by name, description, or filter by “recommended” only.',
-    df4: 'Dark / Light Theme',
-    df4desc: 'Smooth theme toggle with system preference fallback for any time of day.',
-    df5: 'Bilingual Interface',
-    df5desc: 'Full support for English and Russian — switch languages instantly.',
-    df6: 'Smart Routine Builder',
-    df6desc: 'Your daily plan is generated based on your owned products and retinal schedule.',
-    techTitle: 'Tech Stack',
-    routineTitle: 'Example Routine',
-    routineDesc: 'This is a pre‑filled example of how your personal planner could look. All products are from the library — you can start building your own routine in the <a href="planner.html">Planner</a>.'
-  },
-  ru: {
-    demoBadge: 'Интерактивная демонстрация',
-    demoHeroTitle: 'Посмотрите <span class="accent">Skincare Guide</span> в действии',
-    demoHeroDesc: 'Изучите все функции — умный календарь, библиотеку продуктов, поиск и двуязычный интерфейс. Всё работает в реальном времени.',
-    df1: 'Календарь-змейка',
-    df1desc: 'Автоматическое планирование ретиналя и азелаина с визуальным интерактивным интерфейсом.',
-    df2: 'Библиотека продуктов',
-    df2desc: 'Подборки продуктов с деталями, ценами и прямыми ссылками на магазины.',
-    df3: 'Поиск и фильтр',
-    df3desc: 'Ищите продукты по названию, описанию или фильтруйте по «рекомендованным».',
-    df4: 'Тёмная / светлая тема',
-    df4desc: 'Плавное переключение темы с учётом системных предпочтений для комфорта в любое время суток.',
-    df5: 'Двуязычный интерфейс',
-    df5desc: 'Полная поддержка английского и русского языков — переключайте мгновенно.',
-    df6: 'Умный построитель рутины',
-    df6desc: 'Ежедневный план генерируется на основе ваших продуктов и графика ретиналя.',
-    techTitle: 'Технологии',
-    routineTitle: 'Пример рутины',
-    routineDesc: 'Это предварительно заполненный пример того, как может выглядеть ваш личный планировщик. Все продукты из библиотеки — вы можете начать создавать свою собственную рутину в <a href="planner.html">Планировщике</a>.'
-  }
-};
-
-// Расширяем основной STR демо-переводами
-if (!STR.en.demoBadge) {
-  Object.keys(DEMO_STR.en).forEach(key => {
-    STR.en[key] = DEMO_STR.en[key];
-    STR.ru[key] = DEMO_STR.ru[key];
-  });
-}
-
-// Функция обновления текстов демо-страницы
-function updateDemoUI() {
-  const t = STR[currentLang];
-  document.getElementById('demoBadge').textContent = t.demoBadge;
-  document.getElementById('demoHeroTitle').innerHTML = t.demoHeroTitle;
-  document.getElementById('demoHeroDesc').textContent = t.demoHeroDesc;
-  document.getElementById('df1').textContent = t.df1;
-  document.getElementById('df1desc').textContent = t.df1desc;
-  document.getElementById('df2').textContent = t.df2;
-  document.getElementById('df2desc').textContent = t.df2desc;
-  document.getElementById('df3').textContent = t.df3;
-  document.getElementById('df3desc').textContent = t.df3desc;
-  document.getElementById('df4').textContent = t.df4;
-  document.getElementById('df4desc').textContent = t.df4desc;
-  document.getElementById('df5').textContent = t.df5;
-  document.getElementById('df5desc').textContent = t.df5desc;
-  document.getElementById('df6').textContent = t.df6;
-  document.getElementById('df6desc').textContent = t.df6desc;
-  document.getElementById('techTitle').textContent = t.techTitle;
-  document.getElementById('demoRoutineTitle').textContent = t.routineTitle;
-  document.getElementById('demoRoutineDesc').innerHTML = t.routineDesc;
-}
-
-// Переопределяем toggleLanguage, чтобы обновлять и демо-тексты
-const originalToggle = toggleLanguage;
-toggleLanguage = function() {
-  currentLang = (currentLang === 'en') ? 'ru' : 'en';
-  localStorage.setItem('lang', currentLang);
-  updateDemoUI();
-  renderAll();
-  updateLangToggle();
-};
-
+  
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:{ru:'Xpel Tea Tree Foaming Face Wash 200ml', en:'Xpel Tea Tree Foaming Face Wash 200ml'}, price:'€7', icon:'cleanser', rec:true,
@@ -506,6 +399,104 @@ const shopsInfo = [
   {name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com', items:{ru:'COSRX Low pH Good Night Soft Peeling Gel', en:'COSRX Low pH Good Night Soft Peeling Gel'}},
   {name:{ru:'Medik8.ie', en:'Medik8.ie'}, url:'https://www.medik8.ie', items:{ru:'Medik8 Crystal Retinal', en:'Medik8 Crystal Retinal'}}
 ];
+</script>
+
+<script src="js/lang.js"></script>
+<script src="js/products.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/modals.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/app.js"></script>
+
+<!-- ДОПОЛНИТЕЛЬНАЯ ЛОГИКА ДЛЯ ДЕМО (обновление текстов при смене языка) -->
+<script>
+// ============================================================
+// demo.js — дополнительная логика для демо-страницы
+// ============================================================
+// Добавляем переводы для демо-секции в общий объект STR
+const DEMO_STR = {
+  en: {
+    demoBadge: 'Interactive Demo',
+    demoHeroTitle: 'See <span class="accent">Skincare Guide</span> in Action',
+    demoHeroDesc: 'Explore all features — smart calendar, product library, search, and bilingual interface. Everything is live and interactive.',
+    df1: 'Snake‑style Calendar',
+    df1desc: 'Automated retinal/azelaic scheduling with a visual, interactive layout.',
+    df2: 'Product Library',
+    df2desc: 'Curated product recommendations with details, prices, and direct shop links.',
+    df3: 'Search & Filter',
+    df3desc: 'Find products by name, description, or filter by “recommended” only.',
+    df4: 'Dark / Light Theme',
+    df4desc: 'Smooth theme toggle with system preference fallback for any time of day.',
+    df5: 'Bilingual Interface',
+    df5desc: 'Full support for English and Russian — switch languages instantly.',
+    df6: 'Smart Routine Builder',
+    df6desc: 'Your daily plan is generated based on your owned products and retinal schedule.',
+    techTitle: 'Tech Stack',
+    routineTitle: 'Example Routine',
+    routineDesc: 'This is a pre‑filled example of how your personal planner could look. All products are from the library — you can start building your own routine in the <a href="planner.html">Planner</a>.'
+  },
+  ru: {
+    demoBadge: 'Интерактивная демонстрация',
+    demoHeroTitle: 'Посмотрите <span class="accent">Skincare Guide</span> в действии',
+    demoHeroDesc: 'Изучите все функции — умный календарь, библиотеку продуктов, поиск и двуязычный интерфейс. Всё работает в реальном времени.',
+    df1: 'Календарь-змейка',
+    df1desc: 'Автоматическое планирование ретиналя и азелаина с визуальным интерактивным интерфейсом.',
+    df2: 'Библиотека продуктов',
+    df2desc: 'Подборки продуктов с деталями, ценами и прямыми ссылками на магазины.',
+    df3: 'Поиск и фильтр',
+    df3desc: 'Ищите продукты по названию, описанию или фильтруйте по «рекомендованным».',
+    df4: 'Тёмная / светлая тема',
+    df4desc: 'Плавное переключение темы с учётом системных предпочтений для комфорта в любое время суток.',
+    df5: 'Двуязычный интерфейс',
+    df5desc: 'Полная поддержка английского и русского языков — переключайте мгновенно.',
+    df6: 'Умный построитель рутины',
+    df6desc: 'Ежедневный план генерируется на основе ваших продуктов и графика ретиналя.',
+    techTitle: 'Технологии',
+    routineTitle: 'Пример рутины',
+    routineDesc: 'Это предварительно заполненный пример того, как может выглядеть ваш личный планировщик. Все продукты из библиотеки — вы можете начать создавать свою собственную рутину в <a href="planner.html">Планировщике</a>.'
+  }
+};
+
+// Расширяем основной STR демо-переводами
+if (!STR.en.demoBadge) {
+  Object.keys(DEMO_STR.en).forEach(key => {
+    STR.en[key] = DEMO_STR.en[key];
+    STR.ru[key] = DEMO_STR.ru[key];
+  });
+}
+
+// Функция обновления текстов демо-страницы
+function updateDemoUI() {
+  const t = STR[currentLang];
+  document.getElementById('demoBadge').textContent = t.demoBadge;
+  document.getElementById('demoHeroTitle').innerHTML = t.demoHeroTitle;
+  document.getElementById('demoHeroDesc').textContent = t.demoHeroDesc;
+  document.getElementById('df1').textContent = t.df1;
+  document.getElementById('df1desc').textContent = t.df1desc;
+  document.getElementById('df2').textContent = t.df2;
+  document.getElementById('df2desc').textContent = t.df2desc;
+  document.getElementById('df3').textContent = t.df3;
+  document.getElementById('df3desc').textContent = t.df3desc;
+  document.getElementById('df4').textContent = t.df4;
+  document.getElementById('df4desc').textContent = t.df4desc;
+  document.getElementById('df5').textContent = t.df5;
+  document.getElementById('df5desc').textContent = t.df5desc;
+  document.getElementById('df6').textContent = t.df6;
+  document.getElementById('df6desc').textContent = t.df6desc;
+  document.getElementById('techTitle').textContent = t.techTitle;
+  document.getElementById('demoRoutineTitle').textContent = t.routineTitle;
+  document.getElementById('demoRoutineDesc').innerHTML = t.routineDesc;
+}
+
+// Переопределяем toggleLanguage, чтобы обновлять и демо-тексты
+const originalToggle = toggleLanguage;
+toggleLanguage = function() {
+  currentLang = (currentLang === 'en') ? 'ru' : 'en';
+  localStorage.setItem('lang', currentLang);
+  updateDemoUI();
+  renderAll();
+  updateLangToggle();
+};
 
 // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (tr, shopChips, productCard, refCard, renderPath) ---
 function tr(field) {

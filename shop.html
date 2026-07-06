@@ -3,20 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Skincare Guide — Shop" />
-<meta property="og:description" content="Browse all skincare products in our catalog." />
+<meta property="og:title" content="Skincare Guide — Products" />
+<meta property="og:description" content="Browse all skincare products, filter by skin type, sort, and mark the ones you own." />
 <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
 <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/shop.html" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Shop</title>
-
-<!-- CSS -->
+<title>Skincare Guide — Products</title>
 <link rel="stylesheet" href="css/style.css">
-
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<style>
+  /* Дополнительные стили для страницы продуктов */
+  .shop-filters {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px 24px;
+    border: 1px solid var(--line);
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+  .shop-filters label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .shop-filters select,
+  .shop-filters input[type="text"] {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    font-size: 13px;
+    color: var(--text);
+    font-family: var(--font-sans);
+    outline: none;
+  }
+  .shop-filters select:focus,
+  .shop-filters input[type="text"]:focus {
+    border-color: var(--accent-dark);
+  }
+  .shop-filters .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .shop-filters .filter-group label {
+    cursor: pointer;
+  }
+  .shop-filters .filter-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-dark);
+    cursor: pointer;
+  }
+  .shop-filters .sort-group {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .shop-filters .sort-group select {
+    min-width: 140px;
+  }
+
+  .shop-products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 600px) {
+    .shop-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .shop-products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
 </head>
 <body>
 <header>
@@ -33,33 +107,69 @@
         </div>
         <button class="pill-toggle" id="recToggle"><span>Recommended only</span></button>
         <div class="right-tools">
-          <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
+          <button class="lang-toggle" id="langToggle">EN</button>
           <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+          <button class="pill-toggle" id="authBtn">Sign in with Google</button>
           <span class="result-count" id="resultCount"></span>
         </div>
       </div>
     </div>
     <nav id="mainNav">
-  <a href="index.html" data-nav="home">🏠 Home</a>
-  <a href="skin-profile.html" data-nav="skin">🧴 Skin Profile</a>
-  <a href="planner.html" data-nav="planner">📋 Planner</a>
-  <a href="shop.html" data-nav="products">📦 Products</a>
-  <a href="blog.html" data-nav="blog">📝 Blog</a>
-</nav>
+      <a href="index.html">Home</a>
+      <a href="skin-profile.html">Skin Profile</a>
+      <a href="planner.html">Planner</a>
+      <a href="shop.html" class="active">Products</a>
+      <a href="blog.html">Blog</a>
+    </nav>
   </div>
 </header>
 
 <div class="wrap">
   <div style="padding:20px 0 10px;">
-    <h1 style="font-family:var(--font-serif); font-size:clamp(28px,4vw,40px); margin-bottom:8px;">📦 Product Catalog</h1>
-    <p style="color:var(--text-soft); font-size:16px;">Browse all products from your routine — search, filter, and explore.</p>
+    <h1 style="font-family:var(--font-serif); font-size:clamp(28px,4vw,40px); margin-bottom:4px;">All Products</h1>
+    <p style="color:var(--text-soft); font-size:16px;">Browse, filter, and mark the products you own.</p>
   </div>
 
-  <div class="no-results" id="noResults">Nothing found — try a different search.</div>
+  <!-- Блок фильтров и сортировки -->
+  <div class="shop-filters">
+    <div class="filter-group">
+      <label>Skin Type:
+        <select id="skinTypeFilter">
+          <option value="all">All</option>
+        </select>
+      </label>
+    </div>
+    <div class="filter-group">
+      <label>Category:
+        <select id="categoryFilter">
+          <option value="all">All</option>
+          <option value="morning">Morning</option>
+          <option value="evening">Evening</option>
+          <option value="kit">Kit</option>
+        </select>
+      </label>
+    </div>
+    <div class="filter-group">
+      <label><input type="checkbox" id="recommendedOnly"> Recommended only</label>
+    </div>
+    <div class="filter-group">
+      <label><input type="checkbox" id="myProductsOnly"> My products only</label>
+    </div>
+    <div class="sort-group">
+      <label>Sort by:
+        <select id="sortBy">
+          <option value="name">Name (A-Z)</option>
+          <option value="price">Price (low-high)</option>
+          <option value="category">Category</option>
+        </select>
+      </label>
+    </div>
+    <button id="applyFiltersBtn" style="background:var(--accent-dark); color:white; border:none; padding:6px 20px; border-radius:999px; cursor:pointer; font-weight:600;">Apply</button>
+  </div>
 
-  <section class="zone" id="shop-products">
-    <div id="shop-grid" class="shop-grid-products"></div>
-  </section>
+  <div class="no-results" id="noResults">No products match your filters.</div>
+
+  <div id="shop-products-container" class="shop-products-grid"></div>
 </div>
 
 <footer>
@@ -89,104 +199,230 @@
 
 <script>
 // ============================================================
-// shop.js — отдельная логика для витрины
+// shop.js — Логика для страницы продуктов (фильтры, сортировка, рендеринг)
 // ============================================================
 
-function renderShop() {
-  const allProducts = [];
+let allProducts = []; // будет хранить все продукты с метаданными
 
+// Сбор всех продуктов из data.js с информацией о категории
+function collectAllProducts() {
+  const result = [];
   morningSteps.forEach(step => {
     if (step.products) {
       step.products.forEach(p => {
-        allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.label) });
+        result.push({ product: p, category: 'morning', stepLabel: tr(step.label) });
       });
     }
     if (step.split) {
       step.split.a.products.forEach(p => {
-        allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.a.title) });
+        result.push({ product: p, category: 'morning', stepLabel: tr(step.split.a.title) });
       });
       step.split.b.products.forEach(p => {
-        allProducts.push({ product: p, category: 'morning', stepLabel: tr(step.split.b.title) });
+        result.push({ product: p, category: 'morning', stepLabel: tr(step.split.b.title) });
       });
     }
   });
-
   eveningSteps.forEach(step => {
     if (step.products) {
       step.products.forEach(p => {
-        allProducts.push({ product: p, category: 'evening', stepLabel: tr(step.label) });
+        result.push({ product: p, category: 'evening', stepLabel: tr(step.label) });
       });
     }
   });
-
   kitGroups.forEach(group => {
     group.products.forEach(p => {
-      allProducts.push({ product: p, category: 'kit', stepLabel: tr(group.title) });
+      result.push({ product: p, category: 'kit', stepLabel: tr(group.title) });
     });
   });
+  return result;
+}
 
-  const categories = {
-    morning: { label: currentLang === 'en' ? 'Morning' : 'Утро', items: [] },
-    evening: { label: currentLang === 'en' ? 'Evening' : 'Вечер', items: [] },
-    kit: { label: currentLang === 'en' ? 'First Aid Kit' : 'Аптечка', items: [] }
-  };
-
-  allProducts.forEach(item => {
-    categories[item.category].items.push(item);
+// Получение уникальных типов кожи из продуктов
+function getUniqueSkinTypes(products) {
+  const types = new Set();
+  products.forEach(item => {
+    const skin = item.product.skinType;
+    if (skin) {
+      if (typeof skin === 'string') {
+        types.add(skin);
+      } else if (typeof skin === 'object') {
+        // Если skinType – объект с переводами, добавляем все варианты
+        Object.values(skin).forEach(val => types.add(val));
+      }
+    }
   });
+  return Array.from(types).sort();
+}
+
+// Заполнение выпадающего списка типов кожи
+function populateSkinTypeFilter(types) {
+  const select = document.getElementById('skinTypeFilter');
+  // Очищаем, оставляя только "All"
+  select.innerHTML = '<option value="all">All</option>';
+  types.forEach(type => {
+    const option = document.createElement('option');
+    option.value = type;
+    option.textContent = type;
+    select.appendChild(option);
+  });
+}
+
+// Основная функция рендеринга с учётом фильтров и сортировки
+function renderShopProducts() {
+  const container = document.getElementById('shop-products-container');
+  if (!container) return;
+
+  // 1. Фильтрация
+  let filtered = [...allProducts];
+
+  // Поиск
+  const searchQuery = document.getElementById('search').value.trim().toLowerCase();
+  if (searchQuery) {
+    filtered = filtered.filter(item => {
+      const name = tr(item.product.name).toLowerCase();
+      const comment = tr(item.product.comment).toLowerCase();
+      return name.includes(searchQuery) || comment.includes(searchQuery);
+    });
+  }
+
+  // Тип кожи
+  const skinTypeFilter = document.getElementById('skinTypeFilter').value;
+  if (skinTypeFilter !== 'all') {
+    filtered = filtered.filter(item => {
+      const skin = item.product.skinType;
+      if (!skin) return false;
+      if (typeof skin === 'string') return skin === skinTypeFilter;
+      if (typeof skin === 'object') {
+        // Проверяем, есть ли значение во всех языках
+        return Object.values(skin).some(val => val === skinTypeFilter);
+      }
+      return false;
+    });
+  }
+
+  // Категория
+  const categoryFilter = document.getElementById('categoryFilter').value;
+  if (categoryFilter !== 'all') {
+    filtered = filtered.filter(item => item.category === categoryFilter);
+  }
+
+  // Только рекомендованные
+  const recommendedOnly = document.getElementById('recommendedOnly').checked;
+  if (recommendedOnly) {
+    filtered = filtered.filter(item => item.product.rec === true);
+  }
+
+  // Только мои продукты
+  const myProductsOnly = document.getElementById('myProductsOnly').checked;
+  if (myProductsOnly) {
+    filtered = filtered.filter(item => isProductOwned(getProductId(item.product)));
+  }
+
+  // 2. Сортировка
+  const sortBy = document.getElementById('sortBy').value;
+  switch (sortBy) {
+    case 'name':
+      filtered.sort((a, b) => tr(a.product.name).localeCompare(tr(b.product.name)));
+      break;
+    case 'price':
+      filtered.sort((a, b) => parseFloat(a.product.price.replace(/[€,£$]/g, '')) - parseFloat(b.product.price.replace(/[€,£$]/g, '')));
+      break;
+    case 'category':
+      filtered.sort((a, b) => a.category.localeCompare(b.category));
+      break;
+    default:
+      break;
+  }
+
+  // 3. Рендеринг
+  if (filtered.length === 0) {
+    document.getElementById('noResults').style.display = 'block';
+    container.innerHTML = '';
+    document.getElementById('resultCount').textContent = '';
+    return;
+  }
+  document.getElementById('noResults').style.display = 'none';
 
   let html = '';
-  ['morning', 'evening', 'kit'].forEach(cat => {
-    const data = categories[cat];
-    if (data.items.length === 0) return;
-    html += `<div class="category-section" style="margin-bottom:40px;">
-      <h2 style="font-family:var(--font-serif); font-size:clamp(20px,2.5vw,28px); margin-bottom:16px;">${data.label}</h2>
-      <div class="card-row">`;
-    data.items.forEach(item => {
-      html += productCard(item.product, 'shop');
-    });
-    html += `</div></div>`;
+  filtered.forEach(item => {
+    // Используем productCard из products.js (она уже есть)
+    html += productCard(item.product, 'shop');
   });
-
-  document.getElementById('shop-grid').innerHTML = html;
-  applyFilters();
+  container.innerHTML = html;
+  document.getElementById('resultCount').textContent = `${STR[currentLang].found}: ${filtered.length}`;
 }
 
-function applyFilters() {
-  const q = document.getElementById('search').value.trim().toLowerCase();
-  const onlyRec = document.getElementById('recToggle').classList.contains('active');
-  let visibleCount = 0;
-  document.querySelectorAll('.shop-grid .product-card').forEach(card => {
-    const name = card.dataset.name;
-    const comment = card.dataset.comment;
-    const isRec = card.dataset.rec === '1';
-    const matchesQuery = !q || name.includes(q) || comment.includes(q);
-    const matchesRec = !onlyRec || isRec;
-    const show = matchesQuery && matchesRec;
-    card.style.display = show ? '' : 'none';
-    if (show) visibleCount++;
-  });
-  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
-  document.getElementById('resultCount').textContent = (q || onlyRec) ? `${STR[currentLang].found}: ${visibleCount}` : '';
+// Применение всех фильтров и сортировки (обёртка)
+function applyFiltersAndSort() {
+  renderShopProducts();
 }
 
-// Инициализация
-document.getElementById('langToggle').addEventListener('click', toggleLanguage);
-document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+// Инициализация страницы
+function initShop() {
+  // Собираем все продукты
+  allProducts = collectAllProducts();
 
-document.getElementById('search').addEventListener('input', applyFilters);
-document.getElementById('recToggle').addEventListener('click', function() {
-  this.classList.toggle('active');
-  applyFilters();
-});
+  // Заполняем список типов кожи
+  const skinTypes = getUniqueSkinTypes(allProducts);
+  populateSkinTypeFilter(skinTypes);
 
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  // Если есть сохранённый профиль, устанавливаем фильтр по типу кожи автоматически
+  const skinProfile = JSON.parse(localStorage.getItem('skinProfile'));
+  if (skinProfile && skinProfile.skinType) {
+    const select = document.getElementById('skinTypeFilter');
+    const optionExists = Array.from(select.options).some(opt => opt.value === skinProfile.skinType);
+    if (optionExists) {
+      select.value = skinProfile.skinType;
+    }
+  }
 
+  // Применяем фильтры и рендерим
+  renderShopProducts();
+
+  // Навешиваем события
+  document.getElementById('applyFiltersBtn').addEventListener('click', applyFiltersAndSort);
+  document.getElementById('search').addEventListener('input', applyFiltersAndSort);
+  document.getElementById('recToggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    applyFiltersAndSort();
+  });
+  // Для чекбоксов и селектов – обновляем при изменении, но можно и по кнопке
+  document.querySelectorAll('#skinTypeFilter, #categoryFilter, #sortBy, #recommendedOnly, #myProductsOnly').forEach(el => {
+    el.addEventListener('change', applyFiltersAndSort);
+  });
+}
+
+// Запуск после загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
+  // Настраиваем язык и тему
   updateLangToggle();
-  renderShop();
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+  // Инициализируем страницу
+  initShop();
+
+  // Обработчики для языка и темы
+  document.getElementById('langToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'ru' : 'en';
+    localStorage.setItem('lang', currentLang);
+    updateLangToggle();
+    // Пересобираем продукты с новым языком и перерисовываем
+    allProducts = collectAllProducts();
+    // Обновляем список типов кожи (могут измениться переводы)
+    const skinTypes = getUniqueSkinTypes(allProducts);
+    populateSkinTypeFilter(skinTypes);
+    renderShopProducts();
+  });
+
+  document.getElementById('themeToggle').addEventListener('click', function() {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    this.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
 });
 </script>
 </body>
