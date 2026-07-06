@@ -12,7 +12,6 @@
   <title>Skincare Guide — Showcase</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Дополнительные стили для демо-страницы */
     .demo-hero { padding: 60px 0 40px; text-align: center; }
     .demo-hero h1 { font-family: var(--font-serif); font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: var(--text); margin: 0 0 12px; line-height: 1.2; }
     .demo-hero h1 .accent { color: var(--accent-dark); }
@@ -61,21 +60,16 @@
     <div class="header-top">
       <div>
         <p class="title"><span class="accent">Skincare</span> Guide</p>
-        <p class="subtitle">Demo · Project Showcase</p>
+        <p class="subtitle" id="siteSubtitle">Demo · Project Showcase</p>
       </div>
       <div class="tools">
         <div class="right-tools">
+          <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
           <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
         </div>
       </div>
     </div>
-    <nav id="mainNav">
-      <a href="index.html">Home</a>
-      <a href="skin-profile.html">Skin Profile</a>
-      <a href="planner.html">Planner</a>
-      <a href="shop.html">Products</a>
-      <a href="blog.html">Blog</a>
-    </nav>
+    <!-- НАВИГАЦИЯ УДАЛЕНА -->
   </div>
 </header>
 
@@ -83,82 +77,82 @@
 
   <!-- ========== HERO ========== -->
   <section class="demo-hero">
-    <div class="demo-badge">Full‑Stack Showcase</div>
-    <h1><span class="accent">Skincare Guide</span> — Web App Portfolio</h1>
-    <p>
+    <div class="demo-badge" data-i18n="badge">Full‑Stack Showcase</div>
+    <h1><span class="accent">Skincare Guide</span> <span data-i18n="heroTitle">— Web App Portfolio</span></h1>
+    <p data-i18n="heroDesc">
       A complete, responsive web application built with vanilla JavaScript, Firebase, and custom SVG icons.
       This project demonstrates my ability to design, develop, and deploy a functional product from scratch.
     </p>
     <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-      <a href="my-planner.html" class="primary-btn" style="background:var(--accent-dark); color:white; padding:12px 32px; border-radius:999px; text-decoration:none; font-weight:600;">🚀 Live Planner Demo</a>
-      <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="secondary-btn" style="border:2px solid var(--line); padding:12px 32px; border-radius:999px; text-decoration:none; font-weight:600; color:var(--text);">📂 View on GitHub</a>
+      <a href="my-planner.html" class="primary-btn" style="background:var(--accent-dark); color:white; padding:12px 32px; border-radius:999px; text-decoration:none; font-weight:600;" data-i18n="ctaPrimary">🚀 Live Planner Demo</a>
+      <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="secondary-btn" style="border:2px solid var(--line); padding:12px 32px; border-radius:999px; text-decoration:none; font-weight:600; color:var(--text);" data-i18n="ctaSecondary">📂 View on GitHub</a>
     </div>
   </section>
 
   <!-- ========== О ПРОЕКТЕ ========== -->
-  <h2 class="demo-section-title">About the Project</h2>
-  <p class="demo-section-sub">
+  <h2 class="demo-section-title" data-i18n="aboutTitle">About the Project</h2>
+  <p class="demo-section-sub" data-i18n="aboutDesc">
     Skincare Guide is a personal routine planner that helps users track their daily skincare steps,
     manage product inventory, and visualize their schedule with an interactive calendar.
     The project is fully bilingual (EN/RU) and supports dark/light themes.
   </p>
 
   <!-- ========== ФУНКЦИОНАЛ ========== -->
-  <h2 class="demo-section-title">Key Features</h2>
+  <h2 class="demo-section-title" data-i18n="featuresTitle">Key Features</h2>
   <div class="demo-features-grid">
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8v2h16v-2a8 8 0 0 0-8-8z"/><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg></div>
       <div>
-        <h3>Smart Routine Planner</h3>
-        <p>Automated scheduling of retinal and azelaic acid based on your personal start date. Visual step‑by‑step morning and evening routines.</p>
-        <span class="tech-detail">🔹 Algorithm: day‑based alternating active ingredients</span>
+        <h3 data-i18n="f1_title">Smart Routine Planner</h3>
+        <p data-i18n="f1_desc">Automated scheduling of retinal and azelaic acid based on your personal start date. Visual step‑by‑step morning and evening routines.</p>
+        <span class="tech-detail" data-i18n="f1_tech">🔹 Algorithm: day‑based alternating active ingredients</span>
       </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
       <div>
-        <h3>Search & Filter</h3>
-        <p>Real‑time search by product name, description, or ingredients. Filter by “recommended only” and “my products”.</p>
-        <span class="tech-detail">🔹 Live filtering with zero dependencies</span>
+        <h3 data-i18n="f2_title">Search & Filter</h3>
+        <p data-i18n="f2_desc">Real‑time search by product name, description, or ingredients. Filter by “recommended only” and “my products”.</p>
+        <span class="tech-detail" data-i18n="f2_tech">🔹 Live filtering with zero dependencies</span>
       </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
       <div>
-        <h3>Product Library</h3>
-        <p>Curated product database with prices, ingredients, usage instructions, and direct shop links (Boots, Amazon, etc.).</p>
-        <span class="tech-detail">🔹 40+ products with multilingual support</span>
+        <h3 data-i18n="f3_title">Product Library</h3>
+        <p data-i18n="f3_desc">Curated product database with prices, ingredients, usage instructions, and direct shop links (Boots, Amazon, etc.).</p>
+        <span class="tech-detail" data-i18n="f3_tech">🔹 40+ products with multilingual support</span>
       </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg></div>
       <div>
-        <h3>Dark / Light Theme</h3>
-        <p>Seamless theme switching with system preference detection. All CSS variables for easy customization.</p>
-        <span class="tech-detail">🔹 CSS custom properties, prefers‑color‑scheme</span>
+        <h3 data-i18n="f4_title">Dark / Light Theme</h3>
+        <p data-i18n="f4_desc">Seamless theme switching with system preference detection. All CSS variables for easy customization.</p>
+        <span class="tech-detail" data-i18n="f4_tech">🔹 CSS custom properties, prefers‑color‑scheme</span>
       </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18"/><path d="M9.5 9L12 21"/><path d="M14.5 9L12 21"/><path d="M7.5 3L9.5 9"/><path d="M16.5 3L14.5 9"/></svg></div>
       <div>
-        <h3>Bilingual Interface</h3>
-        <p>Full support for English and Russian. All UI texts, product data, and comments are stored in a single translation object.</p>
-        <span class="tech-detail">🔹 i18n with simple key‑value mapping</span>
+        <h3 data-i18n="f5_title">Bilingual Interface</h3>
+        <p data-i18n="f5_desc">Full support for English and Russian. All UI texts, product data, and comments are stored in a single translation object.</p>
+        <span class="tech-detail" data-i18n="f5_tech">🔹 i18n with simple key‑value mapping</span>
       </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="M8 8h8"/><path d="M10 22l-2-2a4 4 0 0 1 0-5.66L12 12l4 4a4 4 0 0 1 0 5.66l-2 2"/></svg></div>
       <div>
-        <h3>Interactive Calendar</h3>
-        <p>Snake‑style calendar with day‑by‑day routine preview, done/undo marks, and automatic retinal/azelaic scheduling.</p>
-        <span class="tech-detail">🔹 Pure CSS/JS, responsive, localStorage persistence</span>
+        <h3 data-i18n="f6_title">Interactive Calendar</h3>
+        <p data-i18n="f6_desc">Snake‑style calendar with day‑by‑day routine preview, done/undo marks, and automatic retinal/azelaic scheduling.</p>
+        <span class="tech-detail" data-i18n="f6_tech">🔹 Pure CSS/JS, responsive, localStorage persistence</span>
       </div>
     </div>
   </div>
 
   <!-- ========== ЦВЕТОВАЯ ПАЛИТРА ========== -->
-  <h2 class="demo-section-title">Design System</h2>
-  <p class="demo-section-sub">A cohesive color palette with semantic tokens ensures consistency and accessibility.</p>
+  <h2 class="demo-section-title" data-i18n="colorsTitle">Design System</h2>
+  <p class="demo-section-sub" data-i18n="colorsDesc">A cohesive color palette with semantic tokens ensures consistency and accessibility.</p>
   <div class="demo-colors">
     <span class="color-swatch"><span class="circle" style="background:#7EB5A6;"></span> Primary (accent)</span>
     <span class="color-swatch"><span class="circle" style="background:#EF6C57;"></span> Accent dark</span>
@@ -169,7 +163,7 @@
 
   <!-- ========== ТЕХНОЛОГИИ ========== -->
   <div class="demo-tech-stack">
-    <h3>🛠️ Technologies & Tools</h3>
+    <h3 data-i18n="techTitle">🛠️ Technologies & Tools</h3>
     <div class="tech-tags">
       <span class="tech-tag">HTML5</span>
       <span class="tech-tag">CSS3 (custom properties)</span>
@@ -187,23 +181,23 @@
   </div>
 
   <!-- ========== БУДУЩИЕ ВОЗМОЖНОСТИ ========== -->
-  <h2 class="demo-section-title">🚀 Future Roadmap</h2>
-  <p class="demo-section-sub">Planned enhancements to scale the project and improve user experience:</p>
+  <h2 class="demo-section-title" data-i18n="futureTitle">🚀 Future Roadmap</h2>
+  <p class="demo-section-sub" data-i18n="futureDesc">Planned enhancements to scale the project and improve user experience:</p>
   <ul class="future-list">
-    <li>Full Firestore integration – replace localStorage with cloud database, enable multi‑device sync</li>
-    <li>User‑generated product reviews and ratings</li>
-    <li>AI‑based product recommendations based on skin profile</li>
-    <li>Progress analytics – track consistency and improvement over time</li>
-    <li>Progressive Web App (PWA) – offline support and installable</li>
-    <li>Integration with external APIs (e.g., Skincare ingredient checkers)</li>
-    <li>Admin panel for managing product database</li>
+    <li data-i18n="future1">Full Firestore integration – replace localStorage with cloud database, enable multi‑device sync</li>
+    <li data-i18n="future2">User‑generated product reviews and ratings</li>
+    <li data-i18n="future3">AI‑based product recommendations based on skin profile</li>
+    <li data-i18n="future4">Progress analytics – track consistency and improvement over time</li>
+    <li data-i18n="future5">Progressive Web App (PWA) – offline support and installable</li>
+    <li data-i18n="future6">Integration with external APIs (e.g., Skincare ingredient checkers)</li>
+    <li data-i18n="future7">Admin panel for managing product database</li>
   </ul>
 
   <!-- ========== ПРИЗЫВ К ДЕЙСТВИЮ ========== -->
   <div class="demo-cta">
-    <a href="my-planner.html" class="primary-btn">📋 Try the Live Planner</a>
-    <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="secondary-btn">📂 GitHub Repository</a>
-    <p style="margin-top: 24px; color: var(--text-soft); font-size: 14px;">
+    <a href="my-planner.html" class="primary-btn" data-i18n="ctaPrimary2">📋 Try the Live Planner</a>
+    <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="secondary-btn" data-i18n="ctaSecondary2">📂 GitHub Repository</a>
+    <p style="margin-top: 24px; color: var(--text-soft); font-size: 14px;" data-i18n="contact">
       This project is actively maintained and open for collaboration. Contact me via <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--accent-dark);">vyshnevska2503@gmail.com</a>.
     </p>
   </div>
@@ -218,17 +212,17 @@
         <p style="font-size:12px; color:var(--text-light);">© 2026 · Anastasiia Vyshnevska</p>
       </div>
       <div style="display:flex; gap:16px; flex-wrap:wrap;">
-        <a href="about.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;">About</a>
-        <a href="privacy.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Privacy</a>
-        <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Contact</a>
+        <a href="about.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;" data-i18n="footerAbout">About</a>
+        <a href="privacy.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;" data-i18n="footerPrivacy">Privacy</a>
+        <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--text-soft); text-decoration:none; font-size:12px;" data-i18n="footerContact">Contact</a>
       </div>
     </div>
-    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
+    <p class="footer-disclaimer" id="footerDisclaimer" data-i18n="disclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
 <script>
-// Простая логика темы
+// --- ПЕРЕКЛЮЧЕНИЕ ТЕМЫ ---
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
@@ -241,6 +235,132 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+// --- ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (локальное для демо) ---
+const demoTranslations = {
+  en: {
+    badge: 'Full‑Stack Showcase',
+    heroTitle: '— Web App Portfolio',
+    heroDesc: 'A complete, responsive web application built with vanilla JavaScript, Firebase, and custom SVG icons. This project demonstrates my ability to design, develop, and deploy a functional product from scratch.',
+    ctaPrimary: '🚀 Live Planner Demo',
+    ctaSecondary: '📂 View on GitHub',
+    aboutTitle: 'About the Project',
+    aboutDesc: 'Skincare Guide is a personal routine planner that helps users track their daily skincare steps, manage product inventory, and visualize their schedule with an interactive calendar. The project is fully bilingual (EN/RU) and supports dark/light themes.',
+    featuresTitle: 'Key Features',
+    f1_title: 'Smart Routine Planner',
+    f1_desc: 'Automated scheduling of retinal and azelaic acid based on your personal start date. Visual step‑by‑step morning and evening routines.',
+    f1_tech: '🔹 Algorithm: day‑based alternating active ingredients',
+    f2_title: 'Search & Filter',
+    f2_desc: 'Real‑time search by product name, description, or ingredients. Filter by “recommended only” and “my products”.',
+    f2_tech: '🔹 Live filtering with zero dependencies',
+    f3_title: 'Product Library',
+    f3_desc: 'Curated product database with prices, ingredients, usage instructions, and direct shop links (Boots, Amazon, etc.).',
+    f3_tech: '🔹 40+ products with multilingual support',
+    f4_title: 'Dark / Light Theme',
+    f4_desc: 'Seamless theme switching with system preference detection. All CSS variables for easy customization.',
+    f4_tech: '🔹 CSS custom properties, prefers‑color‑scheme',
+    f5_title: 'Bilingual Interface',
+    f5_desc: 'Full support for English and Russian. All UI texts, product data, and comments are stored in a single translation object.',
+    f5_tech: '🔹 i18n with simple key‑value mapping',
+    f6_title: 'Interactive Calendar',
+    f6_desc: 'Snake‑style calendar with day‑by‑day routine preview, done/undo marks, and automatic retinal/azelaic scheduling.',
+    f6_tech: '🔹 Pure CSS/JS, responsive, localStorage persistence',
+    colorsTitle: 'Design System',
+    colorsDesc: 'A cohesive color palette with semantic tokens ensures consistency and accessibility.',
+    techTitle: '🛠️ Technologies & Tools',
+    futureTitle: '🚀 Future Roadmap',
+    futureDesc: 'Planned enhancements to scale the project and improve user experience:',
+    future1: 'Full Firestore integration – replace localStorage with cloud database, enable multi‑device sync',
+    future2: 'User‑generated product reviews and ratings',
+    future3: 'AI‑based product recommendations based on skin profile',
+    future4: 'Progress analytics – track consistency and improvement over time',
+    future5: 'Progressive Web App (PWA) – offline support and installable',
+    future6: 'Integration with external APIs (e.g., Skincare ingredient checkers)',
+    future7: 'Admin panel for managing product database',
+    ctaPrimary2: '📋 Try the Live Planner',
+    ctaSecondary2: '📂 GitHub Repository',
+    contact: 'This project is actively maintained and open for collaboration. Contact me via <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--accent-dark);">vyshnevska2503@gmail.com</a>.',
+    footerAbout: 'About',
+    footerPrivacy: 'Privacy',
+    footerContact: 'Contact',
+    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
+  },
+  ru: {
+    badge: 'Полнофункциональный проект',
+    heroTitle: '— веб-приложение для портфолио',
+    heroDesc: 'Полноценное адаптивное веб-приложение, построенное на ванильном JavaScript, Firebase и кастомных SVG-иконках. Этот проект демонстрирует мои навыки проектирования, разработки и развертывания рабочего продукта с нуля.',
+    ctaPrimary: '🚀 Живой демо-планировщик',
+    ctaSecondary: '📂 Посмотреть на GitHub',
+    aboutTitle: 'О проекте',
+    aboutDesc: 'Skincare Guide — это персональный планировщик ухода за кожей, который помогает отслеживать ежедневные шаги, управлять инвентарём продуктов и визуализировать расписание с помощью интерактивного календаря. Проект полностью двуязычный (EN/RU) и поддерживает тёмную/светлую тему.',
+    featuresTitle: 'Ключевые возможности',
+    f1_title: 'Умный планировщик рутины',
+    f1_desc: 'Автоматическое расписание ретиналя и азелаиновой кислоты на основе даты начала. Визуальные пошаговые утренние и вечерние рутины.',
+    f1_tech: '🔹 Алгоритм: чередование активов по дням',
+    f2_title: 'Поиск и фильтр',
+    f2_desc: 'Поиск в реальном времени по названию, описанию или ингредиентам. Фильтр по «рекомендованным» и «моим продуктам».',
+    f2_tech: '🔹 Живая фильтрация без внешних зависимостей',
+    f3_title: 'Библиотека продуктов',
+    f3_desc: 'Курируемая база продуктов с ценами, ингредиентами, инструкциями и прямыми ссылками на магазины (Boots, Amazon и др.).',
+    f3_tech: '🔹 40+ продуктов с мультиязычной поддержкой',
+    f4_title: 'Тёмная / светлая тема',
+    f4_desc: 'Плавное переключение темы с учётом системных предпочтений. Все переменные CSS для лёгкой кастомизации.',
+    f4_tech: '🔹 CSS-переменные, prefers‑color‑scheme',
+    f5_title: 'Двуязычный интерфейс',
+    f5_desc: 'Полная поддержка английского и русского языков. Все тексты, данные продуктов и комментарии хранятся в едином объекте переводов.',
+    f5_tech: '🔹 i18n на основе ключей',
+    f6_title: 'Интерактивный календарь',
+    f6_desc: 'Календарь-змейка с дневным просмотром рутины, отметками «выполнено» и автоматическим планированием ретиналя/азелаина.',
+    f6_tech: '🔹 Чистый CSS/JS, адаптивность, сохранение в localStorage',
+    colorsTitle: 'Дизайн-система',
+    colorsDesc: 'Единая цветовая палитра с семантическими токенами обеспечивает согласованность и доступность.',
+    techTitle: '🛠️ Технологии и инструменты',
+    futureTitle: '🚀 Дорожная карта',
+    futureDesc: 'Запланированные улучшения для масштабирования и улучшения пользовательского опыта:',
+    future1: 'Полная интеграция Firestore – замена localStorage на облачную базу данных, синхронизация между устройствами',
+    future2: 'Отзывы и рейтинги продуктов от пользователей',
+    future3: 'Персональные рекомендации на основе ИИ и профиля кожи',
+    future4: 'Аналитика прогресса – отслеживание регулярности и улучшений',
+    future5: 'Прогрессивное веб-приложение (PWA) – офлайн-режим и установка',
+    future6: 'Интеграция с внешними API (например, проверка ингредиентов)',
+    future7: 'Административная панель для управления базой продуктов',
+    ctaPrimary2: '📋 Попробовать живой планировщик',
+    ctaSecondary2: '📂 Репозиторий на GitHub',
+    contact: 'Этот проект активно поддерживается и открыт для сотрудничества. Свяжитесь со мной по <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--accent-dark);">vyshnevska2503@gmail.com</a>.',
+    footerAbout: 'О нас',
+    footerPrivacy: 'Конфиденциальность',
+    footerContact: 'Контакты',
+    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
+  }
+};
+
+let currentLang = localStorage.getItem('demoLang') || 'en';
+
+function updateDemoUI() {
+  const t = demoTranslations[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      if (el.tagName === 'A' || el.innerHTML.includes('<')) {
+        el.innerHTML = t[key];
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+  const langBtn = document.getElementById('langToggle');
+  langBtn.textContent = currentLang === 'en' ? '🇬🇧 EN' : '🇷🇺 RU';
+  document.documentElement.lang = currentLang;
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'ru' : 'en';
+  localStorage.setItem('demoLang', currentLang);
+  updateDemoUI();
+}
+
+document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+updateDemoUI();
 </script>
 
 </body>
