@@ -12,45 +12,244 @@
   <title>Skincare Guide — Showcase</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .demo-hero { padding: 60px 0 40px; text-align: center; }
-    .demo-hero h1 { font-family: var(--font-serif); font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: var(--text); margin: 0 0 12px; line-height: 1.2; }
+    /* Общие стили для демо */
+    .demo-hero {
+      background: linear-gradient(145deg, rgba(239, 108, 87, 0.10) 0%, rgba(126, 181, 166, 0.10) 100%);
+      border-radius: 24px;
+      padding: 80px 40px;
+      margin: 20px 0 40px;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .demo-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
     .demo-hero h1 .accent { color: var(--accent-dark); }
-    .demo-hero p { font-size: clamp(16px, 1.5vw, 20px); color: var(--text-soft); max-width: 650px; margin: 0 auto 32px; line-height: 1.7; }
-    .demo-badge { display: inline-block; background: var(--accent); color: white; padding: 4px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+    .demo-hero p {
+      font-size: clamp(16px, 1.5vw, 20px);
+      color: var(--text-soft);
+      max-width: 650px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .demo-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 4px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
 
-    .demo-section-title { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 32px); color: var(--text); margin: 48px 0 24px; text-align: center; }
-    .demo-section-sub { text-align: center; color: var(--text-soft); max-width: 700px; margin: 0 auto 32px; font-size: 16px; line-height: 1.7; }
+    .demo-section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 32px);
+      color: var(--text);
+      margin: 48px 0 24px;
+      text-align: center;
+    }
+    .demo-section-sub {
+      text-align: center;
+      color: var(--text-soft);
+      max-width: 700px;
+      margin: 0 auto 32px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
 
-    .demo-features-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin: 40px 0; }
-    .demo-feature-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 28px 24px; box-shadow: var(--card-shadow); border: 1px solid var(--line); display: flex; align-items: flex-start; gap: 16px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .demo-feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(239, 108, 87, 0.12); }
-    .demo-feature-card .icon-box { width: 48px; height: 48px; min-width: 48px; border-radius: 12px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .demo-feature-card .icon-box svg { width: 24px; height: 24px; stroke: currentColor; fill: none; }
-    .demo-feature-card h3 { font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 4px; }
-    .demo-feature-card p { font-size: 14px; color: var(--text-soft); line-height: 1.6; margin: 0; }
-    .demo-feature-card .tech-detail { font-size: 12px; color: var(--accent-dark); font-weight: 500; margin-top: 8px; display: block; }
+    .demo-features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .demo-feature-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 28px 24px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .demo-feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(239, 108, 87, 0.12);
+    }
+    .demo-feature-card .icon-box {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .demo-feature-card .icon-box svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      fill: none;
+    }
+    .demo-feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .demo-feature-card p {
+      font-size: 14px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .demo-feature-card .tech-detail {
+      font-size: 12px;
+      color: var(--accent-dark);
+      font-weight: 500;
+      margin-top: 8px;
+      display: block;
+    }
 
-    .demo-tech-stack { background: var(--card-bg); border-radius: var(--border-radius); padding: 32px 28px; border: 1px solid var(--line); margin: 32px 0 40px; }
-    .demo-tech-stack h3 { font-family: var(--font-serif); font-size: 20px; color: var(--text); margin: 0 0 16px; }
-    .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-    .tech-tag { background: var(--bg); padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--text-soft); border: 1px solid var(--line); }
+    .demo-tech-stack {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 32px 28px;
+      border: 1px solid var(--line);
+      margin: 32px 0 40px;
+    }
+    .demo-tech-stack h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--text);
+      margin: 0 0 16px;
+    }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tech-tag {
+      background: var(--bg);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-soft);
+      border: 1px solid var(--line);
+    }
 
-    .demo-colors { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin: 20px 0; }
-    .color-swatch { display: flex; align-items: center; gap: 8px; background: var(--card-bg); padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); }
-    .color-swatch .circle { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+    .demo-colors {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+    }
+    .color-swatch .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
 
-    .demo-cta { text-align: center; margin: 40px 0 60px; }
-    .demo-cta .primary-btn { display: inline-block; background: var(--accent-dark); color: white; padding: 16px 40px; border-radius: 999px; font-weight: 700; font-size: 18px; text-decoration: none; transition: background 0.2s; margin: 0 8px; }
-    .demo-cta .primary-btn:hover { background: var(--accent); }
-    .demo-cta .secondary-btn { display: inline-block; background: transparent; color: var(--text); padding: 16px 40px; border-radius: 999px; font-weight: 600; font-size: 18px; text-decoration: none; border: 2px solid var(--line); transition: border-color 0.2s; margin: 0 8px; }
-    .demo-cta .secondary-btn:hover { border-color: var(--accent-dark); }
+    .demo-cta {
+      text-align: center;
+      margin: 40px 0 60px;
+    }
+    .demo-cta .primary-btn {
+      display: inline-block;
+      background: var(--accent-dark);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin: 0 8px;
+    }
+    .demo-cta .primary-btn:hover {
+      background: var(--accent);
+    }
+    .demo-cta .secondary-btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--text);
+      padding: 16px 40px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 18px;
+      text-decoration: none;
+      border: 2px solid var(--line);
+      transition: border-color 0.2s;
+      margin: 0 8px;
+    }
+    .demo-cta .secondary-btn:hover {
+      border-color: var(--accent-dark);
+    }
 
-    .future-list { list-style: none; padding: 0; max-width: 700px; margin: 0 auto; }
-    .future-list li { padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 12px; color: var(--text-soft); }
-    .future-list li::before { content: "✦"; color: var(--accent-dark); font-weight: 700; }
+    .future-list {
+      list-style: none;
+      padding: 0;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .future-list li {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-soft);
+    }
+    .future-list li::before {
+      content: "✦";
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
 
-    @media (min-width: 600px) { .demo-features-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .demo-features-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 600px) {
+      .demo-features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .demo-features-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .demo-hero { padding: 40px 20px; }
+      .demo-cta .primary-btn, .demo-cta .secondary-btn {
+        display: block;
+        margin: 8px auto;
+        width: 80%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -64,7 +263,7 @@
       </div>
       <div class="tools">
         <div class="right-tools">
-          <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
+          <button class="lang-toggle" id="langToggle">🇷🇺 RU</button>
           <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
         </div>
       </div>
@@ -75,7 +274,7 @@
 
 <div class="wrap">
 
-  <!-- ========== HERO ========== -->
+  <!-- ========== HERO С ГРАДИЕНТОМ ========== -->
   <section class="demo-hero">
     <div class="demo-badge" data-i18n="badge">Full‑Stack Showcase</div>
     <h1><span class="accent">Skincare Guide</span> <span data-i18n="heroTitle">— Web App Portfolio</span></h1>
@@ -236,7 +435,7 @@ const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
-// --- ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (локальное для демо) ---
+// --- ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (ИСПРАВЛЕНО) ---
 const demoTranslations = {
   en: {
     badge: 'Full‑Stack Showcase',
@@ -348,12 +547,14 @@ function updateDemoUI() {
       }
     }
   });
+  // Исправлено: кнопка показывает язык, на который можно переключиться
   const langBtn = document.getElementById('langToggle');
-  langBtn.textContent = currentLang === 'en' ? '🇬🇧 EN' : '🇷🇺 RU';
+  langBtn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
   document.documentElement.lang = currentLang;
 }
 
 function toggleLanguage() {
+  // Переключаем на противоположный язык
   currentLang = currentLang === 'en' ? 'ru' : 'en';
   localStorage.setItem('demoLang', currentLang);
   updateDemoUI();
