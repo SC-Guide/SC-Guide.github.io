@@ -1,9 +1,14 @@
-// ===== СТРОКИ ПЕРЕВОДА =====
+// ============================================================
+// lang.js — Language & strings
+// ============================================================
+
+let currentLang = localStorage.getItem('lang') || 'en';
+
 const STR = {
   en: {
-    subtitle: 'Your step-by-step guide to safe active skincare',
-    tabTitle: 'Skincare Guide — Your step-by-step guide to safe active skincare',
-    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar', myproducts:'My Products'},
+    subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
+    tabTitle: 'Skincare Guide — Planner',
+    nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar'},
     searchPlaceholder: 'Search products…',
     recOnly: 'Recommended only',
     found: 'Found',
@@ -28,21 +33,12 @@ const STR = {
     skinType: 'Skin Type',
     ingredients: 'Key Ingredients',
     usage: 'How to use',
-    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.',
-    myProductsTitle: 'My Products',
-    myProductsSub: 'Products you have marked as "in stock". They will be used in your calendar routine.',
-    noOwnedProducts: 'You haven\'t marked any products as owned yet. Browse the routines above and click "✓ Own it" on products you have.',
-    ownedLabel: '✓ Own it',
-    notOwnedLabel: '➕ Add to my products',
-    noProductsSelected: 'No products selected',
-    groupMorning: 'Morning Routine',
-    groupEvening: 'Evening Routine',
-    groupKit: 'First Aid Kit'
+    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
   },
   ru: {
-    subtitle: 'Ваш пошаговый гид по безопасному активному уходу',
-    tabTitle: 'Skincare Guide — Ваш пошаговый гид по безопасному активному уходу',
-    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь', myproducts:'Мои продукты'},
+    subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до сна',
+    tabTitle: 'Skincare Guide — Планер',
+    nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
     searchPlaceholder: 'Поиск продуктов…',
     recOnly: 'Только рекомендованные',
     found: 'Найдено',
@@ -67,15 +63,24 @@ const STR = {
     skinType: 'Тип кожи',
     ingredients: 'Ключевые ингредиенты',
     usage: 'Как использовать',
-    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.',
-    myProductsTitle: 'Мои продукты',
-    myProductsSub: 'Продукты, которые вы отметили как "в наличии". Они будут использоваться в вашей рутине в календаре.',
-    noOwnedProducts: 'Вы ещё не отметили ни одного продукта. Просмотрите рутины выше и нажмите "✓ Есть в наличии" на нужные продукты.',
-    ownedLabel: '✓ Есть в наличии',
-    notOwnedLabel: '➕ Добавить в мои',
-    noProductsSelected: 'Нет выбранных продуктов',
-    groupMorning: 'Утренняя рутина',
-    groupEvening: 'Вечерняя рутина',
-    groupKit: 'Аптечка'
+    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
   }
 };
+
+function tr(field) {
+  if (field == null) return '';
+  if (typeof field === 'string') return field;
+  return field[currentLang] != null ? field[currentLang] : (field.en || '');
+}
+
+function toggleLanguage() {
+  currentLang = (currentLang === 'en') ? 'ru' : 'en';
+  localStorage.setItem('lang', currentLang);
+  renderAll();
+  updateLangToggle();
+}
+
+function updateLangToggle() {
+  const btn = document.getElementById('langToggle');
+  if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
+}

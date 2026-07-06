@@ -1,4 +1,8 @@
-// ===== ДАННЫЕ ПРОДУКТОВ (ПОЛНЫЕ) =====
+// ============================================================
+// data.js — Все данные о продуктах, правилах и магазинах
+// ============================================================
+
+// --- УТРЕННИЕ ШАГИ ---
 const morningSteps = [
   {num:1, label:{ru:'Умывание', en:'Cleansing'}, products:[
     {name:{ru:'Xpel Tea Tree Foaming Face Wash 200ml', en:'Xpel Tea Tree Foaming Face Wash 200ml'}, price:'€7', icon:'cleanser', rec:true,
@@ -86,6 +90,7 @@ const morningSteps = [
   ]}
 ];
 
+// --- ВЕЧЕРНИЕ ШАГИ ---
 const eveningSteps = [
   {num:1, label:{ru:'Первое очищение (масло/бальзам)', en:'First cleanse (oil/balm)'}, products:[
     {name:{ru:'Purito Seoul From Green Cleansing Oil 200ml', en:'Purito Seoul From Green Cleansing Oil 200ml'}, price:'€18', icon:'oil', rec:true,
@@ -133,6 +138,7 @@ const eveningSteps = [
   ]}
 ];
 
+// --- АПТЕЧКА ---
 const kitGroups = [
   {key:'spot', title:{ru:'Точечно', en:'Spot treatment'}, sub:{ru:'На воспалённые прыщики', en:'For inflamed breakouts'},
     analysis:{ru:'Эти два средства не конкурируют, а работают в паре: <b>кислота снимает воспаление</b> изнутри, <b>пластырь вытягивает</b> содержимое снаружи — держите оба под рукой.', en:'These two products do not compete — they work together: the <b>acid reduces inflammation</b> from within, while the <b>patch draws out</b> the contents from outside — keep both on hand.'},
@@ -184,6 +190,7 @@ const kitGroups = [
   ]}
 ];
 
+// --- ПРАВИЛА ---
 const rules = [
   {text:{ru:'Ретиналь — только на сухую кожу вечером. Не на влажную!', en:'Retinal — only on dry skin, in the evening. Not on damp skin!'}, caution:true},
   {text:{ru:'Cicaplast наносите после ретиналя тонким слоем. При сильном раздражении — толстым слоем, но тогда без ретиналя в этот вечер.', en:'Apply Cicaplast after retinal in a thin layer. If irritation is severe, use a thick layer instead — but skip retinal that evening.'}, caution:true},
@@ -195,6 +202,7 @@ const rules = [
   {text:{ru:'Переход с Medik8 Crystal Retinal 3 на 6 — после полного использования флакона 3. Начинать 6 сразу ежедневно можно, кожа уже адаптирована.', en:'Switching from Medik8 Crystal Retinal 3 to 6 — after finishing bottle 3 completely. You can start using 6 daily right away since your skin is already adapted.'}, caution:false}
 ];
 
+// --- МАГАЗИНЫ ---
 const shopsInfo = [
   {name:{ru:'Boots.ie', en:'Boots.ie'}, url:'https://www.boots.ie', items:{ru:'CeraVe, La Roche-Posay, Elemis, Aveeno, The Ordinary, The Inkey List, гидроколлоидные пластыри', en:'CeraVe, La Roche-Posay, Elemis, Aveeno, The Ordinary, The Inkey List, hydrocolloid patches'}},
   {name:{ru:'Skinshop.ie', en:'Skinshop.ie'}, url:'https://skinshop.ie', items:{ru:'Purito, Beauty of Joseon, COSRX, Round Lab', en:'Purito, Beauty of Joseon, COSRX, Round Lab'}},
