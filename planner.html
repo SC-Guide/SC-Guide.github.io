@@ -948,23 +948,64 @@ const shopsInfo = [
 
 // --- ХРАНИЛИЩЕ ПРОДУКТОВ ПОЛЬЗОВАТЕЛЯ ---
 let userProducts = JSON.parse(localStorage.getItem('userProducts')) || [];
-function saveUserProducts(){ localStorage.setItem('userProducts', JSON.stringify(userProducts)); }
+
+function saveUserProducts() {
+  localStorage.setItem('userProducts', JSON.stringify(userProducts));
+}
+
 function toggleProduct(id) {
   const idx = userProducts.indexOf(id);
-  if (idx === -1) userProducts.push(id);
-  else userProducts.splice(idx, 1);
+  if (idx === -1) {
+    userProducts.push(id);
+  } else {
+    userProducts.splice(idx, 1);
+  }
   saveUserProducts();
   renderAll();
 }
-function isProductOwned(id){ return userProducts.includes(id); }
+
+function isProductOwned(id) {
+  return userProducts.includes(id);
+}
 function getProductId(p) {
   const name = tr(p.name) || p.name.en || '';
   const price = p.price || '';
   return `${name}-${price}`.replace(/\s/g, '_').toLowerCase();
 }
+try {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
+  const authBtn = document.getElementById('authBtn');
 
+  function updateAuthUI(user) {
+    if (user) {
+      const displayName = user.displayName || user.email || 'User';
+      const photoURL = user.photoURL;
+      let avatarHtml = '';
+      if (photoURL) {
+        avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
+      }
+      authBtn.innerHTML = `${avatarHtml} ${displayName} (Sign out)`;
+      authBtn.onclick = () => {
+        auth.signOut().then(() => updateAuthUI(null)).catch(console.error);
+      };
+    } else {
+      authBtn.innerHTML = 'Sign in with Google';
+      authBtn.onclick = () => {
+        auth.signInWithPopup(provider).catch(console.error);
+      };
+    }
+  }
+  auth.onAuthStateChanged(updateAuthUI);
+} catch (e) {
+  console.error('Firebase недоступен:', e);
+}
 // КОНЕЦ БЛОКА 2
-</script><script>
+
+
 // ============================================================
 // БЛОК 3: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ, КАЛЕНДАРЬ, МОДАЛКИ, ПОИСК, ТЕМА, ИНИЦИАЛИЗАЦИЯ
 // ============================================================
@@ -1014,23 +1055,24 @@ function productCard(p, zoneClass) {
 function refCard(text, anchor){
   return `<a class="ref-card" href="${anchor}">${ICONS.ref}${tr(text)}</a>`;
 }
+
+// ---- ИСПРАВЛЕННАЯ renderPath (показывает ВСЕ продукты, без фильтрации) ----
 function renderPath(container, steps, zoneClass) {
   container.innerHTML = steps.map(s => {
     let body = '';
     if (s.ref) {
       body = refCard(s.ref, s.anchor || '#morning');
     } else if (s.split) {
-      const aProducts = s.split.a.products.filter(p => isProductOwned(getProductId(p)));
-      const bProducts = s.split.b.products.filter(p => isProductOwned(getProductId(p)));
-      const aHtml = aProducts.length ? aProducts.map(p => productCard(p, zoneClass)).join('') : `<div style="color:var(--text-soft);font-size:12px;padding:6px 0;">${currentLang === 'en' ? 'No products added yet' : 'Нет добавленных продуктов'}</div>`;
-      const bHtml = bProducts.length ? bProducts.map(p => productCard(p, zoneClass)).join('') : `<div style="color:var(--text-soft);font-size:12px;padding:6px 0;">${currentLang === 'en' ? 'No products added yet' : 'Нет добавленных продуктов'}</div>`;
+      // Показываем все продукты в split-шагах
+      const aHtml = s.split.a.products.map(p => productCard(p, zoneClass)).join('');
+      const bHtml = s.split.b.products.map(p => productCard(p, zoneClass)).join('');
       body = `<div class="split">
         <div><div class="split-col-label">${tr(s.split.a.title)}</div><div class="card-row">${aHtml}</div></div>
         <div><div class="split-col-label">${tr(s.split.b.title)}</div><div class="card-row">${bHtml}</div></div>
       </div>`;
     } else {
-      const products = s.products.filter(p => isProductOwned(getProductId(p)));
-      const html = products.length ? products.map(p => productCard(p, zoneClass)).join('') : `<div style="color:var(--text-soft);font-size:12px;padding:6px 0;">${currentLang === 'en' ? 'No products added yet' : 'Нет добавленных продуктов'}</div>`;
+      // Показываем все продукты
+      const html = s.products.map(p => productCard(p, zoneClass)).join('');
       body = `<div class="card-row">${html}</div>`;
     }
     return `<div class="step ${zoneClass}">
@@ -1510,11 +1552,13 @@ function renderAll() {
   document.getElementById('footerCredit').textContent = t.footerCredit;
   document.getElementById('footerDisclaimer').textContent = t.disclaimer;
 
+  // Рендерим утро, вечер и аптечку – все продукты всегда видны
   renderPath(document.getElementById('morning-path'), morningSteps, 'morning');
   renderPath(document.getElementById('evening-path'), eveningSteps, 'evening');
+
+  // Аптечка – без фильтрации
   document.getElementById('kit-groups').innerHTML = kitGroups.map(g => {
-    const products = g.products.filter(p => isProductOwned(getProductId(p)));
-    const productHtml = products.length ? products.map(p => productCard(p, g.key)).join('') : `<div style="color:var(--text-soft);font-size:12px;padding:6px 0;">${currentLang === 'en' ? 'No products added yet' : 'Нет добавленных продуктов'}</div>`;
+    const productHtml = g.products.map(p => productCard(p, g.key)).join('');
     return `<div class="kit-group ${g.key}">
       <div class="kit-group-head">
         <div class="kit-group-icon">${ICONS[g.products[0].icon]}</div>
@@ -1523,10 +1567,11 @@ function renderAll() {
           <div class="kit-group-sub">${tr(g.sub)}</div>
         </div>
       </div>
-      ${g.analysis?'<div class="kit-analysis">'+ICONS.note+'<div>'+tr(g.analysis)+'</div></div>':''}
+      ${g.analysis ? '<div class="kit-analysis">' + ICONS.note + '<div>' + tr(g.analysis) + '</div></div>' : ''}
       <div class="card-row">${productHtml}</div>
     </div>`;
   }).join('');
+
   document.getElementById('rules-grid').innerHTML = rules.map((r,i)=>`
     <div class="rule${r.caution?' caution':''}">
       <div class="rule-num">${i+1}</div>
@@ -1554,6 +1599,17 @@ document.addEventListener('DOMContentLoaded', function(){
   else { currentYear=2026; currentMonth=6; }
   renderAll();
 });
-</script>
-</body>
-</html>
+  document.getElementById('kit-groups').innerHTML = kitGroups.map(g => {
+    const productHtml = g.products.map(p => productCard(p, g.key)).join('');
+    return `<div class="kit-group ${g.key}">
+      <div class="kit-group-head">
+        <div class="kit-group-icon">${ICONS[g.products[0].icon]}</div>
+        <div>
+          <div class="kit-group-title">${tr(g.title)}</div>
+          <div class="kit-group-sub">${tr(g.sub)}</div>
+        </div>
+      </div>
+      ${g.analysis ? '<div class="kit-analysis">' + ICONS.note + '<div>' + tr(g.analysis) + '</div></div>' : ''}
+      <div class="card-row">${productHtml}</div>
+    </div>`;
+  }).join('');

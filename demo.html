@@ -1007,13 +1007,18 @@ const shopsInfo = [
 ];
 
 // --- ДЛЯ ОТОБРАЖЕНИЯ В "MY PRODUCTS" (ТОЛЬКО ЧТЕНИЕ) ---
+let userProducts = JSON.parse(localStorage.getItem('userProducts')) || [];
+
 function getProductId(p) {
-  const name = p.name.en || '';
+  const name = (p.name && p.name.en) ? p.name.en : (p.name || '');
   const price = p.price || '';
   return `${name}-${price}`.replace(/\s/g, '_').toLowerCase();
 }
 
-</script><script>
+function isProductOwned(id) {
+  return userProducts.includes(id);
+}
+
 // ============================================================
 // ЧАСТЬ 3: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ, КАЛЕНДАРЬ, МОДАЛКИ, ПОИСК, ТЕМА, ИНИЦИАЛИЗАЦИЯ
 // ============================================================
