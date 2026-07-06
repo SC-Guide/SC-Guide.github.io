@@ -1556,22 +1556,6 @@ function renderAll() {
   renderPath(document.getElementById('morning-path'), morningSteps, 'morning');
   renderPath(document.getElementById('evening-path'), eveningSteps, 'evening');
 
-  // Аптечка – без фильтрации
-  document.getElementById('kit-groups').innerHTML = kitGroups.map(g => {
-    const productHtml = g.products.map(p => productCard(p, g.key)).join('');
-    return `<div class="kit-group ${g.key}">
-      <div class="kit-group-head">
-        <div class="kit-group-icon">${ICONS[g.products[0].icon]}</div>
-        <div>
-          <div class="kit-group-title">${tr(g.title)}</div>
-          <div class="kit-group-sub">${tr(g.sub)}</div>
-        </div>
-      </div>
-      ${g.analysis ? '<div class="kit-analysis">' + ICONS.note + '<div>' + tr(g.analysis) + '</div></div>' : ''}
-      <div class="card-row">${productHtml}</div>
-    </div>`;
-  }).join('');
-
   document.getElementById('rules-grid').innerHTML = rules.map((r,i)=>`
     <div class="rule${r.caution?' caution':''}">
       <div class="rule-num">${i+1}</div>
