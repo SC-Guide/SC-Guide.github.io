@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-<g transform="translate(12,12)">
-<g fill="currentColor">
-<circle cx="-4" cy="-4" r="1"/><circle cx="0" cy="-4" r="1"/><circle cx="4" cy="-4" r="1"/>
-<circle cx="-4" cy="0" r="1"/><circle cx="0" cy="0" r="1"/><circle cx="4" cy="0" r="1"/>
-<circle cx="-4" cy="4" r="1"/><circle cx="0" cy="4" r="1"/><circle cx="4" cy="4" r="1"/>
-</g>
-</g>
-</svg>
