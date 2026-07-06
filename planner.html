@@ -1589,27 +1589,3 @@ function renderAll() {
   applyFilters();
   updateLangToggle();
 }
-
-document.addEventListener('DOMContentLoaded', function(){
-  document.getElementById('prevMonthBtn').addEventListener('click', ()=>changeMonth(-1));
-  document.getElementById('nextMonthBtn').addEventListener('click', ()=>changeMonth(1));
-  document.getElementById('settingsBtn').addEventListener('click', openSettings);
-  const saved=localStorage.getItem('calendarMonth');
-  if(saved){ const parts=saved.split('-'); currentYear=parseInt(parts[0]); currentMonth=parseInt(parts[1]); }
-  else { currentYear=2026; currentMonth=6; }
-  renderAll();
-});
-  document.getElementById('kit-groups').innerHTML = kitGroups.map(g => {
-    const productHtml = g.products.map(p => productCard(p, g.key)).join('');
-    return `<div class="kit-group ${g.key}">
-      <div class="kit-group-head">
-        <div class="kit-group-icon">${ICONS[g.products[0].icon]}</div>
-        <div>
-          <div class="kit-group-title">${tr(g.title)}</div>
-          <div class="kit-group-sub">${tr(g.sub)}</div>
-        </div>
-      </div>
-      ${g.analysis ? '<div class="kit-analysis">' + ICONS.note + '<div>' + tr(g.analysis) + '</div></div>' : ''}
-      <div class="card-row">${productHtml}</div>
-    </div>`;
-  }).join('');
