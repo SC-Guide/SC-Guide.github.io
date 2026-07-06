@@ -1,137 +1,113 @@
-# 🌿 Skincare Guide
+# Skincare Guide — Full-Stack Web Application
 
-**Skincare Guide** — your step-by-step companion for safe active skincare.
+[![Status](https://img.shields.io/badge/status-active%20development-yellow)](https://github.com/vyshnevska2503-code/SkinGuide)
+[![GitHub Pages](https://img.shields.io/badge/hosted-GitHub%20Pages-brightgreen)](https://vyshnevska2503-code.github.io/SkinGuide/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-🔗 **Live demo:** [vyshnevska2503-code.github.io/SkinGuide](https://vyshnevska2503-code.github.io/SkinGuide/)  
-📂 **Source code:** [github.com/vyshnevska2503-code/SkinGuide](https://github.com/vyshnevska2503-code/SkinGuide)
+**Skincare Guide** is a responsive web application that helps users plan and track their daily skincare routines.  
+It features an interactive calendar with retinal/azelaic scheduling, a searchable product library, bilingual support (EN/RU), and a dark/light theme.
 
----
-
-## 📋 About
-
-**Skincare Guide** was born from a simple yet critical need: helping people use active skincare ingredients **safely and confidently**. Whether you're starting retinal, exploring acids, or building a complex routine, the project guides you through every step — from product selection to daily tracking.
-
-It was built as a portfolio case study to demonstrate:
-
-- content strategy and data structuring,
-- design system and responsive layout,
-- interactivity and thoughtful UX,
-- modular code architecture and DevOps.
-
-The project features a **snake‑style calendar**, **automated scheduling** for active ingredients, **safety-first guidance**, and **detailed product cards** with skin type, ingredients, usage instructions, conflict warnings, and shop links.
+> 🚧 **This project is under active development.** New features, performance improvements, and database integration are being added regularly.
 
 ---
 
-## ✨ Features
+## 🌐 Live Demo
 
-| Feature | Description |
-|---------|-------------|
-| 🛡️ **Safety-first guidance** | Conflict detection, warnings, and safe usage tips for retinal, acids, masks, and more. |
-| 🌍 **Bilingual interface** | Full support for Russian and English — switch with one click. |
-| 🐍 **Snake‑style calendar** | Days flow in a winding path (boustrophedon) instead of a boring grid. |
-| ⚡ **Automated schedule** | Retinal and azelaic acid are generated based on rules: <br> • retinal: 2x/week → every other night → daily <br> • azelaic: starts from week 3. |
-| 📋 **Detailed routine view** | Click a day to see exact products for each morning/evening step. |
-| ✅ **"Done" marks** | Checkboxes are saved in your browser's localStorage and synced with Firebase. |
-| 🧴 **"My Products"** | Mark products you own — only those appear in your calendar routine. |
-| 🔍 **Search & filter** | Find products quickly and filter by "recommended only". |
-| 🔐 **Cloud sync** | Google Sign‑In and Firebase Firestore for seamless cross-device access. |
-| 📱 **Fully responsive** | Works on all devices, from mobile to desktop. |
+Explore the live version of the project:
+
+- **Homepage:** [https://vyshnevska2503-code.github.io/SkinGuide/](https://vyshnevska2503-code.github.io/SkinGuide/)
+- **Planner (demo):** [https://vyshnevska2503-code.github.io/SkinGuide/planner.html](https://vyshnevska2503-code.github.io/SkinGuide/planner.html)
+- **Product Shop:** [https://vyshnevska2503-code.github.io/SkinGuide/shop.html](https://vyshnevska2503-code.github.io/SkinGuide/shop.html)
+- **Skin Profile:** [https://vyshnevska2503-code.github.io/SkinGuide/skin-profile.html](https://vyshnevska2503-code.github.io/SkinGuide/skin-profile.html)
+- **Interactive Showcase:** [https://vyshnevska2503-code.github.io/SkinGuide/demo.html](https://vyshnevska2503-code.github.io/SkinGuide/demo.html)
+
+---
+
+## ✨ Key Features
+
+- **Smart Routine Planner** – automatically alternates retinal and azelaic acid based on your start date.
+- **Product Library** – curated list of skincare products with details, prices, and shop links.
+- **Search & Filter** – real‑time search by name, description, and filter by “recommended” or “my products”.
+- **Interactive Calendar** – snake‑style monthly view with day‑by‑day routine preview and “done” marks.
+- **Bilingual Interface** – full support for English and Russian (i18n via key‑value mapping).
+- **Dark / Light Theme** – seamless toggle with system preference detection.
+- **Custom SVG Icons** – all icons are self‑contained, no external libraries.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Front-end
-- **HTML5 / CSS3** — custom properties, responsive layout (mobile-first)
-- **JavaScript (ES6+)** — modular architecture, DOM manipulation, localStorage
-- **Fonts:** Playfair Display (headings) + Inter (body)
-- **SVG icons** — inline for performance
-
-### Backend & Services
-- **Firebase Authentication** — Google Sign‑In
-- **Firestore** — cloud storage for user data (routines, products, progress)
-- **GitHub Pages** — CI/CD deployment
-
-### Development & Workflow
-- **Git** — version control
-- **GitHub Desktop** — local–remote synchronisation
-- **VS Code** — code editor with Live Server for local testing
+- **Frontend:** HTML5, CSS3 (custom properties), JavaScript (ES6+)
+- **State Management:** LocalStorage (migrating to Firestore)
+- **Authentication:** Firebase Auth (Google Sign‑in)
+- **Database:** Firestore (in progress)
+- **Hosting:** GitHub Pages
+- **Version Control:** Git & GitHub
+- **Icons:** Custom SVG (no external dependencies)
 
 ---
 
-## 📁 Project Structure
+## 🚀 Future Roadmap
+
+- Full Firestore integration for cloud sync
+- User‑generated product reviews and ratings
+- AI‑based personalised recommendations
+- Progress analytics and statistics
+- Progressive Web App (PWA) support
+- Integration with external skincare APIs
+- Admin panel for product management
+
+---
+
+## 📂 Project Structure
 SkinGuide/
-├── index.html # Main application (bilingual planner)
-├── demo.html # Portfolio demo (with presentation blocks)
+├── index.html # Homepage
+├── planner.html # Main planner page
+├── my-planner.html # Personal planner (demo)
+├── shop.html # Product shop
+├── skin-profile.html # User profile form
+├── blog.html # Blog (static)
+├── about.html # About page
+├── privacy.html # Privacy policy
+├── demo.html # Portfolio/showcase page
 ├── css/
-│ └── style.css # All styles (shared between pages)
+│ └── style.css # Global styles
 ├── js/
-│ ├── data.js # Product data (morning, evening, kit, rules, shops)
-│ ├── lang.js # Bilingual strings (EN/RU)
-│ ├── icons.js # SVG icons
-│ ├── products.js # Product logic (cards, owned, rendering)
-│ ├── calendar.js # Calendar logic (snake, scheduling, navigation)
-│ ├── modals.js # Modal windows (product, day, settings)
-│ ├── filters.js # Search and filter
-│ ├── firebase.js # Firebase config, auth, Firestore sync
-│ └── app.js # Initialisation, rendering, user state
-├── assets/
-│ ├── images/ # Social preview images
-│ └── icons/ # Favicon and other icons
-├── README.md # Project documentation
-├── og-image-ru.png # Social preview (Russian)
-└── og-image-en.png # Social preview (English)
+│ ├── firebase.js # Firebase config & auth
+│ ├── icons.js # Custom SVG icons
+│ ├── lang.js # Translation strings (EN/RU)
+│ ├── data.js # Product data (local fallback)
+│ ├── app.js # Core application logic
+│ ├── calendar.js # Calendar module
+│ ├── products.js # Product management
+│ ├── modals.js # Modal windows
+│ └── filters.js # Search and filter logic
+└── README.md # This file
 
 text
 
 ---
 
-## 🎨 Colour Palette
+## 🧪 How to Run Locally
 
-| Colour | HEX | Usage |
-|--------|-----|-------|
-| Coral accent | `#EF6C57` | Buttons, icons, highlights, warnings |
-| Mint accent | `#7ED3B2` | Secondary elements, badges |
-| Soft mint | `#B9E6D3` | Cards, blocks, backgrounds |
-| Light background | `#F2F2F2` | Main page background |
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/vyshnevska2503-code/SkinGuide.git
+   cd SkinGuide
+Open index.html in your browser – no build step required.
 
----
+(Optional) Set up a local server (e.g., VS Code Live Server) for better development experience.
 
-## 🚀 Future Development
+🤝 Contributing
+This is a personal portfolio project, but I welcome feedback and suggestions.
+Feel free to open an issue or reach out via email.
 
-**Short-term:**
-- [ ] **PWA** — install as a mobile app
-- [ ] **Export to PDF** — save your routine as a checklist
-- [ ] **Advanced statistics** — progress charts and insights
+📧 Contact
+Author: Anastasiia Vyshnevska
 
-**Medium-term:**
-- [ ] **Freemium model** — free core + premium features (multiple routines, advanced analytics, AI recommendations)
-- [ ] **AI-powered routine builder** — personalised recommendations based on skin type and goals
-- [ ] **Apple Sign‑In** — additional authentication option
+Email: vyshnevska2503@gmail.com
 
-**Long-term:**
-- [ ] **Community features** — share routines (opt-in), rate products
-- [ ] **B2B integration** — white-label for dermatologists and cosmetic clinics
-- [ ] **Mobile app** — full native experience
+GitHub: vyshnevska2503-code
 
----
-
-## 👩‍💻 Author
-
-**Anastasiia Vyshnevska**  
-Creative Generalist & Digital Product Developer  
-This portfolio project was built with the help of AI tools (ChatGPT, Claude); design and coding were done by hand.
-
-🔗 [GitHub](https://github.com/vyshnevska2503-code) · [LinkedIn](https://www.linkedin.com/in/anastasiia-v-22a17b21b/)
-
----
-
-## 📄 License
-
-This project is created for **educational and portfolio purposes only**. Not intended for commercial use.
-
----
-
-## ⚠️ Disclaimer
-
-This project is for **educational and portfolio purposes only**. It does not provide medical advice. All skincare recommendations are based on publicly available information and personal experience. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use at your own risk.
+📄 License
+This project is licensed under the MIT License – see the LICENSE file for details.

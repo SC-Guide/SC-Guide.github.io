@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:title" content="Skincare Guide — Demo & Project Showcase" />
-  <meta property="og:description" content="A complete demo of the Skincare Guide planner: features, technologies, and a live example of a personalized routine." />
+  <meta property="og:title" content="Skincare Guide — Full-Stack Project Showcase" />
+  <meta property="og:description" content="A complete web application with Firebase Auth, Firestore, custom SVG icons, bilingual UI, and smart routine planner." />
   <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
   <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/demo.html" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-  <title>Skincare Guide — Demo</title>
+  <title>Skincare Guide — Showcase</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* Дополнительные стили для демо-страницы */
     .demo-hero { padding: 60px 0 40px; text-align: center; }
     .demo-hero h1 { font-family: var(--font-serif); font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: var(--text); margin: 0 0 12px; line-height: 1.2; }
     .demo-hero h1 .accent { color: var(--accent-dark); }
     .demo-hero p { font-size: clamp(16px, 1.5vw, 20px); color: var(--text-soft); max-width: 650px; margin: 0 auto 32px; line-height: 1.7; }
     .demo-badge { display: inline-block; background: var(--accent); color: white; padding: 4px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+
+    .demo-section-title { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 32px); color: var(--text); margin: 48px 0 24px; text-align: center; }
+    .demo-section-sub { text-align: center; color: var(--text-soft); max-width: 700px; margin: 0 auto 32px; font-size: 16px; line-height: 1.7; }
+
     .demo-features-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin: 40px 0; }
     .demo-feature-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 28px 24px; box-shadow: var(--card-shadow); border: 1px solid var(--line); display: flex; align-items: flex-start; gap: 16px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
     .demo-feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(239, 108, 87, 0.12); }
@@ -24,13 +29,27 @@
     .demo-feature-card .icon-box svg { width: 24px; height: 24px; stroke: currentColor; fill: none; }
     .demo-feature-card h3 { font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 4px; }
     .demo-feature-card p { font-size: 14px; color: var(--text-soft); line-height: 1.6; margin: 0; }
+    .demo-feature-card .tech-detail { font-size: 12px; color: var(--accent-dark); font-weight: 500; margin-top: 8px; display: block; }
+
     .demo-tech-stack { background: var(--card-bg); border-radius: var(--border-radius); padding: 32px 28px; border: 1px solid var(--line); margin: 32px 0 40px; }
     .demo-tech-stack h3 { font-family: var(--font-serif); font-size: 20px; color: var(--text); margin: 0 0 16px; }
     .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
     .tech-tag { background: var(--bg); padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--text-soft); border: 1px solid var(--line); }
+
+    .demo-colors { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin: 20px 0; }
+    .color-swatch { display: flex; align-items: center; gap: 8px; background: var(--card-bg); padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); }
+    .color-swatch .circle { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+
     .demo-cta { text-align: center; margin: 40px 0 60px; }
-    .demo-cta a { display: inline-block; background: var(--accent-dark); color: white; padding: 16px 40px; border-radius: 999px; font-weight: 700; font-size: 18px; text-decoration: none; transition: background 0.2s; }
-    .demo-cta a:hover { background: var(--accent); }
+    .demo-cta .primary-btn { display: inline-block; background: var(--accent-dark); color: white; padding: 16px 40px; border-radius: 999px; font-weight: 700; font-size: 18px; text-decoration: none; transition: background 0.2s; margin: 0 8px; }
+    .demo-cta .primary-btn:hover { background: var(--accent); }
+    .demo-cta .secondary-btn { display: inline-block; background: transparent; color: var(--text); padding: 16px 40px; border-radius: 999px; font-weight: 600; font-size: 18px; text-decoration: none; border: 2px solid var(--line); transition: border-color 0.2s; margin: 0 8px; }
+    .demo-cta .secondary-btn:hover { border-color: var(--accent-dark); }
+
+    .future-list { list-style: none; padding: 0; max-width: 700px; margin: 0 auto; }
+    .future-list li { padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 12px; color: var(--text-soft); }
+    .future-list li::before { content: "✦"; color: var(--accent-dark); font-weight: 700; }
+
     @media (min-width: 600px) { .demo-features-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .demo-features-grid { grid-template-columns: repeat(3, 1fr); } }
   </style>
@@ -50,60 +69,145 @@
         </div>
       </div>
     </div>
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="skin-profile.html">Skin Profile</a>
+      <a href="planner.html">Planner</a>
+      <a href="shop.html">Products</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </div>
 </header>
 
 <div class="wrap">
+
+  <!-- ========== HERO ========== -->
   <section class="demo-hero">
-    <div class="demo-badge">Interactive Demo</div>
-    <h1>See <span class="accent">Skincare Guide</span> in Action</h1>
-    <p>Explore all features — smart calendar, product library, search, and bilingual interface. Everything is live and interactive.</p>
+    <div class="demo-badge">Full‑Stack Showcase</div>
+    <h1><span class="accent">Skincare Guide</span> — Web App Portfolio</h1>
+    <p>
+      A complete, responsive web application built with vanilla JavaScript, Firebase, and custom SVG icons.
+      This project demonstrates my ability to design, develop, and deploy a functional product from scratch.
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="my-planner.html" class="primary-btn" style="background:var(--accent-dark); color:white; padding:12px 32px; border-radius:999px; text-decoration:none; font-weight:600;">🚀 Live Planner Demo</a>
+      <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="secondary-btn" style="border:2px solid var(--line); padding:12px 32px; border-radius:999px; text-decoration:none; font-weight:600; color:var(--text);">📂 View on GitHub</a>
+    </div>
   </section>
 
+  <!-- ========== О ПРОЕКТЕ ========== -->
+  <h2 class="demo-section-title">About the Project</h2>
+  <p class="demo-section-sub">
+    Skincare Guide is a personal routine planner that helps users track their daily skincare steps,
+    manage product inventory, and visualize their schedule with an interactive calendar.
+    The project is fully bilingual (EN/RU) and supports dark/light themes.
+  </p>
+
+  <!-- ========== ФУНКЦИОНАЛ ========== -->
+  <h2 class="demo-section-title">Key Features</h2>
   <div class="demo-features-grid">
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8v2h16v-2a8 8 0 0 0-8-8z"/><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg></div>
-      <div><h3>Snake‑style Calendar</h3><p>Automated retinal/azelaic scheduling with a visual, interactive layout.</p></div>
-    </div>
-    <div class="demo-feature-card">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
-      <div><h3>Product Library</h3><p>Curated product recommendations with details, prices, and direct shop links.</p></div>
+      <div>
+        <h3>Smart Routine Planner</h3>
+        <p>Automated scheduling of retinal and azelaic acid based on your personal start date. Visual step‑by‑step morning and evening routines.</p>
+        <span class="tech-detail">🔹 Algorithm: day‑based alternating active ingredients</span>
+      </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
-      <div><h3>Search & Filter</h3><p>Find products by name, description, or filter by “recommended” only.</p></div>
+      <div>
+        <h3>Search & Filter</h3>
+        <p>Real‑time search by product name, description, or ingredients. Filter by “recommended only” and “my products”.</p>
+        <span class="tech-detail">🔹 Live filtering with zero dependencies</span>
+      </div>
+    </div>
+    <div class="demo-feature-card">
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+      <div>
+        <h3>Product Library</h3>
+        <p>Curated product database with prices, ingredients, usage instructions, and direct shop links (Boots, Amazon, etc.).</p>
+        <span class="tech-detail">🔹 40+ products with multilingual support</span>
+      </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg></div>
-      <div><h3>Dark / Light Theme</h3><p>Smooth theme toggle with system preference fallback for any time of day.</p></div>
+      <div>
+        <h3>Dark / Light Theme</h3>
+        <p>Seamless theme switching with system preference detection. All CSS variables for easy customization.</p>
+        <span class="tech-detail">🔹 CSS custom properties, prefers‑color‑scheme</span>
+      </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18"/><path d="M9.5 9L12 21"/><path d="M14.5 9L12 21"/><path d="M7.5 3L9.5 9"/><path d="M16.5 3L14.5 9"/></svg></div>
-      <div><h3>Bilingual Interface</h3><p>Full support for English and Russian — switch languages instantly.</p></div>
+      <div>
+        <h3>Bilingual Interface</h3>
+        <p>Full support for English and Russian. All UI texts, product data, and comments are stored in a single translation object.</p>
+        <span class="tech-detail">🔹 i18n with simple key‑value mapping</span>
+      </div>
     </div>
     <div class="demo-feature-card">
       <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="M8 8h8"/><path d="M10 22l-2-2a4 4 0 0 1 0-5.66L12 12l4 4a4 4 0 0 1 0 5.66l-2 2"/></svg></div>
-      <div><h3>Smart Routine Builder</h3><p>Your daily plan is generated based on your owned products and retinal schedule.</p></div>
+      <div>
+        <h3>Interactive Calendar</h3>
+        <p>Snake‑style calendar with day‑by‑day routine preview, done/undo marks, and automatic retinal/azelaic scheduling.</p>
+        <span class="tech-detail">🔹 Pure CSS/JS, responsive, localStorage persistence</span>
+      </div>
     </div>
   </div>
 
+  <!-- ========== ЦВЕТОВАЯ ПАЛИТРА ========== -->
+  <h2 class="demo-section-title">Design System</h2>
+  <p class="demo-section-sub">A cohesive color palette with semantic tokens ensures consistency and accessibility.</p>
+  <div class="demo-colors">
+    <span class="color-swatch"><span class="circle" style="background:#7EB5A6;"></span> Primary (accent)</span>
+    <span class="color-swatch"><span class="circle" style="background:#EF6C57;"></span> Accent dark</span>
+    <span class="color-swatch"><span class="circle" style="background:#2D2A2A;"></span> Text (dark)</span>
+    <span class="color-swatch"><span class="circle" style="background:#F5F3F0;"></span> Background (light)</span>
+    <span class="color-swatch"><span class="circle" style="background:#1E1E1E;"></span> Background (dark)</span>
+  </div>
+
+  <!-- ========== ТЕХНОЛОГИИ ========== -->
   <div class="demo-tech-stack">
-    <h3>Tech Stack</h3>
+    <h3>🛠️ Technologies & Tools</h3>
     <div class="tech-tags">
       <span class="tech-tag">HTML5</span>
-      <span class="tech-tag">CSS3</span>
+      <span class="tech-tag">CSS3 (custom properties)</span>
       <span class="tech-tag">JavaScript (ES6+)</span>
-      <span class="tech-tag">Firebase Auth</span>
+      <span class="tech-tag">Firebase Auth (Google)</span>
+      <span class="tech-tag">Firestore (planned)</span>
       <span class="tech-tag">LocalStorage</span>
       <span class="tech-tag">Responsive Design</span>
       <span class="tech-tag">Dark / Light Theme</span>
       <span class="tech-tag">i18n (EN/RU)</span>
+      <span class="tech-tag">Git & GitHub</span>
+      <span class="tech-tag">GitHub Pages</span>
+      <span class="tech-tag">SVG Icons</span>
     </div>
   </div>
 
+  <!-- ========== БУДУЩИЕ ВОЗМОЖНОСТИ ========== -->
+  <h2 class="demo-section-title">🚀 Future Roadmap</h2>
+  <p class="demo-section-sub">Planned enhancements to scale the project and improve user experience:</p>
+  <ul class="future-list">
+    <li>Full Firestore integration – replace localStorage with cloud database, enable multi‑device sync</li>
+    <li>User‑generated product reviews and ratings</li>
+    <li>AI‑based product recommendations based on skin profile</li>
+    <li>Progress analytics – track consistency and improvement over time</li>
+    <li>Progressive Web App (PWA) – offline support and installable</li>
+    <li>Integration with external APIs (e.g., Skincare ingredient checkers)</li>
+    <li>Admin panel for managing product database</li>
+  </ul>
+
+  <!-- ========== ПРИЗЫВ К ДЕЙСТВИЮ ========== -->
   <div class="demo-cta">
-    <a href="my-planner.html">🚀 See the live Planner example</a>
-    <p style="margin-top: 16px; color: var(--text-soft); font-size: 14px;">This is a fully functional personal planner – you can interact with it directly.</p>
+    <a href="my-planner.html" class="primary-btn">📋 Try the Live Planner</a>
+    <a href="https://github.com/vyshnevska2503-code/SkinGuide" target="_blank" class="secondary-btn">📂 GitHub Repository</a>
+    <p style="margin-top: 24px; color: var(--text-soft); font-size: 14px;">
+      This project is actively maintained and open for collaboration. Contact me via <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--accent-dark);">vyshnevska2503@gmail.com</a>.
+    </p>
   </div>
+
 </div>
 
 <footer>
@@ -116,7 +220,7 @@
       <div style="display:flex; gap:16px; flex-wrap:wrap;">
         <a href="about.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;">About</a>
         <a href="privacy.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Privacy</a>
-        <a href="mailto:your@email.com" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Contact</a>
+        <a href="mailto:vyshnevska2503@gmail.com" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Contact</a>
       </div>
     </div>
     <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
@@ -124,7 +228,7 @@
 </footer>
 
 <script>
-// Простая логика темы (можно оставить только для демо)
+// Простая логика темы
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
