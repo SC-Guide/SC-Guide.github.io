@@ -278,6 +278,52 @@
         padding-left: 28px;
       }
     }
+
+    /* ===== ТЕСТОВЫЕ ПАЛИТРЫ ===== */
+    [data-palette="your"] {
+      --accent: #777C6D;
+      --accent-dark: #B7B89F;
+      --bg: #EEEEEE;
+      --card-bg: #FFFFFF;
+      --text: #2D2A2A;
+      --text-soft: #555555;
+      --text-light: #999999;
+      --line: #CBCBCB;
+      --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+    [data-palette="cool"] {
+      --accent: #4A6CF7;
+      --accent-dark: #3A5BD9;
+      --bg: #F4F5F7;
+      --card-bg: #FFFFFF;
+      --text: #2D2D3A;
+      --text-soft: #5A5B6A;
+      --text-light: #8A8B9A;
+      --line: #E8E9ED;
+      --card-shadow: 0 4px 20px rgba(74, 108, 247, 0.08);
+    }
+    [data-palette="warm"] {
+      --accent: #F28B82;
+      --accent-dark: #D97A6E;
+      --bg: #FDF6F0;
+      --card-bg: #FFFFFF;
+      --text: #3A2E2A;
+      --text-soft: #6B5A52;
+      --text-light: #A69288;
+      --line: #F0E4D8;
+      --card-shadow: 0 4px 20px rgba(242, 139, 130, 0.10);
+    }
+    [data-palette="dark"] {
+      --accent: #6C63FF;
+      --accent-dark: #5A52D9;
+      --bg: #1A1A2E;
+      --card-bg: #2D2D44;
+      --text: #EEEEEE;
+      --text-soft: #AAAAAA;
+      --text-light: #777777;
+      --line: #3D3D5C;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
   </style>
 </head>
 <body>
@@ -332,14 +378,13 @@
       <p class="zone-title" id="titleMorning"></p>
     </div>
     <div class="path" id="morning-path">
-      <!-- Здесь будут карточки товаров, когда они появятся -->
       <div class="step morning">
         <div class="step-node">1</div>
         <div class="step-label">Cleansing</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your cleanser</h4>
-          <p>Choose a product for your morning cleanse</p>
+          <h4 class="empty-morning-title">Add your cleanser</h4>
+          <p class="empty-morning-desc">Choose a product for your morning cleanse</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -348,8 +393,8 @@
         <div class="step-label">Toner (soothing)</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your toner</h4>
-          <p>Choose a soothing toner for your morning routine</p>
+          <h4 class="empty-morning-title">Add your toner</h4>
+          <p class="empty-morning-desc">Choose a soothing toner for your morning routine</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -358,8 +403,8 @@
         <div class="step-label">Active — alternate by day</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your active ingredient</h4>
-          <p>Choose Vitamin C or Azelaic Acid for your morning</p>
+          <h4 class="empty-morning-title">Add your active ingredient</h4>
+          <p class="empty-morning-desc">Choose Vitamin C or Azelaic Acid for your morning</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -368,8 +413,8 @@
         <div class="step-label">Moisturizer + SPF</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="sun"></span></div>
-          <h4>Add your SPF moisturizer</h4>
-          <p>Protect your skin with a daily SPF</p>
+          <h4 class="empty-morning-title">Add your SPF moisturizer</h4>
+          <p class="empty-morning-desc">Protect your skin with a daily SPF</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -388,8 +433,8 @@
         <div class="step-label">First cleanse (oil/balm)</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your first cleanser</h4>
-          <p>Choose an oil or balm cleanser</p>
+          <h4 class="empty-evening-title">Add your first cleanser</h4>
+          <p class="empty-evening-desc">Choose an oil or balm cleanser</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -398,8 +443,8 @@
         <div class="step-label">Second cleanse</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your second cleanser</h4>
-          <p>Choose a gentle foaming or hydrating cleanser</p>
+          <h4 class="empty-evening-title">Add your second cleanser</h4>
+          <p class="empty-evening-desc">Choose a gentle foaming or hydrating cleanser</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -408,8 +453,8 @@
         <div class="step-label">Toner</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your evening toner</h4>
-          <p>Choose a calming or hydrating toner</p>
+          <h4 class="empty-evening-title">Add your evening toner</h4>
+          <p class="empty-evening-desc">Choose a calming or hydrating toner</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -418,8 +463,8 @@
         <div class="step-label">Retinal</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your retinal</h4>
-          <p>Choose a retinal product for your evening routine</p>
+          <h4 class="empty-evening-title">Add your retinal</h4>
+          <p class="empty-evening-desc">Choose a retinal product for your evening routine</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -428,8 +473,8 @@
         <div class="step-label">Night cream</div>
         <div class="empty-state" onclick="window.location.href='shop.html'">
           <div class="empty-icon"><span data-icon="droplet"></span></div>
-          <h4>Add your night cream</h4>
-          <p>Choose a nourishing night cream or balm</p>
+          <h4 class="empty-evening-title">Add your night cream</h4>
+          <p class="empty-evening-desc">Choose a nourishing night cream or balm</p>
           <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
@@ -446,8 +491,8 @@
     <div id="kit-groups">
       <div class="empty-state" onclick="window.location.href='shop.html'">
         <div class="empty-icon"><span data-icon="droplet"></span></div>
-        <h4>Build your skincare kit</h4>
-        <p>Add masks, scrubs, and spot treatments to your collection.</p>
+        <h4 class="empty-kit-title">Build your skincare kit</h4>
+        <p class="empty-kit-desc">Add masks, scrubs, and spot treatments to your collection.</p>
         <a href="shop.html" class="empty-cta">Browse products →</a>
       </div>
     </div>
@@ -462,8 +507,8 @@
     <div class="rules-grid" id="rules-grid">
       <div class="empty-state" onclick="window.location.href='shop.html'">
         <div class="empty-icon"><span data-icon="list"></span></div>
-        <h4>No rules yet</h4>
-        <p>Add products to see personalized recommendations and rules.</p>
+        <h4 class="empty-rules-title">No rules yet</h4>
+        <p class="empty-rules-desc">Add products to see personalized recommendations and rules.</p>
         <a href="shop.html" class="empty-cta">Browse products →</a>
       </div>
     </div>
@@ -479,8 +524,8 @@
     <div class="shops-grid" id="shops-grid">
       <div class="empty-state" onclick="window.location.href='shop.html'">
         <div class="empty-icon"><span data-icon="shopping-bag"></span></div>
-        <h4>Discover where to buy</h4>
-        <p>Explore shops and find products that match your routine.</p>
+        <h4 class="empty-shops-title">Discover where to buy</h4>
+        <p class="empty-shops-desc">Explore shops and find products that match your routine.</p>
         <a href="shop.html" class="empty-cta">Browse products →</a>
       </div>
     </div>
@@ -496,12 +541,12 @@
     <!-- Заглушка календаря -->
     <div class="calendar-placeholder" id="calendarPlaceholder">
       <div class="empty-icon"><span data-icon="calendar"></span></div>
-      <h4>Calendar is empty</h4>
-      <p>Add products to your routine and your schedule will appear here.</p>
-      <a href="shop.html">Browse products →</a>
+      <h4 class="empty-calendar-title">Calendar is empty</h4>
+      <p class="empty-calendar-desc">Add products to your routine and your schedule will appear here.</p>
+      <a href="shop.html" class="empty-cta">Browse products →</a>
     </div>
 
-    <!-- Реальный календарь -->
+    <!-- Реальный календарь (скрыт по умолчанию) -->
     <div class="calendar-wrapper" id="calendarWrapper" style="display:none;">
       <div class="calendar-header">
         <h2 id="calendarMonthLabel"></h2>
@@ -546,6 +591,16 @@
 <script src="js/firebase.js"></script>
 <script src="js/icons.js"></script>
 <script src="js/data.js"></script>
+
+<!-- ОЧИЩАЕМ ДАННЫЕ ПРОДУКТОВ, ЧТОБЫ ОНИ НЕ ОТОБРАЖАЛИСЬ В КАЛЕНДАРЕ -->
+<script>
+  // Обнуляем массивы с продуктами – теперь они будут пустыми на этой странице
+  window.morningSteps = [];
+  window.eveningSteps = [];
+  window.kitGroups = [];
+  window.shopsInfo = [];
+</script>
+
 <script src="js/lang.js"></script>
 <script src="js/products.js"></script>
 <script src="js/calendar.js"></script>
