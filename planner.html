@@ -19,114 +19,172 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <style>
-    /* ===== Стили для карточек продуктов (как в my-planner) ===== */
-    .product-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: var(--card-shadow);
-      border: 1px solid var(--line);
-      transition: all 0.2s ease;
-      cursor: pointer;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      margin-bottom: 8px;
+    /* ===== СТИЛИ ДЛЯ ШАГОВ И КАРТОЧЕК (скопированы из my-planner.html) ===== */
+    .step {
+      padding-left: 36px;
+      padding-bottom: 24px;
+      position: relative;
     }
-    .product-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    .step:last-child {
+      padding-bottom: 0;
     }
-    .product-card .card-icon {
-      width: 40px;
-      height: 40px;
-      min-width: 40px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: white;
+    .step::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 28px;
+      bottom: 0;
+      width: 1px;
+      background: var(--line);
+    }
+    .step:last-child::before {
+      display: none;
+    }
+    .step-node {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--accent);
+      color: white;
     }
-    .product-card .card-body {
+    .step-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      margin: 2px 0 8px;
+    }
+    .card-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      transition: transform .15s ease, box-shadow .15s ease;
+      cursor: default;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    .card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: white;
+      flex-shrink: 0;
+    }
+    .card-body {
       flex: 1;
       min-width: 0;
     }
-    .product-card .card-name-row {
+    .card-name-row {
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 6px;
     }
-    .product-card .card-name {
+    .card-name {
+      font-size: 13px;
       font-weight: 600;
-      font-size: 14px;
-      color: var(--text);
     }
-    .product-card .card-price {
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--accent-dark);
-      white-space: nowrap;
-    }
-    .product-card .star-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--accent);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 999px;
-      margin-top: 4px;
-    }
-    .product-card .lux-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--accent-dark);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 999px;
-      margin-top: 4px;
-    }
-    .product-card .card-comment {
+    .card-price {
       font-size: 12px;
       color: var(--text-soft);
-      margin-top: 4px;
-      line-height: 1.5;
+      font-weight: 500;
+      white-space: nowrap;
     }
-    .product-card .shop-row {
+    .star-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      color: var(--accent-dark);
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .lux-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: var(--accent);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .card-comment {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.4;
+      margin: 4px 0 6px;
+    }
+    .shop-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
+      gap: 4px;
     }
-    .product-card .shop-chip {
-      display: inline-block;
+    .shop-chip {
       font-size: 10px;
-      background: var(--bg);
-      padding: 2px 10px;
+      font-weight: 600;
+      padding: 3px 8px;
       border-radius: 999px;
+      border: 1px solid var(--line);
       color: var(--text-soft);
       text-decoration: none;
-      border: 1px solid var(--line);
-      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
     }
-    .product-card .shop-chip:hover {
-      border-color: var(--accent);
+    .shop-chip:hover {
+      border-color: var(--text);
       color: var(--text);
     }
-    .product-card.lux-card {
-      border-color: var(--accent-dark);
+    .shop-chip svg {
+      width: 8px;
+      height: 8px;
+      opacity: 0.5;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .split-col-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+      margin-bottom: 6px;
     }
 
-    /* === Заглушки === */
+    /* ===== ЗАГЛУШКИ ===== */
     .empty-state {
       background: var(--card-bg);
       border-radius: var(--border-radius);
@@ -168,197 +226,56 @@
       text-decoration: underline;
     }
 
-    /* === Стили для шагов (как в my-planner) === */
-    .step {
+    /* ===== ЗАГЛУШКА ДЛЯ КАЛЕНДАРЯ ===== */
+    .calendar-placeholder {
       background: var(--card-bg);
       border-radius: var(--border-radius);
-      padding: 16px 20px;
-      margin-bottom: 12px;
-      box-shadow: var(--card-shadow);
-      border-left: 4px solid var(--accent);
-    }
-    .step.morning {
-      border-left-color: #7ED3B2;
-    }
-    .step.evening {
-      border-left-color: #B9E6D3;
-    }
-    .step .step-node {
-      display: inline-block;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
+      padding: 40px 24px;
       text-align: center;
-      line-height: 28px;
-      font-weight: 700;
-      font-size: 14px;
-      margin-right: 10px;
+      border: 2px dashed var(--line);
     }
-    .step .step-label {
+    .calendar-placeholder .empty-icon {
+      font-size: 36px;
+      margin-bottom: 10px;
+      opacity: 0.4;
+    }
+    .calendar-placeholder h4 {
+      font-size: 17px;
       font-weight: 600;
-      font-size: 16px;
       color: var(--text);
-      display: inline;
+      margin: 0 0 4px;
     }
-    .step .step-products {
-      margin-top: 10px;
-      padding-left: 38px;
+    .calendar-placeholder p {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin: 0 0 10px;
     }
-    .step .step-products .empty-state {
-      margin: 4px 0;
-      padding: 16px 20px;
-    }
-    .step .step-products .empty-state .empty-icon {
-      font-size: 20px;
-    }
-    .step .step-products .empty-state h4 {
-      font-size: 14px;
-    }
-    .step .step-products .empty-state p {
-      font-size: 12px;
-    }
-
-    /* === Стили для календаря === */
-    .calendar-wrapper {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      padding: 20px;
-      box-shadow: var(--card-shadow);
-    }
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .calendar-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(18px, 3vw, 24px);
-      font-weight: 700;
-      margin: 0;
-    }
-    .calendar-nav {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .calendar-nav button {
-      background: var(--bg);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 4px 12px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .calendar-nav button:hover {
-      background: var(--accent);
-      color: white;
-    }
-    .settings-btn {
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    /* === Змейка === */
-    .snake-container {
-      position: relative;
-      padding: 8px 0;
-    }
-    .snake-row {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 6px;
-    }
-    .snake-row.reverse {
-      flex-direction: row-reverse;
-    }
-    .day-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-      max-width: 44px;
-    }
-    .day-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
+    .calendar-placeholder a {
+      color: var(--accent-dark);
       font-weight: 600;
-      background: var(--bg);
-      color: var(--text);
-      cursor: pointer;
-      transition: 0.2s;
-      border: 2px solid var(--line);
+      text-decoration: none;
     }
-    .day-circle:hover {
-      transform: scale(1.05);
-      border-color: var(--accent);
-    }
-    .day-circle.alt {
-      background: var(--card-bg);
-    }
-    .day-circle.done {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-    .day-circle.today {
-      border-color: var(--accent-dark);
-      box-shadow: 0 0 0 3px rgba(239, 108, 87, 0.2);
-    }
-    .day-label {
-      font-size: 10px;
-      color: var(--text-light);
-      margin-top: 2px;
-      text-transform: uppercase;
-    }
-    .snake-svg-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .snake-path {
-      fill: none;
-      stroke: var(--line);
-      stroke-width: 2;
-      opacity: 0.5;
+    .calendar-placeholder a:hover {
+      text-decoration: underline;
     }
 
-    /* === Адаптив === */
-    @media (max-width: 600px) {
-      .step .step-products {
-        padding-left: 0;
+    /* ===== АДАПТИВНОСТЬ ===== */
+    @media (min-width: 600px) {
+      .card-row {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .day-circle {
-        width: 28px;
-        height: 28px;
-        font-size: 11px;
+      .split {
+        grid-template-columns: 1fr 1fr;
       }
-      .day-node {
-        max-width: 32px;
+    }
+    @media (min-width: 1024px) {
+      .card-row {
+        grid-template-columns: repeat(3, 1fr);
       }
-      .product-card {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .product-card .card-icon {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        font-size: 16px;
+    }
+    @media (max-width: 599px) {
+      .step {
+        padding-left: 28px;
       }
     }
   </style>
@@ -399,72 +316,61 @@
 <div class="wrap">
   <div class="hero">
     <div class="stats">
-      <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">0</div><div class="lbl" id="statMorningLbl">Morning</div></div></div>
-      <div class="stat"><div class="stat-icon">🌙</div><div><div class="num">0</div><div class="lbl" id="statEveningLbl">Evening</div></div></div>
-      <div class="stat"><div class="stat-icon">🧴</div><div><div class="num">0</div><div class="lbl" id="statKitLbl">Kit</div></div></div>
-      <div class="stat"><div class="stat-icon">📋</div><div><div class="num">0</div><div class="lbl" id="statRulesLbl">Rules</div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="sun"></span></div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="moon"></span></div><div><div class="num">5</div><div class="lbl" id="statEveningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="droplet"></span></div><div><div class="num">6</div><div class="lbl" id="statKitLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="list"></span></div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
     </div>
   </div>
 
-  <div class="no-results" id="noResults">Nothing found — try a different search.</div>
+  <div class="no-results" id="noResults"></div>
 
   <!-- ===== УТРО ===== -->
   <section class="zone morning" id="morning">
     <div class="zone-head">
-      <div class="zone-icon">☀️</div>
-      <p class="zone-title" id="titleMorning">Morning</p>
+      <div class="zone-icon"><span data-icon="sun"></span></div>
+      <p class="zone-title" id="titleMorning"></p>
     </div>
     <div class="path" id="morning-path">
-      <!-- Шаг 1 -->
+      <!-- Здесь будут карточки товаров, когда они появятся -->
       <div class="step morning">
         <div class="step-node">1</div>
-        <span class="step-label">Cleansing</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">🧴</div>
-            <h4>Add your cleanser</h4>
-            <p>Choose a product for your morning cleanse</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Cleansing</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your cleanser</h4>
+          <p>Choose a product for your morning cleanse</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 2 -->
       <div class="step morning">
         <div class="step-node">2</div>
-        <span class="step-label">Toner (soothing)</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">💧</div>
-            <h4>Add your toner</h4>
-            <p>Choose a soothing toner for your morning routine</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Toner (soothing)</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your toner</h4>
+          <p>Choose a soothing toner for your morning routine</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 3 -->
       <div class="step morning">
         <div class="step-node">3</div>
-        <span class="step-label">Active — alternate by day</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">⚡</div>
-            <h4>Add your active ingredient</h4>
-            <p>Choose Vitamin C or Azelaic Acid for your morning</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Active — alternate by day</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your active ingredient</h4>
+          <p>Choose Vitamin C or Azelaic Acid for your morning</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 4 -->
       <div class="step morning">
         <div class="step-node">4</div>
-        <span class="step-label">Moisturizer + SPF</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">☀️</div>
-            <h4>Add your SPF moisturizer</h4>
-            <p>Protect your skin with a daily SPF</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Moisturizer + SPF</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="sun"></span></div>
+          <h4>Add your SPF moisturizer</h4>
+          <p>Protect your skin with a daily SPF</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
     </div>
@@ -473,88 +379,73 @@
   <!-- ===== ВЕЧЕР ===== -->
   <section class="zone evening" id="evening">
     <div class="zone-head">
-      <div class="zone-icon">🌙</div>
-      <p class="zone-title" id="titleEvening">Evening</p>
+      <div class="zone-icon"><span data-icon="moon"></span></div>
+      <p class="zone-title" id="titleEvening"></p>
     </div>
     <div class="path" id="evening-path">
-      <!-- Шаг 1 -->
       <div class="step evening">
         <div class="step-node">1</div>
-        <span class="step-label">First cleanse (oil/balm)</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">🫧</div>
-            <h4>Add your first cleanser</h4>
-            <p>Choose an oil or balm cleanser</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">First cleanse (oil/balm)</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your first cleanser</h4>
+          <p>Choose an oil or balm cleanser</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 2 -->
       <div class="step evening">
         <div class="step-node">2</div>
-        <span class="step-label">Second cleanse</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">🧼</div>
-            <h4>Add your second cleanser</h4>
-            <p>Choose a gentle foaming or hydrating cleanser</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Second cleanse</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your second cleanser</h4>
+          <p>Choose a gentle foaming or hydrating cleanser</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 3 -->
       <div class="step evening">
         <div class="step-node">3</div>
-        <span class="step-label">Toner</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">💧</div>
-            <h4>Add your evening toner</h4>
-            <p>Choose a calming or hydrating toner</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Toner</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your evening toner</h4>
+          <p>Choose a calming or hydrating toner</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 4 -->
       <div class="step evening">
         <div class="step-node">4</div>
-        <span class="step-label">Retinal</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">🔬</div>
-            <h4>Add your retinal</h4>
-            <p>Choose a retinal product for your evening routine</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Retinal</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your retinal</h4>
+          <p>Choose a retinal product for your evening routine</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
-      <!-- Шаг 5 -->
       <div class="step evening">
         <div class="step-node">5</div>
-        <span class="step-label">Night cream</span>
-        <div class="step-products">
-          <div class="empty-state" onclick="window.location.href='shop.html'">
-            <div class="empty-icon">🌙</div>
-            <h4>Add your night cream</h4>
-            <p>Choose a nourishing night cream or balm</p>
-            <a href="shop.html" class="empty-cta">Browse products →</a>
-          </div>
+        <div class="step-label">Night cream</div>
+        <div class="empty-state" onclick="window.location.href='shop.html'">
+          <div class="empty-icon"><span data-icon="droplet"></span></div>
+          <h4>Add your night cream</h4>
+          <p>Choose a nourishing night cream or balm</p>
+          <a href="shop.html" class="empty-cta">Browse products →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== АПТЕЧКА (KIT) ===== -->
+  <!-- ===== АПТЕЧКА ===== -->
   <section class="zone" id="kit">
     <div class="zone-head">
-      <div class="zone-icon">🧴</div>
-      <p class="zone-title" id="titleKit">First Aid Kit</p>
+      <div class="zone-icon"><span data-icon="droplet"></span></div>
+      <p class="zone-title" id="titleKit"></p>
     </div>
-    <p class="zone-sub" id="subKit">Products for flare-ups, irritation, or days without retinal.</p>
+    <p class="zone-sub" id="subKit"></p>
     <div id="kit-groups">
-      <div class="empty-state" onclick="window.location.href='shop.html'" style="margin: 0 0 12px 0;">
-        <div class="empty-icon">🩹</div>
+      <div class="empty-state" onclick="window.location.href='shop.html'">
+        <div class="empty-icon"><span data-icon="droplet"></span></div>
         <h4>Build your skincare kit</h4>
         <p>Add masks, scrubs, and spot treatments to your collection.</p>
         <a href="shop.html" class="empty-cta">Browse products →</a>
@@ -565,12 +456,12 @@
   <!-- ===== ПРАВИЛА ===== -->
   <section class="zone" id="rules">
     <div class="zone-head">
-      <div class="zone-icon">📋</div>
-      <p class="zone-title" id="titleRules">Rules</p>
+      <div class="zone-icon"><span data-icon="list"></span></div>
+      <p class="zone-title" id="titleRules"></p>
     </div>
     <div class="rules-grid" id="rules-grid">
       <div class="empty-state" onclick="window.location.href='shop.html'">
-        <div class="empty-icon">📋</div>
+        <div class="empty-icon"><span data-icon="list"></span></div>
         <h4>No rules yet</h4>
         <p>Add products to see personalized recommendations and rules.</p>
         <a href="shop.html" class="empty-cta">Browse products →</a>
@@ -581,13 +472,13 @@
   <!-- ===== МАГАЗИНЫ ===== -->
   <section class="shops-section" id="shops">
     <div class="zone-head">
-      <div class="zone-icon">🛒</div>
-      <p class="zone-title" id="titleShops">Shops</p>
+      <div class="zone-icon"><span data-icon="shopping-bag"></span></div>
+      <p class="zone-title" id="titleShops"></p>
     </div>
-    <p class="zone-sub" id="subShops">Discover where to buy your skincare products.</p>
+    <p class="zone-sub" id="subShops"></p>
     <div class="shops-grid" id="shops-grid">
       <div class="empty-state" onclick="window.location.href='shop.html'">
-        <div class="empty-icon">🛒</div>
+        <div class="empty-icon"><span data-icon="shopping-bag"></span></div>
         <h4>Discover where to buy</h4>
         <p>Explore shops and find products that match your routine.</p>
         <a href="shop.html" class="empty-cta">Browse products →</a>
@@ -595,17 +486,25 @@
     </div>
   </section>
 
-  <!-- ===== КАЛЕНДАРЬ (всегда отображается) ===== -->
+  <!-- ===== КАЛЕНДАРЬ ===== -->
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
     <div class="zone-head">
-      <div class="zone-icon">📅</div>
-      <p class="zone-title" id="titleCalendar">Calendar</p>
+      <div class="zone-icon"><span data-icon="calendar"></span></div>
+      <p class="zone-title" id="titleCalendar"></p>
     </div>
 
-    <!-- Календарь всегда отображается -->
-    <div class="calendar-wrapper" id="calendarWrapper">
+    <!-- Заглушка календаря -->
+    <div class="calendar-placeholder" id="calendarPlaceholder">
+      <div class="empty-icon"><span data-icon="calendar"></span></div>
+      <h4>Calendar is empty</h4>
+      <p>Add products to your routine and your schedule will appear here.</p>
+      <a href="shop.html">Browse products →</a>
+    </div>
+
+    <!-- Реальный календарь -->
+    <div class="calendar-wrapper" id="calendarWrapper" style="display:none;">
       <div class="calendar-header">
-        <h2 id="calendarMonthLabel">July 2026</h2>
+        <h2 id="calendarMonthLabel"></h2>
         <div class="calendar-nav">
           <button id="prevMonthBtn">‹</button>
           <button id="nextMonthBtn">›</button>
@@ -634,31 +533,16 @@
   </div>
 </footer>
 
-<!-- ================================================================ -->
-<!-- ПЕРЕОПРЕДЕЛЯЕМ РЕНДЕРИНГ, ЧТОБЫ НЕ СТИРАТЬ ЗАГЛУШКИ, ЕСЛИ НЕТ ДАННЫХ -->
-<!-- ================================================================ -->
-<script>
-  // Сохраняем оригинальные функции до загрузки app.js
-  const originalRenderPath = window.renderPath;
-  const originalRenderAll = window.renderAll;
+<!-- ===== ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ПАЛИТР ===== -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; background: var(--card-bg); padding: 10px 14px; border-radius: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid var(--line);">
+  <button onclick="setPalette('your')" style="background:#777C6D; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Ваша палитра"></button>
+  <button onclick="setPalette('cool')" style="background:#4A6CF7; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Cool Breeze"></button>
+  <button onclick="setPalette('warm')" style="background:#F28B82; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Sunset"></button>
+  <button onclick="setPalette('dark')" style="background:#6C63FF; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Dark"></button>
+  <button onclick="setPalette(null)" style="background:#ccc; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2); font-size:14px; font-weight:bold; color:#333; line-height:24px; text-align:center;" title="Сбросить">✕</button>
+</div>
 
-  // Переопределяем renderPath: не очищаем контейнер, если данные пусты
-  window.renderPath = function(container, steps, zoneClass) {
-    if (!steps || steps.length === 0) {
-      // Если данных нет — оставляем существующее содержимое (заглушки)
-      return;
-    }
-    // Иначе вызываем оригинальный рендеринг
-    originalRenderPath(container, steps, zoneClass);
-  };
-
-  // Переопределяем renderAll, чтобы он использовал наш renderPath
-  window.renderAll = function() {
-    originalRenderAll();
-  };
-</script>
-
-<!-- Подключаем основные скрипты (после переопределения) -->
+<!-- Подключаем скрипты -->
 <script src="js/firebase.js"></script>
 <script src="js/icons.js"></script>
 <script src="js/data.js"></script>
@@ -669,28 +553,46 @@
 <script src="js/filters.js"></script>
 <script src="js/app.js"></script>
 
-<!-- Дополнительная логика для календаря -->
 <script>
+  // ===== УПРАВЛЕНИЕ ПАЛИТРАМИ =====
+  function setPalette(name) {
+    if (name) {
+      document.documentElement.setAttribute('data-palette', name);
+      localStorage.setItem('palette', name);
+    } else {
+      document.documentElement.removeAttribute('data-palette');
+      localStorage.removeItem('palette');
+    }
+  }
+
+  (function restorePalette() {
+    const saved = localStorage.getItem('palette');
+    if (saved) {
+      document.documentElement.setAttribute('data-palette', saved);
+    }
+  })();
+
+  // ===== УПРАВЛЕНИЕ КАЛЕНДАРЁМ =====
   document.addEventListener('DOMContentLoaded', function() {
-    // Инициализируем календарь
-    if (typeof renderSnake === 'function') {
-      renderSnake();
+    renderIcons();
+
+    function checkProductsAndToggleCalendar() {
+      const hasProducts = window.morningSteps && window.morningSteps.length > 0;
+      const placeholder = document.getElementById('calendarPlaceholder');
+      const wrapper = document.getElementById('calendarWrapper');
+      if (placeholder && wrapper) {
+        if (hasProducts) {
+          placeholder.style.display = 'none';
+          wrapper.style.display = 'block';
+        } else {
+          placeholder.style.display = 'block';
+          wrapper.style.display = 'none';
+        }
+      }
     }
 
-    // Кнопки навигации календаря
-    const prevBtn = document.getElementById('prevMonthBtn');
-    const nextBtn = document.getElementById('nextMonthBtn');
-    const settingsBtn = document.getElementById('settingsBtn');
-
-    if (prevBtn && typeof changeMonth === 'function') {
-      prevBtn.addEventListener('click', () => changeMonth(-1));
-    }
-    if (nextBtn && typeof changeMonth === 'function') {
-      nextBtn.addEventListener('click', () => changeMonth(1));
-    }
-    if (settingsBtn && typeof openSettings === 'function') {
-      settingsBtn.addEventListener('click', openSettings);
-    }
+    setTimeout(checkProductsAndToggleCalendar, 500);
+    setTimeout(checkProductsAndToggleCalendar, 1500);
   });
 </script>
 
