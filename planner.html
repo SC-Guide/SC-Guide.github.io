@@ -1,24 +1,148 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Skincare Guide — Planner" />
-<meta property="og:description" content="An interactive skincare routine planner with calendar, bilingual interface, and automated retinal/azelaic scheduling." />
-<meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
-<meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/planner.html" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<title>Skincare Guide — Planner</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Skincare Guide — Planner" />
+  <meta property="og:description" content="An interactive skincare routine planner with calendar, bilingual interface, and automated retinal/azelaic scheduling." />
+  <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
+  <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/planner.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+  <title>Skincare Guide — Planner</title>
 
-<!-- CSS -->
-<link rel="stylesheet" href="css/style.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <style>
+    /* === Заглушки === */
+    .empty-state {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 40px 32px;
+      text-align: center;
+      border: 2px dashed var(--line);
+      transition: border-color 0.3s ease;
+      cursor: pointer;
+    }
+    .empty-state:hover {
+      border-color: var(--accent);
+    }
+    .empty-state .empty-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+    .empty-state h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .empty-state p {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin: 0;
+    }
+    .empty-state .empty-cta {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--accent-dark);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .empty-state .empty-cta:hover {
+      text-decoration: underline;
+    }
+
+    .calendar-placeholder {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 48px 32px;
+      text-align: center;
+      border: 2px dashed var(--line);
+    }
+    .calendar-placeholder .empty-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+    .calendar-placeholder h4 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .calendar-placeholder p {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin: 0 0 12px;
+    }
+    .calendar-placeholder a {
+      color: var(--accent-dark);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .calendar-placeholder a:hover {
+      text-decoration: underline;
+    }
+
+    /* ================================================================
+       ТЕСТОВЫЕ ПАЛИТРЫ (встроенные, чтобы работали сразу)
+       ================================================================ */
+    [data-palette="your"] {
+      --accent: #777C6D;
+      --accent-dark: #B7B89F;
+      --bg: #EEEEEE;
+      --card-bg: #FFFFFF;
+      --text: #2D2A2A;
+      --text-soft: #555555;
+      --text-light: #999999;
+      --line: #CBCBCB;
+      --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+    [data-palette="cool"] {
+      --accent: #4A6CF7;
+      --accent-dark: #3A5BD9;
+      --bg: #F4F5F7;
+      --card-bg: #FFFFFF;
+      --text: #2D2D3A;
+      --text-soft: #5A5B6A;
+      --text-light: #8A8B9A;
+      --line: #E8E9ED;
+      --card-shadow: 0 4px 20px rgba(74, 108, 247, 0.08);
+    }
+    [data-palette="warm"] {
+      --accent: #F28B82;
+      --accent-dark: #D97A6E;
+      --bg: #FDF6F0;
+      --card-bg: #FFFFFF;
+      --text: #3A2E2A;
+      --text-soft: #6B5A52;
+      --text-light: #A69288;
+      --line: #F0E4D8;
+      --card-shadow: 0 4px 20px rgba(242, 139, 130, 0.10);
+    }
+    [data-palette="dark"] {
+      --accent: #6C63FF;
+      --accent-dark: #5A52D9;
+      --bg: #1A1A2E;
+      --card-bg: #2D2D44;
+      --text: #EEEEEE;
+      --text-soft: #AAAAAA;
+      --text-light: #777777;
+      --line: #3D3D5C;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+  </style>
 </head>
 <body>
+
 <header>
   <div class="wrap">
     <div class="header-top">
@@ -41,57 +165,126 @@
       </div>
     </div>
     <nav id="mainNav">
-  <a href="index.html" data-nav="home">Home</a>
-  <a href="skin-profile.html" data-nav="skin">Skin Profile</a>
-  <a href="planner.html" data-nav="planner">Planner</a>
-  <a href="shop.html" data-nav="products">Products</a>
-  <a href="blog.html" data-nav="blog">Blog</a>
-</nav>
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="skin-profile.html" data-nav="skin">Skin Profile</a>
+      <a href="planner.html" data-nav="planner">Planner</a>
+      <a href="shop.html" data-nav="products">Products</a>
+      <a href="blog.html" data-nav="blog">Blog</a>
+    </nav>
   </div>
 </header>
 
 <div class="wrap">
   <div class="hero">
     <div class="stats">
-      <div class="stat"><div class="stat-icon">☀️</div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">🌙</div><div><div class="num">5</div><div class="lbl" id="statEveningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">🧴</div><div><div class="num">6</div><div class="lbl" id="statKitLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon">📋</div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="sun"></span></div><div><div class="num">4</div><div class="lbl" id="statMorningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="moon"></span></div><div><div class="num">5</div><div class="lbl" id="statEveningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="droplet"></span></div><div><div class="num">6</div><div class="lbl" id="statKitLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><span data-icon="list"></span></div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
     </div>
   </div>
 
   <div class="no-results" id="noResults"></div>
 
+  <!-- ===== УТРО ===== -->
   <section class="zone morning" id="morning">
-    <div class="zone-head"><div class="zone-icon">☀️</div><p class="zone-title" id="titleMorning"></p></div>
-    <div class="path" id="morning-path"></div>
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="sun"></span></div>
+      <p class="zone-title" id="titleMorning"></p>
+    </div>
+    <div class="path" id="morning-path">
+      <div class="empty-state" onclick="window.location.href='shop.html'">
+        <div class="empty-icon"><span data-icon="sun"></span></div>
+        <h4 class="empty-morning-title">Start your morning routine</h4>
+        <p class="empty-morning-desc">Add products from the shop to build your perfect morning care.</p>
+        <a href="shop.html" class="empty-cta">Browse products →</a>
+      </div>
+    </div>
   </section>
 
+  <!-- ===== ВЕЧЕР ===== -->
   <section class="zone evening" id="evening">
-    <div class="zone-head"><div class="zone-icon">🌙</div><p class="zone-title" id="titleEvening"></p></div>
-    <div class="path" id="evening-path"></div>
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="moon"></span></div>
+      <p class="zone-title" id="titleEvening"></p>
+    </div>
+    <div class="path" id="evening-path">
+      <div class="empty-state" onclick="window.location.href='shop.html'">
+        <div class="empty-icon"><span data-icon="moon"></span></div>
+        <h4 class="empty-evening-title">Build your evening routine</h4>
+        <p class="empty-evening-desc">Add products for nighttime care and recovery.</p>
+        <a href="shop.html" class="empty-cta">Browse products →</a>
+      </div>
+    </div>
   </section>
 
+  <!-- ===== АПТЕЧКА ===== -->
   <section class="zone" id="kit">
-    <div class="zone-head"><div class="zone-icon">🧴</div><p class="zone-title" id="titleKit"></p></div>
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="droplet"></span></div>
+      <p class="zone-title" id="titleKit"></p>
+    </div>
     <p class="zone-sub" id="subKit"></p>
-    <div id="kit-groups"></div>
+    <div id="kit-groups">
+      <div class="empty-state" onclick="window.location.href='shop.html'">
+        <div class="empty-icon"><span data-icon="droplet"></span></div>
+        <h4 class="empty-kit-title">Build your skincare kit</h4>
+        <p class="empty-kit-desc">Add masks, scrubs, and spot treatments to your collection.</p>
+        <a href="shop.html" class="empty-cta">Browse products →</a>
+      </div>
+    </div>
   </section>
 
+  <!-- ===== ПРАВИЛА ===== -->
   <section class="zone" id="rules">
-    <div class="zone-head"><div class="zone-icon">📋</div><p class="zone-title" id="titleRules"></p></div>
-    <div class="rules-grid" id="rules-grid"></div>
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="list"></span></div>
+      <p class="zone-title" id="titleRules"></p>
+    </div>
+    <div class="rules-grid" id="rules-grid">
+      <div class="empty-state" onclick="window.location.href='shop.html'">
+        <div class="empty-icon"><span data-icon="list"></span></div>
+        <h4 class="empty-rules-title">No rules yet</h4>
+        <p class="empty-rules-desc">Add products to see personalized recommendations and rules.</p>
+        <a href="shop.html" class="empty-cta">Browse products →</a>
+      </div>
+    </div>
   </section>
 
+  <!-- ===== МАГАЗИНЫ ===== -->
   <section class="shops-section" id="shops">
-    <div class="zone-head"><div class="zone-icon">🛒</div><p class="zone-title" id="titleShops"></p></div>
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="shopping-bag"></span></div>
+      <p class="zone-title" id="titleShops"></p>
+    </div>
     <p class="zone-sub" id="subShops"></p>
-    <div class="shops-grid" id="shops-grid"></div>
+    <div class="shops-grid" id="shops-grid">
+      <div class="empty-state" onclick="window.location.href='shop.html'">
+        <div class="empty-icon"><span data-icon="shopping-bag"></span></div>
+        <h4 class="empty-shops-title">Discover where to buy</h4>
+        <p class="empty-shops-desc">Explore shops and find products that match your routine.</p>
+        <a href="shop.html" class="empty-cta">Browse products →</a>
+      </div>
+    </div>
   </section>
 
+  <!-- ===== КАЛЕНДАРЬ ===== -->
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon">📅</div><p class="zone-title" id="titleCalendar"></p></div>
-    <div class="calendar-wrapper">
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="calendar"></span></div>
+      <p class="zone-title" id="titleCalendar"></p>
+    </div>
+
+    <!-- Заглушка календаря (видна по умолчанию) -->
+    <div class="calendar-placeholder" id="calendarPlaceholder">
+      <div class="empty-icon"><span data-icon="calendar"></span></div>
+      <h4 class="empty-calendar-title">Calendar is empty</h4>
+      <p class="empty-calendar-desc">Add products to your routine and your schedule will appear here.</p>
+      <a href="shop.html" class="empty-cta">Browse products →</a>
+    </div>
+
+    <!-- Реальный календарь (скрыт по умолчанию) -->
+    <div class="calendar-wrapper" id="calendarWrapper" style="display:none;">
       <div class="calendar-header">
         <h2 id="calendarMonthLabel"></h2>
         <div class="calendar-nav">
@@ -122,6 +315,17 @@
   </div>
 </footer>
 
+<!-- ================================================================ -->
+<!-- ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ПАЛИТР (тестовая, в правом нижнем углу)      -->
+<!-- ================================================================ -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; background: var(--card-bg); padding: 10px 14px; border-radius: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid var(--line);">
+  <button onclick="setPalette('your')" style="background:#777C6D; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Ваша палитра"></button>
+  <button onclick="setPalette('cool')" style="background:#4A6CF7; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Cool Breeze (синяя)"></button>
+  <button onclick="setPalette('warm')" style="background:#F28B82; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Sunset (тёплая)"></button>
+  <button onclick="setPalette('dark')" style="background:#6C63FF; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Dark (тёмная)"></button>
+  <button onclick="setPalette(null)" style="background:#ccc; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2); font-size:14px; font-weight:bold; color:#333; line-height:24px; text-align:center;" title="Сбросить (основная)">✕</button>
+</div>
+
 <!-- Подключаем скрипты -->
 <script src="js/firebase.js"></script>
 <script src="js/icons.js"></script>
@@ -132,5 +336,92 @@
 <script src="js/modals.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/app.js"></script>
+
+<script>
+  // ================================================================
+  // УПРАВЛЕНИЕ ПАЛИТРАМИ (сохранение в localStorage)
+  // ================================================================
+  function setPalette(name) {
+    if (name) {
+      document.documentElement.setAttribute('data-palette', name);
+      localStorage.setItem('palette', name);
+    } else {
+      document.documentElement.removeAttribute('data-palette');
+      localStorage.removeItem('palette');
+    }
+  }
+
+  // Восстановить выбранную палитру при загрузке
+  (function restorePalette() {
+    const saved = localStorage.getItem('palette');
+    if (saved) {
+      document.documentElement.setAttribute('data-palette', saved);
+    }
+  })();
+
+  // ================================================================
+  // ДОПОЛНИТЕЛЬНАЯ ЛОГИКА ДЛЯ ЗАГЛУШЕК И КАЛЕНДАРЯ
+  // ================================================================
+  (function() {
+    // Функция обновления текстов заглушек (EN/RU)
+    function updateEmptyTexts(lang) {
+      const isEn = lang === 'en';
+      document.querySelectorAll('.empty-morning-title').forEach(el => el.textContent = isEn ? 'Start your morning routine' : 'Начните утреннюю рутину');
+      document.querySelectorAll('.empty-morning-desc').forEach(el => el.textContent = isEn ? 'Add products from the shop to build your perfect morning care.' : 'Добавьте продукты из магазина, чтобы собрать идеальный утренний уход.');
+      document.querySelectorAll('.empty-evening-title').forEach(el => el.textContent = isEn ? 'Build your evening routine' : 'Соберите вечернюю рутину');
+      document.querySelectorAll('.empty-evening-desc').forEach(el => el.textContent = isEn ? 'Add products for nighttime care and recovery.' : 'Добавьте продукты для ночного ухода и восстановления.');
+      document.querySelectorAll('.empty-kit-title').forEach(el => el.textContent = isEn ? 'Build your skincare kit' : 'Соберите свою аптечку');
+      document.querySelectorAll('.empty-kit-desc').forEach(el => el.textContent = isEn ? 'Add masks, scrubs, and spot treatments to your collection.' : 'Добавьте маски, скрабы и точечные средства в свою коллекцию.');
+      document.querySelectorAll('.empty-rules-title').forEach(el => el.textContent = isEn ? 'No rules yet' : 'Правил пока нет');
+      document.querySelectorAll('.empty-rules-desc').forEach(el => el.textContent = isEn ? 'Add products to see personalized recommendations and rules.' : 'Добавьте продукты, чтобы увидеть персонализированные рекомендации.');
+      document.querySelectorAll('.empty-shops-title').forEach(el => el.textContent = isEn ? 'Discover where to buy' : 'Узнайте, где купить');
+      document.querySelectorAll('.empty-shops-desc').forEach(el => el.textContent = isEn ? 'Explore shops and find products that match your routine.' : 'Изучите магазины и найдите продукты для своей рутины.');
+      document.querySelectorAll('.empty-calendar-title').forEach(el => el.textContent = isEn ? 'Calendar is empty' : 'Календарь пуст');
+      document.querySelectorAll('.empty-calendar-desc').forEach(el => el.textContent = isEn ? 'Add products to your routine and your schedule will appear here.' : 'Добавьте продукты в рутину, и ваше расписание появится здесь.');
+      document.querySelectorAll('.empty-cta').forEach(el => el.textContent = isEn ? 'Browse products →' : 'Выбрать продукты →');
+    }
+
+    function getCurrentLang() {
+      try {
+        return localStorage.getItem('lang') || 'en';
+      } catch(e) {
+        return 'en';
+      }
+    }
+
+    // Перехватываем переключение языка, если оно есть
+    const originalToggle = window.toggleLanguage;
+    if (typeof originalToggle === 'function') {
+      window.toggleLanguage = function() {
+        originalToggle();
+        updateEmptyTexts(getCurrentLang());
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      renderIcons();
+      updateEmptyTexts(getCurrentLang());
+
+      function checkProductsAndToggleCalendar() {
+        const hasProducts = window.morningSteps && window.morningSteps.length > 0;
+        const placeholder = document.getElementById('calendarPlaceholder');
+        const wrapper = document.getElementById('calendarWrapper');
+        if (placeholder && wrapper) {
+          if (hasProducts) {
+            placeholder.style.display = 'none';
+            wrapper.style.display = 'block';
+          } else {
+            placeholder.style.display = 'block';
+            wrapper.style.display = 'none';
+          }
+        }
+      }
+
+      setTimeout(checkProductsAndToggleCalendar, 500);
+      setTimeout(checkProductsAndToggleCalendar, 1500);
+    });
+  })();
+</script>
+
 </body>
 </html>
