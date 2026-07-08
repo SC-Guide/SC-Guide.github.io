@@ -662,9 +662,8 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
           <input id="search" type="text" placeholder="">
         </div>
-        <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
         <div class="right-tools">
-          <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
+          <button class="lang-toggle" id="langToggle">EN</button>
           <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
           <span class="result-count" id="resultCount"></span>
         </div>
@@ -772,7 +771,6 @@ const STR = {
     tabTitle: 'Skincare Guide — Планер Оксаны',
     nav: {morning:'Утро', evening:'Вечер', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
     searchPlaceholder: 'Поиск продуктов…',
-    recOnly: 'Только рекомендованные',
     found: 'Найдено',
     noResults: 'Ничего не найдено — попробуйте другой запрос.',
     statLabels: {morning:'УТРЕННИЕ ШАГИ', evening:'ВЕЧЕРНИЕ ШАГИ', rules:'ПРАВИЛА'},
@@ -801,7 +799,6 @@ const STR = {
     tabTitle: 'Skincare Guide — Oksana\'s Planner',
     nav: {morning:'Morning', evening:'Evening', rules:'Rules', shops:'Shops', calendar:'Calendar'},
     searchPlaceholder: 'Search products…',
-    recOnly: 'Recommended only',
     found: 'Found',
     noResults: 'Nothing found — try a different search.',
     statLabels: {morning:'MORNING STEPS', evening:'EVENING STEPS', rules:'RULES'},
@@ -1557,14 +1554,12 @@ function resetAll(){
 }
 
 // ============================================================
-// ПОИСК И ФИЛЬТР
+// ПОИСК И ФИЛЬТР (только по поиску, без recToggle)
 // ============================================================
 const searchInput=document.getElementById('search');
-const recToggle=document.getElementById('recToggle');
 
 function applyFilters(){
   const q=searchInput.value.trim().toLowerCase();
-  const onlyRec=recToggle.classList.contains('active');
   let visibleCount=0;
   document.querySelectorAll('.product-card').forEach(card=>{
     const name=card.dataset.name;
@@ -1575,11 +1570,10 @@ function applyFilters(){
     if(show) visibleCount++;
   });
   document.getElementById('noResults').style.display=visibleCount===0?'block':'none';
-  document.getElementById('resultCount').textContent=(q||onlyRec)?`${STR[currentLang].found}: ${visibleCount}`:'';
+  document.getElementById('resultCount').textContent=q?`${STR[currentLang].found}: ${visibleCount}`:'';
 }
 
 searchInput.addEventListener('input', applyFilters);
-recToggle.addEventListener('click', ()=>{ recToggle.classList.toggle('active'); applyFilters(); });
 
 // ============================================================
 // ТЕМА
@@ -1598,7 +1592,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
 // ============================================================
-// ЯЗЫК
+// ЯЗЫК (без флагов)
 // ============================================================
 function toggleLanguage() {
   currentLang = (currentLang === 'en') ? 'ru' : 'en';
@@ -1610,7 +1604,7 @@ document.getElementById('langToggle').addEventListener('click', toggleLanguage);
 
 function updateLangToggle() {
   const btn = document.getElementById('langToggle');
-  if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
+  if (btn) btn.textContent = currentLang === 'en' ? 'RU' : 'EN';
 }
 
 // ============================================================
@@ -1622,7 +1616,6 @@ function renderAll() {
   document.title = t.tabTitle;
   document.getElementById('siteSubtitle').textContent = t.subtitle;
   document.getElementById('search').placeholder = t.searchPlaceholder;
-  document.getElementById('recToggleLabel').textContent = t.recOnly;
   document.getElementById('noResults').textContent = t.noResults;
   document.querySelectorAll('#mainNav a').forEach(a=>{ a.textContent=t.nav[a.dataset.nav]; });
   document.getElementById('statMorningLbl').textContent = t.statLabels.morning;

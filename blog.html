@@ -67,7 +67,7 @@ let currentLang = localStorage.getItem('lang') || 'en';
 document.getElementById('langToggle').addEventListener('click', function() {
   currentLang = currentLang === 'en' ? 'ru' : 'en';
   localStorage.setItem('lang', currentLang);
-  this.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
+  this.textContent = currentLang === 'en' ? 'RU' : 'EN';
 });
 
 document.getElementById('themeToggle').addEventListener('click', function() {
