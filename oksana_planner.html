@@ -941,7 +941,6 @@ const morningSteps = [
 ];
 
 // Вечерние шаги (4 типа вечеров, каждый содержит массив продуктов)
-// Каждый продукт — это отдельный шаг, поэтому мы будем использовать их как шаги в модалке.
 const eveningSteps = [
   {num:'A', label:{ru:'Вечер A — сильный ретинол', en:'Evening A — Strong Retinol'}, products:[
     {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
@@ -1274,7 +1273,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ============================================================
-// КАЛЕНДАРЬ с разделением на УТРО и ВЕЧЕР и пошаговым вечером
+// КАЛЕНДАРЬ с одинаковым отображением шагов для утра и вечера
 // ============================================================
 let currentYear = 2026;
 let currentMonth = 6;
@@ -1303,9 +1302,19 @@ function generateRoutine(y,m,d){
   return { eveningType, eveningStep };
 }
 
+// Функция для определения категории продукта по названию
+function getProductCategory(productName) {
+  const lower = productName.toLowerCase();
+  if (lower.includes('cleansing') || lower.includes('очищение') || lower.includes('foam')) return 'Очищение';
+  if (lower.includes('toner') || lower.includes('тонер')) return 'Тонер';
+  if (lower.includes('retinol') || lower.includes('ретинол') || lower.includes('retinal')) return 'Ретинол';
+  if (lower.includes('cream') || lower.includes('крем') || lower.includes('balm')) return 'Крем';
+  return 'Шаг';
+}
+
 function getRoutineForDay(y,m,d){
   const auto = generateRoutine(y,m,d);
-  // Утро — пошагово, как раньше
+  // Утро — пошагово (как было)
   const morningProducts = morningSteps.map(step => {
     if (step.split) {
       const options = [];
@@ -1327,15 +1336,24 @@ function getRoutineForDay(y,m,d){
     }
   });
 
-  // Вечер — пошагово, используем продукты из eveningStep как отдельные шаги
+  // Вечер — группируем продукты по категориям
   const eveningStep = auto.eveningStep;
   let eveningStepsList = [];
   if (eveningStep && eveningStep.products) {
-    // Каждый продукт — это шаг
-    eveningStepsList = eveningStep.products.map(p => ({
-      label: tr(p.name),
-      products: tr(p.comment) // используем комментарий как описание шага
-    }));
+    // Группируем продукты по категориям
+    const groups = {};
+    eveningStep.products.forEach(p => {
+      const cat = getProductCategory(tr(p.name));
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(tr(p.name));
+    });
+    // Преобразуем группы в шаги
+    for (const [category, products] of Object.entries(groups)) {
+      eveningStepsList.push({
+        label: category,
+        products: products.join(', ')
+      });
+    }
   } else {
     eveningStepsList = [{ label: 'Вечер', products: '—' }];
   }
@@ -1436,7 +1454,7 @@ function showModalForDate(y,m,d){
   const hasPrev = d>1, hasNext = d<daysInMonth;
   // Утро — пошагово
   let morningHtml = routine.morning.map(item=>`<div class="step-item"><span class="step-label">${item.label}:</span> <span class="product-name">${item.products}</span></div>`).join('');
-  // Вечер — пошагово (каждый продукт как шаг)
+  // Вечер — пошагово, группировка уже сделана в getRoutineForDay
   let eveningHtml = routine.evening.map(item=>`<div class="step-item"><span class="step-label">${item.label}:</span> <span class="product-name">${item.products}</span></div>`).join('');
 
   const html = `
