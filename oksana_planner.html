@@ -1309,42 +1309,49 @@ function getProductCategory(productName) {
   return 'Шаг';
 }
 
+// ===== НОВАЯ ЛОГИКА ДЛЯ УТРЕННИХ ШАГОВ С ЧЕРЕДОВАНИЕМ =====
 function getRoutineForDay(y,m,d){
   const auto = generateRoutine(y,m,d);
-  // Утро — пошагово (как было)
+  const dayOfWeek = new Date(y,m,d).getDay(); // 0=вс, 1=пн, ..., 6=сб
+
+  // Утро — пошагово, с выбором конкретного варианта для чередующихся шагов
   const morningProducts = morningSteps.map(step => {
     if (step.split) {
-      const options = [];
-      if (step.split.a) {
-        const names = step.split.a.products.map(p => tr(p.name)).join(', ');
-        options.push(`${tr(step.split.a.title)}: ${names}`);
+      let selectedProducts = [];
+      let selectedVariant = null;
+      // Определяем, какой вариант выбрать в зависимости от дня недели
+      if (step.split.a && step.split.b && step.split.c) {
+        // Три варианта (шаг 3 — сыворотка)
+        if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) selectedVariant = step.split.a;
+        else if (dayOfWeek === 2 || dayOfWeek === 4 || dayOfWeek === 6) selectedVariant = step.split.b;
+        else if (dayOfWeek === 0) selectedVariant = step.split.c;
+      } else if (step.split.a && step.split.b) {
+        // Два варианта (шаг 4 — увлажняющий крем)
+        if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) selectedVariant = step.split.a;
+        else selectedVariant = step.split.b; // вт, чт, сб, вс
       }
-      if (step.split.b) {
-        const names = step.split.b.products.map(p => tr(p.name)).join(', ');
-        options.push(`${tr(step.split.b.title)}: ${names}`);
+      if (selectedVariant) {
+        selectedProducts = selectedVariant.products.map(p => tr(p.name));
+      } else {
+        // fallback
+        selectedProducts = ['—'];
       }
-      if (step.split.c) {
-        const names = step.split.c.products.map(p => tr(p.name)).join(', ');
-        options.push(`${tr(step.split.c.title)}: ${names}`);
-      }
-      return { label: tr(step.label), products: options.join(' / ') };
+      return { label: tr(step.label), products: selectedProducts.join(', ') };
     } else {
-      return { label: tr(step.label), products: step.products.map(p=>tr(p.name)).join(', ') };
+      return { label: tr(step.label), products: step.products.map(p => tr(p.name)).join(', ') };
     }
   });
 
-  // Вечер — группируем продукты по категориям
+  // Вечер — группируем продукты по категориям (без изменений)
   const eveningStep = auto.eveningStep;
   let eveningStepsList = [];
   if (eveningStep && eveningStep.products) {
-    // Группируем продукты по категориям
     const groups = {};
     eveningStep.products.forEach(p => {
       const cat = getProductCategory(tr(p.name));
       if (!groups[cat]) groups[cat] = [];
       groups[cat].push(tr(p.name));
     });
-    // Преобразуем группы в шаги
     for (const [category, products] of Object.entries(groups)) {
       eveningStepsList.push({
         label: category,
@@ -1554,7 +1561,7 @@ function resetAll(){
 }
 
 // ============================================================
-// ПОИСК И ФИЛЬТР (только по поиску, без recToggle)
+// ПОИСК И ФИЛЬТР (только по поиску)
 // ============================================================
 const searchInput=document.getElementById('search');
 
