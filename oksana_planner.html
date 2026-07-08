@@ -32,7 +32,7 @@
   --accent:#E8A87C;
   --accent-dark:#D48C6B;
   --morning:color-mix(in srgb, #F5E6D8 70%, white 30%);
-  --evening:color-mix(in srgb, #D4C0B0 70%, #3A2A22 30%);
+  --evening:color-mix(in srgb, #D4C0B0 60%, white 40%);
   --special:color-mix(in srgb, #EAD8CC 60%, white 40%);
   --line:#EAD8CC;
   --border-radius:24px;
@@ -178,7 +178,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .card-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
 .card-name{font-size:13px;font-weight:600;}
 .card-price{font-size:12px;color:var(--text-soft);font-weight:500;white-space:nowrap;}
-.lux-badge{display:inline-flex;align-items:center;gap:3px;background:var(--accent);color:white;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-top:2px;}
 .card-comment{font-size:12px;color:var(--text-soft);line-height:1.4;margin:4px 0 6px;}
 .shop-row{display:flex;flex-wrap:wrap;gap:4px;}
 .shop-chip{font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--text-soft);text-decoration:none;display:inline-flex;align-items:center;gap:3px;}
@@ -304,10 +303,17 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   border-color:var(--accent-dark);
   box-shadow:0 4px 12px rgba(0,0,0,0.10);
 }
+/* ===== ВЫДЕЛЕНИЕ СЕГОДНЯШНЕГО ДНЯ ===== */
 .day-node .day-circle.today{
-  border-color:var(--accent);
+  border-color:var(--accent-dark);
   border-width:3px;
-  box-shadow:0 0 0 4px rgba(232,168,124,0.2);
+  box-shadow:0 0 0 4px rgba(232,168,124,0.3), 0 0 20px rgba(232,168,124,0.2);
+  animation: pulse-today 2s ease-in-out infinite;
+}
+@keyframes pulse-today {
+  0% { box-shadow: 0 0 0 4px rgba(232,168,124,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(232,168,124,0.1); }
+  100% { box-shadow: 0 0 0 4px rgba(232,168,124,0.3); }
 }
 .day-node .day-circle.done-morning{
   background:var(--morning);
@@ -321,7 +327,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .day-node .day-circle.done-evening{
   background:var(--evening);
   border-color:#6A5A52;
-  color:white;
+  color:var(--text);
 }
 .day-node .day-circle.done-evening::after{
   content:'🌙';
@@ -758,7 +764,7 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
 let currentLang = localStorage.getItem('lang') || 'ru';
 
 // ============================================================
-// СТРОКИ (все на русском)
+// СТРОКИ
 // ============================================================
 const STR = {
   ru: {
@@ -837,14 +843,14 @@ const ICONS = {
   link: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>',
   warn: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L22 20.5H2L12 3.5z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>',
   note: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>',
-  lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>',
   warning: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="none"/></svg>',
 };
 
 // ============================================================
-// ДАННЫЕ ДЛЯ ОКСАНЫ (из таблицы) — все поля заполнены
+// ДАННЫЕ ДЛЯ ОКСАНЫ (полные, включая вечерние шаги)
 // ============================================================
 
+// Утренние шаги (как было)
 const morningSteps = [
   {num:1, label:{ru:'Очищение', en:'Cleansing'}, products:[
     {name:{ru:'Vichy Pureté Thermale Radiance Cleansing Foam 150ml', en:'Vichy Pureté Thermale Radiance Cleansing Foam 150ml'}, price:'~€13–15', icon:'cleanser',
@@ -934,29 +940,30 @@ const morningSteps = [
   ]}
 ];
 
-// Вечерние шаги (4 типа вечеров)
+// Вечерние шаги (4 типа вечеров, каждый содержит массив продуктов)
+// Каждый продукт — это отдельный шаг, поэтому мы будем использовать их как шаги в модалке.
 const eveningSteps = [
   {num:'A', label:{ru:'Вечер A — сильный ретинол', en:'Evening A — Strong Retinol'}, products:[
     {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
-      comment:{ru:'Очищение', en:'Cleanse'},
+      comment:{ru:'Очищение — нанести на влажную кожу, вспенить, смыть.', en:'Cleanse — apply to damp skin, lather, rinse.'},
       skinType:{ru:'Все типы', en:'All types'},
       ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
       usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
     {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner',
-      comment:{ru:'Тонер', en:'Toner'},
+      comment:{ru:'Тонер — увлажняет, подготавливает кожу.', en:'Toner — hydrates, preps skin.'},
       skinType:{ru:'Все типы', en:'All types'},
       ingredients:{ru:'9 пептидов, гиалуроновая кислота, коллаген', en:'9 peptides, hyaluronic acid, collagen'},
       usage:{ru:'На ватный диск, вбить похлопывающими движениями.', en:'Apply with cotton pad, pat into skin.'},
       shops:[{name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com'}]},
-    {name:{ru:'The Ordinary Retinol 1% in Squalane 30ml', en:'The Ordinary Retinol 1% in Squalane 30ml'}, price:'~€14–16', icon:'retinol',
+    {name:{ru:'The Ordinary Retinol 1% in Squalane', en:'The Ordinary Retinol 1% in Squalane'}, price:'~€14–16', icon:'retinol',
       comment:{ru:'⚠️ На СУХУЮ кожу! Не сочетать с LRP Retinol B3.', en:'⚠️ On DRY skin! Do not combine with LRP Retinol B3.'},
       skinType:{ru:'Для опытных пользователей ретинола', en:'For experienced retinol users'},
       ingredients:{ru:'1% чистый ретинол, скваланы, масло жожоба', en:'1% pure retinol, squalane, jojoba oil'},
       usage:{ru:'Небольшое количество вечером на сухую кожу, перед кремом.', en:'Small amount in the evening on dry skin, before cream.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]},
     {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm',
-      comment:{ru:'Крем', en:'Cream'},
+      comment:{ru:'Крем — завершающий уход.', en:'Cream — final step.'},
       skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
       ingredients:{ru:'3 вида гиалуроновой кислоты, B5, эктоин', en:'3 types of hyaluronic acid, B5, ectoin'},
       usage:{ru:'Горошина на очищенную кожу.', en:'Pea-sized amount on cleansed skin.'},
@@ -964,25 +971,25 @@ const eveningSteps = [
   ]},
   {num:'B', label:{ru:'Вечер B — мягкий ретинол', en:'Evening B — Gentle Retinol'}, products:[
     {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
-      comment:{ru:'Очищение', en:'Cleanse'},
+      comment:{ru:'Очищение — нанести на влажную кожу, вспенить, смыть.', en:'Cleanse — apply to damp skin, lather, rinse.'},
       skinType:{ru:'Все типы', en:'All types'},
       ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
       usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
     {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner',
-      comment:{ru:'Тонер', en:'Toner'},
+      comment:{ru:'Тонер — увлажняет, подготавливает кожу.', en:'Toner — hydrates, preps skin.'},
       skinType:{ru:'Все типы', en:'All types'},
       ingredients:{ru:'9 пептидов, гиалуроновая кислота, коллаген', en:'9 peptides, hyaluronic acid, collagen'},
       usage:{ru:'На ватный диск, вбить похлопывающими движениями.', en:'Apply with cotton pad, pat into skin.'},
       shops:[{name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com'}]},
-    {name:{ru:'La Roche-Posay Retinol B3 Serum 30ml', en:'La Roche-Posay Retinol B3 Serum 30ml'}, price:'~€48', icon:'retinol',
+    {name:{ru:'La Roche-Posay Retinol B3 Serum', en:'La Roche-Posay Retinol B3 Serum'}, price:'~€48', icon:'retinol',
       comment:{ru:'⚠️ На СУХУЮ кожу! Не сочетать с The Ordinary Retinol 1%.', en:'⚠️ On DRY skin! Do not combine with The Ordinary Retinol 1%.'},
       skinType:{ru:'Чувствительная кожа (мягче классического ретинола)', en:'Sensitive skin (gentler than classic retinol)'},
       ingredients:{ru:'Чистый + пролонгированный ретинол, ниацинамид B3, глицерин', en:'Pure + gradual-release retinol, niacinamide B3, glycerin'},
       usage:{ru:'Вечером на сухую кожу.', en:'Evening on dry skin.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]},
     {name:{ru:'Medicube Collagen Jelly Cream', en:'Medicube Collagen Jelly Cream'}, price:'~€25–30', icon:'mask',
-      comment:{ru:'Крем', en:'Cream'},
+      comment:{ru:'Крем — завершающий уход.', en:'Cream — final step.'},
       skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
       ingredients:{ru:'Гидролизованный коллаген, ниацинамид, скваланы', en:'Hydrolyzed collagen, niacinamide, squalane'},
       usage:{ru:'Четверть монеты, вбить похлопываниями.', en:'Quarter-size, pat into skin.'},
@@ -995,14 +1002,14 @@ const eveningSteps = [
       ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
       usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
-    {name:{ru:'The Ordinary Glycolic Acid 7% Exfoliating Toner 240ml', en:'The Ordinary Glycolic Acid 7% Exfoliating Toner 240ml'}, price:'~€13–14', icon:'acid',
+    {name:{ru:'The Ordinary Glycolic Acid 7% Exfoliating Toner', en:'The Ordinary Glycolic Acid 7% Exfoliating Toner'}, price:'~€13–14', icon:'acid',
       comment:{ru:'⚠️ БЕЗ ретинола и других кислот в этот вечер!', en:'⚠️ NO retinol or other acids this night!'},
       skinType:{ru:'НЕ подходит для чувствительной, шелушащейся или повреждённой кожи', en:'NOT for sensitive, flaking or damaged skin'},
       ingredients:{ru:'Гликолевая кислота 7%, таманский перец, женьшень, алоэ вера', en:'Glycolic acid 7%, tamanu pepper, ginseng, aloe vera'},
       usage:{ru:'Вечером на ватный диск, 2–3 раза в неделю. Не наносить на область глаз.', en:'Evening on cotton pad, 2–3x per week. Avoid eye area.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]},
     {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm',
-      comment:{ru:'Крем', en:'Cream'},
+      comment:{ru:'Крем — завершающий уход.', en:'Cream — final step.'},
       skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
       ingredients:{ru:'3 вида гиалуроновой кислоты, B5, эктоин', en:'3 types of hyaluronic acid, B5, ectoin'},
       usage:{ru:'Горошина на очищенную кожу.', en:'Pea-sized amount on cleansed skin.'},
@@ -1028,7 +1035,7 @@ const eveningSteps = [
       usage:{ru:'Несколько капель на очищенную кожу.', en:'A few drops on cleansed skin.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
     {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm',
-      comment:{ru:'Крем', en:'Cream'},
+      comment:{ru:'Крем — завершающий уход.', en:'Cream — final step.'},
       skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
       ingredients:{ru:'3 вида гиалуроновой кислоты, B5, эктоин', en:'3 types of hyaluronic acid, B5, ectoin'},
       usage:{ru:'Горошина на очищенную кожу.', en:'Pea-sized amount on cleansed skin.'},
@@ -1036,7 +1043,7 @@ const eveningSteps = [
   ]}
 ];
 
-// Правила
+// Правила (без изменений)
 const rules = [
   {text:{ru:'В наборе ДВА ретинола — The Ordinary Retinol 1% и La Roche-Posay Retinol B3. Использовать только по очереди, никогда не в одну ночь.', en:'TWO retinols in this set — The Ordinary Retinol 1% and La Roche-Posay Retinol B3. Use alternately, never on the same night.'}, caution:true},
   {text:{ru:'Гликолевая кислота — отдельный вечер. Не использовать с ретинолом или другими кислотами. Максимум 1 раз в неделю.', en:'Glycolic acid — separate evening. Do not use with retinol or other acids. Max 1x per week.'}, caution:true},
@@ -1061,7 +1068,7 @@ const shopsInfo = [
 ];
 
 // ============================================================
-// ПРЕДОСТЕРЕЖЕНИЯ ДЛЯ ПРОДУКТОВ (соответствуют данным)
+// ПРЕДОСТЕРЕЖЕНИЯ
 // ============================================================
 const warningsData = {
   'medipeel-toner': {
@@ -1179,18 +1186,16 @@ function renderPath(container, steps, zoneClass){
   }).join('');
 }
 
-// --- МОДАЛКА ПРОДУКТА (показывает все характеристики) ---
+// --- МОДАЛКА ПРОДУКТА (показывает характеристики) ---
 function openProductModal(card) {
   const nameEl = card.querySelector('.card-name');
   const priceEl = card.querySelector('.card-price');
   const commentEl = card.querySelector('.card-comment');
-  const luxBadge = card.querySelector('.lux-badge');
   const shopChips = card.querySelectorAll('.shop-chip');
   const iconHtml = card.querySelector('.card-icon')?.innerHTML || '';
   const name = nameEl ? nameEl.textContent : '';
   const price = priceEl ? priceEl.textContent : '';
   const comment = commentEl ? commentEl.textContent : '';
-  const isLux = !!luxBadge;
   const shops = Array.from(shopChips).map(el => ({ name: el.textContent.trim(), url: el.href }));
 
   const skin = card.dataset.skin || '';
@@ -1242,8 +1247,6 @@ function openProductModal(card) {
             <div class="product-detail-price">${price}</div>
           </div>
         </div>
-        <div class="product-detail-badges">
-        </div>
         <div class="product-detail-comment">${comment}</div>
         ${extraHtml}
         ${shopsHtml}
@@ -1271,7 +1274,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ============================================================
-// КАЛЕНДАРЬ с разделением на УТРО и ВЕЧЕР
+// КАЛЕНДАРЬ с разделением на УТРО и ВЕЧЕР и пошаговым вечером
 // ============================================================
 let currentYear = 2026;
 let currentMonth = 6;
@@ -1302,6 +1305,7 @@ function generateRoutine(y,m,d){
 
 function getRoutineForDay(y,m,d){
   const auto = generateRoutine(y,m,d);
+  // Утро — пошагово, как раньше
   const morningProducts = morningSteps.map(step => {
     if (step.split) {
       const options = [];
@@ -1322,10 +1326,22 @@ function getRoutineForDay(y,m,d){
       return { label: tr(step.label), products: step.products.map(p=>tr(p.name)).join(', ') };
     }
   });
+
+  // Вечер — пошагово, используем продукты из eveningStep как отдельные шаги
   const eveningStep = auto.eveningStep;
-  const eveningProducts = eveningStep ? eveningStep.products.map(p=>tr(p.name)).join(', ') : '—';
+  let eveningStepsList = [];
+  if (eveningStep && eveningStep.products) {
+    // Каждый продукт — это шаг
+    eveningStepsList = eveningStep.products.map(p => ({
+      label: tr(p.name),
+      products: tr(p.comment) // используем комментарий как описание шага
+    }));
+  } else {
+    eveningStepsList = [{ label: 'Вечер', products: '—' }];
+  }
+
   const special = (auto.eveningType === 'C') ? 'Вечер с гликолевой кислотой' : (auto.eveningType === 'D' ? 'Восстановительный вечер' : '—');
-  return { morning: morningProducts, evening: [{ label: tr(eveningStep?.label || 'Вечер'), products: eveningProducts }], special: special };
+  return { morning: morningProducts, evening: eveningStepsList, special: special };
 }
 
 function renderSnake(){
@@ -1418,8 +1434,11 @@ function showModalForDate(y,m,d){
   const dateFormatted = dateObj.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'ru-RU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
   const daysInMonth = new Date(y,m+1,0).getDate();
   const hasPrev = d>1, hasNext = d<daysInMonth;
+  // Утро — пошагово
   let morningHtml = routine.morning.map(item=>`<div class="step-item"><span class="step-label">${item.label}:</span> <span class="product-name">${item.products}</span></div>`).join('');
+  // Вечер — пошагово (каждый продукт как шаг)
   let eveningHtml = routine.evening.map(item=>`<div class="step-item"><span class="step-label">${item.label}:</span> <span class="product-name">${item.products}</span></div>`).join('');
+
   const html = `
     <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
       <div class="modal-box">
@@ -1533,8 +1552,7 @@ function applyFilters(){
     const name=card.dataset.name;
     const comment=card.dataset.comment;
     const matchesQuery=!q || name.includes(q) || comment.includes(q);
-    // фильтрация по "только рекомендованные" убрана, так как мы убрали метку, но оставим функционал, если вдруг понадобится
-    const show = matchesQuery; // больше нет фильтрации по рекомендованным
+    const show = matchesQuery;
     card.style.display=show?'':'none';
     if(show) visibleCount++;
   });
