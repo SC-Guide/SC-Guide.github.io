@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta property="og:title" content="Skincare Guide — Планер Оксаны" />
-<meta property="og:description" content="Персональный планировщик ухода за кожей для Оксаны с календарём, двуязычным интерфейсом и автоматическим расписанием." />
+<meta property="og:description" content="Персональный планировщик ухода за кожей для Оксаны с календарём и полной информацией о продуктах." />
 <meta property="og:image" content="https://vyshnevska2503-code.github.io/SkinGuide/og-image-en.png" />
 <meta property="og:url" content="https://vyshnevska2503-code.github.io/SkinGuide/planner-oksana.html" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -15,45 +15,41 @@
 <link rel="apple-touch-icon" href="og-image-en.png" />
 <meta name="apple-mobile-web-app-title" content="Планер Оксаны" />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237EB5A6'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23E8A87C'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='56' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ESG%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 <title>Skincare Guide — Планер Оксаны</title>
 
-<!-- Firebase SDK (compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
 <style>
-/* ===== ПОЛНЫЙ CSS (копия из my-planner.html с доработками) ===== */
+/* ===== ПЕРСИКОВО-БЕЖЕВАЯ ПАЛИТРА ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root{
-  --bg:#F2F2F2;
+  --bg:#FDF8F3;
   --card-bg:#FFFFFF;
-  --card-shadow:0 12px 32px rgba(239,108,87,0.10);
-  --text:#2D2D2D;
-  --text-soft:#5A5A5A;
-  --text-light:#8A8A8A;
-  --accent:#7ED3B2;
-  --accent-dark:#EF6C57;
-  --morning:color-mix(in srgb, #B9E6D3 45%, white 55%);
-  --evening:color-mix(in srgb, #B9E6D3 68%, white 32%);
-  --special:color-mix(in srgb, #7ED3B2 30%, white 70%);
-  --line:#7ED3B2;
+  --card-shadow:0 12px 32px rgba(212,140,107,0.12);
+  --text:#4A3A32;
+  --text-soft:#7A6A62;
+  --text-light:#A09088;
+  --accent:#E8A87C;
+  --accent-dark:#D48C6B;
+  --morning:color-mix(in srgb, #F5E6D8 70%, white 30%);
+  --evening:color-mix(in srgb, #D4C0B0 70%, #3A2A22 30%);
+  --special:color-mix(in srgb, #EAD8CC 60%, white 40%);
+  --line:#EAD8CC;
   --border-radius:24px;
   --font-serif:Georgia, 'Times New Roman', serif;
   --font-sans:'Inter', system-ui, -apple-system, sans-serif;
 }
 [data-theme="dark"]{
-  --bg:#1A1A1A;
-  --card-bg:#2A2A2A;
-  --text:#E8E8E8;
-  --text-soft:#B0B0B0;
-  --text-light:#888;
+  --bg:#2A221E;
+  --card-bg:#3A322E;
+  --text:#F0E8E0;
+  --text-soft:#C0B0A8;
+  --text-light:#908078;
   --card-shadow:0 12px 32px rgba(0,0,0,0.5);
-  --morning:color-mix(in srgb, #2A4A3A 60%, #1A2A22 40%);
-  --evening:color-mix(in srgb, #3A2A3A 60%, #2A1A22 40%);
-  --special:color-mix(in srgb, #3A4A3A 60%, #2A3A2A 40%);
-  --line:#5A9A8A;
+  --morning:color-mix(in srgb, #5A4A42 60%, #3A2A22 40%);
+  --evening:color-mix(in srgb, #4A3A32 60%, #2A1A12 40%);
+  --special:color-mix(in srgb, #5A4A42 60%, #3A2A22 40%);
+  --line:#6A5A52;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -115,21 +111,20 @@ header{
 }
 .search-box input:focus{border-color:var(--accent-dark);}
 .search-box svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);opacity:0.4;width:14px;height:14px;}
-.pill-toggle,.theme-toggle,.lang-toggle,#authBtn{
+.pill-toggle,.theme-toggle,.lang-toggle{
   display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;min-height:32px;
   border:1px solid var(--line);background:var(--card-bg);cursor:pointer;
   font-size:12px;font-weight:500;color:var(--text-soft);
   transition:all .15s ease;user-select:none;white-space:nowrap;
 }
 .pill-toggle.active{background:var(--accent);border-color:var(--accent-dark);color:white;}
-.lang-toggle:hover,.theme-toggle:hover,.pill-toggle:hover,#authBtn:hover{
+.lang-toggle:hover,.theme-toggle:hover,.pill-toggle:hover{
   background:var(--accent);color:white;border-color:var(--accent-dark);
 }
 .right-tools{
   display:flex;gap:6px;align-items:center;margin-left:auto;
 }
 .result-count{font-size:11px;color:var(--accent-dark);font-weight:600;white-space:nowrap;}
-.user-avatar{width:24px;height:24px;border-radius:50%;margin-right:4px;}
 nav{
   display:flex;gap:4px;padding:6px 0 8px;overflow-x:auto;
   -ms-overflow-style:none;scrollbar-width:none;
@@ -155,6 +150,7 @@ nav a:hover{background:var(--accent);color:white;}
 section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .zone-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
 .zone-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;flex-shrink:0;}
+.zone-icon svg{width:18px;height:18px;}
 .zone-title{font-family:var(--font-serif);font-size:clamp(18px,3vw,22px);font-weight:700;color:var(--text);}
 .zone-sub{font-size:12px;color:var(--text-soft);margin:6px 0 12px;max-width:560px;line-height:1.5;}
 .path{margin-top:16px;}
@@ -182,7 +178,6 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .card-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
 .card-name{font-size:13px;font-weight:600;}
 .card-price{font-size:12px;color:var(--text-soft);font-weight:500;white-space:nowrap;}
-.star-badge{display:inline-flex;align-items:center;gap:2px;color:var(--accent-dark);font-size:10px;font-weight:600;margin-top:2px;}
 .lux-badge{display:inline-flex;align-items:center;gap:3px;background:var(--accent);color:white;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-top:2px;}
 .card-comment{font-size:12px;color:var(--text-soft);line-height:1.4;margin:4px 0 6px;}
 .shop-row{display:flex;flex-wrap:wrap;gap:4px;}
@@ -312,11 +307,11 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .day-node .day-circle.today{
   border-color:var(--accent);
   border-width:3px;
-  box-shadow:0 0 0 4px rgba(126,211,178,0.2);
+  box-shadow:0 0 0 4px rgba(232,168,124,0.2);
 }
 .day-node .day-circle.done-morning{
   background:var(--morning);
-  border-color:#4A9A7A;
+  border-color:#B8A090;
 }
 .day-node .day-circle.done-morning::after{
   content:'☀️';
@@ -325,7 +320,8 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 }
 .day-node .day-circle.done-evening{
   background:var(--evening);
-  border-color:#7A4A7A;
+  border-color:#6A5A52;
+  color:white;
 }
 .day-node .day-circle.done-evening::after{
   content:'🌙';
@@ -401,8 +397,17 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
   padding:12px 16px;
   border-radius:16px;
 }
-.routine-block.morning-block{background:var(--morning);}
-.routine-block.evening-block{background:var(--evening);}
+.routine-block.morning-block{
+  background:var(--morning);
+  color:var(--text);
+}
+.routine-block.evening-block{
+  background:var(--evening);
+  color:var(--text);
+}
+.routine-block.evening-block .step-item .product-name{
+  color:var(--text-soft);
+}
 .routine-block.special-block{background:var(--special);}
 .routine-block h4{
   font-size:14px;font-weight:700;
@@ -473,7 +478,7 @@ section.zone{padding:32px 0 6px;scroll-margin-top:120px;}
 .product-modal .product-detail-disclaimer{font-size:11px;color:var(--text-light);margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);line-height:1.5;}
 footer{
   margin-top:30px;padding:20px 0 30px;
-  border-top:1px solid rgba(239,108,87,0.15);
+  border-top:1px solid rgba(212,140,107,0.15);
   text-align:center;
 }
 footer p{font-size:12px;color:var(--text-light);margin:4px 0;}
@@ -501,19 +506,19 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: rgba(239, 108, 87, 0.12);
+  background: rgba(212,140,107,0.12);
   color: var(--accent-dark);
   font-size: 11px;
   font-weight: 600;
   padding: 2px 10px 2px 6px;
   border-radius: 999px;
-  border: 1px solid rgba(239, 108, 87, 0.25);
+  border: 1px solid rgba(212,140,107,0.25);
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 4px;
 }
 .warning-badge:hover {
-  background: rgba(239, 108, 87, 0.2);
+  background: rgba(212,140,107,0.2);
   transform: scale(1.02);
 }
 .warning-badge svg {
@@ -588,7 +593,7 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
   line-height: 1.6;
   color: var(--text);
   padding: 12px 16px;
-  background: rgba(239, 108, 87, 0.06);
+  background: rgba(212,140,107,0.06);
   border-radius: 12px;
   border-left: 4px solid var(--accent-dark);
   margin: 0 0 16px;
@@ -654,8 +659,7 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
         <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
         <div class="right-tools">
           <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
-          <button class="theme-toggle" id="themeToggle" title="Переключить тему"><span data-icon="moon" style="display:inline-block; width:16px; height:16px;"></span></button>
-          <button class="pill-toggle" id="authBtn">Войти через Google</button>
+          <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
           <span class="result-count" id="resultCount"></span>
         </div>
       </div>
@@ -673,10 +677,10 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
 <div class="wrap">
   <div class="hero">
     <div class="stats">
-      <div class="stat"><div class="stat-icon"><span data-icon="sun"></span></div><div><div class="num">6</div><div class="lbl" id="statMorningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon"><span data-icon="moon"></span></div><div><div class="num">4</div><div class="lbl" id="statEveningLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon"><span data-icon="list"></span></div><div><div class="num">10</div><div class="lbl" id="statRulesLbl"></div></div></div>
-      <div class="stat"><div class="stat-icon"><span data-icon="shopping-bag"></span></div><div><div class="num">6</div><div class="lbl">Магазины</div></div></div>
+      <div class="stat"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div><div><div class="num">6</div><div class="lbl" id="statMorningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div><div><div class="num">4</div><div class="lbl" id="statEveningLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><div><div class="num">10</div><div class="lbl" id="statRulesLbl"></div></div></div>
+      <div class="stat"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div><div class="num">6</div><div class="lbl">Магазины</div></div></div>
     </div>
   </div>
 
@@ -684,39 +688,39 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
 
   <!-- ===== УТРО ===== -->
   <section class="zone morning" id="morning">
-    <div class="zone-head"><div class="zone-icon"><span data-icon="sun"></span></div><p class="zone-title" id="titleMorning"></p></div>
+    <div class="zone-head"><div class="zone-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div><p class="zone-title" id="titleMorning"></p></div>
     <div class="path" id="morning-path"></div>
   </section>
 
   <!-- ===== ВЕЧЕР ===== -->
   <section class="zone evening" id="evening">
-    <div class="zone-head"><div class="zone-icon"><span data-icon="moon"></span></div><p class="zone-title" id="titleEvening"></p></div>
+    <div class="zone-head"><div class="zone-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div><p class="zone-title" id="titleEvening"></p></div>
     <div class="path" id="evening-path"></div>
   </section>
 
   <!-- ===== ПРАВИЛА ===== -->
   <section class="zone" id="rules">
-    <div class="zone-head"><div class="zone-icon"><span data-icon="list"></span></div><p class="zone-title" id="titleRules"></p></div>
+    <div class="zone-head"><div class="zone-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><p class="zone-title" id="titleRules"></p></div>
     <div class="rules-grid" id="rules-grid"></div>
   </section>
 
   <!-- ===== МАГАЗИНЫ ===== -->
   <section class="shops-section" id="shops">
-    <div class="zone-head"><div class="zone-icon"><span data-icon="shopping-bag"></span></div><p class="zone-title" id="titleShops"></p></div>
+    <div class="zone-head"><div class="zone-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><p class="zone-title" id="titleShops"></p></div>
     <p class="zone-sub" id="subShops"></p>
     <div class="shops-grid" id="shops-grid"></div>
   </section>
 
   <!-- ===== КАЛЕНДАРЬ ===== -->
   <section class="zone" id="calendar" style="scroll-margin-top:120px;">
-    <div class="zone-head"><div class="zone-icon"><span data-icon="calendar"></span></div><p class="zone-title" id="titleCalendar"></p></div>
+    <div class="zone-head"><div class="zone-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><p class="zone-title" id="titleCalendar"></p></div>
     <div class="calendar-wrapper">
       <div class="calendar-header">
         <h2 id="calendarMonthLabel"></h2>
         <div class="calendar-nav">
           <button id="prevMonthBtn">‹</button>
           <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Настройки"><span data-icon="settings"></span></button>
+          <button class="settings-btn" id="settingsBtn" title="Настройки"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
         </div>
       </div>
       <div class="snake-container" id="snakeContainer"></div>
@@ -735,8 +739,8 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
 <!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПРЕДОСТЕРЕЖЕНИЙ ===== -->
 <div class="warning-modal-overlay" id="warningModal">
   <div class="warning-modal">
-    <button class="modal-close" onclick="closeWarningModal()"><span data-icon="x"></span></button>
-    <h3><span data-icon="warning"></span></h3>
+    <button class="modal-close" onclick="closeWarningModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="none"/></svg></h3>
     <div class="product-name-modal" id="warningProductName"></div>
     <div class="warning-text" id="warningText"></div>
     <div class="warning-extra" id="warningExtra"></div>
@@ -745,41 +749,9 @@ footer .footer-disclaimer{font-size:11px;color:var(--text-light);max-width:700px
 </div>
 
 <!-- ============================================================ -->
-<!-- ===== ВСЕ СКРИПТЫ (FIREBASE, СТРОКИ, ДАННЫЕ, ФУНКЦИИ) ===== -->
+<!-- ===== ВСЕ СКРИПТЫ (БЕЗ FIREBASE) ===== -->
 <!-- ============================================================ -->
 <script>
-// ============================================================
-// FIREBASE INIT
-// ============================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyBhAUTiDxTuaJ-QFx-Oirr0fY3dViKTSJM",
-  authDomain: "sg-project-b13f4.firebaseapp.com",
-  projectId: "sg-project-b13f4",
-  storageBucket: "sg-project-b13f4.firebasestorage.app",
-  messagingSenderId: "655859312735",
-  appId: "1:655859312735:web:7e9a9b8488654f696bd3ea",
-  measurementId: "G-L4MCEVBDCN"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-const authBtn = document.getElementById('authBtn');
-
-function updateAuthUI(user) {
-  if (user) {
-    const displayName = user.displayName || user.email || 'Пользователь';
-    const photoURL = user.photoURL;
-    let avatarHtml = '';
-    if (photoURL) avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
-    authBtn.innerHTML = `${avatarHtml} ${displayName} (Выйти)`;
-    authBtn.onclick = () => auth.signOut().then(() => updateAuthUI(null)).catch(console.error);
-  } else {
-    authBtn.innerHTML = 'Войти через Google';
-    authBtn.onclick = () => auth.signInWithPopup(provider).catch(console.error);
-  }
-}
-auth.onAuthStateChanged(updateAuthUI);
-
 // ============================================================
 // ЯЗЫК (по умолчанию русский)
 // ============================================================
@@ -850,7 +822,7 @@ const STR = {
 };
 
 // ============================================================
-// ИКОНКИ (все минималистичные SVG)
+// ИКОНКИ (минималистичные SVG)
 // ============================================================
 const ICONS = {
   cleanser: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 6 7.5 6 11.5A6 6 0 0 1 6 13.5C6 9.5 9 6 12 2z"/></svg>',
@@ -867,22 +839,15 @@ const ICONS = {
   note: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>',
   lux: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4.5-6h9L21 9l-9 12L3 9z"/><path d="M3 9h18M9.5 9L12 21M14.5 9L12 21M7.5 3L9.5 9M16.5 3L14.5 9"/></svg>',
   warning: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="none"/></svg>',
-  sun: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
-  moon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
-  'shopping-bag': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
-  calendar: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-  list: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
-  x: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
-  settings: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>'
 };
 
 // ============================================================
-// ДАННЫЕ ДЛЯ ОКСАНЫ (из таблицы)
+// ДАННЫЕ ДЛЯ ОКСАНЫ (из таблицы) — все поля заполнены
 // ============================================================
 
 const morningSteps = [
   {num:1, label:{ru:'Очищение', en:'Cleansing'}, products:[
-    {name:{ru:'Vichy Pureté Thermale Radiance Cleansing Foam 150ml', en:'Vichy Pureté Thermale Radiance Cleansing Foam 150ml'}, price:'~€13–15', icon:'cleanser', rec:true,
+    {name:{ru:'Vichy Pureté Thermale Radiance Cleansing Foam 150ml', en:'Vichy Pureté Thermale Radiance Cleansing Foam 150ml'}, price:'~€13–15', icon:'cleanser',
       comment:{ru:'Мягко очищает без стянутости, укрепляет барьер', en:'Gentle cleansing without tightness, strengthens skin barrier'},
       skinType:{ru:'Чувствительная, вокруг глаз', en:'Sensitive, eye area'},
       ingredients:{ru:'Термальная вода Vichy, Moringa, ниацинамид B3, мягкие ПАВ', en:'Vichy thermal water, Moringa, niacinamide B3, mild surfactants'},
@@ -890,7 +855,7 @@ const morningSteps = [
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}, {name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}]}
   ]},
   {num:2, label:{ru:'Тонер', en:'Toner'}, products:[
-    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner 250ml', en:'Medi-Peel Peptide 9 Aqua Essence Toner 250ml'}, price:'~€25–29', icon:'toner', rec:true,
+    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner 250ml', en:'Medi-Peel Peptide 9 Aqua Essence Toner 250ml'}, price:'~€25–29', icon:'toner',
       comment:{ru:'Увлажняет, повышает упругость, лёгкий лифтинг-эффект', en:'Hydrates, boosts elasticity, subtle lifting effect'},
       skinType:{ru:'Все типы, особенно зрелая и обезвоженная', en:'All types, especially mature and dehydrated'},
       ingredients:{ru:'Комплекс из 9 пептидов, Volufiline, 4 вида гиалуроновой кислоты, коллаген, аденозин', en:'9-peptide complex, Volufiline, 4 types of hyaluronic acid, collagen, adenosine'},
@@ -898,24 +863,24 @@ const morningSteps = [
       shops:[{name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}, {name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]}
   ]},
   {num:3, label:{ru:'Сыворотка (чередовать по дням)', en:'Serum (alternate by day)'}, split:{
-    a:{title:{ru:'День A · Пн/Ср/Пт', en:'Day A · Mon/Wed/Fri'}, products:[
-      {name:{ru:'The Ordinary Multi-Peptide + HA Serum 30ml', en:'The Ordinary Multi-Peptide + HA Serum 30ml'}, price:'~€11–19', icon:'acid', rec:true,
+    a:{title:{ru:'Пн/Ср/Пт', en:'Mon/Wed/Fri'}, products:[
+      {name:{ru:'The Ordinary Multi-Peptide + HA Serum 30ml', en:'The Ordinary Multi-Peptide + HA Serum 30ml'}, price:'~€11–19', icon:'acid',
         comment:{ru:'Уменьшает "гусиные лапки", повышает упругость, увлажняет', en:'Reduces fine lines, boosts firmness, hydrates'},
         skinType:{ru:'Все типы', en:'All types'},
         ingredients:{ru:'5 пептидных технологий, аминокислоты, гиалуроновая кислота', en:'5 peptide technologies, amino acids, hyaluronic acid'},
         usage:{ru:'Несколько капель на очищенную кожу. Утро и вечер.', en:'A few drops on cleansed skin. Morning and evening.'},
         shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]}
     ]},
-    b:{title:{ru:'День Б · Вт/Чт/Сб', en:'Day B · Tue/Thu/Sat'}, products:[
-      {name:{ru:'La Roche-Posay Hyalu B5 Serum 30ml', en:'La Roche-Posay Hyalu B5 Serum 30ml'}, price:'~€41–52', icon:'spf', rec:true,
+    b:{title:{ru:'Вт/Чт/Сб', en:'Tue/Thu/Sat'}, products:[
+      {name:{ru:'La Roche-Posay Hyalu B5 Serum 30ml', en:'La Roche-Posay Hyalu B5 Serum 30ml'}, price:'~€41–52', icon:'spf',
         comment:{ru:'Глубокое увлажнение, упругость, разглаживание морщин', en:'Deep hydration, plumping, smooths wrinkles'},
         skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
         ingredients:{ru:'4 вида гиалуроновой кислоты, витамин B5, мадекассозид, термальная вода', en:'4 types of hyaluronic acid, vitamin B5, madecassoside, thermal water'},
         usage:{ru:'3–4 капли утром/вечером.', en:'3–4 drops morning/evening.'},
         shops:[{name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]}
     ]},
-    c:{title:{ru:'День В · Воскресенье', en:'Day C · Sunday'}, products:[
-      {name:{ru:'Medicube PDRN Pink Peptide Serum 30ml', en:'Medicube PDRN Pink Peptide Serum 30ml'}, price:'~€25–30', icon:'retinol', rec:true,
+    c:{title:{ru:'Воскресенье', en:'Sunday'}, products:[
+      {name:{ru:'Medicube PDRN Pink Peptide Serum 30ml', en:'Medicube PDRN Pink Peptide Serum 30ml'}, price:'~€25–30', icon:'retinol',
         comment:{ru:'Повышает упругость, выравнивает тон, эффект "стеклянной кожи"', en:'Boosts firmness, evens skin tone, glass skin effect'},
         skinType:{ru:'Все типы', en:'All types'},
         ingredients:{ru:'PDRN (ДНК лосося) 1%, 5 видов пептидов, ниацинамид, коллаген', en:'PDRN (salmon DNA) 1%, 5 peptides, niacinamide, collagen'},
@@ -924,16 +889,16 @@ const morningSteps = [
     ]}
   }},
   {num:4, label:{ru:'Увлажняющий крем (чередовать)', en:'Moisturizer (alternate)'}, split:{
-    a:{title:{ru:'День A · Пн/Ср/Пт', en:'Day A · Mon/Wed/Fri'}, products:[
-      {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream 50ml', en:'La Roche-Posay Hyalu B5 Suractivated Cream 50ml'}, price:'~€43.70', icon:'balm', rec:true,
+    a:{title:{ru:'Пн/Ср/Пт', en:'Mon/Wed/Fri'}, products:[
+      {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream 50ml', en:'La Roche-Posay Hyalu B5 Suractivated Cream 50ml'}, price:'~€43.70', icon:'balm',
         comment:{ru:'Увлажнение 72ч, укрепление барьера, разглаживание', en:'72h hydration, barrier repair, smoothing'},
         skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
         ingredients:{ru:'3 вида гиалуроновой кислоты, витамин B5, эктоин, термальная вода', en:'3 types of hyaluronic acid, vitamin B5, ectoin, thermal water'},
         usage:{ru:'Горошина на очищенную кожу. Утро и вечер. Утром — под SPF.', en:'Pea-sized amount on cleansed skin. Morning and evening. Under SPF in the AM.'},
         shops:[{name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]}
     ]},
-    b:{title:{ru:'День Б · Вт/Чт/Сб/Вс', en:'Day B · Tue/Thu/Sat/Sun'}, products:[
-      {name:{ru:'Medicube Collagen Jelly Cream 110ml', en:'Medicube Collagen Jelly Cream 110ml'}, price:'~€25–30', icon:'mask', rec:true,
+    b:{title:{ru:'Вт/Чт/Сб/Вс', en:'Tue/Thu/Sat/Sun'}, products:[
+      {name:{ru:'Medicube Collagen Jelly Cream 110ml', en:'Medicube Collagen Jelly Cream 110ml'}, price:'~€25–30', icon:'mask',
         comment:{ru:'Увлажнение, упругость, сияние "glass skin"', en:'Hydration, firmness, glass skin glow'},
         skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
         ingredients:{ru:'Гидролизованный коллаген, ниацинамид, экстракт черники, скваланы, эластин', en:'Hydrolyzed collagen, niacinamide, blueberry extract, squalane, elastin'},
@@ -943,7 +908,7 @@ const morningSteps = [
   }},
   {num:5, label:{ru:'SPF — защита', en:'SPF — Protection'}, split:{
     a:{title:{ru:'Основной', en:'Main'}, products:[
-      {name:{ru:'La Roche-Posay Anthelios Age Correct SPF50 50ml', en:'La Roche-Posay Anthelios Age Correct SPF50 50ml'}, price:'~€30–34', icon:'spf', rec:true,
+      {name:{ru:'La Roche-Posay Anthelios Age Correct SPF50 50ml', en:'La Roche-Posay Anthelios Age Correct SPF50 50ml'}, price:'~€30–34', icon:'spf',
         comment:{ru:'SPF50 широкого спектра + анти-эйдж эффект', en:'Broad spectrum SPF50 + anti-aging effect'},
         skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
         ingredients:{ru:'Cellox-B3 Tech (Mexoryl XL + B3/E), гиалуроновая кислота, PHE-резорцин, ниацинамид', en:'Cellox-B3 Tech (Mexoryl XL + B3/E), hyaluronic acid, PHE-resorcinol, niacinamide'},
@@ -972,56 +937,101 @@ const morningSteps = [
 // Вечерние шаги (4 типа вечеров)
 const eveningSteps = [
   {num:'A', label:{ru:'Вечер A — сильный ретинол', en:'Evening A — Strong Retinol'}, products:[
-    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser', rec:true,
+    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
       comment:{ru:'Очищение', en:'Cleanse'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
+      usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
-    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner', rec:true,
+    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner',
       comment:{ru:'Тонер', en:'Toner'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'9 пептидов, гиалуроновая кислота, коллаген', en:'9 peptides, hyaluronic acid, collagen'},
+      usage:{ru:'На ватный диск, вбить похлопывающими движениями.', en:'Apply with cotton pad, pat into skin.'},
       shops:[{name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com'}]},
-    {name:{ru:'The Ordinary Retinol 1% in Squalane 30ml', en:'The Ordinary Retinol 1% in Squalane 30ml'}, price:'~€14–16', icon:'retinol', rec:true,
+    {name:{ru:'The Ordinary Retinol 1% in Squalane 30ml', en:'The Ordinary Retinol 1% in Squalane 30ml'}, price:'~€14–16', icon:'retinol',
       comment:{ru:'⚠️ На СУХУЮ кожу! Не сочетать с LRP Retinol B3.', en:'⚠️ On DRY skin! Do not combine with LRP Retinol B3.'},
+      skinType:{ru:'Для опытных пользователей ретинола', en:'For experienced retinol users'},
+      ingredients:{ru:'1% чистый ретинол, скваланы, масло жожоба', en:'1% pure retinol, squalane, jojoba oil'},
+      usage:{ru:'Небольшое количество вечером на сухую кожу, перед кремом.', en:'Small amount in the evening on dry skin, before cream.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]},
-    {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm', rec:true,
+    {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm',
       comment:{ru:'Крем', en:'Cream'},
+      skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
+      ingredients:{ru:'3 вида гиалуроновой кислоты, B5, эктоин', en:'3 types of hyaluronic acid, B5, ectoin'},
+      usage:{ru:'Горошина на очищенную кожу.', en:'Pea-sized amount on cleansed skin.'},
       shops:[{name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}]}
   ]},
   {num:'B', label:{ru:'Вечер B — мягкий ретинол', en:'Evening B — Gentle Retinol'}, products:[
-    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser', rec:true,
+    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
       comment:{ru:'Очищение', en:'Cleanse'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
+      usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
-    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner', rec:true,
+    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner',
       comment:{ru:'Тонер', en:'Toner'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'9 пептидов, гиалуроновая кислота, коллаген', en:'9 peptides, hyaluronic acid, collagen'},
+      usage:{ru:'На ватный диск, вбить похлопывающими движениями.', en:'Apply with cotton pad, pat into skin.'},
       shops:[{name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com'}]},
-    {name:{ru:'La Roche-Posay Retinol B3 Serum 30ml', en:'La Roche-Posay Retinol B3 Serum 30ml'}, price:'~€48', icon:'retinol', rec:true,
+    {name:{ru:'La Roche-Posay Retinol B3 Serum 30ml', en:'La Roche-Posay Retinol B3 Serum 30ml'}, price:'~€48', icon:'retinol',
       comment:{ru:'⚠️ На СУХУЮ кожу! Не сочетать с The Ordinary Retinol 1%.', en:'⚠️ On DRY skin! Do not combine with The Ordinary Retinol 1%.'},
+      skinType:{ru:'Чувствительная кожа (мягче классического ретинола)', en:'Sensitive skin (gentler than classic retinol)'},
+      ingredients:{ru:'Чистый + пролонгированный ретинол, ниацинамид B3, глицерин', en:'Pure + gradual-release retinol, niacinamide B3, glycerin'},
+      usage:{ru:'Вечером на сухую кожу.', en:'Evening on dry skin.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]},
-    {name:{ru:'Medicube Collagen Jelly Cream', en:'Medicube Collagen Jelly Cream'}, price:'~€25–30', icon:'mask', rec:true,
+    {name:{ru:'Medicube Collagen Jelly Cream', en:'Medicube Collagen Jelly Cream'}, price:'~€25–30', icon:'mask',
       comment:{ru:'Крем', en:'Cream'},
+      skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
+      ingredients:{ru:'Гидролизованный коллаген, ниацинамид, скваланы', en:'Hydrolyzed collagen, niacinamide, squalane'},
+      usage:{ru:'Четверть монеты, вбить похлопываниями.', en:'Quarter-size, pat into skin.'},
       shops:[{name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}]}
   ]},
   {num:'C', label:{ru:'Вечер C — эксфолиация (1 р/нед)', en:'Evening C — Exfoliation (1x/week)'}, products:[
-    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser', rec:true,
+    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
       comment:{ru:'Очищение', en:'Cleanse'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
+      usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
-    {name:{ru:'The Ordinary Glycolic Acid 7% Exfoliating Toner 240ml', en:'The Ordinary Glycolic Acid 7% Exfoliating Toner 240ml'}, price:'~€13–14', icon:'acid', rec:true,
+    {name:{ru:'The Ordinary Glycolic Acid 7% Exfoliating Toner 240ml', en:'The Ordinary Glycolic Acid 7% Exfoliating Toner 240ml'}, price:'~€13–14', icon:'acid',
       comment:{ru:'⚠️ БЕЗ ретинола и других кислот в этот вечер!', en:'⚠️ NO retinol or other acids this night!'},
+      skinType:{ru:'НЕ подходит для чувствительной, шелушащейся или повреждённой кожи', en:'NOT for sensitive, flaking or damaged skin'},
+      ingredients:{ru:'Гликолевая кислота 7%, таманский перец, женьшень, алоэ вера', en:'Glycolic acid 7%, tamanu pepper, ginseng, aloe vera'},
+      usage:{ru:'Вечером на ватный диск, 2–3 раза в неделю. Не наносить на область глаз.', en:'Evening on cotton pad, 2–3x per week. Avoid eye area.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}, {name:{ru:'makeup.gr', en:'makeup.gr'}, url:'https://www.makeup.gr'}]},
-    {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm', rec:true,
+    {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm',
       comment:{ru:'Крем', en:'Cream'},
+      skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
+      ingredients:{ru:'3 вида гиалуроновой кислоты, B5, эктоин', en:'3 types of hyaluronic acid, B5, ectoin'},
+      usage:{ru:'Горошина на очищенную кожу.', en:'Pea-sized amount on cleansed skin.'},
       shops:[{name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}]}
   ]},
   {num:'D', label:{ru:'Вечер D — отдых (без активов)', en:'Evening D — Recovery (no actives)'}, products:[
-    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser', rec:true,
+    {name:{ru:'Vichy Pureté Thermale Cleansing Foam', en:'Vichy Pureté Thermale Cleansing Foam'}, price:'~€13–15', icon:'cleanser',
       comment:{ru:'Очищение', en:'Cleanse'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'Термальная вода, Moringa, ниацинамид', en:'Thermal water, Moringa, niacinamide'},
+      usage:{ru:'На влажную кожу, вспенить, смыть.', en:'Apply to damp skin, lather, rinse.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
-    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner', rec:true,
+    {name:{ru:'Medi-Peel Peptide 9 Aqua Essence Toner', en:'Medi-Peel Peptide 9 Aqua Essence Toner'}, price:'~€25–29', icon:'toner',
       comment:{ru:'Тонер', en:'Toner'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'9 пептидов, гиалуроновая кислота, коллаген', en:'9 peptides, hyaluronic acid, collagen'},
+      usage:{ru:'На ватный диск, вбить похлопывающими движениями.', en:'Apply with cotton pad, pat into skin.'},
       shops:[{name:{ru:'YesStyle', en:'YesStyle'}, url:'https://www.yesstyle.com'}]},
-    {name:{ru:'The Ordinary Multi-Peptide + HA Serum', en:'The Ordinary Multi-Peptide + HA Serum'}, price:'~€11–19', icon:'acid', rec:true,
+    {name:{ru:'The Ordinary Multi-Peptide + HA Serum', en:'The Ordinary Multi-Peptide + HA Serum'}, price:'~€11–19', icon:'acid',
       comment:{ru:'Увлажняющая сыворотка', en:'Hydrating serum'},
+      skinType:{ru:'Все типы', en:'All types'},
+      ingredients:{ru:'5 пептидных технологий, аминокислоты, гиалуроновая кислота', en:'5 peptide technologies, amino acids, hyaluronic acid'},
+      usage:{ru:'Несколько капель на очищенную кожу.', en:'A few drops on cleansed skin.'},
       shops:[{name:{ru:'Skroutz', en:'Skroutz'}, url:'https://www.skroutz.gr'}]},
-    {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm', rec:true,
+    {name:{ru:'La Roche-Posay Hyalu B5 Suractivated Cream', en:'La Roche-Posay Hyalu B5 Suractivated Cream'}, price:'~€43.70', icon:'balm',
       comment:{ru:'Крем', en:'Cream'},
+      skinType:{ru:'Все типы, включая чувствительную', en:'All types including sensitive'},
+      ingredients:{ru:'3 вида гиалуроновой кислоты, B5, эктоин', en:'3 types of hyaluronic acid, B5, ectoin'},
+      usage:{ru:'Горошина на очищенную кожу.', en:'Pea-sized amount on cleansed skin.'},
       shops:[{name:{ru:'Lookfantastic.gr', en:'Lookfantastic.gr'}, url:'https://www.lookfantastic.gr'}]}
   ]}
 ];
@@ -1051,7 +1061,7 @@ const shopsInfo = [
 ];
 
 // ============================================================
-// ПРЕДОСТЕРЕЖЕНИЯ ДЛЯ ПРОДУКТОВ
+// ПРЕДОСТЕРЕЖЕНИЯ ДЛЯ ПРОДУКТОВ (соответствуют данным)
 // ============================================================
 const warningsData = {
   'medipeel-toner': {
@@ -1134,7 +1144,6 @@ function productCard(p, zoneClass){
   return `<div class="card product-card ${zoneClass}${p.lux?' lux-card':''}" 
          data-name="${name.toLowerCase()}" 
          data-comment="${comment.toLowerCase()}" 
-         data-rec="${p.rec?1:0}"
          data-skin="${skin.toLowerCase()}"
          data-ingredients="${ingredients.toLowerCase()}"
          data-usage="${usage.toLowerCase()}">
@@ -1144,8 +1153,6 @@ function productCard(p, zoneClass){
         <div class="card-name">${name}</div>
         <div class="card-price">${p.price}</div>
       </div>
-      ${p.rec?'<div class="star-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+STR[currentLang].recommended+'</div>':''}
-      ${p.lux?'<div class="lux-badge">'+ICONS.lux+STR[currentLang].luxAlt+'</div>':''}
       <div class="card-comment">${comment}</div>
       ${warningHtml}
       ${p.shops && p.shops.length ? shopChips(p.shops) : ''}
@@ -1172,19 +1179,17 @@ function renderPath(container, steps, zoneClass){
   }).join('');
 }
 
-// --- МОДАЛКА ПРОДУКТА ---
+// --- МОДАЛКА ПРОДУКТА (показывает все характеристики) ---
 function openProductModal(card) {
   const nameEl = card.querySelector('.card-name');
   const priceEl = card.querySelector('.card-price');
   const commentEl = card.querySelector('.card-comment');
-  const starBadge = card.querySelector('.star-badge');
   const luxBadge = card.querySelector('.lux-badge');
   const shopChips = card.querySelectorAll('.shop-chip');
-  const iconHtml = card.querySelector('.card-icon')?.innerHTML || '🧴';
+  const iconHtml = card.querySelector('.card-icon')?.innerHTML || '';
   const name = nameEl ? nameEl.textContent : '';
   const price = priceEl ? priceEl.textContent : '';
   const comment = commentEl ? commentEl.textContent : '';
-  const isRec = !!starBadge;
   const isLux = !!luxBadge;
   const shops = Array.from(shopChips).map(el => ({ name: el.textContent.trim(), url: el.href }));
 
@@ -1229,7 +1234,7 @@ function openProductModal(card) {
   const modalHtml = `
     <div class="modal-overlay product-modal" id="productModal" onclick="if(event.target===this) closeProductModal()">
       <div class="modal-box">
-        <button class="modal-close" onclick="closeProductModal()">✕</button>
+        <button class="modal-close" onclick="closeProductModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <div class="product-detail-header">
           <div class="product-detail-icon">${iconHtml}</div>
           <div>
@@ -1238,8 +1243,6 @@ function openProductModal(card) {
           </div>
         </div>
         <div class="product-detail-badges">
-          ${isRec ? `<span style="background:var(--accent-dark);color:white;">${t.recommended}</span>` : ''}
-          ${isLux ? `<span style="background:var(--accent);color:white;">${t.luxAlt}</span>` : ''}
         </div>
         <div class="product-detail-comment">${comment}</div>
         ${extraHtml}
@@ -1301,11 +1304,20 @@ function getRoutineForDay(y,m,d){
   const auto = generateRoutine(y,m,d);
   const morningProducts = morningSteps.map(step => {
     if (step.split) {
-      const titles = [];
-      if (step.split.a) titles.push(tr(step.split.a.title));
-      if (step.split.b) titles.push(tr(step.split.b.title));
-      if (step.split.c) titles.push(tr(step.split.c.title));
-      return { label: tr(step.label), products: titles.join(' / ') };
+      const options = [];
+      if (step.split.a) {
+        const names = step.split.a.products.map(p => tr(p.name)).join(', ');
+        options.push(`${tr(step.split.a.title)}: ${names}`);
+      }
+      if (step.split.b) {
+        const names = step.split.b.products.map(p => tr(p.name)).join(', ');
+        options.push(`${tr(step.split.b.title)}: ${names}`);
+      }
+      if (step.split.c) {
+        const names = step.split.c.products.map(p => tr(p.name)).join(', ');
+        options.push(`${tr(step.split.c.title)}: ${names}`);
+      }
+      return { label: tr(step.label), products: options.join(' / ') };
     } else {
       return { label: tr(step.label), products: step.products.map(p=>tr(p.name)).join(', ') };
     }
@@ -1411,7 +1423,7 @@ function showModalForDate(y,m,d){
   const html = `
     <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
       <div class="modal-box">
-        <button class="modal-close" onclick="closeModal()">✕</button>
+        <button class="modal-close" onclick="closeModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <h2>${t.modalTitle} ${dateFormatted}</h2>
         <div class="routine-block morning-block">
           <h4>${t.morningLabel}</h4>
@@ -1459,7 +1471,6 @@ function toggleDoneFromModal(dayKey, checked){
   if(checked) doneDays[dayKey]=true; else delete doneDays[dayKey];
   localStorage.setItem('doneDays', JSON.stringify(doneDays));
   renderSnake();
-  // Закрываем и переоткрываем модалку для обновления
   const dateStr = dayKey.split('-').slice(0,3).join('-');
   closeModal();
   setTimeout(() => openDayModal(dateStr), 50);
@@ -1480,7 +1491,7 @@ function openSettings(){
   const html=`
     <div class="modal-overlay settings-modal" id="settingsModal" onclick="if(event.target===this) closeModal()">
       <div class="modal-box">
-        <button class="modal-close" onclick="closeModal()">✕</button>
+        <button class="modal-close" onclick="closeModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <h2>${t.settingsTitle}</h2>
         <label>${t.startDateLabel}</label>
         <input type="date" id="retinalStartInput" value="${retinalStart}">
@@ -1521,10 +1532,9 @@ function applyFilters(){
   document.querySelectorAll('.product-card').forEach(card=>{
     const name=card.dataset.name;
     const comment=card.dataset.comment;
-    const isRec=card.dataset.rec==='1';
     const matchesQuery=!q || name.includes(q) || comment.includes(q);
-    const matchesRec=!onlyRec || isRec;
-    const show=matchesQuery && matchesRec;
+    // фильтрация по "только рекомендованные" убрана, так как мы убрали метку, но оставим функционал, если вдруг понадобится
+    const show = matchesQuery; // больше нет фильтрации по рекомендованным
     card.style.display=show?'':'none';
     if(show) visibleCount++;
   });
@@ -1544,12 +1554,12 @@ function toggleTheme(){
   const next = current === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
-  document.getElementById('themeToggle').innerHTML = next === 'dark' ? ICONS.sun : ICONS.moon;
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
 }
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
-document.getElementById('themeToggle').innerHTML = savedTheme === 'dark' ? ICONS.sun : ICONS.moon;
+document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
 // ============================================================
 // ЯЗЫК
