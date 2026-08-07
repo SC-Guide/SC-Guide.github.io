@@ -1,7 +1,7 @@
 # Skincare Guide — Full-Stack Web Application
 
-[![Status](https://img.shields.io/badge/status-active%20development-yellow)](https://github.com/vyshnevska2503-code/SkinGuide)
-[![GitHub Pages](https://img.shields.io/badge/hosted-GitHub%20Pages-brightgreen)](https://vyshnevska2503-code.github.io/SkinGuide/)
+[![Status](https://img.shields.io/badge/status-active%20development-yellow)](https://github.com/SC-Guide/SkinGuide)
+[![GitHub Pages](https://img.shields.io/badge/hosted-GitHub%20Pages-brightgreen)](https://sc-guide.github.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **Skincare Guide** is a responsive web application that helps users plan and track their daily skincare routines.  
@@ -15,11 +15,11 @@ It features an interactive calendar with retinal/azelaic scheduling, a searchabl
 
 Explore the live version of the project:
 
-- **Homepage:** [https://vyshnevska2503-code.github.io/SkinGuide/](https://vyshnevska2503-code.github.io/SkinGuide/)
-- **Planner (demo):** [https://vyshnevska2503-code.github.io/SkinGuide/planner.html](https://vyshnevska2503-code.github.io/SkinGuide/planner.html)
-- **Product Shop:** [https://vyshnevska2503-code.github.io/SkinGuide/shop.html](https://vyshnevska2503-code.github.io/SkinGuide/shop.html)
-- **Skin Profile:** [https://vyshnevska2503-code.github.io/SkinGuide/skin-profile.html](https://vyshnevska2503-code.github.io/SkinGuide/skin-profile.html)
-- **Interactive Showcase:** [https://vyshnevska2503-code.github.io/SkinGuide/demo.html](https://vyshnevska2503-code.github.io/SkinGuide/demo.html)
+- **Homepage:** [https://sc-guide.github.io/](https://sc-guide.github.io/)
+- **Planner (demo):** [https://sc-guide.github.io/planner.html](https://sc-guide.github.io/planner.html)
+- **Product Shop:** [https://sc-guide.github.io/shop.html](https://sc-guide.github.io/shop.html)
+- **Skin Profile:** [https://sc-guide.github.io/skin-profile.html](https://sc-guide.github.io/skin-profile.html)
+- **Interactive Showcase:** [https://sc-guide.github.io/demo.html](https://sc-guide.github.io/demo.html)
 
 ---
 
@@ -92,7 +92,7 @@ text
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/vyshnevska2503-code/SkinGuide.git
+   git clone https://github.com/SC-Guide/SkinGuide.git
    cd SkinGuide
 Open index.html in your browser – no build step required.
 
@@ -107,7 +107,9 @@ Author: Anastasiia Vyshnevska
 
 Email: vyshnevska2503@gmail.com
 
-GitHub: vyshnevska2503-code
+GitHub: SC-Guide
 
 📄 License
 This project is licensed under the MIT License – see the LICENSE file for details.
+
+Last updated: August 2026 — active development continues.
