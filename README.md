@@ -16,9 +16,6 @@ It features an interactive calendar with retinal/azelaic scheduling, a searchabl
 Explore the live version of the project:
 
 - **Homepage:** [https://sc-guide.github.io/](https://sc-guide.github.io/)
-- **Planner (demo):** [https://sc-guide.github.io/planner.html](https://sc-guide.github.io/planner.html)
-- **Product Shop:** [https://sc-guide.github.io/shop.html](https://sc-guide.github.io/shop.html)
-- **Skin Profile:** [https://sc-guide.github.io/skin-profile.html](https://sc-guide.github.io/skin-profile.html)
 - **Interactive Showcase:** [https://sc-guide.github.io/demo.html](https://sc-guide.github.io/demo.html)
 
 ---
