@@ -259,7 +259,7 @@
     <!-- QUIZ CARD -->
     <div class="quiz-card" id="quizApp">
         <div class="step-indicator"><span id="stepLabel">Крок 1 із 5</span></div>
-        <div class="question-text" id="questionText">Завантаження…</div>
+        <div class="question-text" id="questionText"></div>
         <div class="options" id="optionsContainer"></div>
 
         <div id="emailWrapper" style="display: none;">
@@ -269,20 +269,20 @@
 
         <div class="nav-row">
             <button class="btn btn-outline" id="prevBtn" disabled>← Назад</button>
-            <button class="btn" id="nextBtn">Далі →</button>
+            <button class="btn" id="nextBtn" disabled>Далі →</button>
         </div>
 
         <div id="resultPanel" style="display: none; margin-top: 24px;"></div>
     </div>
 
-    <!-- AI & process note -->
+    <!-- Footer — оновлене посилання на демо -->
     <div class="footer-note">
         <div class="flex-row">
-            <span class="ai-badge">🧠 З використанням AI</span>
-            <span>Створено за допомогою ChatGPT · Claude · Midjourney</span>
+            <span class="ai-badge">🧠 Мій продукт</span>
+            <span>Skincare Guide — демо: <a href="https://sc-guide.github.io/demo" target="_blank" style="color:#2b5e4b; font-weight:500;">переглянути</a></span>
         </div>
         <p style="margin-top:10px;">
-            <strong>Як я створювала цей квіз:</strong> Я використала ChatGPT для структури запитань і логіки, Claude — для копірайтингу та коригувань, а Midjourney — для візуальних референсів. Весь досвід побудовано навколо збору лідів і персоналізованої рекомендації — саме таку воронку я б будувала для Inception-1.
+            <strong>Про цей квіз:</strong> він створений на базі мого власного продукту, над яким я працюю. Він демонструє мій підхід до побудови воронок, збору лідів і персоналізованої комунікації — саме таку логіку я б застосовувала для Inception-1.
         </p>
     </div>
 
@@ -404,7 +404,6 @@
         function showResult() {
             const skin = answers.skin_type || 'normal';
             const concern = answers.concern || 'hydration';
-            const goal = answers.goal || 'glow';
             const routine = answers.routine || 'moderate';
             const budget = answers.budget || 'mid';
 
@@ -414,7 +413,7 @@
             else routineText = 'повний доглядовий досвід для щоденного ритуалу';
 
             let focusText = '';
-            if (concern === 'acne') focusText = 'з акцентом на м'яке очищення та підтримку бар'єру';
+            if (concern === 'acne') focusText = "з акцентом на м'яке очищення та підтримку бар'єру";
             else if (concern === 'aging') focusText = 'з акцентом на антиоксиданти, ретинол і зволоження';
             else if (concern === 'pigmentation') focusText = 'з акцентом на вітамін C і сонцезахист';
             else if (concern === 'sensitivity') focusText = 'з акцентом на заспокійливі інгредієнти';
@@ -448,7 +447,6 @@
             document.querySelector('.nav-row').style.display = 'none';
             emailWrapper.style.display = 'none';
             nextBtn.disabled = true;
-            console.log('Квіз завершено. Email:', email, 'Відповіді:', answers);
         }
 
         function nextStep() {
@@ -479,7 +477,6 @@
         });
 
         renderStep();
-        window.__quiz = { answers, questions };
     })();
 </script>
 </body>
