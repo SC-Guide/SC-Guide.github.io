@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Skincare Guide — Квіз</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fcf8f5;
+            color: #2b2b2b;
+            padding: 24px 16px 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container { max-width: 720px; width: 100%; margin: 0 auto; }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .brand-icon {
+            background: #2b5e4b;
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            letter-spacing: -0.3px;
+        }
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2b2b2b;
+        }
+        .brand-text span { color: #b47c5e; }
+
+        .hero-tag {
+            font-size: 14px;
+            color: #6b5a4f;
+            background: #efe8e2;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            margin: 4px 0 16px 0;
+            letter-spacing: 0.3px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+        .subhead {
+            font-size: 17px;
+            color: #4d3e34;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 28px;
+            padding: 32px 28px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid #f0e9e3;
+            transition: all 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .step-indicator {
+            font-size: 13px;
+            font-weight: 600;
+            color: #b47c5e;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .step-indicator span {
+            background: #efe8e2;
+            padding: 2px 12px;
+            border-radius: 24px;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .option-btn {
+            background: #f8f4f0;
+            border: 1.5px solid transparent;
+            border-radius: 16px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+            color: #2b2b2b;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
+        }
+        .option-btn:hover {
+            background: #f0e8e0;
+            border-color: #d6c6b8;
+        }
+        .option-btn.selected {
+            background: #e6f0eb;
+            border-color: #2b5e4b;
+            color: #1e4a3b;
+        }
+        .option-btn input[type="radio"] { display: none; }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .btn {
+            background: #2b5e4b;
+            border: none;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2px;
+            min-width: 120px;
+        }
+        .btn:hover { background: #1f4a3a; }
+        .btn:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #6b5a4f;
+            border: 1.5px solid #d6c6b8;
+            padding: 12px 24px;
+            min-width: 80px;
+        }
+        .btn-outline:hover { background: #f3ede7; }
+
+        .result-box {
+            background: #f5f0ea;
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin-top: 12px;
+            border-left: 6px solid #b47c5e;
+        }
+        .result-box h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .result-box p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3d322a;
+        }
+        .result-box .highlight {
+            font-weight: 600;
+            color: #2b5e4b;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: #6b5a4f;
+            border-top: 1px solid #e6ddd6;
+            padding-top: 20px;
+            line-height: 1.6;
+        }
+        .footer-note strong { color: #2b2b2b; }
+
+        .email-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1.5px solid #d6c6b8;
+            font-size: 16px;
+            background: white;
+            margin: 8px 0 16px;
+            font-family: 'Inter', sans-serif;
+        }
+        .email-input:focus {
+            outline: 2px solid #2b5e4b;
+            border-color: transparent;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: #e6f0eb;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1e4a3b;
+            margin-right: 8px;
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin: 6px 0 4px;
+        }
+
+        @media (max-width: 480px) {
+            .quiz-card { padding: 24px 16px; }
+            h1 { font-size: 26px; }
+            .question-text { font-size: 19px; }
+            .btn { width: 100%; justify-content: center; }
+            .nav-row { flex-direction: column; }
+            .btn-outline { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- header -->
+    <div class="brand">
+        <div class="brand-icon">✦</div>
+        <div class="brand-text">Skincare <span>Guide</span></div>
+    </div>
+    <div class="hero-tag">✨ Квіз на 2 хвилини · персоналізована рутина</div>
+
+    <h1>Знайди свій ідеальний<br/>ритуал догляду</h1>
+    <div class="subhead">
+        Дай відповіді на 5 запитань — ми підберемо персоналізовану AM/PM-рутину для твого типу шкіри, проблем і способу життя.
+    </div>
+
+    <!-- QUIZ CARD -->
+    <div class="quiz-card" id="quizApp">
+        <div class="step-indicator"><span id="stepLabel">Крок 1 із 5</span></div>
+        <div class="question-text" id="questionText">Завантаження…</div>
+        <div class="options" id="optionsContainer"></div>
+
+        <div id="emailWrapper" style="display: none;">
+            <label style="font-weight:500; font-size:15px; display:block; margin-bottom:4px;">📬 Куди надіслати вашу рутину?</label>
+            <input class="email-input" type="email" id="emailInput" placeholder="you@example.com" />
+        </div>
+
+        <div class="nav-row">
+            <button class="btn btn-outline" id="prevBtn" disabled>← Назад</button>
+            <button class="btn" id="nextBtn">Далі →</button>
+        </div>
+
+        <div id="resultPanel" style="display: none; margin-top: 24px;"></div>
+    </div>
+
+    <!-- AI & process note -->
+    <div class="footer-note">
+        <div class="flex-row">
+            <span class="ai-badge">🧠 З використанням AI</span>
+            <span>Створено за допомогою ChatGPT · Claude · Midjourney</span>
+        </div>
+        <p style="margin-top:10px;">
+            <strong>Як я створювала цей квіз:</strong> Я використала ChatGPT для структури запитань і логіки, Claude — для копірайтингу та коригувань, а Midjourney — для візуальних референсів. Весь досвід побудовано навколо збору лідів і персоналізованої рекомендації — саме таку воронку я б будувала для Inception-1.
+        </p>
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        const questions = [
+            {
+                id: 'skin_type',
+                text: 'Який у вас тип шкіри?',
+                options: [
+                    { value: 'dry', label: 'Суха — відчуття стягнутості, лущення' },
+                    { value: 'oily', label: 'Жирна — блиск, схильність до висипань' },
+                    { value: 'combination', label: 'Комбінована — жирна Т-зона, сухі щоки' },
+                    { value: 'normal', label: 'Нормальна — збалансована, без дискомфорту' }
+                ]
+            },
+            {
+                id: 'concern',
+                text: 'Яка ваша головна проблема зі шкірою?',
+                options: [
+                    { value: 'acne', label: 'Висипання та акне' },
+                    { value: 'aging', label: 'Мімічні зморшки, втрата пружності' },
+                    { value: 'pigmentation', label: 'Пігментація, нерівний тон' },
+                    { value: 'sensitivity', label: 'Червоність, подразнення, чутливість' },
+                    { value: 'hydration', label: 'Сухість та зневоднення' }
+                ]
+            },
+            {
+                id: 'goal',
+                text: 'Яка ваша головна мета догляду?',
+                options: [
+                    { value: 'glow', label: 'Сяюча, здорова шкіра' },
+                    { value: 'clear', label: 'Чиста шкіра без висипань' },
+                    { value: 'smooth', label: 'Рівна текстура, гладкість' },
+                    { value: 'protect', label: 'Захист від старіння' },
+                    { value: 'simplify', label: 'Спростити рутину' }
+                ]
+            },
+            {
+                id: 'routine',
+                text: 'Скільки часу ви готові приділяти догляду щодня?',
+                options: [
+                    { value: 'minimal', label: '5–10 хв — швидко та ефективно' },
+                    { value: 'moderate', label: '10–20 хв — подобається ритуал' },
+                    { value: 'extensive', label: '20+ хв — повний доглядовий досвід' }
+                ]
+            },
+            {
+                id: 'budget',
+                text: 'Який бюджет на косметику вам комфортний?',
+                options: [
+                    { value: 'budget', label: '€10–20 — хороша якість без зайвих витрат' },
+                    { value: 'mid', label: '€20–50 — якість, яка працює' },
+                    { value: 'premium', label: '€50+ — інвестую в шкіру' }
+                ]
+            }
+        ];
+
+        let currentStep = 0;
+        const answers = {};
+        let selectedOption = null;
+
+        const questionEl = document.getElementById('questionText');
+        const optionsEl = document.getElementById('optionsContainer');
+        const stepLabel = document.getElementById('stepLabel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultPanel = document.getElementById('resultPanel');
+        const emailWrapper = document.getElementById('emailWrapper');
+        const emailInput = document.getElementById('emailInput');
+
+        function renderStep() {
+            const q = questions[currentStep];
+            if (!q) return;
+
+            stepLabel.textContent = `Крок ${currentStep + 1} із ${questions.length}`;
+            questionEl.textContent = q.text;
+
+            optionsEl.innerHTML = '';
+            selectedOption = answers[q.id] || null;
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                if (selectedOption === opt.value) btn.classList.add('selected');
+                btn.textContent = opt.label;
+                btn.dataset.value = opt.value;
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedOption = this.dataset.value;
+                    answers[q.id] = selectedOption;
+                    nextBtn.disabled = false;
+                });
+                optionsEl.appendChild(btn);
+            });
+
+            const isLast = (currentStep === questions.length - 1);
+            emailWrapper.style.display = isLast ? 'block' : 'none';
+            if (!isLast) emailInput.value = '';
+
+            prevBtn.disabled = (currentStep === 0);
+            const hasAnswer = answers[q.id] !== undefined;
+            nextBtn.disabled = !hasAnswer;
+
+            resultPanel.style.display = 'none';
+            resultPanel.innerHTML = '';
+        }
+
+        function goToStep(index) {
+            if (index < 0 || index >= questions.length) return;
+            currentStep = index;
+            renderStep();
+            document.getElementById('quizApp').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showResult() {
+            const skin = answers.skin_type || 'normal';
+            const concern = answers.concern || 'hydration';
+            const goal = answers.goal || 'glow';
+            const routine = answers.routine || 'moderate';
+            const budget = answers.budget || 'mid';
+
+            let routineText = '';
+            if (routine === 'minimal') routineText = 'швидка рутина, яка дає результат';
+            else if (routine === 'moderate') routineText = 'збалансований ритуал, який приносить задоволення';
+            else routineText = 'повний доглядовий досвід для щоденного ритуалу';
+
+            let focusText = '';
+            if (concern === 'acne') focusText = 'з акцентом на м'яке очищення та підтримку бар'єру';
+            else if (concern === 'aging') focusText = 'з акцентом на антиоксиданти, ретинол і зволоження';
+            else if (concern === 'pigmentation') focusText = 'з акцентом на вітамін C і сонцезахист';
+            else if (concern === 'sensitivity') focusText = 'з акцентом на заспокійливі інгредієнти';
+            else focusText = 'з акцентом на глибоке зволоження';
+
+            let budgetNote = '';
+            if (budget === 'budget') budgetNote = 'Підберемо доступні альтернативи, які працюють.';
+            else if (budget === 'premium') budgetNote = 'Запропонуємо преміальні варіанти з виправданою ціною.';
+            else budgetNote = 'Збалансований вибір із середнього цінового сегменту.';
+
+            const email = emailInput.value.trim() || '—';
+
+            resultPanel.style.display = 'block';
+            resultPanel.innerHTML = `
+                <div class="result-box">
+                    <h3>🌿 Ваша персоналізована рутина готова</h3>
+                    <p>
+                        <strong>На основі ваших відповідей</strong> ми рекомендуємо <span class="highlight">${routineText}</span>,
+                        ${focusText}.<br/><br/>
+                        Ми надішлемо вам повну AM/PM-рутину з продуктами, що підходять вашому ${skin} типу шкіри
+                        та бюджету (${budgetNote}).<br/><br/>
+                        📬 <strong>Рутину надіслано на:</strong> ${email}<br/>
+                        <span style="font-size:15px; color:#4d3e34;">✨ Перевірте пошту — ми також додамо промокод на ваше перше замовлення.</span>
+                    </p>
+                    <p style="margin-top:16px; font-size:15px;">
+                        <a href="https://sc-guide.github.io/my-planner.html" target="_blank" style="color:#2b5e4b; font-weight:600; text-decoration:underline;">→ Перейти до повного планера Skincare Guide</a>
+                    </p>
+                </div>
+            `;
+
+            document.querySelector('.nav-row').style.display = 'none';
+            emailWrapper.style.display = 'none';
+            nextBtn.disabled = true;
+            console.log('Квіз завершено. Email:', email, 'Відповіді:', answers);
+        }
+
+        function nextStep() {
+            const q = questions[currentStep];
+            if (!answers[q.id]) return;
+            if (currentStep === questions.length - 1) {
+                showResult();
+                return;
+            }
+            goToStep(currentStep + 1);
+        }
+
+        function prevStep() {
+            if (currentStep > 0) goToStep(currentStep - 1);
+        }
+
+        prevBtn.addEventListener('click', prevStep);
+        nextBtn.addEventListener('click', nextStep);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const active = document.activeElement;
+                if (active && active.closest('.quiz-card')) {
+                    e.preventDefault();
+                    if (!nextBtn.disabled) nextBtn.click();
+                }
+            }
+        });
+
+        renderStep();
+        window.__quiz = { answers, questions };
+    })();
+</script>
+</body>
+</html>
