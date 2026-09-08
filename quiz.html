@@ -231,6 +231,23 @@
             margin: 6px 0 4px;
         }
 
+        .btn-restart {
+            background: transparent;
+            border: 1.5px solid #b47c5e;
+            color: #b47c5e;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 16px;
+        }
+        .btn-restart:hover {
+            background: #f5f0ea;
+        }
+
         @media (max-width: 480px) {
             .quiz-card { padding: 24px 16px; }
             h1 { font-size: 26px; }
@@ -275,7 +292,7 @@
         <div id="resultPanel" style="display: none; margin-top: 24px;"></div>
     </div>
 
-    <!-- Footer — оновлене посилання на демо -->
+    <!-- Footer -->
     <div class="footer-note">
         <div class="flex-row">
             <span class="ai-badge">🧠 Мій продукт</span>
@@ -355,6 +372,7 @@
         const resultPanel = document.getElementById('resultPanel');
         const emailWrapper = document.getElementById('emailWrapper');
         const emailInput = document.getElementById('emailInput');
+        const navRow = document.querySelector('.nav-row');
 
         function renderStep() {
             const q = questions[currentStep];
@@ -392,6 +410,7 @@
 
             resultPanel.style.display = 'none';
             resultPanel.innerHTML = '';
+            navRow.style.display = 'flex';
         }
 
         function goToStep(index) {
@@ -441,12 +460,29 @@
                     <p style="margin-top:16px; font-size:15px;">
                         <a href="https://sc-guide.github.io/my-planner.html" target="_blank" style="color:#2b5e4b; font-weight:600; text-decoration:underline;">→ Перейти до повного планера Skincare Guide</a>
                     </p>
+                    <button class="btn-restart" id="restartBtn">🔄 Пройти заново</button>
                 </div>
             `;
 
-            document.querySelector('.nav-row').style.display = 'none';
+            navRow.style.display = 'none';
             emailWrapper.style.display = 'none';
             nextBtn.disabled = true;
+
+            // Додаємо обробник для кнопки перезапуску
+            document.getElementById('restartBtn').addEventListener('click', resetQuiz);
+        }
+
+        function resetQuiz() {
+            // Очищаємо всі відповіді
+            for (let key in answers) delete answers[key];
+            currentStep = 0;
+            selectedOption = null;
+            emailInput.value = '';
+            resultPanel.style.display = 'none';
+            resultPanel.innerHTML = '';
+            navRow.style.display = 'flex';
+            renderStep();
+            document.getElementById('quizApp').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function nextStep() {
