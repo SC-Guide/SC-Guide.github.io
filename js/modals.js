@@ -6,7 +6,7 @@ function openProductModal(card) {
   const starBadge = card.querySelector('.star-badge');
   const luxBadge = card.querySelector('.lux-badge');
   const shopChips = card.querySelectorAll('.shop-chip');
-  const iconHtml = card.querySelector('.card-icon')?.innerHTML || '🧴';
+  const iconHtml = card.querySelector('.card-icon')?.innerHTML || '';
   const name = nameEl ? nameEl.textContent : '';
   const price = priceEl ? priceEl.textContent : '';
   const comment = commentEl ? commentEl.textContent : '';
@@ -21,9 +21,9 @@ function openProductModal(card) {
 
   let extraHtml = '';
   const items = [];
-  if (skin) items.push({ icon: '👤', label: t.skinType, value: skin });
-  if (ingredients) items.push({ icon: '🧪', label: t.ingredients, value: ingredients });
-  if (usage) items.push({ icon: '📖', label: t.usage, value: usage });
+  if (skin) items.push({ icon: '', label: t.skinType, value: skin });
+  if (ingredients) items.push({ icon: '', label: t.ingredients, value: ingredients });
+  if (usage) items.push({ icon: '', label: t.usage, value: usage });
   if (items.length) {
     extraHtml = `<div class="product-detail-extra">` +
       items.map(item => `
