@@ -577,29 +577,6 @@
   </div>
 </footer>
 
-<!-- ===== ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ПАЛИТР ===== -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; background: var(--card-bg); padding: 10px 14px; border-radius: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid var(--line);">
-  <button onclick="setPalette('your')" style="background:#777C6D; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Ваша палитра"></button>
-  <button onclick="setPalette('cool')" style="background:#4A6CF7; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Cool Breeze"></button>
-  <button onclick="setPalette('warm')" style="background:#F28B82; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Sunset"></button>
-  <button onclick="setPalette('dark')" style="background:#6C63FF; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Dark"></button>
-  <button onclick="setPalette(null)" style="background:#ccc; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2); font-size:14px; font-weight:bold; color:#333; line-height:24px; text-align:center;" title="Сбросить">✕</button>
-</div>
-
-<!-- Подключаем скрипты -->
-<script src="js/firebase.js"></script>
-<script src="js/icons.js"></script>
-<script src="js/data.js"></script>
-
-<!-- ОЧИЩАЕМ ДАННЫЕ ПРОДУКТОВ, ЧТОБЫ ОНИ НЕ ОТОБРАЖАЛИСЬ В КАЛЕНДАРЕ -->
-<script>
-  // Обнуляем массивы с продуктами – теперь они будут пустыми на этой странице
-  window.morningSteps = [];
-  window.eveningSteps = [];
-  window.kitGroups = [];
-  window.shopsInfo = [];
-</script>
-
 <script src="js/lang.js"></script>
 <script src="js/products.js"></script>
 <script src="js/calendar.js"></script>
