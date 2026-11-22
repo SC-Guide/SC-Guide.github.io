@@ -37,10 +37,10 @@
         </div>
         <button class="pill-toggle" id="recToggle"><span id="recToggleLabel">Recommended only</span></button>
         <div class="right-tools">
-          <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
-          <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
-          <button class="pill-toggle" id="authBtn">🔑 Sign in with Google</button>
-          <button class="pill-toggle" id="logoutBtn" style="display:none;">🚪 Sign out</button>
+          <button class="lang-toggle" id="langToggle" type="button" aria-label="Change language">EN</button>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
+          <button class="pill-toggle" id="authBtn" type="button">Sign in</button>
+          <button class="pill-toggle" id="logoutBtn" type="button" hidden>Sign out</button>
           <span class="result-count" id="resultCount"></span>
         </div>
       </div>
@@ -68,32 +68,32 @@
     <h2 id="featuresTitle" style="font-family:var(--font-serif); font-size:clamp(24px,3vw,32px); text-align:center; margin-bottom:8px;">Why Skincare Guide?</h2>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="icon">📅</div>
+        <div class="icon" data-icon="planner"></div>
         <h3 id="f1Title">Snake‑style Calendar</h3>
         <p id="f1Desc">Visual calendar with automated retinal/azelaic scheduling — see your routine at a glance.</p>
       </div>
       <div class="feature-card">
-        <div class="icon">🧴</div>
+        <div class="icon" data-icon="shop"></div>
         <h3 id="f2Title">Product Library</h3>
         <p id="f2Desc">Curated product recommendations with details, prices, and direct shop links.</p>
       </div>
       <div class="feature-card">
-        <div class="icon">🔍</div>
+        <div class="icon" data-icon="search"></div>
         <h3 id="f3Title">Search & Filter</h3>
         <p id="f3Desc">Find products by name, description, or filter by “recommended” only.</p>
       </div>
       <div class="feature-card">
-        <div class="icon">🌙</div>
+        <div class="icon" data-icon="theme"></div>
         <h3 id="f4Title">Dark / Light Theme</h3>
         <p id="f4Desc">Smooth theme toggle with system preference fallback — comfortable for any time of day.</p>
       </div>
       <div class="feature-card">
-        <div class="icon">🌍</div>
+        <div class="icon" data-icon="language"></div>
         <h3 id="f5Title">Bilingual Interface</h3>
         <p id="f5Desc">Full support for English and Russian — switch languages instantly.</p>
       </div>
       <div class="feature-card">
-        <div class="icon">📊</div>
+        <div class="icon" data-icon="filter"></div>
         <h3 id="f6Title">Smart Routine Builder</h3>
         <p id="f6Desc">Your daily plan is generated based on your owned products and retinal schedule.</p>
       </div>
@@ -121,11 +121,11 @@
         
       </div>
     </div>
-    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
+    <p class="footer-disclaimer" id="footerDisclaimer">Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
-<script src="js/firebase.js"></script>
+<script src="js/icons.js"></script>\n<script>document.addEventListener("DOMContentLoaded", () => { if (typeof renderIcons === "function") renderIcons(); });</script>\n<script src="js/firebase.js"></script>
 <script src="js/lang.js"></script>
 <script>
 // ============================================================
@@ -156,7 +156,7 @@ const STR_HOME = {
     ctaTitle: 'Ready to take control of your skincare?',
     ctaDesc: 'Start building your personalized routine today — it\'s free and easy.',
     ctaBtn: 'Go to Planner →',
-    footerDisclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
+    footerDisclaimer: 'Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
   },
   ru: {
     subtitle: 'Ваш персональный планировщик ухода за кожей',
@@ -179,7 +179,7 @@ const STR_HOME = {
     ctaTitle: 'Готовы взять уход под контроль?',
     ctaDesc: 'Начните строить свою персонализированную рутину сегодня — это бесплатно и просто.',
     ctaBtn: 'Перейти в планировщик →',
-    footerDisclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
+    footerDisclaimer: 'Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
   }
 };
 
@@ -222,13 +222,13 @@ document.getElementById('themeToggle').addEventListener('click', function() {
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
-  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  
 });
 
 // --- Загрузка сохранённой темы ---
 const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
-document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
 
 // --- Инициализация языка ---
 updateHomeUI();
