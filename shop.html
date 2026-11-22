@@ -210,28 +210,28 @@ function collectAllProducts() {
   morningSteps.forEach(step => {
     if (step.products) {
       step.products.forEach(p => {
-        result.push({ product: p, category: 'morning', stepLabel: tr(step.label) });
+        result.push({ product: p, category: 'morning', stepIndex: step.num, zone: 'morning', stepLabel: tr(step.label) });
       });
     }
     if (step.split) {
       step.split.a.products.forEach(p => {
-        result.push({ product: p, category: 'morning', stepLabel: tr(step.split.a.title) });
+        result.push({ product: p, category: 'morning', stepIndex: step.num, zone: 'morning', stepLabel: tr(step.split.a.title) });
       });
       step.split.b.products.forEach(p => {
-        result.push({ product: p, category: 'morning', stepLabel: tr(step.split.b.title) });
+        result.push({ product: p, category: 'morning', stepIndex: step.num, zone: 'morning', stepLabel: tr(step.split.b.title) });
       });
     }
   });
   eveningSteps.forEach(step => {
     if (step.products) {
       step.products.forEach(p => {
-        result.push({ product: p, category: 'evening', stepLabel: tr(step.label) });
+        result.push({ product: p, category: 'evening', stepIndex: step.num, zone: 'evening', stepLabel: tr(step.label) });
       });
     }
   });
   kitGroups.forEach(group => {
-    group.products.forEach(p => {
-      result.push({ product: p, category: 'kit', stepLabel: tr(group.title) });
+    group.products.forEach((p, index) => {
+      result.push({ product: p, category: 'kit', stepIndex: index, zone: group.key, stepLabel: tr(group.title) });
     });
   });
   return result;
@@ -315,7 +315,7 @@ function renderShopProducts() {
   // Только мои продукты
   const myProductsOnly = document.getElementById('myProductsOnly').checked;
   if (myProductsOnly) {
-    filtered = filtered.filter(item => isProductOwned(getProductId(item.product)));
+    filtered = filtered.filter(item => isOwned(getProductKey(item.product, item.stepIndex, item.zone)));
   }
 
   // 2. Сортировка
@@ -346,7 +346,7 @@ function renderShopProducts() {
   let html = '';
   filtered.forEach(item => {
     // Используем productCard из products.js (она уже есть)
-    html += productCard(item.product, 'shop');
+    html += productCard(item.product, 'shop', item.stepIndex, item.zone);
   });
   container.innerHTML = html;
   document.getElementById('resultCount').textContent = `${STR[currentLang].found}: ${filtered.length}`;
@@ -383,7 +383,9 @@ function initShop() {
   document.getElementById('applyFiltersBtn').addEventListener('click', applyFiltersAndSort);
   document.getElementById('search').addEventListener('input', applyFiltersAndSort);
   document.getElementById('recToggle').addEventListener('click', function() {
-    this.classList.toggle('active');
+    const checkbox = document.getElementById('recommendedOnly');
+    checkbox.checked = !checkbox.checked;
+    this.classList.toggle('active', checkbox.checked);
     applyFiltersAndSort();
   });
   // Для чекбоксов и селектов – обновляем при изменении, но можно и по кнопке
@@ -399,6 +401,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
   
+
+  const params = new URLSearchParams(window.location.search);
+  const searchInput = document.getElementById('search');
+  if (params.has('search')) searchInput.value = params.get('search');
+  const recommendedParam = params.get('recommended') === '1';
+  document.getElementById('recommendedOnly').checked = recommendedParam;
+  document.getElementById('recToggle').classList.toggle('active', recommendedParam);
 
   // Инициализируем страницу
   initShop();
