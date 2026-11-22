@@ -131,7 +131,7 @@
 // ============================================================
 // Логика для главной страницы (язык, тема, кнопки)
 // ============================================================
-let currentLang = localStorage.getItem('lang') || 'en';
+// currentLang is shared from js/lang.js.
 
 // Строки для главной страницы
 const STR_HOME = {
@@ -214,6 +214,7 @@ document.getElementById('langToggle').addEventListener('click', function() {
   currentLang = currentLang === 'en' ? 'ru' : 'en';
   localStorage.setItem('lang', currentLang);
   updateHomeUI();
+  window.dispatchEvent(new CustomEvent('skinguide:language-changed'));
 });
 
 // --- Переключение темы ---
