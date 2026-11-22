@@ -2,8 +2,16 @@
 // calendar.js — Snake-style calendar logic
 // ============================================================
 
-let currentYear = 2026;
-let currentMonth = 6;
+let currentYear = new Date().getFullYear();
+let currentMonth = new Date().getMonth();
+const savedCalendarMonth = localStorage.getItem('calendarMonth');
+if (savedCalendarMonth) {
+  const savedParts = savedCalendarMonth.split('-').map(Number);
+  if (Number.isInteger(savedParts[0]) && Number.isInteger(savedParts[1]) && savedParts[1] >= 0 && savedParts[1] <= 11) {
+    currentYear = savedParts[0];
+    currentMonth = savedParts[1];
+  }
+}
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 let retinalStart = localStorage.getItem('retinalStart') || '2026-07-01';
