@@ -815,3 +815,5 @@ footer { border-top: 1px solid var(--line); }
 .sg-auth-message.is-error { color:#B45A4E; }
 body.sg-auth-open { overflow:hidden; }
 @media(max-width:480px) { .sg-auth-dialog { padding:28px 22px; } }
+
+#logoutBtn[hidden], #authBtn[hidden] { display:none !important; }
