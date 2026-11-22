@@ -1011,3 +1011,28 @@ header nav a { white-space: nowrap; }
   header { position: sticky; top: 0; }
   html { scroll-padding-top: 145px; }
 }
+
+
+/* Layout safeguards and accessible interactive states */
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), a { cursor:pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline:2px solid var(--accent-dark); outline-offset:3px;
+}
+button:disabled { opacity:.45; cursor:not-allowed; }
+[hidden] { display:none !important; }
+img, svg { max-width:100%; }
+@media(max-width:760px) {
+  .header-top { align-items:flex-start; }
+  .tools { flex-wrap:wrap; min-width:0; }
+  .search-box { flex:1 1 100%; max-width:none; }
+  .right-tools { flex-wrap:wrap; margin-left:0; }
+  nav { max-width:100%; }
+  .shop-filters { display:flex; flex-wrap:wrap; gap:10px; }
+  .shop-filters > * { min-width:0; max-width:100%; }
+}
+@media(max-width:480px) {
+  .wrap { padding-left:14px; padding-right:14px; }
+  .brand-name { font-size:16px; }
+  .pill-toggle,.theme-toggle,.lang-toggle,#authBtn { padding-inline:9px; }
+}
