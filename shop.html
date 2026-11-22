@@ -107,9 +107,9 @@
         </div>
         <button class="pill-toggle" id="recToggle"><span>Recommended only</span></button>
         <div class="right-tools">
-          <button class="lang-toggle" id="langToggle">EN</button>
-          <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
-          <button class="pill-toggle" id="authBtn">Sign in with Google</button>
+          <button class="lang-toggle" id="langToggle" type="button" aria-label="Change language">EN</button>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
+          <button class="pill-toggle" id="authBtn" type="button">Sign in</button>
           <span class="result-count" id="resultCount"></span>
         </div>
       </div>
@@ -185,7 +185,7 @@
         
       </div>
     </div>
-    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
+    <p class="footer-disclaimer" id="footerDisclaimer">Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
   updateLangToggle();
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  
 
   // Инициализируем страницу
   initShop();
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
-    this.textContent = next === 'dark' ? '☀️' : '🌙';
+    
   });
 });
 </script>
