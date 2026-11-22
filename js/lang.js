@@ -23,9 +23,9 @@ const STR = {
     footerLine: 'Created from your personal skincare data · update as your routine evolves',
     footerCredit: '© 2026 · Anastasiia Vyshnevska',
     modalTitle: 'Routine for',
-    morningLabel: '☀️ Day',
-    eveningLabel: '🌙 Night',
-    specialLabel: '✨ Extra care',
+    morningLabel: 'Day',
+    eveningLabel: 'Night',
+    specialLabel: 'Extra care',
     doneLabel: 'Done',
     settingsTitle: 'Settings',
     startDateLabel: 'Retinal start date',
@@ -35,7 +35,7 @@ const STR = {
     skinType: 'Skin Type',
     ingredients: 'Key Ingredients',
     usage: 'How to use',
-    disclaimer: '⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
+    disclaimer: 'Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.'
   },
   ru: {
     subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до сна',
@@ -55,9 +55,9 @@ const STR = {
     footerLine: 'Создано на основе ваших личных данных по уходу · обновляйте по мере изменения рутины',
     footerCredit: '© 2026 · Анастасия Вышневская',
     modalTitle: 'Рутина на',
-    morningLabel: '☀️ День',
-    eveningLabel: '🌙 Ночь',
-    specialLabel: '✨ Дополнительный уход',
+    morningLabel: 'День',
+    eveningLabel: 'Ночь',
+    specialLabel: 'Дополнительный уход',
     doneLabel: 'Выполнено',
     settingsTitle: 'Настройки',
     startDateLabel: 'Дата начала ретиналя',
@@ -67,7 +67,7 @@ const STR = {
     skinType: 'Тип кожи',
     ingredients: 'Ключевые ингредиенты',
     usage: 'Как использовать',
-    disclaimer: '⚠️ Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
+    disclaimer: 'Предупреждение: Данный сайт предоставляет общую информацию для ознакомления и навигации. Это не является медицинской консультацией, диагнозом или лечением. Все рекомендации по продуктам основаны на общедоступной информации и личном опыте, а не на медицинской экспертизе. Перед началом использования любых средств обязательно проконсультируйтесь с дерматологом или специалистом. Использование информации осуществляется на ваш собственный риск. Автор не несёт ответственности за возможные негативные последствия.'
   }
 };
 
