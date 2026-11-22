@@ -25,7 +25,8 @@ A responsive Web App built with React, TypeScript and Vite, with a clean separat
 - [x] Added a first responsive visual direction and navigation for Overview, Skin Profile, Planner, Products and Journal.
 - [x] Added English/Russian UI toggle, theme toggle and basic local persistence for the new prototype.
 - [ ] Complete legacy data inventory and safe import/migration adapter.
-- [ ] Rebuild all original planner/calendar functionality and validate ingredient scheduling.
+- [x] Add an interactive month calendar, selected-day routine view, editable retinal start date, and individually trackable daily steps in the prototype.
+- [ ] Complete parity with all original planner/calendar details and validate ingredient scheduling with tests.
 - [ ] Reconnect Firebase Authentication and verify authorized domains/providers.
 - [ ] Add automated tests and run a production build.
 - [ ] Deploy preview and perform browser/device acceptance testing.
