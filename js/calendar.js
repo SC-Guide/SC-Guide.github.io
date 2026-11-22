@@ -239,8 +239,10 @@ function toggleDoneFromModal(dateStr, checked) {
 }
 
 function closeModal() {
-  const el = document.getElementById('modalOverlay');
-  if (el) el.remove();
+  ['modalOverlay', 'settingsModal'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
 }
 
 function changeMonth(delta) {
