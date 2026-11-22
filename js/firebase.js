@@ -20,20 +20,32 @@ const authBtn = document.getElementById('authBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 
 function updateAuthUI(user) {
+  // Pages without authentication controls should still load safely.
+  if (!authBtn && !logoutBtn) return;
+
   if (user) {
     const displayName = user.displayName || user.email || 'User';
     const photoURL = user.photoURL;
-    let avatarHtml = '';
-    if (photoURL) avatarHtml = `<img src="${photoURL}" class="user-avatar" alt="avatar">`;
-    authBtn.innerHTML = `${avatarHtml} ${displayName} (Sign out)`;
-    authBtn.style.background = 'var(--accent-dark)';
-    logoutBtn.style.display = 'inline-block';
-    authBtn.onclick = () => auth.signOut().catch(console.error);
+    const avatarHtml = photoURL ? `<img src="${photoURL}" class="user-avatar" alt="">` : '';
+    if (authBtn) {
+      authBtn.innerHTML = `${avatarHtml} ${displayName} (Sign out)`;
+      authBtn.style.background = 'var(--accent-dark)';
+      authBtn.onclick = () => auth.signOut().catch(console.error);
+    }
+    if (logoutBtn) {
+      logoutBtn.style.display = 'inline-block';
+      logoutBtn.onclick = () => auth.signOut().catch(console.error);
+    }
   } else {
-    authBtn.innerHTML = '🔑 Sign in with Google';
-    authBtn.style.background = '';
-    logoutBtn.style.display = 'none';
-    authBtn.onclick = () => auth.signInWithPopup(provider).catch(console.error);
+    if (authBtn) {
+      authBtn.innerHTML = '🔑 Sign in with Google';
+      authBtn.style.background = '';
+      authBtn.onclick = () => auth.signInWithPopup(provider).catch(console.error);
+    }
+    if (logoutBtn) {
+      logoutBtn.style.display = 'none';
+      logoutBtn.onclick = null;
+    }
   }
 }
 
