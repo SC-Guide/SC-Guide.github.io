@@ -286,6 +286,7 @@
     .calendar-legend .legend-today{background:var(--card-bg);border:2px solid var(--accent-dark);width:10px;height:10px;}
     .calendar-legend .legend-special{background:#D9D0B9;}
     @media(max-width:599px){.calendar-legend{gap:10px;font-size:10px;}}
+    .calendar-intro{margin-bottom:10px;}
   </style>
 </head>
 <body>
@@ -356,7 +357,7 @@
         </div>
       </div>
       <div class="snake-container" id="snakeContainer"></div>
-      <div class="calendar-legend" aria-label="Calendar legend"><span><i class="legend-today"></i> Today</span><span><i class="legend-done"></i> Completed</span><span><i class="legend-special"></i> Special care</span></div>
+      <div class="calendar-legend" aria-label="Calendar legend"><span><i class="legend-today"></i><span id="legendToday">Today</span></span><span><i class="legend-done"></i><span id="legendDone">Completed</span></span><span><i class="legend-special"></i><span id="legendSpecial">Special care</span></span></div>
     </div>
   </section>
 
