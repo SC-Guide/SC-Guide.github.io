@@ -990,3 +990,24 @@ html, body, body * {
   letter-spacing:-.045em;
 }
 .brand-name span { color:inherit; font-weight:700; }
+
+
+/* Persistent site navigation: stays visible while scrolling */
+html { scroll-padding-top: 112px; }
+body { overflow-x: clip; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: var(--card-bg, #fff);
+  border-bottom: 1px solid var(--line, #dce4da);
+  box-shadow: 0 4px 18px rgba(34, 55, 41, .055);
+  isolation: isolate;
+}
+header .wrap { position: relative; }
+header nav a { white-space: nowrap; }
+@media (max-width: 760px) {
+  header { position: sticky; top: 0; }
+  html { scroll-padding-top: 145px; }
+}
