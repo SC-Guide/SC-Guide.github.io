@@ -822,7 +822,6 @@ body.sg-auth-open { overflow:hidden; }
 /* ==========================================================
    SKINCARE GUIDE — REFINED BOTANICAL DESIGN SYSTEM
    ========================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
 :root {
   --bg: #F4F5F0;
   --card-bg: #FFFFFF;
@@ -971,3 +970,23 @@ footer .footer-disclaimer { max-width:850px; }
 .feature-card .icon svg { width:21px; height:21px; stroke:currentColor; fill:none; }
 .product-detail-extra .extra-icon:empty { display:none; }
 @media(max-width:520px){.brand-symbol{width:29px;height:29px}.brand-name{font-size:17px}.brand-tagline{font-size:8px}}
+
+
+/* Final typography and wordmark simplification */
+:root, [data-theme="dark"] {
+  --font-sans: 'Manrope', Arial, sans-serif;
+  --font-serif: 'Manrope', Arial, sans-serif;
+}
+html, body, body * {
+  font-family: 'Manrope', Arial, sans-serif !important;
+}
+.brand {
+  display:inline-flex; align-items:center; min-width:max-content;
+  color:var(--text); text-decoration:none;
+}
+.brand-symbol, .brand-copy, .brand-tagline { display:none !important; }
+.brand-name {
+  display:inline; color:var(--text); font:700 18px/1.2 'Manrope',Arial,sans-serif;
+  letter-spacing:-.045em;
+}
+.brand-name span { color:inherit; font-weight:700; }
