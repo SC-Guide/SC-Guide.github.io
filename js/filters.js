@@ -90,7 +90,7 @@ function closeProductModal() {
 document.addEventListener('click', function(e) {
   const card = e.target.closest('.product-card');
   if (card) {
-    if (e.target.closest('.shop-chip') || e.target.closest('.toggle-product')) return;
+    if (e.target.closest('.shop-chip') || e.target.closest('.owned-toggle')) return;
     e.preventDefault();
     openProductModal(card);
   }
