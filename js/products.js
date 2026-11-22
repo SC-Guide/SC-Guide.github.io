@@ -4,7 +4,8 @@ let ownedProducts = JSON.parse(localStorage.getItem('ownedProducts')) || {};
 function toggleOwned(productKey) {
   ownedProducts[productKey] = !ownedProducts[productKey];
   localStorage.setItem('ownedProducts', JSON.stringify(ownedProducts));
-  renderAll();
+  if (typeof renderAll === 'function') renderAll();
+  else if (typeof renderShopProducts === 'function') renderShopProducts();
 }
 
 function isOwned(productKey) {
