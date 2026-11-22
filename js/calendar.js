@@ -121,7 +121,8 @@ function renderSnake() {
       if (hasSpecial) cls += ' has-special';
       if (isToday) cls += ' today';
       const dayLabel = new Date(y, m, day).toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU', { weekday: 'short' });
-      html += `<div class="day-node" data-date="${key}"><div class="${cls}" onclick="openDayModal('${key}')">${day}</div><div class="day-label">${dayLabel}</div></div>`;
+      const accessibleDate = new Date(y, m, day).toLocaleDateString(currentLang === "en" ? "en-US" : "ru-RU", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      html += `<div class="day-node" data-date="${key}"><button type="button" class="${cls}" aria-label="${accessibleDate}" onclick="openDayModal(this.parentElement.dataset.date)">${day}</button><div class="day-label">${dayLabel}</div></div>`;
     });
     html += `</div>`;
   });
