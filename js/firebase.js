@@ -251,6 +251,9 @@
     if (logoutBtn) {
       logoutBtn.textContent = t('signOut');
       logoutBtn.hidden = !user;
+      // Existing markup on some pages has inline display:none; override it
+      // explicitly so the button becomes visible after a successful sign-in.
+      logoutBtn.style.display = user ? 'inline-flex' : 'none';
       logoutBtn.onclick = () => auth.signOut().catch(error => console.error('[SkinCare Guide] Sign out failed', error));
     }
     window.dispatchEvent(new CustomEvent('skinguide:auth-state', {
