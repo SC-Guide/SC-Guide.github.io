@@ -22,6 +22,6 @@ npm run preview
 - CSS design tokens and responsive layouts
 
 ## Current status
-This is an early design and architecture prototype. It includes Overview, Skin Profile, Planner, Products and Journal screens, bilingual EN/RU labels, a dark appearance toggle, and local-only prototype persistence. Sample product content is illustrative.
+This is an early design and architecture prototype (build validation updated). It includes Overview, Skin Profile, Planner, Products and Journal screens, bilingual EN/RU labels, a dark appearance toggle, and local-only prototype persistence. Sample product content is illustrative.
 
 It is not yet a production replacement: legacy data import, full calendar and active-ingredient scheduling, Firebase Authentication, automated tests and deployment remain planned work. See the repository root `MIGRATION_PLAN.md`.
