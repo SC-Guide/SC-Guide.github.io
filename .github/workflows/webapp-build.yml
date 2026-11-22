@@ -1,0 +1,27 @@
+name: Web app build
+on:
+  push:
+    branches:
+      - redesign/react-foundation
+    paths:
+      - "webapp/**"
+      - ".github/workflows/webapp-build.yml"
+  pull_request:
+    paths:
+      - "webapp/**"
+      - ".github/workflows/webapp-build.yml"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: webapp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+      - run: npm install
+      - run: npm run build
