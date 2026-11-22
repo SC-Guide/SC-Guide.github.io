@@ -305,10 +305,10 @@
         </div>
         <button class="pill-toggle" id="recToggle"><span id="recToggleLabel"></span></button>
         <div class="right-tools">
-  <button class="lang-toggle" id="langToggle">🇬🇧 EN</button>
-  <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
-  <button class="pill-toggle" id="authBtn">🔑 Sign in with Google</button>
-  <button class="pill-toggle" id="logoutBtn" style="display:none;">🚪 Sign out</button>
+  <button class="lang-toggle" id="langToggle" type="button" aria-label="Change language">EN</button>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
+  <button class="pill-toggle" id="authBtn" type="button">Sign in</button>
+  <button class="pill-toggle" id="logoutBtn" type="button" hidden>Sign out</button>
   <span class="result-count" id="resultCount"></span>
 </div>
     <nav id="mainNav">
@@ -354,7 +354,7 @@
         <div class="calendar-nav">
           <button id="prevMonthBtn">‹</button>
           <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+          <button class="settings-btn" id="settingsBtn" type="button" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.1h-2.6v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6.4v-2.6h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.1H15v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.1v2.6h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
         </div>
       </div>
       <div class="snake-container" id="snakeContainer"></div>
@@ -541,7 +541,7 @@
         
       </div>
     </div>
-    <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
+    <p class="footer-disclaimer" id="footerDisclaimer">Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
