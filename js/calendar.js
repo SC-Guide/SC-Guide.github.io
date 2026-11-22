@@ -2,8 +2,16 @@
 // calendar.js — Snake-style calendar logic
 // ============================================================
 
-let currentYear = 2026;
-let currentMonth = 6;
+let currentYear = new Date().getFullYear();
+let currentMonth = new Date().getMonth();
+const savedCalendarMonth = localStorage.getItem('calendarMonth');
+if (savedCalendarMonth) {
+  const savedParts = savedCalendarMonth.split('-').map(Number);
+  if (Number.isInteger(savedParts[0]) && Number.isInteger(savedParts[1]) && savedParts[1] >= 0 && savedParts[1] <= 11) {
+    currentYear = savedParts[0];
+    currentMonth = savedParts[1];
+  }
+}
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 let retinalStart = localStorage.getItem('retinalStart') || '2026-07-01';
@@ -113,7 +121,8 @@ function renderSnake() {
       if (hasSpecial) cls += ' has-special';
       if (isToday) cls += ' today';
       const dayLabel = new Date(y, m, day).toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU', { weekday: 'short' });
-      html += `<div class="day-node" data-date="${key}"><div class="${cls}" onclick="openDayModal('${key}')">${day}</div><div class="day-label">${dayLabel}</div></div>`;
+      const accessibleDate = new Date(y, m, day).toLocaleDateString(currentLang === "en" ? "en-US" : "ru-RU", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      html += `<div class="day-node" data-date="${key}"><button type="button" class="${cls}" aria-label="${accessibleDate}" onclick="openDayModal(this.parentElement.dataset.date)">${day}</button><div class="day-label">${dayLabel}</div></div>`;
     });
     html += `</div>`;
   });

@@ -9,6 +9,8 @@ const STR = {
     subtitle: 'A step-by-step guide to your skincare routine — from morning cleanse to bedtime',
     tabTitle: 'Skincare Guide — Planner',
     nav: {morning:'Morning', evening:'Evening', kit:'First Aid Kit', rules:'Rules', shops:'Shops', calendar:'Calendar'},
+    calendarIntro: 'A gentle view of your routine, one day at a time.',
+    calendarLegend: {today:'Today', done:'Completed', special:'Special care'},
     searchPlaceholder: 'Search products…',
     recOnly: 'Recommended only',
     found: 'Found',
@@ -39,6 +41,8 @@ const STR = {
     subtitle: 'Пошаговое руководство по уходу за кожей — от утреннего умывания до сна',
     tabTitle: 'Skincare Guide — Планер',
     nav: {morning:'Утро', evening:'Вечер', kit:'Аптечка', rules:'Правила', shops:'Магазины', calendar:'Календарь'},
+    calendarIntro: 'Спокойный обзор ухода — день за днём.',
+    calendarLegend: {today:'Сегодня', done:'Выполнено', special:'Дополнительный уход'},
     searchPlaceholder: 'Поиск продуктов…',
     recOnly: 'Только рекомендованные',
     found: 'Найдено',
@@ -78,9 +82,24 @@ function toggleLanguage() {
   localStorage.setItem('lang', currentLang);
   renderAll();
   updateLangToggle();
+  updateCalendarLegend();
+  window.dispatchEvent(new CustomEvent('skinguide:language-changed'));
 }
 
 function updateLangToggle() {
   const btn = document.getElementById('langToggle');
   if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
 }
+
+function updateCalendarLegend() {
+  const labels = STR[currentLang];
+  const intro = document.getElementById('calendarIntro');
+  const today = document.getElementById('legendToday');
+  const done = document.getElementById('legendDone');
+  const special = document.getElementById('legendSpecial');
+  if (intro) intro.textContent = labels.calendarIntro;
+  if (today) today.textContent = labels.calendarLegend.today;
+  if (done) done.textContent = labels.calendarLegend.done;
+  if (special) special.textContent = labels.calendarLegend.special;
+}
+document.addEventListener('DOMContentLoaded', updateCalendarLegend);

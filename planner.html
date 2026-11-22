@@ -279,51 +279,14 @@
       }
     }
 
-    /* ===== ТЕСТОВЫЕ ПАЛИТРЫ ===== */
-    [data-palette="your"] {
-      --accent: #777C6D;
-      --accent-dark: #B7B89F;
-      --bg: #EEEEEE;
-      --card-bg: #FFFFFF;
-      --text: #2D2A2A;
-      --text-soft: #555555;
-      --text-light: #999999;
-      --line: #CBCBCB;
-      --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    }
-    [data-palette="cool"] {
-      --accent: #4A6CF7;
-      --accent-dark: #3A5BD9;
-      --bg: #F4F5F7;
-      --card-bg: #FFFFFF;
-      --text: #2D2D3A;
-      --text-soft: #5A5B6A;
-      --text-light: #8A8B9A;
-      --line: #E8E9ED;
-      --card-shadow: 0 4px 20px rgba(74, 108, 247, 0.08);
-    }
-    [data-palette="warm"] {
-      --accent: #F28B82;
-      --accent-dark: #D97A6E;
-      --bg: #FDF6F0;
-      --card-bg: #FFFFFF;
-      --text: #3A2E2A;
-      --text-soft: #6B5A52;
-      --text-light: #A69288;
-      --line: #F0E4D8;
-      --card-shadow: 0 4px 20px rgba(242, 139, 130, 0.10);
-    }
-    [data-palette="dark"] {
-      --accent: #6C63FF;
-      --accent-dark: #5A52D9;
-      --bg: #1A1A2E;
-      --card-bg: #2D2D44;
-      --text: #EEEEEE;
-      --text-soft: #AAAAAA;
-      --text-light: #777777;
-      --line: #3D3D5C;
-      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
+.calendar-legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:14px 2px 0;color:var(--text-soft);font-size:11px;}
+    .calendar-legend span{display:inline-flex;align-items:center;gap:6px;}
+    .calendar-legend i{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--line);}
+    .calendar-legend .legend-done{background:var(--accent-dark);}
+    .calendar-legend .legend-today{background:var(--card-bg);border:2px solid var(--accent-dark);width:10px;height:10px;}
+    .calendar-legend .legend-special{background:#D9D0B9;}
+    @media(max-width:599px){.calendar-legend{gap:10px;font-size:10px;}}
+    .calendar-intro{margin-bottom:10px;}
   </style>
 </head>
 <body>
@@ -367,6 +330,38 @@
       <div class="stat"><div class="stat-icon"><span data-icon="list"></span></div><div><div class="num">8</div><div class="lbl" id="statRulesLbl"></div></div></div>
     </div>
   </div>
+
+  <!-- ===== КАЛЕНДАРЬ ===== -->
+  <section class="zone" id="calendar" style="scroll-margin-top:120px;">
+    <div class="zone-head">
+      <div class="zone-icon"><span data-icon="calendar"></span></div>
+      <p class="zone-title" id="titleCalendar"></p>
+    </div>
+    <p class="zone-sub calendar-intro" id="calendarIntro"></p>
+
+    <!-- Заглушка календаря -->
+    <div class="calendar-placeholder" id="calendarPlaceholder">
+      <div class="empty-icon"><span data-icon="calendar"></span></div>
+      <h4 class="empty-calendar-title">Calendar is empty</h4>
+      <p class="empty-calendar-desc">Add products to your routine and your schedule will appear here.</p>
+      <a href="shop.html" class="empty-cta">Browse products →</a>
+    </div>
+
+    <!-- Реальный календарь (скрыт по умолчанию) -->
+    <div class="calendar-wrapper" id="calendarWrapper" style="display:none;">
+      <div class="calendar-header">
+        <h2 id="calendarMonthLabel"></h2>
+        <div class="calendar-nav">
+          <button id="prevMonthBtn">‹</button>
+          <button id="nextMonthBtn">›</button>
+          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+        </div>
+      </div>
+      <div class="snake-container" id="snakeContainer"></div>
+      <div class="calendar-legend" aria-label="Calendar legend"><span><i class="legend-today"></i><span id="legendToday">Today</span></span><span><i class="legend-done"></i><span id="legendDone">Completed</span></span><span><i class="legend-special"></i><span id="legendSpecial">Special care</span></span></div>
+    </div>
+  </section>
+
 
   <div class="no-results" id="noResults"></div>
 
@@ -530,34 +525,7 @@
     </div>
   </section>
 
-  <!-- ===== КАЛЕНДАРЬ ===== -->
-  <section class="zone" id="calendar" style="scroll-margin-top:120px;">
-    <div class="zone-head">
-      <div class="zone-icon"><span data-icon="calendar"></span></div>
-      <p class="zone-title" id="titleCalendar"></p>
-    </div>
 
-    <!-- Заглушка календаря -->
-    <div class="calendar-placeholder" id="calendarPlaceholder">
-      <div class="empty-icon"><span data-icon="calendar"></span></div>
-      <h4 class="empty-calendar-title">Calendar is empty</h4>
-      <p class="empty-calendar-desc">Add products to your routine and your schedule will appear here.</p>
-      <a href="shop.html" class="empty-cta">Browse products →</a>
-    </div>
-
-    <!-- Реальный календарь (скрыт по умолчанию) -->
-    <div class="calendar-wrapper" id="calendarWrapper" style="display:none;">
-      <div class="calendar-header">
-        <h2 id="calendarMonthLabel"></h2>
-        <div class="calendar-nav">
-          <button id="prevMonthBtn">‹</button>
-          <button id="nextMonthBtn">›</button>
-          <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
-        </div>
-      </div>
-      <div class="snake-container" id="snakeContainer"></div>
-    </div>
-  </section>
 </div>
 
 <footer>
@@ -570,36 +538,14 @@
       <div style="display:flex; gap:16px; flex-wrap:wrap;">
         <a href="about.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;">About</a>
         <a href="privacy.html" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Privacy</a>
-        <a href="mailto:your@email.com" style="color:var(--text-soft); text-decoration:none; font-size:12px;">Contact</a>
+        
       </div>
     </div>
     <p class="footer-disclaimer" id="footerDisclaimer">⚠️ Disclaimer: This website provides general information for educational and navigational purposes only. It does not constitute medical advice, diagnosis, or treatment. All product recommendations are based on publicly available information and personal experience, not medical expertise. Always consult a qualified dermatologist or healthcare professional before starting any new skincare routine. Use of this information is at your own risk. The author assumes no responsibility for any adverse effects.</p>
   </div>
 </footer>
 
-<!-- ===== ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ПАЛИТР ===== -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; background: var(--card-bg); padding: 10px 14px; border-radius: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid var(--line);">
-  <button onclick="setPalette('your')" style="background:#777C6D; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Ваша палитра"></button>
-  <button onclick="setPalette('cool')" style="background:#4A6CF7; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Cool Breeze"></button>
-  <button onclick="setPalette('warm')" style="background:#F28B82; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Sunset"></button>
-  <button onclick="setPalette('dark')" style="background:#6C63FF; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);" title="Dark"></button>
-  <button onclick="setPalette(null)" style="background:#ccc; border:2px solid white; border-radius:50%; width:28px; height:28px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2); font-size:14px; font-weight:bold; color:#333; line-height:24px; text-align:center;" title="Сбросить">✕</button>
-</div>
-
-<!-- Подключаем скрипты -->
 <script src="js/firebase.js"></script>
-<script src="js/icons.js"></script>
-<script src="js/data.js"></script>
-
-<!-- ОЧИЩАЕМ ДАННЫЕ ПРОДУКТОВ, ЧТОБЫ ОНИ НЕ ОТОБРАЖАЛИСЬ В КАЛЕНДАРЕ -->
-<script>
-  // Обнуляем массивы с продуктами – теперь они будут пустыми на этой странице
-  window.morningSteps = [];
-  window.eveningSteps = [];
-  window.kitGroups = [];
-  window.shopsInfo = [];
-</script>
-
 <script src="js/lang.js"></script>
 <script src="js/products.js"></script>
 <script src="js/calendar.js"></script>
@@ -608,24 +554,6 @@
 <script src="js/app.js"></script>
 
 <script>
-  // ===== УПРАВЛЕНИЕ ПАЛИТРАМИ =====
-  function setPalette(name) {
-    if (name) {
-      document.documentElement.setAttribute('data-palette', name);
-      localStorage.setItem('palette', name);
-    } else {
-      document.documentElement.removeAttribute('data-palette');
-      localStorage.removeItem('palette');
-    }
-  }
-
-  (function restorePalette() {
-    const saved = localStorage.getItem('palette');
-    if (saved) {
-      document.documentElement.setAttribute('data-palette', saved);
-    }
-  })();
-
   // ===== УПРАВЛЕНИЕ КАЛЕНДАРЁМ =====
   document.addEventListener('DOMContentLoaded', function() {
     renderIcons();
