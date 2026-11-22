@@ -83,6 +83,7 @@ function toggleLanguage() {
   renderAll();
   updateLangToggle();
   updateCalendarLegend();
+  window.dispatchEvent(new CustomEvent('skinguide:language-changed'));
 }
 
 function updateLangToggle() {
