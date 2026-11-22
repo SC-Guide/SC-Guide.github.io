@@ -279,69 +279,13 @@
       }
     }
 
-    /* ===== ТЕСТОВЫЕ ПАЛИТРЫ ===== */
-    [data-palette="your"] {
-      --accent: #777C6D;
-      --accent-dark: #B7B89F;
-      --bg: #EEEEEE;
-      --card-bg: #FFFFFF;
-      --text: #2D2A2A;
-      --text-soft: #555555;
-      --text-light: #999999;
-      --line: #CBCBCB;
-      --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    }
-    [data-palette="cool"] {
-      --accent: #4A6CF7;
-      --accent-dark: #3A5BD9;
-      --bg: #F4F5F7;
-      --card-bg: #FFFFFF;
-      --text: #2D2D3A;
-      --text-soft: #5A5B6A;
-      --text-light: #8A8B9A;
-      --line: #E8E9ED;
-      --card-shadow: 0 4px 20px rgba(74, 108, 247, 0.08);
-    }
-    [data-palette="warm"] {
-      --accent: #F28B82;
-      --accent-dark: #D97A6E;
-      --bg: #FDF6F0;
-      --card-bg: #FFFFFF;
-      --text: #3A2E2A;
-      --text-soft: #6B5A52;
-      --text-light: #A69288;
-      --line: #F0E4D8;
-      --card-shadow: 0 4px 20px rgba(242, 139, 130, 0.10);
-    }
-    [data-palette="dark"] {
-      --accent: #6C63FF;
-      --accent-dark: #5A52D9;
-      --bg: #1A1A2E;
-      --card-bg: #2D2D44;
-      --text: #EEEEEE;
-      --text-soft: #AAAAAA;
-      --text-light: #777777;
-      --line: #3D3D5C;
-      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-    .hero { padding:24px 0 12px; text-align:left; }
-    .stats { gap:12px; }
-    .stat { border:1px solid var(--line); border-radius:14px; background:var(--card-bg); box-shadow:none; }
-    .zone { margin-bottom:26px; }
-    .step { padding-left:34px; padding-bottom:18px; }
-    .step::before { left:12px; top:27px; background:var(--line); }
-    .step-node { width:25px; height:25px; background:var(--morning); color:var(--accent-dark); border:1px solid var(--line); font-size:10px; }
-    .step-label { margin:2px 0 7px; letter-spacing:.08em; }
-    .card-row { gap:12px; }
-    .card { border:1px solid var(--line); border-radius:13px; box-shadow:none; padding:14px; }
-    .card:hover { transform:translateY(-1px); box-shadow:var(--card-shadow); }
-    .card-icon { background:var(--morning); color:var(--accent-dark); border-radius:9px; }
-    .empty-state { border:1px dashed var(--line); border-radius:13px; padding:22px 18px; }
-    .calendar-wrapper { max-width:none; border:1px solid var(--line); box-shadow:var(--card-shadow); }
-    .snake-container { gap:24px; }
-    .snake-row { gap:5px; }
-    .day-node .day-circle:focus-visible { outline:2px solid var(--accent-dark); outline-offset:4px; }
-    @media(max-width:599px) { .hero{padding:16px 0 8px}.stats{gap:8px}.stat{padding:10px}.calendar-wrapper{padding:16px 10px 18px}.snake-container{gap:19px}.snake-row{gap:1px}.step{padding-left:29px} }
+.calendar-legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:14px 2px 0;color:var(--text-soft);font-size:11px;}
+    .calendar-legend span{display:inline-flex;align-items:center;gap:6px;}
+    .calendar-legend i{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--line);}
+    .calendar-legend .legend-done{background:var(--accent-dark);}
+    .calendar-legend .legend-today{background:var(--card-bg);border:2px solid var(--accent-dark);width:10px;height:10px;}
+    .calendar-legend .legend-special{background:#D9D0B9;}
+    @media(max-width:599px){.calendar-legend{gap:10px;font-size:10px;}}
   </style>
 </head>
 <body>
@@ -412,6 +356,7 @@
         </div>
       </div>
       <div class="snake-container" id="snakeContainer"></div>
+      <div class="calendar-legend" aria-label="Calendar legend"><span><i class="legend-today"></i> Today</span><span><i class="legend-done"></i> Completed</span><span><i class="legend-special"></i> Special care</span></div>
     </div>
   </section>
 
@@ -606,24 +551,6 @@
 <script src="js/app.js"></script>
 
 <script>
-  // ===== УПРАВЛЕНИЕ ПАЛИТРАМИ =====
-  function setPalette(name) {
-    if (name) {
-      document.documentElement.setAttribute('data-palette', name);
-      localStorage.setItem('palette', name);
-    } else {
-      document.documentElement.removeAttribute('data-palette');
-      localStorage.removeItem('palette');
-    }
-  }
-
-  (function restorePalette() {
-    const saved = localStorage.getItem('palette');
-    if (saved) {
-      document.documentElement.setAttribute('data-palette', saved);
-    }
-  })();
-
   // ===== УПРАВЛЕНИЕ КАЛЕНДАРЁМ =====
   document.addEventListener('DOMContentLoaded', function() {
     renderIcons();
