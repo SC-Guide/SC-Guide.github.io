@@ -1,5 +1,5 @@
 /* ===== ОСНОВНЫЕ СТИЛИ ===== */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
 
 :root{
   --bg:#F2F2F2;
@@ -960,3 +960,14 @@ footer .footer-disclaimer { max-width:850px; }
   .cta { padding:28px 22px; }
   .hero h1 { font-size:clamp(36px,11vw,52px); }
 }
+
+.brand { display:inline-flex; align-items:center; gap:10px; color:var(--text); text-decoration:none; min-width:max-content; }
+.brand-symbol { width:34px; height:34px; color:var(--accent-dark); flex:none; }
+.brand-copy { display:flex; flex-direction:column; gap:1px; }
+.brand-name { font:700 19px/1.05 var(--font-sans); letter-spacing:-.07em; color:var(--text); }
+.brand-name span { color:var(--accent-dark); font-weight:500; }
+.brand-tagline { font:500 9px/1.4 var(--font-sans); color:var(--text-light); letter-spacing:.025em; }
+.title,.subtitle { display:none; }
+.feature-card .icon svg { width:21px; height:21px; stroke:currentColor; fill:none; }
+.product-detail-extra .extra-icon:empty { display:none; }
+@media(max-width:520px){.brand-symbol{width:29px;height:29px}.brand-name{font-size:17px}.brand-tagline{font-size:8px}}
