@@ -230,6 +230,14 @@ const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
 
+
+document.getElementById('search')?.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' && this.value.trim()) window.location.href = 'shop.html?search=' + encodeURIComponent(this.value.trim());
+});
+document.getElementById('recToggle')?.addEventListener('click', function() {
+  window.location.href = 'shop.html?recommended=1';
+});
+
 // --- Инициализация языка ---
 updateHomeUI();
 </script>
