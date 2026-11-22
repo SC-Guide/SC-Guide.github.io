@@ -548,35 +548,132 @@
 </footer>
 
 <script src="js/firebase.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
 <script src="js/lang.js"></script>
 <script src="js/products.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/modals.js"></script>
-<script src="js/filters.js"></script>
 <script src="js/app.js"></script>
 
 <script>
-  // ===== УПРАВЛЕНИЕ КАЛЕНДАРЁМ =====
-  document.addEventListener('DOMContentLoaded', function() {
-    renderIcons();
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value == null ? '' : value;
+  }
 
-    function checkProductsAndToggleCalendar() {
-      const hasProducts = window.morningSteps && window.morningSteps.length > 0;
-      const placeholder = document.getElementById('calendarPlaceholder');
-      const wrapper = document.getElementById('calendarWrapper');
-      if (placeholder && wrapper) {
-        if (hasProducts) {
-          placeholder.style.display = 'none';
-          wrapper.style.display = 'block';
-        } else {
-          placeholder.style.display = 'block';
-          wrapper.style.display = 'none';
-        }
-      }
+  function applyFilters() {
+    const query = (document.getElementById('search')?.value || '').trim().toLowerCase();
+    const onlyRecommended = document.getElementById('recToggle')?.classList.contains('active') || false;
+    let visible = 0;
+    document.querySelectorAll('#morning-path .product-card, #evening-path .product-card, #kit-groups .product-card').forEach(card => {
+      const matchesText = !query || (card.dataset.name || '').includes(query) || (card.dataset.comment || '').includes(query);
+      const matchesRecommended = !onlyRecommended || card.dataset.rec === '1';
+      const show = matchesText && matchesRecommended;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    const hasCards = document.querySelectorAll('#morning-path .product-card, #evening-path .product-card, #kit-groups .product-card').length > 0;
+    const noResults = document.getElementById('noResults');
+    if (noResults) {
+      noResults.style.display = hasCards && visible === 0 ? 'block' : 'none';
+      noResults.textContent = STR[currentLang].noResults;
+    }
+    setText('resultCount', query || onlyRecommended ? `${STR[currentLang].found}: ${visible}` : '');
+  }
+
+  function renderAll() {
+    const t = STR[currentLang];
+    document.documentElement.lang = currentLang;
+    document.title = t.tabTitle;
+    setText('siteSubtitle', t.subtitle);
+    const search = document.getElementById('search');
+    if (search) search.placeholder = t.searchPlaceholder;
+    setText('recToggleLabel', t.recOnly);
+    setText('statMorningLbl', t.statLabels.morning);
+    setText('statEveningLbl', t.statLabels.evening);
+    setText('statKitLbl', t.statLabels.kit);
+    setText('statRulesLbl', t.statLabels.rules);
+    setText('titleMorning', t.nav.morning);
+    setText('titleEvening', t.nav.evening);
+    setText('titleKit', t.nav.kit);
+    setText('titleRules', t.nav.rules);
+    setText('titleShops', t.nav.shops);
+    setText('titleCalendar', t.nav.calendar);
+    setText('subKit', t.kitSub);
+    setText('subShops', t.shopsSub);
+    setText('footerDisclaimer', t.disclaimer);
+
+    renderPath(document.getElementById('morning-path'), morningSteps, 'morning', 'morning');
+    renderPath(document.getElementById('evening-path'), eveningSteps, 'evening', 'evening');
+
+    const kitContainer = document.getElementById('kit-groups');
+    if (kitContainer) {
+      kitContainer.innerHTML = kitGroups.map(group => `
+        <div class="kit-group ${group.key}">
+          <div class="kit-group-head">
+            <div class="kit-group-icon">${getIcon(group.products[0]?.icon) || getIcon('shop')}</div>
+            <div><div class="kit-group-title">${tr(group.title)}</div><div class="kit-group-sub">${tr(group.sub)}</div></div>
+          </div>
+          ${group.analysis ? `<div class="kit-analysis">${getIcon('blog')}<div>${tr(group.analysis)}</div></div>` : ''}
+          <div class="card-row">${group.products.map((product, index) => productCard(product, group.key, index, group.key)).join('')}</div>
+        </div>
+      `).join('');
     }
 
-    setTimeout(checkProductsAndToggleCalendar, 500);
-    setTimeout(checkProductsAndToggleCalendar, 1500);
+    const rulesContainer = document.getElementById('rules-grid');
+    if (rulesContainer) {
+      rulesContainer.innerHTML = rules.map((rule, index) => `
+        <div class="rule${rule.caution ? ' caution' : ''}">
+          <div class="rule-num">${index + 1}</div>
+          <div class="rule-text">${rule.caution ? getIcon('sensitive') : ''}${tr(rule.text)}</div>
+        </div>
+      `).join('');
+    }
+
+    const shopsContainer = document.getElementById('shops-grid');
+    if (shopsContainer) {
+      shopsContainer.innerHTML = shopsInfo.map(shop => `
+        <div class="shop-card">
+          <div class="shop-card-name"><a href="${shop.url}" target="_blank" rel="noopener">${tr(shop.name)}${ICONS.link}</a></div>
+          <div class="shop-card-items">${tr(shop.items)}</div>
+        </div>
+      `).join('');
+    }
+
+    renderSnake();
+    applyFilters();
+    updateLangToggle();
+    updateCalendarLegend();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderIcons();
+    const placeholder = document.getElementById('calendarPlaceholder');
+    const calendar = document.getElementById('calendarWrapper');
+    if (placeholder) placeholder.hidden = true;
+    if (calendar) calendar.style.display = 'block';
+
+    document.getElementById('prevMonthBtn')?.addEventListener('click', () => changeMonth(-1));
+    document.getElementById('nextMonthBtn')?.addEventListener('click', () => changeMonth(1));
+    document.getElementById('settingsBtn')?.addEventListener('click', openSettings);
+    document.getElementById('langToggle')?.addEventListener('click', toggleLanguage);
+    document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+    document.getElementById('search')?.addEventListener('input', applyFilters);
+    document.getElementById('recToggle')?.addEventListener('click', function() {
+      this.classList.toggle('active');
+      applyFilters();
+    });
+
+    const savedMonth = localStorage.getItem('calendarMonth');
+    if (savedMonth) {
+      const parts = savedMonth.split('-').map(Number);
+      if (Number.isInteger(parts[0]) && Number.isInteger(parts[1]) && parts[1] >= 0 && parts[1] <= 11) {
+        currentYear = parts[0];
+        currentMonth = parts[1];
+      }
+    }
+    renderAll();
   });
 </script>
 
