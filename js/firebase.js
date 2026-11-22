@@ -259,14 +259,13 @@
   }
 
   ensureLogoutButton();
-  if (authBtn) authBtn.addEventListener('click', event => {
-    if (!auth.currentUser) {
-      event.preventDefault();
-      openModal();
-    }
-  });
   if (authBtn) ensureModal();
   auth.onAuthStateChanged(updateAuthUI, error => console.error('[SkinCare Guide] Auth state error', error));
+  window.addEventListener('skinguide:language-changed', () => {
+    if (authBtn) authBtn.textContent = auth.currentUser ? (auth.currentUser.displayName || auth.currentUser.email || t('account')) : t('signIn');
+    if (logoutBtn) logoutBtn.textContent = t('signOut');
+    if (document.getElementById('sgAuthOverlay') && !document.getElementById('sgAuthOverlay').hidden) renderModal();
+  });
 
   window.SkinCareGuideAuth = {
     getCurrentUser: () => auth.currentUser,
