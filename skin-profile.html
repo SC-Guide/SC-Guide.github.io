@@ -402,16 +402,9 @@ document.querySelectorAll('#budgetOptions .option-btn').forEach(btn => {
 });
 
 // --- Выбор чекбоксов (tag-label) ---
-document.querySelectorAll('.tag-label').forEach(label => {
-    label.addEventListener('click', function(e) {
-        // Игнорируем клик по самому чекбоксу, чтобы избежать двойного срабатывания
-        if (e.target.tagName === 'INPUT') return;
-        const checkbox = this.querySelector('input[type="checkbox"]');
-        checkbox.checked = !checkbox.checked;
-        this.classList.toggle('selected', checkbox.checked);
-    });
-    // Синхронизация при клике на чекбокс
-    const checkbox = label.querySelector('input[type="checkbox"]');
+document.querySelectorAll('.tag-label input[type="checkbox"]').forEach(checkbox => {
+    const label = checkbox.closest('.tag-label');
+    label.classList.toggle('selected', checkbox.checked);
     checkbox.addEventListener('change', function() {
         label.classList.toggle('selected', this.checked);
     });
