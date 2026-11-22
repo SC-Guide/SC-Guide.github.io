@@ -88,7 +88,7 @@ function toggleLanguage() {
 
 function updateLangToggle() {
   const btn = document.getElementById('langToggle');
-  if (btn) btn.textContent = currentLang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN';
+  if (btn) btn.textContent = currentLang === 'en' ? 'RU' : 'EN';
 }
 
 function updateCalendarLegend() {
