@@ -446,12 +446,13 @@ document.getElementById('skinForm').addEventListener('submit', function(e) {
 });
 
 // --- Язык и тема (общие) ---
-let currentLang = localStorage.getItem('lang') || 'en';
+// currentLang is shared from js/lang.js.
 
 document.getElementById('langToggle').addEventListener('click', function() {
     currentLang = currentLang === 'en' ? 'ru' : 'en';
     localStorage.setItem('lang', currentLang);
     this.textContent = currentLang === 'en' ? 'RU' : 'EN';
+    window.dispatchEvent(new CustomEvent('skinguide:language-changed'));
 });
 
 document.getElementById('themeToggle').addEventListener('click', function() {
