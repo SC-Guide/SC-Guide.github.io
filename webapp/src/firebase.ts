@@ -1,7 +1,7 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { browserLocalPersistence, getAuth, setPersistence, GoogleAuthProvider } from 'firebase/auth';
 const firebaseConfig = {
-  apiKey: 'AIzaSyD69IYM5HhxA3taphALXVlGZs5llkNYRQ',
+  apiKey: 'AIzaSyBdn_jAzM_RkAPiXj6jeudehD7nQ3nC0A',
   authDomain: 'skincare-guide-e6fcb.firebaseapp.com',
   projectId: 'skincare-guide-e6fcb',
   storageBucket: 'skincare-guide-e6fcb.firebasestorage.app',
